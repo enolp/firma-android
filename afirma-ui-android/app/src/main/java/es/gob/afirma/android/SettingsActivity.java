@@ -46,11 +46,11 @@ public class SettingsActivity extends AppCompatActivity {
         selectLangTv.setText(lang.toUpperCase());
 
         // Permisos
-        TextView permissionsTv = this.findViewById(R.id.permissionsTv);
-        permissionsTv.setOnClickListener(new View.OnClickListener() {
+        TextView signConfigTv = this.findViewById(R.id.signConfigTv);
+        signConfigTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), PermissionsActivity.class);
+                Intent intent = new Intent(getBaseContext(), SignConfigurationActivity.class);
                 startActivity(intent);
             }
         });

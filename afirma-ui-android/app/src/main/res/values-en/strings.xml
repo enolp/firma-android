@@ -108,7 +108,9 @@
     <string name="unsupported_card">Card not supported</string>
     <string name="nfc_card_initializing_error">Error starting connection to card. Please try again.</string>
     <string name="title_activity_main_test">MainActivityTest</string>
-    <string name="allow_dni3_0_NFC">Allow the use of DNIe by NFC</string>
+    <string name="allow_dni3_0_NFC">Allow signing with DNIe via NFC</string>
+    <string name="do_visible_sign">Make signature visible</string>
+    <string name="hide_user_id">Obfuscate user IDs from visible signature certificates</string>
     <string name="validate_SSL_connections">Validate SSL connections</string>
     <string name="trusted_domains">Trusted domains</string>
     <string name="error_format_trusted_domains">The domain \"%s\" has an incorrect format.</string>
@@ -140,7 +142,6 @@
     <string name="signed_file_message">The file has been signed correctly.</string>
     <string name="choose_cert_type_sign_title">How will you sign?</string>
     <string name="choose_cert_type_auth_title">What will you identify with?</string>
-    <string name="choose_cert_type_title"> With what do you sign the file?</string>
     <string name="certificate">Electronic certificate</string>
     <string name="dnie">Electronic ID</string>
     <string name="what_is_autofirma_for_title"> What is Autofirma for?</string>
@@ -151,7 +152,7 @@
     <string name="more_information_underline"><u>More information</u></string>
     <string name="my_settings">MY SETTINGS</string>
     <string name="language">Language</string>
-    <string name="permissions">Permissions</string>
+    <string name="sign_configuration">Sign configuration</string>
     <string name="help">HELP</string>
     <string name="faq">FAQ</string>
     <string name="how_to_install_certs">How to install certificates</string>
@@ -216,6 +217,7 @@
     <string name="added_cert_message">The certificate was successfully added</string>
     <string name="sign_record">Signature record</string>
     <string name="loading_cert">Loading certificate</string>
+    <string name="loading_certs">Loading certificates</string>
     <string name="local_sign_record">Local %1$s of file %2$s</string>
     <string name="web_sign_record">Web %1$s requested by %2$s</string>
     <string name="batch_sign_record">Web batch signature requested by %s</string>
@@ -223,4 +225,12 @@
     <string name="cosign">Cosign</string>
     <string name="countersign">Countersign</string>
     <string name="no_records">No records found</string>
+    <string name="page_number">Page %1$s of %2$s</string>
+    <string name="pdf_visible_sign_template">Signed by $$SUBJECTCN$$ on $$SIGNDATE=dd/MM/yyyy$$ with a certificate issued by $$ISSUERCN$$</string>
+    <string name="pdf_visible_sign_pseudonym_template">Signed by $$PSEUDONYM$$ - $$OUS$$ on $$SIGNDATE=dd/MM/yyyy$$</string>
+    <string name="visible_sign_small">Visible signature too small</string>
+    <string name="small_area_warning">The area selected to display the signature is too small in size.</string>
+    <string name="reselect_area">Reselect an area</string>
+    <string name="not_selected_area">Unselected area</string>
+    <string name="not_selected_area_desc">No area has been selected where to make the visible signature.</string>
 </resources>

@@ -109,7 +109,9 @@
     <string name="unsupported_card">Cart\u00F3n non soportada</string>
     <string name="nfc_card_initializing_error">Erro ao iniciar a conexi\u00F3n co cart\u00F3n. \u00FC9 posible que o CAN sexa incorrecto. T\u00FE9nteo de novo.</string>
     <string name="title_activity_main_test">MainActivityTest</string>
-    <string name="allow_dni3_0_NFC">Permitir o uso de DNIe por NFC</string>
+    <string name="allow_dni3_0_NFC">Permitir a firma con DNIe a trav\u00e9s de NFC</string>
+    <string name="do_visible_sign">Facer visible a sinatura</string>
+    <string name="hide_user_id">Ocultar os ID de usuario dos certificados de sinatura visibles</string>
     <string name="validate_SSL_connections">Validar conexi\u00F3ns SSL</string>
     <string name="trusted_domains">Dominios de confianza</string>
     <string name="error_format_trusted_domains">O dominio \"%s\" ten un formato incorrecto.</string>
@@ -138,7 +140,8 @@
     <string name="try_again">Tentar de novo</string>
     <string name="signed_file_title">Ficheiro asinado</string>
     <string name="signed_file_message">O ficheiro foi asinado correctamente.</string>
-    <string name="choose_cert_type_title">Con que asinar\u00E1s o ficheiro?</string>
+    <string name="choose_cert_type_sign_title">Con que debes asinar?</string>
+    <string name="choose_cert_type_auth_title">Con que te identificas?</string>
     <string name="certificate">Certificado electr\u00F3nico</string>
     <string name="dnie">DNI electr\u00F3nico</string>
     <string name="what_is_autofirma_for_title">Para que serve Autofirma?</string>
@@ -149,7 +152,7 @@
     <string name="more_information_underline">M\u00E1is informaci\u00F3n</string>
     <string name="my_settings">A MI\u00D1A CONFIGURACI\u00D3N</string>
     <string name="language">Idioma</string>
-    <string name="permissions">Permisos</string>
+    <string name="sign_configuration">Configuración do asinado</string>
     <string name="help">AXUDA</string>
     <string name="faq">Preguntas frecuentes</string>
     <string name="how_to_install_certs">Como instalar certificados</string>
@@ -214,6 +217,7 @@
     <string name="added_cert_message">O certificado engadiuse correctamente</string>
     <string name="sign_record">Rexistro de firmas</string>
     <string name="loading_cert">Cargando certificado</string>
+    <string name="loading_certs">Cargando certificados</string>
     <string name="local_sign_record">%1$s local do ficheiro %2$s</string>
     <string name="web_sign_record">%1$s web solicitada por %2$s</string>
     <string name="batch_sign_record">Sinatura de lote web solicitada por %s</string>
@@ -221,4 +225,12 @@
     <string name="cosign">Cofirma</string>
     <string name="countersign">Contrafirma</string>
     <string name="no_records">Non se atopan rexistros</string>
+    <string name="page_number">P\u00E1xina %1$s de %2$s</string>
+    <string name="pdf_visible_sign_template">Asinado por $$SUBJECTCN$$ o d\u00eda $$SIGNDATE=dd/MM/yyyy$$ con certificado expedido por $$ISSUERCN$$</string>
+    <string name="pdf_visible_sign_pseudonym_template">Asinado por $$PSEUDONYM$$ - $$OUS$$ o d\u00eda $$SIGNDATE=dd/MM/yyyy$$</string>
+    <string name="visible_sign_small">A sinatura visible \u00e9 demasiado pequena</string>
+    <string name="small_area_warning">A \u00E1rea seleccionada para mostrar a sinatura \u00e9 demasiado pequena.</string>
+    <string name="reselect_area">Volve seleccionar unha zona</string>
+    <string name="not_selected_area">Zona non seleccionada</string>
+    <string name="not_selected_area_desc">Non se seleccionou ningunha \u00e1rea onde facer visible a sinatura.</string>
 </resources>

@@ -1,6 +1,7 @@
 package es.gob.afirma.android;
 
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
@@ -114,5 +115,10 @@ public class NFCDetectorActivity extends FragmentActivity {
     public void onPause() {
         mNfcAdapter.disableForegroundDispatch(this);
         super.onPause();
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 }

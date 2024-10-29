@@ -80,6 +80,8 @@ dependencies {
     implementation 'es.gob.afirma:afirma-crypto-core-pkcs7-tsp:1.9-SNAPSHOT'
     implementation 'com.google.code.gson:gson:2.10'
 
+    implementation 'com.github.mhiew:android-pdf-viewer:3.2.0-beta.3'
+
     // Java language implementation
     implementation "androidx.fragment:fragment:1.6.1"
 

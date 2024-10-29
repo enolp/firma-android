@@ -108,7 +108,9 @@
     <string name="unsupported_card">Carte non prise en charge</string>
     <string name="nfc_card_initializing_error">\u00e9chec de l\'\u00e9tablissement de la connexion \u00e0 la carte. Veuillez r\u00e9essayer.</string>
     <string name="title_activity_main_test">MainActivityTest</string>
-    <string name="allow_dni3_0_NFC">Autoriser l\'utilisation de DNIe par NFC</string>
+    <string name="allow_dni3_0_NFC">Autoriser la signature avec DNIe via NFC</string>
+    <string name="do_visible_sign">Rendre la signature visible</string>
+    <string name="hide_user_id">Masquer les identifiants utilisateur des certificats de signature visibles</string>
     <string name="validate_SSL_connections">Valider les connexions</string>
     <string name="trusted_domains">Domaines de confiance</string>
     <string name="error_format_trusted_domains">Le domaine \"%s\" est mal format\u00e9</string>
@@ -150,7 +152,7 @@
     <string name="more_information_underline"><u>Plus information</u></string>
     <string name="my_settings">MA CONFIGURATION</string>
     <string name="language">Language</string>
-    <string name="permissions">Permissions</string>
+    <string name="sign_configuration">Param\u00e8tres de signature</string>
     <string name="help">AYUDA</string>
     <string name="faq">Questions fr\u00e9quentes</string>
     <string name="how_to_install_certs">Comment installer des certificats</string>
@@ -215,6 +217,7 @@
     <string name="added_cert_message">Le certificat s\'est correctement ajout\u00e9</string>
     <string name="sign_record">Historique des signatures</string>
     <string name="loading_cert">Certificat de chargament</string>
+    <string name="loading_certs">Chargement des certificats</string>
     <string name="local_sign_record">%1$s de fichier local %2$s</string>
     <string name="web_sign_record">%1$s Web demand\u00E9e par %2$s</string>
     <string name="batch_sign_record">Signature de lot Web demand\u00E9e par %s</string>
@@ -222,4 +225,12 @@
     <string name="cosign">Cosigner</string>
     <string name="countersign">Contreseign</string>
     <string name="no_records">Aucun enregistrement trouv\u00E9</string>
+    <string name="page_number">Page %1$s sur %2$s</string>
+    <string name="pdf_visible_sign_template">Sign\u00e9 par $$SUBJECTCN$$ le $$SIGNDATE=dd/MM/yyyy$$ avec un certificat \u00e9mis par $$ISSUERCN$$</string>
+    <string name="pdf_visible_sign_pseudonym_template">Sign\u00e9 par $$PSEUDONYM$$ - $$OUS$$ le $$SIGNDATE=dd/MM/yyyy$$</string>
+    <string name="visible_sign_small">Signature visible trop petite</string>
+    <string name="small_area_warning">La zone s\u00e9lectionn\u00e9e pour afficher la signature est de taille trop petite.</string>
+    <string name="reselect_area">Res\u00e9lectionner une zone</string>
+    <string name="not_selected_area">Zone non s\u00e9lectionn\u00e9e</string>
+    <string name="not_selected_area_desc">Aucune zone n\'a \u00e9t\u00e9 s\u00e9lectionnée o\u00f9 faire la signature visible.</string>
 </resources>

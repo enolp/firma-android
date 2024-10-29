@@ -234,6 +234,7 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 					this.parameters.getData(),
 					this.parameters.getSignatureFormat(),
 					this.parameters.getSignatureAlgorithm(),
+					false,
 					this.parameters.getExtraParams());
 		}
 	}
@@ -505,6 +506,7 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 					this.parameters.getData(),
 					this.parameters.getSignatureFormat(),
 					this.parameters.getSignatureAlgorithm(),
+					false,
 					this.parameters.getExtraParams()
 				);
             }

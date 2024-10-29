@@ -86,7 +86,7 @@
             android:focusable="false"
             />
 
-        <!-- Permisos -->
+        <!-- Configuracion de firma -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -95,14 +95,14 @@
             android:background="@drawable/option_selector">
 
             <TextView
-                android:id="@+id/permissionsTv"
+                android:id="@+id/signConfigTv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawablePadding="10dp"
-                android:drawableLeft="@drawable/ic_permissions"
+                android:drawableLeft="@drawable/ic_signconfig"
                 android:background="@drawable/option_selector"
-                android:text="@string/permissions"
+                android:text="@string/sign_configuration"
                 android:textColor="@color/black"
                 android:paddingStart="8dp"/>
 

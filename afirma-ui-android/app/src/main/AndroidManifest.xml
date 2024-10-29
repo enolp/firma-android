@@ -80,7 +80,7 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".android.PermissionsActivity"
+            android:name=".android.PdfSelectPreviewActivity"
             android:exported="true">
         </activity>
         <activity
@@ -105,6 +105,10 @@
         </activity>
         <activity
             android:name=".android.StepsInsertDataDnieActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".android.SignConfigurationActivity"
             android:exported="true">
         </activity>
         <activity

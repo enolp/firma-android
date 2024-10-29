@@ -109,7 +109,9 @@
     <string name="unsupported_card">Tarjeta no soportada</string>
     <string name="nfc_card_initializing_error">Error al iniciar la conexi\u00F3n con la tarjeta. Es posible que el CAN sea incorrecto. Int\u00E9ntelo de nuevo.</string>
     <string name="title_activity_main_test">MainActivityTest</string>
-    <string name="allow_dni3_0_NFC">Permitir el uso de DNIe por NFC</string>
+    <string name="allow_dni3_0_NFC">Permitir firmar con DNIe por NFC</string>
+    <string name="do_visible_sign">Hacer firma visible</string>
+    <string name="hide_user_id">Ofuscar identificadores de usuario de los certificados de las firmas visibles</string>
     <string name="validate_SSL_connections">Validar conexiones SSL</string>
     <string name="trusted_domains">Dominios de confianza</string>
     <string name="error_format_trusted_domains">El dominio \"%s\" tiene un formato incorrecto.</string>
@@ -150,7 +152,7 @@
     <string name="more_information_underline">M\u00E1s informaci\u00F3n</string>
     <string name="my_settings">MI CONFIGURACI\u00d3N</string>
     <string name="language">Idioma</string>
-    <string name="permissions">Permisos</string>
+    <string name="sign_configuration">Configuraci\u00F3n de firma</string>
     <string name="help">AYUDA</string>
     <string name="faq">Preguntas frecuentes</string>
     <string name="how_to_install_certs">C\u00F3mo instalar certificados</string>
@@ -223,4 +225,12 @@
     <string name="cosign">Cofirma</string>
     <string name="countersign">Contrafirma</string>
     <string name="no_records">No se encuentran registros</string>
+    <string name="page_number">P\u00E1gina %1$s de %2$s</string>
+    <string name="pdf_visible_sign_template">Firmado por $$SUBJECTCN$$ el día $$SIGNDATE=dd/MM/yyyy$$ con un certificado emitido por $$ISSUERCN$$</string>
+    <string name="pdf_visible_sign_pseudonym_template">Firmado por $$PSEUDONYM$$ - $$OUS$$ el día $$SIGNDATE=dd/MM/yyyy$$</string>
+    <string name="visible_sign_small">Firma visible demasiado peque\u00F1a</string>
+    <string name="small_area_warning">El \u00E1rea seleccionada para mostrar la firma tiene un tama\u00F1o demasiado peque\u00F1o.</string>
+    <string name="reselect_area">Volver a seleccionar un \u00E1rea</string>
+    <string name="not_selected_area">\u00c1rea no seleccionada</string>
+    <string name="not_selected_area_desc">No se ha seleccionado ningu\u00fan \u00E1rea donde realizar la firma visible.</string>
 </resources>

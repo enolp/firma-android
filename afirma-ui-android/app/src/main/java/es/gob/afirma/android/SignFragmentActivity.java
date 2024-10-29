@@ -44,6 +44,7 @@ import es.gob.afirma.core.RuntimeConfigNeededException;
 import es.gob.afirma.core.misc.AOUtil;
 import es.gob.afirma.signers.cades.CAdESExtraParams;
 import es.gob.afirma.signers.pades.common.BadPdfPasswordException;
+import es.gob.afirma.signers.pades.common.PdfExtraParams;
 import es.gob.afirma.signers.pades.common.PdfIsPasswordProtectedException;
 
 import static es.gob.afirma.android.LocalSignActivity.DEFAULT_SIGNATURE_ALGORITHM;
@@ -67,6 +68,8 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 	private Properties extraParams = null;
 	boolean signing = false;
 	private PrivateKeyEntry keyEntry = null;
+	private boolean isPseudonymCert = false;
+	private boolean isLocalSign = false;
 
 	/**
 	 * Inicia el proceso de firma.
@@ -74,10 +77,11 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 	 * @param data Datos a firmar.
 	 * @param format Formato de firma.
 	 * @param algorithm Algoritmo de firma.
+	 * @param isLocalSign Indica si es una firma local o no.
      * @param extraParams Par&aacute;metros
      */
 	public void sign(String signOperation, final byte[] data, final String format,
-						final String algorithm, final Properties extraParams) {
+						final String algorithm, final boolean isLocalSign, final Properties extraParams) {
 
 		// Indicamos que las claves que se carguen no se usaran para autenticacion
 		setOnlyAuthenticationOperation(false);
@@ -113,6 +117,7 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 		this.ksmListener = this;
 
 		this.signing = true;
+		this.isLocalSign = isLocalSign;
 
 		// Iniciamos la carga del almacen
 		loadKeyStore(this);
@@ -197,8 +202,10 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 
 		Context ctx = this;
 
+		this.isPseudonymCert = AOUtil.isPseudonymCert(cert);
+
 		// Comprobamos si es un certificado de seudonimo
-		if (cert != null && !pseudonymChecked && AOUtil.isPseudonymCert(cert)) {
+		if (cert != null && !pseudonymChecked && this.isPseudonymCert) {
 			PrivateKeyEntry finalPke = pke;
 
 			CustomDialog signFragmentCustomDialog = new CustomDialog(ctx, R.drawable.baseline_info_24, getString(R.string.pseudonym_cert),
@@ -216,7 +223,7 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 					signFragmentCustomDialog.cancel();
 					Properties extraParams = new Properties();
 					extraParams.setProperty(CAdESExtraParams.MODE, "implicit");
-					sign("SIGN", dataToSign, format, DEFAULT_SIGNATURE_ALGORITHM, extraParams);
+					sign("SIGN", dataToSign, format, DEFAULT_SIGNATURE_ALGORITHM, isLocalSign, extraParams);
 				}
 			});
 			signFragmentCustomDialog.show();
@@ -248,6 +255,10 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 				this.extraParams = new Properties();
 			}
 			this.extraParams.setProperty("Provider." + keyEntry.getPrivateKey().getClass().getName(), providerName);
+		}
+
+		if (this.isLocalSign && this.isPseudonymCert && this.extraParams != null && this.extraParams.containsKey(PdfExtraParams.LAYER2_TEXT)) {
+			this.extraParams.setProperty(PdfExtraParams.LAYER2_TEXT , getString(R.string.pdf_visible_sign_pseudonym_template));
 		}
 
 		this.keyEntry = keyEntry;

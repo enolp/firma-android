@@ -109,7 +109,9 @@
     <string name="unsupported_card">Txartela ez da onartzen</string>
     <string name="nfc_card_initializing_error">Errorea gertatu da txartelarekin konektatzen hastean. Baliteke CANa okerra izatea. Saiatu berriro.</string>
     <string name="title_activity_main_test">MainActivityTest</string>
-    <string name="allow_dni3_0_NFC">NANa NFCren bidez erabiltzen uztea</string>
+    <string name="allow_dni3_0_NFC">Baimendu NFC bidez NANarekin sinatzea</string>
+    <string name="do_visible_sign">Egin sinadura ikusgai</string>
+    <string name="hide_user_id">Ezkutatu erabiltzaile IDak ikusgai dauden sinadura-ziurtagirietatik</string>
     <string name="validate_SSL_connections">SSL konexioak baliozkotu</string>
     <string name="trusted_domains">Konfiantza-domeinuak</string>
     <string name="error_format_trusted_domains">\"%s\" domeinuak formatu okerra du.</string>
@@ -138,7 +140,8 @@
     <string name="try_again">Saiatu berriro</string>
     <string name="signed_file_title">Fitxategia sinatuta</string>
     <string name="signed_file_message">Fitxategia behar bezala sinatu da.</string>
-    <string name="choose_cert_type_title">Zerekin sinatuko duzu fitxategia?</string>
+    <string name="choose_cert_type_sign_title">Zerekin sinatu behar duzu?</string>
+    <string name="choose_cert_type_auth_title">Zerekin identifikatzen zara?</string>
     <string name="certificate">Ziurtagiri elektronikoa</string>
     <string name="dnie">NAN elektronikoa</string>
     <string name="what_is_autofirma_for_title">Zertarako balio du Autofirma?</string>
@@ -149,7 +152,7 @@
     <string name="more_information_underline">Informazio gehiago</string>
     <string name="my_settings">NIRE KONFIGURAZIOA</string>
     <string name="language">Hizkuntza</string>
-    <string name="permissions">Baimenak</string>
+    <string name="sign_configuration">Sinadura ezarpenak</string>
     <string name="help">LAGUNTZA</string>
     <string name="faq">Ohiko galderak</string>
     <string name="how_to_install_certs">Nola instalatu ziurtagiriak</string>
@@ -214,6 +217,7 @@
     <string name="added_cert_message">Ziurtagiria behar bezala gehitu da</string>
     <string name="sign_record">Sinadura-erregistroa</string>
     <string name="loading_cert">Ziurtagiria kargatzen</string>
+    <string name="loading_certs">Ziurtagiriak kargatzea</string>
     <string name="local_sign_record">%1$s fitxategiko lokal %2$s</string>
     <string name="web_sign_record">%1$s web, %2$s(e)k eskatua</string>
     <string name="batch_sign_record">%s(e)k eskatutako web-lotearen sinadura</string>
@@ -221,4 +225,12 @@
     <string name="cosign">Sinadura</string>
     <string name="countersign">Kontrbaieztapena</string>
     <string name="no_records">Ez dago erregistrorik</string>
+    <string name="page_number">%2$s etik %1$s. orrialdea</string>
+    <string name="pdf_visible_sign_template">$$SUBJECTCN$$ k sinatuzuen $$SIGNDATE=dd/MM/yyyy$$ an $$ISSUERCN$$ ek emandako ziurtagiriarekin</string>
+    <string name="pdf_visible_sign_pseudonym_template">$$PSEUDONYM$$ - $$OUS$$k sinatuzuen $$SIGNDATE=dd/MM/yyyy$$ an</string>
+    <string name="visible_sign_small">Sinadura ikusgarria txikiegia</string>
+    <string name="small_area_warning">Sinadura bistaratzeko hautatutako eremua tamaina txikiegia da.</string>
+    <string name="reselect_area">Berriro hautatu eremu bat</string>
+    <string name="not_selected_area">Hautatu gabeko eremua</string>
+    <string name="not_selected_area_desc">Ez da sinadura ikusgai jartzeko eremurik hautatu.</string>
 </resources>

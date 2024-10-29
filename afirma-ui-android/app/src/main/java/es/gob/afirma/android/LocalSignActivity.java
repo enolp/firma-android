@@ -22,7 +22,6 @@ import android.provider.OpenableColumns;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,9 +32,11 @@ import java.util.Properties;
 import es.gob.afirma.R;
 import es.gob.afirma.android.crypto.MSCBadPinException;
 import es.gob.afirma.android.crypto.SignResult;
+import es.gob.afirma.android.gui.AppConfig;
 import es.gob.afirma.core.signers.AOSignConstants;
 import es.gob.afirma.core.signers.AOSignerFactory;
 import es.gob.afirma.signers.cades.CAdESExtraParams;
+import es.gob.afirma.signers.pades.common.PdfExtraParams;
 
 /** Esta actividad permite firmar un fichero local. La firma se guarda en un fichero <i>.csig</i>.
  * Esta clase tiene mucho c&oacute;digo duplicado de la clase <code>LocalSignResultActivity</code>.
@@ -50,8 +51,12 @@ public final class LocalSignActivity extends SignFragmentActivity {
 	private final static int REQUEST_CODE_SELECT_FILE = 103;
 	/** C&oacute;digo de solicitud de guardado de fichero. */
 	private final static int REQUEST_CODE_SAVE_FILE = 104;
+	/** C&oacute;digo de solicitud de firma visible. */
+	private final static int REQUEST_VISIBLE_SIGN_PARAMS = 105;
+	/** Error cargando PDF para firma visible. */
+	final static int ERROR_REQUEST_VISIBLE_SIGN = 106;
 
-	protected static final String DEFAULT_SIGNATURE_ALGORITHM = "SHA256withRSA"; //$NON-NLS-1$
+	static final String DEFAULT_SIGNATURE_ALGORITHM = "SHA256withRSA"; //$NON-NLS-1$
 
 	private static final String PDF_FILE_SUFFIX = ".pdf"; //$NON-NLS-1$
 
@@ -74,6 +79,10 @@ public final class LocalSignActivity extends SignFragmentActivity {
 
 	private String format = null;
 
+	byte[] fileContent;
+
+	File dataFile;
+
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -95,7 +104,6 @@ public final class LocalSignActivity extends SignFragmentActivity {
 			}
 			startActivityForResult(intent, REQUEST_CODE_SELECT_FILE);
 		}
-
 	}
 
 	@Override
@@ -105,16 +113,22 @@ public final class LocalSignActivity extends SignFragmentActivity {
 		if (requestCode == REQUEST_CODE_SELECT_FILE) {
 
 			if (resultCode == RESULT_OK) {
-				byte[] fileContent;
+
+				String filePath = null;
 				try {
 					if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
 						final Uri dataUri = data.getData();
 						this.fileName = getFileName(dataUri);
-						fileContent = readDataFromUri(dataUri);
+						this.fileContent = readDataFromUri(dataUri);
+						this.dataFile = FileUtil.from(this, dataUri);
+						if (this.dataFile.exists()) {
+							filePath = this.dataFile.getAbsolutePath();
+						}
 					} else {
 						this.fileName = data.getStringExtra(FileChooserActivity.RESULT_DATA_STRING_FILENAME);
-						File dataFile = new File(this.fileName);
-						fileContent = readDataFromFile(dataFile);
+						this.dataFile = new File(this.fileName);
+						filePath = this.dataFile.getAbsolutePath();
+						this.fileContent = FileUtil.readDataFromFile(dataFile);
 					}
 				} catch (final OutOfMemoryError e) {
 					showErrorMessage(getString(R.string.error), getString(R.string.file_read_out_of_memory));
@@ -126,21 +140,62 @@ public final class LocalSignActivity extends SignFragmentActivity {
 					return;
 				}
 
-				LocalSignActivity.this.format = this.fileName.toLowerCase(Locale.ENGLISH)
+                LocalSignActivity.this.format = this.fileName.toLowerCase(Locale.ENGLISH)
 						.endsWith(PDF_FILE_SUFFIX) ?
 						AOSignConstants.SIGN_FORMAT_PADES :
 						AOSignConstants.SIGN_FORMAT_CADES;
 
-				Properties extraParams = new Properties();
-				extraParams.setProperty(CAdESExtraParams.MODE, "implicit");
-
-				sign("SIGN", fileContent, format, DEFAULT_SIGNATURE_ALGORITHM, extraParams);
+				if (AOSignConstants.SIGN_FORMAT_PADES.equals(this.format) && AppConfig.isPadesVisibleSignature(this)) {
+					// Previsualizacion de PDF
+					Intent intent = new Intent(this, PdfSelectPreviewActivity.class);
+					intent.putExtra("filePath", filePath);
+					startActivityForResult(intent, REQUEST_VISIBLE_SIGN_PARAMS);
+				} else {
+					Properties extraParams = new Properties();
+					extraParams.setProperty(CAdESExtraParams.MODE, "implicit");
+					sign("SIGN", fileContent, format, DEFAULT_SIGNATURE_ALGORITHM, true, extraParams);
+				}
 			}
 			else if (resultCode == RESULT_CANCELED) {
 				finish();
 				return;
 			}
 		}
+		else if (requestCode == REQUEST_VISIBLE_SIGN_PARAMS) {
+
+				if (resultCode == RESULT_OK) {
+
+					Properties extraParams = new Properties();
+					extraParams.setProperty(CAdESExtraParams.MODE, "implicit");
+
+					if(data.hasExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTX)
+					&& data.hasExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTY)
+					&& data.hasExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTX)
+					&& data.hasExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTY)) {
+						// Ofuscacion de los datos del certificado de firma
+						final boolean obfuscate = AppConfig.isPadesObfuscateCertInfo(this);
+						extraParams.setProperty(PdfExtraParams.OBFUSCATE_CERT_DATA, Boolean.toString(obfuscate));
+
+						extraParams.setProperty(PdfExtraParams.SIGNATURE_PAGES, data.getStringExtra(PdfExtraParams.SIGNATURE_PAGES));
+						extraParams.setProperty(PdfExtraParams.LAYER2_TEXT, getString(R.string.pdf_visible_sign_template));
+
+						extraParams.setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTX, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTX));
+						extraParams.setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTY, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTY));
+						extraParams.setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTX, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTX));
+						extraParams.setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTY, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTY));
+					}
+
+					sign("SIGN", fileContent, format, DEFAULT_SIGNATURE_ALGORITHM, true, extraParams);
+				}
+				else if (resultCode == RESULT_CANCELED) {
+					finish();
+					return;
+				} else if (resultCode == ERROR_REQUEST_VISIBLE_SIGN) {
+					showErrorMessage(getString(R.string.error), getString(R.string.error_loading_selected_file, this.fileName));
+					Logger.e(ES_GOB_AFIRMA, "Error al cargar el fichero"); //$NON-NLS-1$
+					return;
+				}
+			}
 		// Resultado del guardado de fichero a partir de Android 11
 		else if (requestCode == REQUEST_CODE_SAVE_FILE) {
 			if (resultCode == RESULT_OK) {
@@ -173,23 +228,11 @@ public final class LocalSignActivity extends SignFragmentActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
-	private byte[] readDataFromFile(File dataFile) throws IOException {
-		int n;
-		final byte[] buffer = new byte[1024];
-		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		try (final InputStream is = new FileInputStream(dataFile);) {
-			while ((n = is.read(buffer)) > 0) {
-				baos.write(buffer, 0, n);
-			}
-		}
-		return baos.toByteArray();
-	}
-
 	private byte[] readDataFromUri(Uri uri) throws IOException {
 		int n;
 		final byte[] buffer = new byte[1024];
 		final ByteArrayOutputStream baos;
-		try (InputStream is = getContentResolver().openInputStream(uri);) {
+		try (InputStream is = getContentResolver().openInputStream(uri)) {
 			baos = new ByteArrayOutputStream();
 			while ((n = is.read(buffer)) > 0) {
 				baos.write(buffer, 0, n);

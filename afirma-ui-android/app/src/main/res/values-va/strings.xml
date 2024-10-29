@@ -109,7 +109,9 @@
     <string name="unsupported_card">Targeta no suportada</string>
     <string name="nfc_card_initializing_error">Error en iniciar la connexi\u00f3 amb la targeta. És possible que el CA siga incorrecte. Intente-ho de nou.</string>
     <string name="title_activity_main_test">MainActivityTest</string>
-    <string name="allow_dni3_0_NFC">Permetre l\'\u00fas de DNIe per NFC</string>
+    <string name="allow_dni3_0_NFC">Permetre firmar amb DNIe per NFC</string>
+    <string name="do_visible_sign">Fer firma visible</string>
+    <string name="hide_user_id">Ofuscar identificadors d\'usuari dels certificats de les firmes visibles</string>
     <string name="validate_SSL_connections">Validar connexions SSL</string>
     <string name="trusted_domains">Dominis de confiança</string>
     <string name="error_format_trusted_domains">El domini \"%s\" t\u00e9 un format incorrecte.</string>
@@ -138,7 +140,8 @@
     <string name="try_again">Intentar de nou</string>
     <string name="signed_file_title">Fitxer firmat</string>
     <string name="signed_file_message">El fitxer ha sigut firmat correctament.</string>
-    <string name="choose_cert_type_title">Amb qu\u00e8 firmar\u00e0s el fitxer?</string>
+    <string name="choose_cert_type_sign_title">Amb qu\u00e8 firmar\u00e0s?</string>
+    <string name="choose_cert_type_auth_title">Amb qu\u00e8 t\'identificar\u00e0s?</string>
     <string name="certificate">Certificat electr\u00f2nic</string>
     <string name="dnie">DNI electr\u00f2nic</string>
     <string name="what_is_autofirma_for_title">Para quin servix Autofirma?</string>
@@ -149,7 +152,7 @@
     <string name="more_information_underline">M\u00e9s informaci\u00f3</string>
     <string name="my_settings">LA MEUA CONFIGURACI\u00d3</string>
     <string name="language">Idioma</string>
-    <string name="permissions">Permisos</string>
+    <string name="sign_configuration">Configuraci\u00F3 de firma</string>
     <string name="help">AJUDA</string>
     <string name="faq">Preguntes freqüents</string>
     <string name="how_to_install_certs">Com instal·lar certificats</string>
@@ -214,6 +217,7 @@
     <string name="added_cert_message">El certificat s\'ha afegit correctament</string>
     <string name="sign_record">Registre de firmes</string>
     <string name="loading_cert">Carregant certificat</string>
+    <string name="loading_certs">Carregant certificats</string>
     <string name="local_sign_record">%1$s local del fitxer %2$s</string>
     <string name="web_sign_record">%1$s web sol·licitada per %2$s</string>
     <string name="batch_sign_record">Firma de lot web sol·licitada per %s</string>
@@ -221,4 +225,12 @@
     <string name="cosign">Cosignatura</string>
     <string name="countersign">Contrafirma</string>
     <string name="no_records">No es troben registres</string>
+    <string name="page_number">P\u00e0gina %1$s de %2$s</string>
+    <string name="pdf_visible_sign_template">Firmat per $$SUBJECTCN$$ el dia $$SIGNDATE=dd/MM/yyyy$$ amb un certificat em\u00e8s per $$ISSUERCN$$</string>
+    <string name="pdf_visible_sign_pseudonym_template">Firmat per $$PSEUDONYM$$ - $$OUS$$ el dia $$SIGNDATE=dd/MM/yyyy$$</string>
+    <string name="visible_sign_small">Firma visible massa xicoteta</string>
+    <string name="small_area_warning">El \u00e0rea seleccionada per a mostrar la firma t\u00e8 un grand\u00e0ria massa xicotet.</string>
+    <string name="reselect_area">Tornar a seleccionar un \u00e0rea</string>
+    <string name="not_selected_area">\u00c0rea no seleccionada</string>
+    <string name="not_selected_area_desc">No s\'ha seleccionat cap \u00e0rea on realitzar la firma visible.</string>
 </resources>
