@@ -134,6 +134,5 @@ public class PDFPasswordDialog extends DialogFragment {
 		});
 
 		return alertDialog;
-
 	}
 }

@@ -61,7 +61,7 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 
 	private static final char RESULT_SEPARATOR = '|';
 	private static final String ES_GOB_AFIRMA = "es.gob.afirma";
-	private final static String INTENT_ENTRY_ACTION = "es.gob.afirma.android.SIGN_SERVICE";
+	private final static String INTENT_ENTRY_ACTION = "es.gob.afirma.android.SIGN_BATCH_SERVICE";
 
 	/** Juego de carateres UTF-8. */
 	private static final String DEFAULT_URL_ENCODING = "UTF-8"; //$NON-NLS-1$
@@ -147,7 +147,12 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 		// se tiene que descargar previamente desde el servidor intermedio
 		if (getBatchParams().getFileId() != null) {
 			Logger.i(ES_GOB_AFIRMA, "Se van a descargar el lote desde servidor con el identificador: " + getBatchParams().getFileId()); //$NON-NLS-1$
-			new DownloadFileTask(getBatchParams().getFileId(), getBatchParams().getRetrieveServletUrl(), this).execute();
+			if (getBatchParams().getRetrieveServletUrl() != null) {
+				new DownloadFileTask(getBatchParams().getFileId(), getBatchParams().getRetrieveServletUrl(), this).execute();
+			} else {
+				Logger.e(ES_GOB_AFIRMA, "No se proporciono la URL de descarga para la obtencion del lote de firma");
+				launchError(ErrorManager.ERROR_BAD_PARAMETERS, getString(R.string.error_bad_params), true);
+			}
 			return;
 		}
 
@@ -242,7 +247,7 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 		try {
 			if (INTENT_ENTRY_ACTION.equals(getIntent().getAction())){
 				Logger.i(ES_GOB_AFIRMA, "Devolvemos el error a la app solicitante");
-				sendDataIntent(Activity.RESULT_CANCELED, ErrorManager.genError(errorId, null));
+				sendErrorByIntent(errorId, ErrorManager.genError(errorId, errorMsg));
 			}
 			else {
 				sendData(URLEncoder.encode(ErrorManager.genError(errorId, errorMsg), DEFAULT_URL_ENCODING), critical);
@@ -406,7 +411,7 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 		// Si la aplicacion se ha llamado desde intent de firma devolvemos datos a la aplicacion llamante
 		if (getIntent().getAction() != null && getIntent().getAction().equals(INTENT_ENTRY_ACTION)){
 			Logger.i(ES_GOB_AFIRMA, "Devolvemos datos a la app solicitante"); //$NON-NLS-1$
-			sendDataIntent(Activity.RESULT_OK, result.toString());
+			sendDataByIntent(signingCertEncoded, batchResult);
 		}
 		else {
 			Logger.i(ES_GOB_AFIRMA, "Firma cifrada. Se envia al servidor."); //$NON-NLS-1$
@@ -516,17 +521,24 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 		}
 	}
 
-	private void sendDataIntent (final int isOk, String data) {
+	private void sendDataByIntent (byte[] cert, byte[] jsonResult) {
 		Intent result = new Intent();
-		result.setData(Uri.parse(data));
-		if (getParent() == null) {
-			setResult(isOk, result);
-		}
-		else {
-			getParent().setResult(isOk, result);
-		}
+		result.putExtra("cert", cert);
+		result.putExtra("batchresult", jsonResult);
+		Activity activity = getParent() != null ? getParent() : this;
+		activity.setResult(RESULT_OK, result);
 		finish();
-		closeActivity();
+	}
+
+	private void sendErrorByIntent (String errorId, String errorMsg) {
+		Intent result = new Intent();
+		result.putExtra("errorId", errorId);
+		if (errorMsg != null){
+			result.putExtra("errorMsg", errorMsg);
+		}
+		Activity activity = getParent() != null ? getParent() : this;
+		activity.setResult(RESULT_CANCELED, result);
+		finish();
 	}
 
 	/** Env&iacute;a los datos indicado a un servlet. En caso de error, cierra la aplicaci&oacute;n.
@@ -534,6 +546,12 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 	private void sendData(final String data, final boolean critical) {
 		Logger.i(ES_GOB_AFIRMA, "Se almacena el resultado en el servidor con el Id: " + getBatchParams().getId()); //$NON-NLS-1$
 
+		// Interrumpimos la espera activa si se daba
+		if (activeWaitingThread != null) {
+			activeWaitingThread.interrupt();
+		}
+
+		// Enviamos los datos al servidor
 		new SendDataTask(
 				getBatchParams().getId(),
 				getBatchParams().getStorageServletUrl(),

@@ -72,13 +72,13 @@ public class AndroidHttpManager implements UrlHttpManager {
     }
 
     @Override
-    public byte[] readUrl(String s, UrlHttpMethod urlHttpMethod, HttpErrorProcessor httpErrorProcessor) throws IOException {
-        return new byte[0];
+    public byte[] readUrl(String s, UrlHttpMethod method, HttpErrorProcessor httpErrorProcessor) throws IOException {
+        return readUrl(s, method);
     }
 
     @Override
-    public byte[] readUrl(String s, UrlHttpMethod urlHttpMethod, HttpErrorProcessor httpErrorProcessor, SSLConfig sslConfig) throws IOException {
-        return new byte[0];
+    public byte[] readUrl(String s, UrlHttpMethod method, HttpErrorProcessor httpErrorProcessor, SSLConfig sslConfig) throws IOException {
+        return readUrl(s, method, httpErrorProcessor, sslConfig);
     }
 
     @Override
@@ -94,23 +94,23 @@ public class AndroidHttpManager implements UrlHttpManager {
     }
 
     @Override
-    public byte[] readUrl(String s, int i, String s1, String s2, UrlHttpMethod urlHttpMethod, HttpErrorProcessor httpErrorProcessor) throws IOException {
-        return new byte[0];
+    public byte[] readUrl(String url, int timeout, String contentType, String accept, UrlHttpMethod method, HttpErrorProcessor httpErrorProcessor) throws IOException {
+        return readUrl(url, timeout, contentType, accept, method);
     }
 
     @Override
-    public byte[] readUrl(String s, int i, String s1, String s2, UrlHttpMethod urlHttpMethod, HttpErrorProcessor httpErrorProcessor, SSLConfig sslConfig) throws IOException {
-        return new byte[0];
+    public byte[] readUrl(String url, int timeout, String contentType, String accept, UrlHttpMethod method, HttpErrorProcessor httpErrorProcessor, SSLConfig sslConfig) throws IOException {
+        return readUrl(url, timeout, contentType, accept, method);
     }
 
     @Override
-    public byte[] readUrl(String s, int i, UrlHttpMethod urlHttpMethod, Properties properties, HttpErrorProcessor httpErrorProcessor) throws IOException {
-        return new byte[0];
+    public byte[] readUrl(String url, int timeout, UrlHttpMethod method, Properties properties, HttpErrorProcessor httpErrorProcessor) throws IOException {
+        return readUrl(url, timeout, method, properties);
     }
 
     @Override
-    public byte[] readUrl(String s, int i, UrlHttpMethod urlHttpMethod, Properties properties, HttpErrorProcessor httpErrorProcessor, SSLConfig sslConfig) throws IOException {
-        return new byte[0];
+    public byte[] readUrl(String url, int timeout, UrlHttpMethod method, Properties properties, HttpErrorProcessor httpErrorProcessor, SSLConfig sslConfig) throws IOException {
+        return readUrl(url, timeout, method, properties);
     }
 
     @Override

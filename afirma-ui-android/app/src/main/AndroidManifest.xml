@@ -123,9 +123,6 @@
             android:name=".android.FileChooserActivity"
             android:label="@string/title_activity_cert_chooser" />
         <activity
-            android:name=".android.LoadKeyStoreFragmentActivity"
-            android:exported="true" />
-        <activity
             android:name=".android.LocalSignActivity"
             android:theme="@style/Theme.Transparent"
             android:label="@string/title_activity_save_data"/>
@@ -141,15 +138,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data
-                    android:host="sign"
-                    android:scheme="afirma" />
-                <data
-                    android:host="cosign"
-                    android:scheme="afirma" />
-                <data
-                    android:host="countersign"
-                    android:scheme="afirma" />
+                <data android:scheme="afirma"/>
+                <data android:host="sign"/>
+                <data android:host="cosign"/>
+                <data android:host="countersign"/>
             </intent-filter>
         </activity>
         <activity

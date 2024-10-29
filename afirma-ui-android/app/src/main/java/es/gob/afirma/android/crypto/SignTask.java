@@ -151,12 +151,12 @@ public class SignTask extends AsyncTask<Void, Void, SignResult>{
 				this.t = new MSCBadPinException(e.getCause().getCause().getCause().getMessage(), e); //$NON-NLS-1$
 			}
 			else {
-				Logger.e(ES_GOB_AFIRMA, "Error durante la operacion de firma: " + e, e); //$NON-NLS-1$
+				Logger.e(ES_GOB_AFIRMA, "Error durante la operacion de firma: " + e); //$NON-NLS-1$
 				this.t = e;
 			}
 		}
 		catch (final Exception e) {
-			Logger.e(ES_GOB_AFIRMA, "Error en la firma: " + e, e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, "Error en la firma: " + e); //$NON-NLS-1$
 			this.t = e;
 		}
 
