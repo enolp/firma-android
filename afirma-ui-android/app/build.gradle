@@ -18,7 +18,7 @@ android {
     compileSdk 34
     defaultConfig {
         applicationId "es.gob.afirma"
-        minSdkVersion 19
+        minSdkVersion 23
         targetSdkVersion 34
         multiDexEnabled true
         versionCode 26
