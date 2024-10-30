@@ -568,16 +568,19 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 			signingCert = null;
 		}
 
-		// Registramos los datos sobre la firma realizada
-		saveSignRecord(SIGN_TYPE_WEB, this.parameters.getAppName());
-
 		// Responderemos con ls tupls CERTIFICADO|FIRMA
 		String responseText = signingCert + CERT_SIGNATURE_SEPARATOR + data;
+
+		String appName = this.parameters.getAppName();
 
 		// Devolvemos el error diractamente o a traves del servidor intermedio segun si se nos
 		// llamo desde una App o no
 		if (getIntent().getAction() != null && getIntent().getAction().equals(INTENT_ENTRY_ACTION)){
 			Logger.i(ES_GOB_AFIRMA, "Devolvemos datos a la app solicitante"); //$NON-NLS-1$
+			// Registramos los datos sobre la firma realizada
+			if (appName == null) {
+				appName = getCallingPackage();
+			}
 			sendDataByIntent(encodedCert, signature.getSignature());
 		}
 		else {
@@ -593,6 +596,9 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 				onSendingDataError(e, true);
 			}
 		}
+
+		// Registramos los datos de la firma realizada
+		saveSignRecord(SIGN_TYPE_WEB, appName);
 	}
 
 	private void sendDataByIntent (byte[] cert, byte[] signature) {

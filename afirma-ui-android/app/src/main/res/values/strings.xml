@@ -233,4 +233,5 @@
     <string name="reselect_area">Volver a seleccionar un \u00E1rea</string>
     <string name="not_selected_area">\u00c1rea no seleccionada</string>
     <string name="not_selected_area_desc">No se ha seleccionado ningu\u00fan \u00E1rea donde realizar la firma visible.</string>
+    <string name="web_operation">%s web</string>
 </resources>

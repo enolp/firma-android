@@ -233,4 +233,5 @@
     <string name="reselect_area">Berriro hautatu eremu bat</string>
     <string name="not_selected_area">Hautatu gabeko eremua</string>
     <string name="not_selected_area_desc">Ez da sinadura ikusgai jartzeko eremurik hautatu.</string>
+    <string name="web_operation">Web %s</string>
 </resources>

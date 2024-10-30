@@ -69,10 +69,18 @@ public class SignsRecordAdapter extends BaseAdapter {
                 recordDescTv.setText(context.getString(R.string.local_sign_record, signOp, signRecord.getAppName()));
                 break;
             case SIGN_TYPE_WEB:
-                recordDescTv.setText(context.getString(R.string.web_sign_record, signOp, signRecord.getAppName()));
+                if (signRecord.getAppName() != null && !"null".equals(signRecord.getAppName())) {
+                    recordDescTv.setText(context.getString(R.string.web_sign_record, signOp, signRecord.getAppName()));
+                } else {
+                    recordDescTv.setText(context.getString(R.string.web_operation, signOp));
+                }
                 break;
             case SIGN_TYPE_BATCH:
-                recordDescTv.setText(context.getString(R.string.batch_sign_record, signRecord.getAppName()));
+                if (signRecord.getAppName() != null && !"null".equals(signRecord.getAppName())) {
+                    recordDescTv.setText(context.getString(R.string.batch_sign_record, signRecord.getAppName()));
+                } else {
+                    recordDescTv.setText(context.getString(R.string.title_activity_sign_batch));
+                }
                 break;
         }
         return convertView;

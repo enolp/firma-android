@@ -233,4 +233,5 @@
     <string name="reselect_area">Reselect an area</string>
     <string name="not_selected_area">Unselected area</string>
     <string name="not_selected_area_desc">No area has been selected where to make the visible signature.</string>
+    <string name="web_operation">Web %s</string>
 </resources>

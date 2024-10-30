@@ -233,4 +233,5 @@
     <string name="reselect_area">Res\u00e9lectionner une zone</string>
     <string name="not_selected_area">Zone non s\u00e9lectionn\u00e9e</string>
     <string name="not_selected_area_desc">Aucune zone n\'a \u00e9t\u00e9 s\u00e9lectionnée o\u00f9 faire la signature visible.</string>
+    <string name="web_operation">%s web</string>
 </resources>
