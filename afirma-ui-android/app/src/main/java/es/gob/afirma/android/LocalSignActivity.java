@@ -56,7 +56,7 @@ public final class LocalSignActivity extends SignFragmentActivity {
 	/** Error cargando PDF para firma visible. */
 	final static int ERROR_REQUEST_VISIBLE_SIGN = 106;
 
-	private static final String DEFAULT_SIGNATURE_ALGORITHM = "SHA256"; //$NON-NLS-1$
+	static final String DEFAULT_SIGNATURE_ALGORITHM = "SHA256"; //$NON-NLS-1$
 
 	private static final String PDF_FILE_SUFFIX = ".pdf"; //$NON-NLS-1$
 
