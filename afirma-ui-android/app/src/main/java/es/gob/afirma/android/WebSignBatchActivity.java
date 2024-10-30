@@ -36,6 +36,7 @@ import es.gob.afirma.R;
 import es.gob.afirma.android.batch.SignBatchFragmentActivity;
 import es.gob.afirma.android.crypto.AndroidHttpManager;
 import es.gob.afirma.android.crypto.CipherDataManager;
+import es.gob.afirma.android.crypto.KeyStoreManagerListener;
 import es.gob.afirma.android.crypto.MSCBadPinException;
 import es.gob.afirma.android.crypto.SelectKeyAndroid41BugException;
 import es.gob.afirma.android.gui.DownloadFileTask;
@@ -56,11 +57,11 @@ import es.gob.afirma.core.signers.ExtraParamsProcessor;
 /** Actividad dedicada a la firma por lotes de los datos recibidos en la entrada mediante un certificado
  * del almac&eacute;n central seleccionado por el usuario. */
 public final class WebSignBatchActivity extends SignBatchFragmentActivity
-		implements SendDataListener, DownloadFileTask.DownloadDataListener {
+		implements KeyStoreManagerListener, SendDataListener, DownloadFileTask.DownloadDataListener {
 
 	private static final char RESULT_SEPARATOR = '|';
 	private static final String ES_GOB_AFIRMA = "es.gob.afirma";
-	private final static String INTENT_ENTRY_ACTION = "es.gob.afirma.android.SIGN_SERVICE";
+	private final static String INTENT_ENTRY_ACTION = "es.gob.afirma.android.SIGN_BATCH_SERVICE";
 
 	/** Juego de carateres UTF-8. */
 	private static final String DEFAULT_URL_ENCODING = "UTF-8"; //$NON-NLS-1$
@@ -146,7 +147,12 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 		// se tiene que descargar previamente desde el servidor intermedio
 		if (getBatchParams().getFileId() != null) {
 			Logger.i(ES_GOB_AFIRMA, "Se van a descargar el lote desde servidor con el identificador: " + getBatchParams().getFileId()); //$NON-NLS-1$
-			new DownloadFileTask(getBatchParams().getFileId(), getBatchParams().getRetrieveServletUrl(), this).execute();
+			if (getBatchParams().getRetrieveServletUrl() != null) {
+				new DownloadFileTask(getBatchParams().getFileId(), getBatchParams().getRetrieveServletUrl(), this).execute();
+			} else {
+				Logger.e(ES_GOB_AFIRMA, "No se proporciono la URL de descarga para la obtencion del lote de firma");
+				launchError(ErrorManager.ERROR_BAD_PARAMETERS, getString(R.string.error_bad_params), true);
+			}
 			return;
 		}
 
@@ -241,7 +247,7 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 		try {
 			if (INTENT_ENTRY_ACTION.equals(getIntent().getAction())){
 				Logger.i(ES_GOB_AFIRMA, "Devolvemos el error a la app solicitante");
-				sendDataIntent(Activity.RESULT_CANCELED, ErrorManager.genError(errorId, null));
+				sendErrorByIntent(errorId, ErrorManager.genError(errorId, errorMsg));
 			}
 			else {
 				sendData(URLEncoder.encode(ErrorManager.genError(errorId, errorMsg), DEFAULT_URL_ENCODING), critical);
@@ -279,22 +285,6 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 		});
 	}
 
-	/** Muestra un mensaje de advertencia al usuario.
-	 * @param message Mensaje que se desea mostrar. */
-	private void showErrorMessageOnToast(final String message) {
-		dismissProgressDialog();
-		dismissMessageDialog();
-
-		runOnUiThread(
-			new Runnable() {
-				@Override
-				public void run() {
-					Toast.makeText(WebSignBatchActivity.this, message, Toast.LENGTH_LONG).show();
-				}
-			}
-		);
-	}
-
 	@Override
 	protected void onSigningError(final KeyStoreOperation op, final String msg, final Throwable t) {
 		if (op == KeyStoreOperation.LOAD_KEYSTORE) {
@@ -303,67 +293,57 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 			return;
 		}
 		else if (op == KeyStoreOperation.SELECT_CERTIFICATE) {
-
 			if (t instanceof SelectKeyAndroid41BugException) {
 				Log.e(ES_GOB_AFIRMA, "Error al cargar el certificado, posiblemente relacionado por usar un alias de certificado no valido", t);
 				launchError(ErrorManager.ERROR_PKE_ANDROID_4_1, t.getMessage(), true);
-				return;
 			}
 			else if (t instanceof KeyChainException) {
 				Log.e(ES_GOB_AFIRMA, "Error al cargar la clave del certificado", t);
 				launchError(ErrorManager.ERROR_PKE, t.getMessage(), true);
-				return;
 			}
 			else if (t instanceof PendingIntent.CanceledException) {
 				Logger.e(ES_GOB_AFIRMA, "El usuario no selecciono un certificado", t);
 				launchError(ErrorManager.ERROR_CANCELLED_OPERATION, t.getMessage(), false);
-				return;
 			}
 			else {
 				Logger.e(ES_GOB_AFIRMA, "Error al recuperar la clave del certificado de firma", t);
 				launchError(ErrorManager.ERROR_PKE, t.getMessage(), true);
-				return;
 			}
+			return;
 		}
 		else if (op == KeyStoreOperation.SIGN) {
 			if (t instanceof MSCBadPinException) {
 				Logger.e(ES_GOB_AFIRMA, "PIN erroneo: " + t);
 				showErrorMessage(getString(R.string.error_msc_pin));
 				launchError(ErrorManager.ERROR_MSC_PIN, t.getMessage(), false);
-				return;
 			}
 			else if (t instanceof AOCancelledOperationException) {
 				Logger.i(ES_GOB_AFIRMA, "Operacion cancelada por el usuario: " + t);
 				launchError(ErrorManager.ERROR_CANCELLED_OPERATION, t.getMessage(), false);
-				return;
 			}
 			else if (t instanceof AOUnsupportedSignFormatException) {
 				Logger.e(ES_GOB_AFIRMA, "Formato de firma no soportado: " + t);
 				showErrorMessage(getString(R.string.error_format_not_supported));
 				launchError(ErrorManager.ERROR_NOT_SUPPORTED_FORMAT, t.getMessage(), true);
-				return;
 			}
 			else if (t instanceof ExtraParamsProcessor.IncompatiblePolicyException) {
 				Logger.e(ES_GOB_AFIRMA, "Los parametros configurados son incompatibles con la politica de firma: " + t);
 				showErrorMessage(getString(R.string.error_signing_config));
 				launchError(ErrorManager.ERROR_BAD_PARAMETERS, t.getMessage(), true);
-				return;
 			}
 			else if (t instanceof HttpError) {
 				Logger.e(ES_GOB_AFIRMA, "Error de comunicacion con el servicio", t);
 				launchError(ErrorManager.ERROR_COMMUNICATING_WITH_WEB, "Error de comunicacion con el servicio", true);
-				return;
 			}
 			else if (t instanceof AOException) {
 				Logger.e(ES_GOB_AFIRMA, "Error controlado al firmar", t);
 				launchError(ErrorManager.ERROR_SIGNING, t.getMessage(), true);
-				return;
 			}
 			else {
 				Logger.e(ES_GOB_AFIRMA, "Error desconocido durante la firma", t);
 				launchError(ErrorManager.ERROR_SIGNING, t.getMessage(), true);
-				return;
 			}
+			return;
 		}
 		Logger.e(ES_GOB_AFIRMA, "Error desconocido", t);
 		launchError(ErrorManager.ERROR_SIGNING, t.getMessage(), true);
@@ -425,11 +405,15 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 				result.append(RESULT_SEPARATOR).append(Base64.encode(signingCertEncoded));
 			}
 		}
-
+		String appName = getBatchParams().getAppName();
 		// Si la aplicacion se ha llamado desde intent de firma devolvemos datos a la aplicacion llamante
 		if (getIntent().getAction() != null && getIntent().getAction().equals(INTENT_ENTRY_ACTION)){
 			Logger.i(ES_GOB_AFIRMA, "Devolvemos datos a la app solicitante"); //$NON-NLS-1$
-			sendDataIntent(Activity.RESULT_OK, result.toString());
+			// Registramos los datos sobre la firma realizada
+			if (appName == null) {
+				appName = getCallingPackage();
+			}
+			sendDataByIntent(signingCertEncoded, batchResult);
 		}
 		else {
 			Logger.i(ES_GOB_AFIRMA, "Firma cifrada. Se envia al servidor."); //$NON-NLS-1$
@@ -444,6 +428,8 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 				onSendingDataError(e, true);
 			}
 		}
+
+		saveSignRecord(SIGN_TYPE_BATCH, appName);
 	}
 
 	/** Comprueba si esta abierto el di&aacute;logo de espera y lo cierra en dicho caso. */
@@ -464,9 +450,9 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 	public void onKeyStoreError(KeyStoreOperation op, String msg, Throwable t) {
 		if (op == KeyStoreOperation.LOAD_KEYSTORE) {
 			launchError(ErrorManager.ERROR_ESTABLISHING_KEYSTORE, "Error cargando almacen", true);
+			return;
 		}
-		else if (op == KeyStoreOperation.SELECT_CERTIFICATE) {
-
+		if (op == KeyStoreOperation.SELECT_CERTIFICATE) {
 			if (t instanceof SelectKeyAndroid41BugException) {
 				launchError(ErrorManager.ERROR_PKE_ANDROID_4_1, "Error cargando PKE", true);
 			}
@@ -481,6 +467,7 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 				Logger.e(ES_GOB_AFIRMA, "Error al recuperar el certificado", t); //$NON-NLS-1$
 				launchError(ErrorManager.ERROR_PKE, "Error al recuperar el certificado", true);
 			}
+			return;
 		}
 		Logger.e(ES_GOB_AFIRMA, "Error desconocido", t); //$NON-NLS-1$
 		launchError(ErrorManager.ERROR_SELECTING_CERTIFICATE, "Error desconocido", true);
@@ -538,17 +525,24 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 		}
 	}
 
-	private void sendDataIntent (final int isOk, String data) {
+	private void sendDataByIntent (byte[] cert, byte[] jsonResult) {
 		Intent result = new Intent();
-		result.setData(Uri.parse(data));
-		if (getParent() == null) {
-			setResult(isOk, result);
-		}
-		else {
-			getParent().setResult(isOk, result);
-		}
+		result.putExtra("cert", cert);
+		result.putExtra("batchresult", jsonResult);
+		Activity activity = getParent() != null ? getParent() : this;
+		activity.setResult(RESULT_OK, result);
 		finish();
-		closeActivity();
+	}
+
+	private void sendErrorByIntent (String errorId, String errorMsg) {
+		Intent result = new Intent();
+		result.putExtra("errorId", errorId);
+		if (errorMsg != null){
+			result.putExtra("errorMsg", errorMsg);
+		}
+		Activity activity = getParent() != null ? getParent() : this;
+		activity.setResult(RESULT_CANCELED, result);
+		finish();
 	}
 
 	/** Env&iacute;a los datos indicado a un servlet. En caso de error, cierra la aplicaci&oacute;n.
@@ -556,6 +550,12 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 	private void sendData(final String data, final boolean critical) {
 		Logger.i(ES_GOB_AFIRMA, "Se almacena el resultado en el servidor con el Id: " + getBatchParams().getId()); //$NON-NLS-1$
 
+		// Interrumpimos la espera activa si se daba
+		if (activeWaitingThread != null) {
+			activeWaitingThread.interrupt();
+		}
+
+		// Enviamos los datos al servidor
 		new SendDataTask(
 				getBatchParams().getId(),
 				getBatchParams().getStorageServletUrl(),
@@ -593,7 +593,10 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 	}
 
 	void closeActivity() {
-		finishAffinity();
+		Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.putExtra("CLOSE_ACTIVITY", true);
+		startActivity(intent);
 	}
 
 	@Override

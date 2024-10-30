@@ -23,6 +23,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.security.KeyChainException;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
@@ -204,12 +205,17 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 		// Si no se han indicado datos y si el identificador de un fichero remoto, lo recuperamos para firmarlos
 		else if (this.parameters.getData() == null && this.parameters.getFileId() != null) {
 			Logger.i(ES_GOB_AFIRMA, "Se van a descargar los datos desde servidor con el identificador: " + this.parameters.getFileId()); //$NON-NLS-1$
-			this.downloadFileTask = new DownloadFileTask(
-					this.parameters.getFileId(),
-					this.parameters.getRetrieveServletUrl(),
-					this
-			);
-			this.downloadFileTask.execute();
+			if (this.parameters.getRetrieveServletUrl() != null) {
+				this.downloadFileTask = new DownloadFileTask(
+						this.parameters.getFileId(),
+						this.parameters.getRetrieveServletUrl(),
+						this
+				);
+				this.downloadFileTask.execute();
+			} else {
+				Logger.e(ES_GOB_AFIRMA, "No se proporciono la URL de descarga para la obtencion de los datos");
+				launchError(ErrorManager.ERROR_BAD_PARAMETERS, getString(R.string.error_bad_params), true);
+			}
 		}
 
 		// Si tenemos los datos, cargamos un certificado para firmarlos
@@ -228,6 +234,7 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 					this.parameters.getData(),
 					this.parameters.getSignatureFormat(),
 					this.parameters.getSignatureAlgorithm(),
+					false,
 					this.parameters.getExtraParams());
 		}
 	}
@@ -285,9 +292,11 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 	private void launchError(final String errorId, final String errorMsg, final boolean critical) {
 
 		try {
+			// Devolvemos el error diractamente o a traves del servidor intermedio segun si se nos
+			// llamo desde una App o no
 			if (INTENT_ENTRY_ACTION.equals(getIntent().getAction())){
 				Logger.i(ES_GOB_AFIRMA, "Devolvemos el error a la app solicitante"); //$NON-NLS-1$
-				sendDataIntent(Activity.RESULT_CANCELED, ErrorManager.genError(errorId, null));
+				sendErrorByIntent(errorId, ErrorManager.genError(errorId, errorMsg));
 			}
 			else {
 				sendData(URLEncoder.encode(ErrorManager.genError(errorId, errorMsg), DEFAULT_URL_ENCODING), critical);
@@ -353,63 +362,57 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 
 	@Override
 	protected void onSigningError(final KeyStoreOperation op, final String msg, final Throwable t) {
+
 		if (op == KeyStoreOperation.LOAD_KEYSTORE) {
 			Log.e(ES_GOB_AFIRMA, "Error al cargar el almacen de certificados: " + msg, t);
 			launchError(ErrorManager.ERROR_ESTABLISHING_KEYSTORE, true);
 			return;
 		}
-		else if (op == KeyStoreOperation.SELECT_CERTIFICATE) {
+		if (op == KeyStoreOperation.SELECT_CERTIFICATE) {
 
 			if (t instanceof SelectKeyAndroid41BugException) {
 				Log.e(ES_GOB_AFIRMA, "Error al cargar el certificado, posiblemente relacionado por usar un alias de certificado no valido", t);
 				launchError(ErrorManager.ERROR_PKE_ANDROID_4_1, true);
-				return;
 			}
 			else if (t instanceof KeyChainException) {
 				Log.e(ES_GOB_AFIRMA, "Error al cargar la clave del certificado", t);
 				launchError(ErrorManager.ERROR_PKE, true);
-				return;
 			}
 			else if (t instanceof PendingIntent.CanceledException) {
 				Logger.e(ES_GOB_AFIRMA, "El usuario no selecciono un certificado", t); //$NON-NLS-1$
 				launchError(ErrorManager.ERROR_CANCELLED_OPERATION, false);
-				return;
 			}
 			else {
 				Logger.e(ES_GOB_AFIRMA, "Error inesperado al recuperar la clave del certificado de firma: " + msg, t); //$NON-NLS-1$
 				launchError(ErrorManager.ERROR_PKE, true);
-				return;
 			}
+			return;
 		}
-		else if (op == KeyStoreOperation.SIGN) {
+		if (op == KeyStoreOperation.SIGN) {
 			if (t instanceof MSCBadPinException) {
 				Logger.e(ES_GOB_AFIRMA, "PIN erroneo: " + t); //$NON-NLS-1$
 				showErrorMessage(getString(R.string.error_msc_pin));
 				launchError(ErrorManager.ERROR_MSC_PIN, false);
-				return;
 			}
 			else if (t instanceof AOUnsupportedSignFormatException) {
 				Logger.e(ES_GOB_AFIRMA, "Formato de firma no soportado: " + t); //$NON-NLS-1$
 				showErrorMessage(getString(R.string.error_format_not_supported));
 				launchError(ErrorManager.ERROR_NOT_SUPPORTED_FORMAT, true);
-				return;
 			}
 			else if (t instanceof ExtraParamsProcessor.IncompatiblePolicyException) {
 				Logger.e(ES_GOB_AFIRMA, "Los parametros configurados son incompatibles con la politica de firma: " + t); //$NON-NLS-1$
 				showErrorMessage(getString(R.string.error_signing_config));
 				launchError(ErrorManager.ERROR_BAD_PARAMETERS, true);
-				return;
 			}
 			else if (t instanceof AOException) {
 				Logger.e(ES_GOB_AFIRMA, "Error controlado al firmar", t); //$NON-NLS-1$
 				launchError(ErrorManager.ERROR_SIGNING, t.getMessage(), true);
-				return;
 			}
 			else {
 				Logger.e(ES_GOB_AFIRMA, "Error inesperado durante la firma: " + msg, t); //$NON-NLS-1$
 				launchError(ErrorManager.ERROR_SIGNING,true);
-				return;
 			}
+			return;
 		}
 		Logger.e(ES_GOB_AFIRMA, "Error inesperado: " + msg, t); //$NON-NLS-1$
 		launchError(ErrorManager.ERROR_SIGNING, true);
@@ -503,6 +506,7 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 					this.parameters.getData(),
 					this.parameters.getSignatureFormat(),
 					this.parameters.getSignatureAlgorithm(),
+					false,
 					this.parameters.getExtraParams()
 				);
             }
@@ -525,45 +529,59 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 		Logger.i(ES_GOB_AFIRMA, "Firma generada correctamente. Se cifra el resultado.");
 
 		// Ciframos si nos dieron clave privada, si no subimos los datos sin cifrar
-		final String data;
-		try {
-			data = CipherDataManager.cipherData(
-				signature.getSignature(),
-				this.parameters.getDesKey()
-			);
-		}
-		catch (final GeneralSecurityException e) {
-			Logger.e(ES_GOB_AFIRMA, "Error en el cifrado de la firma", e); //$NON-NLS-1$
-			launchError(ErrorManager.ERROR_CIPHERING, true);
-			return;
-		}
-		catch (final Throwable e) {
-			Logger.e(ES_GOB_AFIRMA, "Error desconocido al cifrar el resultado de la firma", e); //$NON-NLS-1$
-			launchError(ErrorManager.ERROR_CIPHERING, true);
-			return;
+		String data;
+		if (this.parameters.getDesKey() != null && this.parameters.getDesKey().length > 0) {
+			try {
+				data = CipherDataManager.cipherData(
+						signature.getSignature(),
+						this.parameters.getDesKey()
+				);
+			} catch (final GeneralSecurityException e) {
+				Logger.e(ES_GOB_AFIRMA, "Error en el cifrado de la firma", e); //$NON-NLS-1$
+				launchError(ErrorManager.ERROR_CIPHERING, true);
+				return;
+			} catch (final Throwable e) {
+				Logger.e(ES_GOB_AFIRMA, "Error desconocido al cifrar el resultado de la firma", e); //$NON-NLS-1$
+				launchError(ErrorManager.ERROR_CIPHERING, true);
+				return;
+			}
+		} else {
+			data = Base64.encodeToString(signature.getSignature(), Base64.URL_SAFE);
 		}
 
+		byte[] encodedCert = null;
 		String signingCert;
 		try {
-			signingCert = CipherDataManager.cipherData(
-				signature.getSigningCertificate().getEncoded(),
-				this.parameters.getDesKey()
-			);
-			Logger.i(ES_GOB_AFIRMA, "Firma cifrada."); //$NON-NLS-1$
+			encodedCert = signature.getSigningCertificate().getEncoded();
+			if (this.parameters.getDesKey() != null && this.parameters.getDesKey().length > 0) {
+				signingCert = CipherDataManager.cipherData(
+						encodedCert,
+						this.parameters.getDesKey()
+				);
+			}
+			else {
+				signingCert = Base64.encodeToString(encodedCert, Base64.URL_SAFE);
+			}
 		}
 		catch (final GeneralSecurityException e) {
-			Logger.e(ES_GOB_AFIRMA, "Error en el cifrado del certificado de firma: " + e, e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, "Error en la codificacion o el cifrado del certificado de firma", e); //$NON-NLS-1$
 			signingCert = null;
 		}
 
-		// Responderemos con el los datos o, si tambien lo tenemos, con el certificado de firma
-		// y los datos
-		String responseText = signingCert != null ? signingCert + CERT_SIGNATURE_SEPARATOR + data : data;
+		// Responderemos con ls tupls CERTIFICADO|FIRMA
+		String responseText = signingCert + CERT_SIGNATURE_SEPARATOR + data;
 
-		// Si la aplicacion se ha llamado desde intent de firma devolvemos datos a la aplicacion llamante
+		String appName = this.parameters.getAppName();
+
+		// Devolvemos el error diractamente o a traves del servidor intermedio segun si se nos
+		// llamo desde una App o no
 		if (getIntent().getAction() != null && getIntent().getAction().equals(INTENT_ENTRY_ACTION)){
 			Logger.i(ES_GOB_AFIRMA, "Devolvemos datos a la app solicitante"); //$NON-NLS-1$
-			sendDataIntent(Activity.RESULT_OK, responseText);
+			// Registramos los datos sobre la firma realizada
+			if (appName == null) {
+				appName = getCallingPackage();
+			}
+			sendDataByIntent(encodedCert, signature.getSignature());
 		}
 		else {
 
@@ -578,24 +596,37 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 				onSendingDataError(e, true);
 			}
 		}
+
+		// Registramos los datos de la firma realizada
+		saveSignRecord(SIGN_TYPE_WEB, appName);
 	}
 
-	private void sendDataIntent (final int isOk, String data) {
+	private void sendDataByIntent (byte[] cert, byte[] signature) {
 		Intent result = new Intent();
-		result.setData(Uri.parse(data));
-		if (getParent() == null) {
-			setResult(isOk, result);
+		if (cert != null) {
+			result.putExtra("cert", cert);
 		}
-		else {
-			getParent().setResult(isOk, result);
-		}
+		result.putExtra("signature", signature);
+		Activity activity = getParent() != null ? getParent() : this;
+		activity.setResult(RESULT_OK, result);
 		finish();
-		closeActivity();
+	}
+
+	private void sendErrorByIntent (String errorId, String errorMsg) {
+		Intent result = new Intent();
+		result.putExtra("errorId", errorId);
+		if (errorMsg != null){
+			result.putExtra("errorMsg", errorMsg);
+		}
+		Activity activity = getParent() != null ? getParent() : this;
+		activity.setResult(RESULT_CANCELED, result);
+		finish();
 	}
 
 	@Override
 	public void onSendingDataSuccess(final byte[] result, final boolean critical) {
 		Logger.i(ES_GOB_AFIRMA, "Resultado del deposito de la firma: " + (result == null ? null : new String(result))); //$NON-NLS-1$
+		dismissProgressDialog();
 		closeActivity();
 	}
 
@@ -792,7 +823,10 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 	}
 
 	void closeActivity() {
-		finishAffinity();
+		Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.putExtra("CLOSE_ACTIVITY", true);
+		startActivity(intent);
 	}
 
 	@Override

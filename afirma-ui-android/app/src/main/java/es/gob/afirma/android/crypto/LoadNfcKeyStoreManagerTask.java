@@ -19,7 +19,6 @@ import java.security.KeyStore;
 
 import es.gob.afirma.R;
 import es.gob.afirma.android.Logger;
-import es.gob.jmulticard.android.callbacks.CachePasswordCallback;
 
 /** Tarea de carga e inicializaci&oacute;n de los almacenes de claves por conexion NFC. */
 public final class LoadNfcKeyStoreManagerTask extends AsyncTask {
@@ -97,7 +96,7 @@ public final class LoadNfcKeyStoreManagerTask extends AsyncTask {
 			//Se cargan los certificados del keystore
 			new LoadCertificatesTask((KeyStore) o, this.passwordCallback, this.kmListener, this.activity).execute();
 		}
-	}
+  	}
 
 	ProgressDialog getProgressDialog() {
 		return this.progressDialog;

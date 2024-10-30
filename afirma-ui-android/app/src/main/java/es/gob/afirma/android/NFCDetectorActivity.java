@@ -1,6 +1,7 @@
 package es.gob.afirma.android;
 
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
@@ -11,22 +12,22 @@ import android.nfc.tech.NfcF;
 import android.nfc.tech.NfcV;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
-import androidx.core.content.IntentCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 
-import es.gob.afirma.android.crypto.DnieConnectionManager;
-import es.gob.afirma.android.gui.CanDialog;
-import es.gob.afirma.android.gui.CanResult;
 import es.gob.afirma.R;
-import es.gob.jmulticard.android.callbacks.CachePasswordCallback;
+import es.gob.afirma.android.crypto.CachePasswordCallback;
+import es.gob.afirma.android.crypto.DnieConnectionManager;
+import es.gob.afirma.android.gui.CanResult;
 
 /** Indica al usuario que acerque el DNIe por NFC para obtener los certificados.
  * @author Sergio Mart&iacute;nez */
 public class NFCDetectorActivity extends FragmentActivity {
 
-    static final String INTENT_EXTRA_CAN_VALUE = "canValue"; //$NON-NLS-1$
+    public static final String INTENT_EXTRA_CAN_VALUE = "canValue"; //$NON-NLS-1$
+
     static final String INTENT_EXTRA_PASSWORD_CALLBACK = "pc"; //$NON-NLS-1$
 
     private NfcAdapter mNfcAdapter;
@@ -53,25 +54,15 @@ public class NFCDetectorActivity extends FragmentActivity {
             this.canResult.setPasswordCallback(
                     new CachePasswordCallback(getIntent().getCharArrayExtra(INTENT_EXTRA_CAN_VALUE)));
         }
-        else {
-            CanDialog canDialog = CanDialog.newInstance(canResult);
-            canDialog.setCancelable(false);
-            canDialog.show(getSupportFragmentManager(), "dialog");
-            canDialog.setListener(new CanDialog.CanDialogListener() {
-                @Override
-                public void onDismiss() {
-                    if (canResult.getPasswordCallback() != null && discoveredTag != null) {
-                        prepareCardConnection();
-                    }
-                }
-            });
-        }
 
-        final Intent singleTopIntent = new Intent(this, getClass())
-                .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        pendingIntent = PendingIntent.getActivity(
-                this, 0, singleTopIntent,
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ? PendingIntent.FLAG_MUTABLE : 0);
+        Button cancelSearch = findViewById(R.id.cancelSearchBtn);
+        cancelSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        });
 
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         IntentFilter discovery = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
@@ -87,6 +78,13 @@ public class NFCDetectorActivity extends FragmentActivity {
                 NfcA.class.getName(),
                 NfcB.class.getName()
         } };
+
+        final Intent singleTopIntent = new Intent(this, getClass())
+                .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        pendingIntent = PendingIntent.getActivity(
+                this, 0, singleTopIntent,
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ? PendingIntent.FLAG_MUTABLE : 0);
+        startActivity(singleTopIntent);
     }
 
     @Override
@@ -117,5 +115,10 @@ public class NFCDetectorActivity extends FragmentActivity {
     public void onPause() {
         mNfcAdapter.disableForegroundDispatch(this);
         super.onPause();
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 }

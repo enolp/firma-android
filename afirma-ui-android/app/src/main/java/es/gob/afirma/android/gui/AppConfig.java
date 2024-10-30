@@ -16,6 +16,21 @@ public final class AppConfig {
     /** Clave de la preferencia que indica si debe usarse NFC para conectar con el DNIe 3.0 */
     private static final String PREFERENCE_KEY_USE_NFC = "useNfc";
 
+    /** Clave de la preferencia que indica si se debe omitir la pantalla de introducci&oacute;n */
+    private static final String PREFERENCE_SKIP_INTRO_SCREEN = "skipIntroScreen";
+
+    /** Clave de la preferencia que indica si se debe omitir la pantalla de aceptaci&oacute;n de condiciones */
+    private static final String PREFERENCE_SKIP_CONDITIONS_SCREEN = "skipConditionsScreen";
+
+    /** Si est&aacute; establecido a <code>true</code> se pide al usuario que determine
+     *  los par&aacute;metros de una firma visible PDF y se inserta como tal en el
+     * documento. */
+    public static final String PREFERENCE_PADES_VISIBLE = "padesVisibleSignature"; //$NON-NLS-1$
+
+    /** Si est&aacute; establecido a <code>true</code> se ofuscan los identificadores de usuario del CN
+     * y DN del certificado antes de mostrarlos en la firma visible del PDF. */
+    public static final String PREFERENCE_PADES_OBFUSCATE_CERT_INFO = "padesObfuscateCertInfo";
+
     /** Nombre de la propiedad a establecer a <code>true</code> para habilitar las comprobaciones
      * de confianza SSL en las peticiones. Si se establece a <code>false</code> o no se establece,
      * no se realizar&aacute;n comprobaciones. */
@@ -23,6 +38,9 @@ public final class AppConfig {
 
     /** Lista de dominios seguros para conexiones HTTPS. */
     public static final String JAVA_PARAM_SECURE_DOMAINS_LIST = "secureDomainsList"; //$NON-NLS-1$
+
+    /** Alamacena el idioma que est&eacute; confiurado en la app. */
+    public static final String PREFERENCE_LOCALE_CONFIG = "localeConfig"; //$NON-NLS-1$
 
     private static SharedPreferences sharedPref;
 
@@ -50,6 +68,22 @@ public final class AppConfig {
         setPreference(PREFERENCE_KEY_FIRST_EXECUTION, firstExecution);
     }
 
+    public static boolean isSkipIntroScreen(Context context) {
+        return getPreference(context, PREFERENCE_SKIP_INTRO_SCREEN, false);
+    }
+
+    public static void setSkipIntroScreen(boolean skipIntroScreen) {
+        setPreference(PREFERENCE_SKIP_INTRO_SCREEN, skipIntroScreen);
+    }
+
+    public static boolean isSkipConditionsScreen(Context context) {
+        return getPreference(context, PREFERENCE_SKIP_CONDITIONS_SCREEN, false);
+    }
+
+    public static void setSkipConditionsScreen(boolean skipConditionsScreen) {
+        setPreference(PREFERENCE_SKIP_CONDITIONS_SCREEN, skipConditionsScreen);
+    }
+
     public static boolean isValidateSSLConnections(Context context) {
         return getPreference(context, JAVA_PARAM_VALIDATE_SSL_CHECKS, true);
     }
@@ -68,7 +102,30 @@ public final class AppConfig {
         } else {
             setPreference(JAVA_PARAM_SECURE_DOMAINS_LIST, secureDomains);
         }
+    }
 
+    public static boolean isPadesVisibleSignature(Context context) {
+        return getPreference(context, PREFERENCE_PADES_VISIBLE, false);
+    }
+
+    public static void setPadesVisibleSignature(boolean padesVisibleSignature) {
+        setPreference(PREFERENCE_PADES_VISIBLE, padesVisibleSignature);
+    }
+
+    public static boolean isPadesObfuscateCertInfo(Context context) {
+        return getPreference(context, PREFERENCE_PADES_OBFUSCATE_CERT_INFO, true);
+    }
+
+    public static void setPadesObfuscateCertInfo(boolean obfuscateCertInfo) {
+        setPreference(PREFERENCE_PADES_OBFUSCATE_CERT_INFO, obfuscateCertInfo);
+    }
+
+    public static String getLocaleConfig(Context context) {
+        return getPreference(context, PREFERENCE_LOCALE_CONFIG, "es");
+    }
+
+    public static void setLocaleConfig(String locale) {
+        setPreference(PREFERENCE_LOCALE_CONFIG, locale);
     }
 
     /**

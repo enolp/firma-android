@@ -3,8 +3,7 @@ package es.gob.afirma.android.crypto;
 import android.nfc.Tag;
 
 import es.gob.afirma.android.Logger;
-import es.gob.jmulticard.android.callbacks.CachePasswordCallback;
-import es.gob.jmulticard.apdu.connection.ApduConnection;
+import es.gob.jmulticard.connection.ApduConnection;
 
 /**
  * Instancia &uacute;nica que almacenar&aacute; los distintos elementos para la conexi&oacute;n
@@ -24,15 +23,15 @@ public class DnieConnectionManager {
     }
 
     private CachePasswordCallback canPasswordCallback;
+    private CachePasswordCallback pinPasswordCallback;
     private AndroidDnieNFCCallbackHandler callbackHandler;
-    private MobileKeyStoreManager keyStoreManager;
     private ApduConnection nfcConnection;
     private Tag discoveredTag;
 
     private DnieConnectionManager() {
         this.canPasswordCallback = null;
+        this.pinPasswordCallback = null;
         this.callbackHandler = null;
-        this.keyStoreManager = null;
         this.nfcConnection = null;
         this.discoveredTag = null;
     }
@@ -51,30 +50,6 @@ public class DnieConnectionManager {
      */
     public void setCallbackHandler(AndroidDnieNFCCallbackHandler callbackHandler) {
         this.callbackHandler = callbackHandler;
-    }
-
-    /**
-     * Recupera el gestor del almac&eacute;n de claves del DNIe.
-     * @return Gestor del almac&eacute;n del DNIe.
-     */
-    public MobileKeyStoreManager getKeyStoreManager() {
-        return this.keyStoreManager;
-    }
-
-    /**
-     * Establece el gestor del almac&eacute;n de claves del DNIe.
-     * @param keyStoreManager Gestor del almac&eacute;n del DNIe.
-     */
-    public void setKeyStoreManager(MobileKeyStoreManager keyStoreManager) {
-        this.keyStoreManager = keyStoreManager;
-    }
-
-    /**
-     * Recupera la conexi&oacute;n NFC establecida con el DNIe.
-     * @return Conexi&oacute;n con la tarjeta.
-     */
-    public ApduConnection getNfcConnection() {
-        return this.nfcConnection;
     }
 
     /**
@@ -101,6 +76,18 @@ public class DnieConnectionManager {
         this.canPasswordCallback = canPasswordCallback;
     }
 
+    public CachePasswordCallback getPinPasswordCallback() {
+        return pinPasswordCallback;
+    }
+
+    /**
+     * Establece la cach&eacute; con el PIN de la tarjeta.
+     * @param pinPasswordCallback Cach&eacute; con el PIN de la tarjeta.
+     */
+    public void setPinPasswordCallback(CachePasswordCallback pinPasswordCallback) {
+        this.pinPasswordCallback = pinPasswordCallback;
+    }
+
     /**
      * Recupera el Tag NFC del DNIe.
      * @return  Tag NFC del DNIe.
@@ -124,7 +111,6 @@ public class DnieConnectionManager {
      */
     public void reset() {
         this.callbackHandler = null;
-        this.keyStoreManager = null;
         if (this.nfcConnection != null) {
             try {
                 this.nfcConnection.close();
@@ -143,6 +129,16 @@ public class DnieConnectionManager {
         if (this.canPasswordCallback != null) {
             this.canPasswordCallback.clearPassword();
             this.canPasswordCallback = null;
+        }
+    }
+
+    /**
+     * Reinicia el PIN almacenado.
+     */
+    public void clearPin() {
+        if (this.pinPasswordCallback != null) {
+            this.pinPasswordCallback.clearPassword();
+            this.pinPasswordCallback = null;
         }
     }
 }

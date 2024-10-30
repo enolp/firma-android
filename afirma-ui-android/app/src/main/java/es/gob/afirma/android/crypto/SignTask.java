@@ -10,7 +10,6 @@
 
 package es.gob.afirma.android.crypto;
 
-import android.content.ActivityNotFoundException;
 import android.os.AsyncTask;
 
 import java.io.IOException;
@@ -25,6 +24,8 @@ import es.gob.afirma.core.signers.AOSignConstants;
 import es.gob.afirma.core.signers.AOSigner;
 import es.gob.afirma.core.signers.AOSignerFactory;
 import es.gob.afirma.core.signers.CounterSignTarget;
+import es.gob.jmulticard.card.BadPinException;
+import es.gob.jmulticard.jse.provider.SignatureAuthException;
 
 /**
  * Tarea que ejecuta una firma electr&oacute;nica a trav&eacute;s de un AOSigner.
@@ -54,7 +55,6 @@ public class SignTask extends AsyncTask<Void, Void, SignResult>{
 	private final String algorithm;
 	private final PrivateKeyEntry pke;
 	private final Properties extraParams;
-
 	private final SignListener signListener;
 
 	private Throwable t;
@@ -83,11 +83,6 @@ public class SignTask extends AsyncTask<Void, Void, SignResult>{
 		this.extraParams = extraParams;
 		this.signListener = signListener;
 		this.t = null;
-	}
-
-	@Override
-	protected void onPreExecute() {
-		super.onPreExecute();
 	}
 
 	@Override
@@ -150,19 +145,18 @@ public class SignTask extends AsyncTask<Void, Void, SignResult>{
 			}
 		}
 		catch (final AOException e) {
-			if (e.getCause() instanceof AOException && e.getCause().getCause() instanceof ActivityNotFoundException) {
-				// Solo se dara este error (hasta la fecha) cuando se intente cargar el dialogo de PIN de
-				// una tarjeta criptografica
-				Logger.e(ES_GOB_AFIRMA, "Se ha intentado cargar el dialogo de PIN de una tarjeta criptografica: " + e); //$NON-NLS-1$
-				this.t = new MSCBadPinException("Se inserto un PIN incorrecto para la tarjeta critografica", e); //$NON-NLS-1$
+			if (e.getCause() instanceof AOException
+					&& e.getCause().getCause() != null && e.getCause().getCause() instanceof SignatureAuthException
+					&& e.getCause().getCause().getCause()!= null && e.getCause().getCause().getCause() instanceof BadPinException){
+				this.t = new MSCBadPinException(e.getCause().getCause().getCause().getMessage(), e); //$NON-NLS-1$
 			}
 			else {
-				Logger.e(ES_GOB_AFIRMA, "Error durante la operacion de firma: " + e, e); //$NON-NLS-1$
+				Logger.e(ES_GOB_AFIRMA, "Error durante la operacion de firma: " + e); //$NON-NLS-1$
 				this.t = e;
 			}
 		}
 		catch (final Exception e) {
-			Logger.e(ES_GOB_AFIRMA, "Error en la firma: " + e, e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, "Error en la firma: " + e); //$NON-NLS-1$
 			this.t = e;
 		}
 
@@ -197,7 +191,6 @@ public class SignTask extends AsyncTask<Void, Void, SignResult>{
 	@Override
 	protected void onPostExecute(final SignResult result) {
 		super.onPostExecute(result);
-
 		if (result == null || result.getSignature() == null) {
 			this.signListener.onSignError(this.t);
 		} else {

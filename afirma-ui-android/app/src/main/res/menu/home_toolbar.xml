@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/info"
+        android:icon="@drawable/item_help_selector"
+        android:title="Informacion"
+        android:onClick="onOptionsItemSelected"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/item_settings_selector"
+        android:title="Ajustes"
+        android:onClick="onOptionsItemSelected"
+        app:showAsAction="ifRoom" />
+
+</menu>

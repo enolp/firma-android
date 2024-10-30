@@ -27,7 +27,7 @@ import java.util.Properties;
 import es.gob.afirma.android.Logger;
 import es.gob.afirma.android.gui.PinDialog;
 import es.gob.jmulticard.android.nfc.AndroidNfcConnection;
-import es.gob.jmulticard.apdu.connection.ApduConnection;
+import es.gob.jmulticard.connection.ApduConnection;
 
 /** Facrtor&iacute;a de gestores de contrase&ntilde;as y claves para Android. */
 public final class KeyStoreManagerFactory {
@@ -192,6 +192,7 @@ public final class KeyStoreManagerFactory {
 
 		KeyStore ks = null;
 
+
 		// En caso de no existir un lector conectado por USB, comprobamos que se haya detectado una tarjeta por NFC
 		DnieConnectionManager dnieManager = DnieConnectionManager.getInstance();
 		if (dnieManager.getDiscoveredTag() != null) {
@@ -213,6 +214,7 @@ public final class KeyStoreManagerFactory {
 				throw new InitializingNfcCardException("Error inicializando la tarjeta", e);
 			}
 		}
+
 		return ks;
 	}
 }

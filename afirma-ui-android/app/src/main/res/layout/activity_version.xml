@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/version_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/versionToolbar"
+        android:layout_width="match_parent"
+        android:touchscreenBlocksFocus="false"
+        app:popupTheme="@style/AppTheme"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ToolbarTheme"
+        app:navigationIcon="@drawable/nav_back_selector"
+        app:titleCentered="true"
+        app:title="@string/appversion"
+        app:titleTextAppearance="@style/ToolbarTitle"
+        app:titleTextColor="@color/black"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:theme="@style/TextViewSettingsTheme"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/p1Tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans"
+                android:text="@string/version_desc_p1"
+                android:paddingStart="8dp"/>
+
+            <TextView
+                android:id="@+id/p2Tv"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans"
+                android:text="@string/version_desc_p2"
+                android:paddingStart="8dp"/>
+
+            <TextView
+                android:id="@+id/l1Tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans"
+                android:textColor="@drawable/external_link_textcolor_selector"
+                android:background="@drawable/external_link_selector"
+                android:text="@string/version_desc_link1"
+                android:drawablePadding="2dp"
+                android:drawableEnd="@drawable/baseline_open_in_new_24"
+                android:paddingStart="8dp"/>
+
+            <TextView
+                android:id="@+id/p3Tv"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans"
+                android:text="@string/version_desc_p3"
+                android:paddingStart="8dp"/>
+
+            <TextView
+                android:id="@+id/l2Tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans"
+                android:drawableRight="@drawable/baseline_open_in_new_24"
+                android:drawablePadding="2dp"
+                android:textColor="@drawable/external_link_textcolor_selector"
+                android:background="@drawable/external_link_selector"
+                android:text="@string/version_desc_link2"
+                android:paddingStart="8dp"/>
+
+            <TextView
+                android:id="@+id/p4Tv"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans"
+                android:text="@string/version_desc_p4"
+                android:paddingStart="8dp"/>
+
+            <TextView
+                android:id="@+id/l3Tv"
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/external_link_selector"
+                android:drawableRight="@drawable/baseline_open_in_new_24"
+                android:drawablePadding="2dp"
+                android:fontFamily="@font/nunitosans"
+                android:gravity="left"
+                android:text="@string/version_desc_link3"
+                android:textColor="@drawable/external_link_textcolor_selector" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+</LinearLayout>

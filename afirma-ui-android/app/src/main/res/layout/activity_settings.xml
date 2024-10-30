@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/settingsToolbar"
+        android:layout_width="match_parent"
+        android:touchscreenBlocksFocus="false"
+        app:popupTheme="@style/AppTheme"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ToolbarTheme"
+        app:navigationIcon="@drawable/nav_back_selector"
+        app:titleCentered="true"
+        app:title="@string/settings"
+        app:titleTextAppearance="@style/ToolbarTitle"
+        app:titleTextColor="@color/black"/>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:theme="@style/TextViewSettingsTheme"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- MI CONFIGURACION -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_settings"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:paddingBottom="8dp"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/toolbar"
+            android:focusable="false"
+            />
+
+        <!-- Idioma -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            >
+
+            <TextView
+                android:id="@+id/languageTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/ic_language"
+                android:background="@drawable/option_selector"
+                android:text="@string/language"
+                android:textColor="@color/black"
+                android:paddingStart="8dp"
+                android:focusable="true"
+                android:clickable="true"/>
+
+            <TextView
+                android:id="@+id/languageSelectedTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ES"
+                android:padding="4dp"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/toolbar"
+            android:focusable="false"
+            />
+
+        <!-- Configuracion de firma -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:background="@drawable/option_selector">
+
+            <TextView
+                android:id="@+id/signConfigTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/ic_signconfig"
+                android:background="@drawable/option_selector"
+                android:text="@string/sign_configuration"
+                android:textColor="@color/black"
+                android:paddingStart="8dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/toolbar"
+            android:focusable="false"
+            />
+
+        <!-- Dominios de confianza -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/trustedDomainsTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/ic_domain"
+                android:background="@drawable/option_selector"
+                android:text="@string/trusted_domains"
+                android:textColor="@color/black"
+                android:paddingStart="8dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/toolbar"
+            android:focusable="false"
+            />
+
+        <!-- Dominios de confianza -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/signRecordTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/baseline_record_24"
+                android:background="@drawable/option_selector"
+                android:text="@string/sign_record"
+                android:textColor="@color/black"
+                android:paddingStart="8dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/toolbar"
+            android:focusable="false"
+            />
+
+        <!-- AYUDA -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/help"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="8dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/toolbar"
+            android:focusable="false"
+            />
+
+        <!-- Preguntas frecuentes -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:background="@drawable/option_selector">
+
+            <TextView
+                android:id="@+id/faqTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/ic_faq"
+                android:background="@drawable/option_selector"
+                android:text="@string/faq"
+                android:textColor="@color/black"
+                android:paddingStart="8dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/toolbar"
+            android:focusable="false"
+            />
+
+        <!-- Como instalar un certificado -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/howToInsallCertsTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/ic_inbox"
+                android:background="@drawable/option_selector"
+                android:text="@string/how_to_install_certs"
+                android:textColor="@color/black"
+                android:paddingStart="8dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/toolbar"
+            android:focusable="false"
+            />
+
+        <!-- INFORMACION GENERAL -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/general_info"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:paddingTop="16dp"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="8dp"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/toolbar"
+            android:focusable="false"
+            />
+
+        <!-- Declaracion de Accesibilidad -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:background="@drawable/option_selector">
+
+            <TextView
+                android:id="@+id/accesibilityTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/ic_accessibility"
+                android:background="@drawable/option_selector"
+                android:text="@string/accessibility_statement"
+                android:textColor="@color/black"
+                android:paddingStart="8dp"/>
+
+            <ImageView
+                android:id="@+id/accesibilityLinkImg"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:src="@drawable/baseline_open_in_new_24"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/toolbar"
+            android:focusable="false"
+            />
+
+        <!-- Aviso legal -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/legalTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/ic_legal"
+                android:background="@drawable/option_selector"
+                android:text="@string/legal_announcement"
+                android:textColor="@color/black"
+                android:paddingStart="8dp"/>
+
+            <ImageView
+                android:id="@+id/legalLinkImg"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:src="@drawable/baseline_open_in_new_24"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/toolbar"
+            android:focusable="false"
+            />
+
+        <!-- Politica de privacidad -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/privacityTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/ic_privacy"
+                android:background="@drawable/option_selector"
+                android:text="@string/privacy_policy"
+                android:textColor="@color/black"
+                android:paddingStart="8dp"/>
+
+            <ImageView
+                android:id="@+id/privacityLinkImg"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:src="@drawable/baseline_open_in_new_24"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/toolbar"
+            android:focusable="false"
+            />
+
+        <!-- Version -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/versionTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/ic_version"
+                android:background="@drawable/option_selector"
+                android:text="@string/appversion"
+                android:textColor="@color/black"
+                android:paddingStart="8dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/toolbar"
+            android:focusable="false"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:focusable="false">
+
+            <ImageView
+                android:id="@+id/logoFUEView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:paddingBottom="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/logoPRTRView"
+                app:srcCompat="@drawable/logo_fue_color" />
+
+            <ImageView
+                android:id="@+id/logoPRTRView"
+                android:layout_width="209dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:paddingTop="15dp"
+                android:paddingBottom="30dp"
+                app:srcCompat="@drawable/logo_prtr_color" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/logo_ED2026View"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/logo_ed2026_color" />
+
+    </LinearLayout>
+
+
+</ScrollView>
+</LinearLayout>

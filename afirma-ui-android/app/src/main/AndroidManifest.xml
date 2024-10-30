@@ -32,6 +32,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true"
+        android:configChanges="locale|orientation"
         android:networkSecurityConfig="@xml/network_security_config">
 
         <!-- Proveedor que define los permisos de acceso a disco. -->
@@ -46,13 +47,69 @@
         </provider>
 
         <activity
-            android:name=".android.HomeActivity"
-            android:label="@string/app_name"
+            android:name=".android.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".android.HomeActivity"
+            android:exported="true"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".android.IntroScreenActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".android.ConditionsActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".android.gui.CertImportInstructionsActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".android.SettingsActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".android.LanguageActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".android.PdfSelectPreviewActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".android.TrustedDomainsActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".android.SignsRecordActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".android.FaqActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".android.VersionActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".android.IntroUseDnieActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".android.StepsInsertDataDnieActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".android.SignConfigurationActivity"
+            android:exported="true">
         </activity>
         <activity
             android:name=".android.NFCDetectorActivity"
@@ -70,7 +127,8 @@
             android:name=".android.FileChooserActivity"
             android:label="@string/title_activity_cert_chooser" />
         <activity
-            android:name=".android.LocalSignResultActivity"
+            android:name=".android.LocalSignActivity"
+            android:theme="@style/Theme.Transparent"
             android:label="@string/title_activity_save_data"/>
         <activity
             android:name=".android.WebSignActivity"
@@ -84,15 +142,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data
-                    android:host="sign"
-                    android:scheme="afirma" />
-                <data
-                    android:host="cosign"
-                    android:scheme="afirma" />
-                <data
-                    android:host="countersign"
-                    android:scheme="afirma" />
+                <data android:scheme="afirma"/>
+                <data android:host="sign"/>
+                <data android:host="cosign"/>
+                <data android:host="countersign"/>
             </intent-filter>
         </activity>
         <activity

@@ -16,7 +16,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,7 +31,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
@@ -45,8 +43,9 @@ import java.io.InputStream;
 
 import es.gob.afirma.R;
 import es.gob.afirma.android.gui.AppConfig;
+import es.gob.afirma.android.gui.CertImportInstructionsActivity;
 import es.gob.afirma.android.gui.ConfigNfcDialog;
-import es.gob.afirma.android.gui.MessageDialog;
+import es.gob.afirma.android.gui.CustomDialog;
 
 /** Actividad que se muestra cuando se arranca la aplicaci&oacute;n pulsando su icono.
  * @author Alberto Mart&iacute;nez */
@@ -63,12 +62,18 @@ public final class MainFragment extends Fragment implements DialogInterface.OnCl
 
 	private final static String ES_GOB_AFIRMA = "es.gob.afirma"; //$NON-NLS-1$
 
-	private final static String EXTRA_RESOURCE_TITLE = "es.gob.afirma.android.title"; //$NON-NLS-1$
-	private final static String EXTRA_RESOURCE_EXT = "es.gob.afirma.android.exts"; //$NON-NLS-1$
+	public final static String EXTRA_RESOURCE_TITLE = "es.gob.afirma.android.title"; //$NON-NLS-1$
+	public final static String EXTRA_RESOURCE_EXT = "es.gob.afirma.android.exts"; //$NON-NLS-1$
 
-	private final static String CERTIFICATE_EXTS = ".p12,.pfx"; //$NON-NLS-1$
+	public final static String CERTIFICATE_EXTS = ".p12,.pfx"; //$NON-NLS-1$
 
-	private final static int SELECT_CERT_REQUEST_CODE = 1;
+	public final static int SELECT_CERT_REQUEST_CODE = 1;
+
+	public final static int IMPORT_CERT_INSTRUCTIONS_CODE = 2;
+
+	public final static int INSTALLED_CERT = 3;
+
+	public final static int SIGNED_FILE_OK = 4;
 
 	/** Indica si tenemos o no permiso de escritura en almacenamiento. */
 	private boolean writePerm = false;
@@ -81,6 +86,34 @@ public final class MainFragment extends Fragment implements DialogInterface.OnCl
 
 	/** Indica si se ha detectado que el dispositivo tiene NFC. */
 	private boolean nfcAvailable = false;
+
+	private boolean errorSigning;
+
+	private boolean showSigningResult;
+
+	private final boolean startImportCert;
+
+	private String errorTitleDialog;
+
+	private String errorMessageDialog;
+
+	public MainFragment() {
+		this.errorSigning = false;
+		this.showSigningResult = false;
+		this.startImportCert = false;
+	}
+
+	public MainFragment(boolean showSigningResult, boolean errorSigning, String errorTitleDialog, String errorMessageDialog) {
+		this.errorSigning = errorSigning;
+		this.showSigningResult = showSigningResult;
+		this.errorTitleDialog = errorTitleDialog;
+		this.errorMessageDialog = errorMessageDialog;
+		this.startImportCert = false;
+	}
+
+	public MainFragment(boolean startImportCert) {
+		this.startImportCert = startImportCert;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
@@ -142,16 +175,6 @@ public final class MainFragment extends Fragment implements DialogInterface.OnCl
 				}
 			}
 		});
-		// Control de foco para mejorar la accesibilidad en la navegacion por teclado
-		signButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			@Override public void onFocusChange(View v, boolean hasFocus) {
-				if (hasFocus) {
-					signButton.setBackgroundColor(Color.parseColor("#000000"));
-				} else {
-					signButton.setBackgroundColor(Color.parseColor("#981c1c"));
-				}
-			}
-		});
 
 		Button importButton = contentLayout.findViewById(R.id.importCertButton);
 		importButton.setOnClickListener(new View.OnClickListener()
@@ -165,20 +188,29 @@ public final class MainFragment extends Fragment implements DialogInterface.OnCl
 					requestStoragePerm();
 				}
 				else {
-					startCertImport();
+					Intent intent = new Intent(getContext(), CertImportInstructionsActivity.class);
+					startActivityForResult(intent, IMPORT_CERT_INSTRUCTIONS_CODE);
 				}
 			}
 		});
-		// Control de foco para mejorar la accesibilidad en la navegacion por teclado
-		importButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			@Override public void onFocusChange(View v, boolean hasFocus) {
-				if (hasFocus) {
-					importButton.setBackgroundColor(Color.parseColor("#000000"));
-				} else {
-					importButton.setBackgroundColor(Color.parseColor("#981c1c"));
-				}
+
+		// Comprobamos si hay que mostrar en un dialogo el resutado de alguna firma
+		if (showSigningResult) {
+			CustomDialog cd;
+			if (errorSigning) {
+				cd = new CustomDialog(this.getContext(), R.mipmap.error_icon, errorTitleDialog, errorMessageDialog,
+						getString(R.string.understood));
+			} else {
+				cd = new CustomDialog(this.getContext(), R.mipmap.check_icon, getString(R.string.signed_file_title), getString(R.string.signed_file_message),
+						getString(R.string.understood));
 			}
-		});
+			cd.show();
+		}
+
+		// Comprobamos si se ha mandado la orden para comenzar con la importacion de certificado
+		if (startImportCert) {
+			startCertImport();
+		}
 
 		return contentLayout;
 	}
@@ -238,10 +270,6 @@ public final class MainFragment extends Fragment implements DialogInterface.OnCl
 		startActivityForResult(intent, SELECT_CERT_REQUEST_CODE, null);
 	}
 
-	private void startLocalSign() {
-		startActivity(new Intent(getActivity().getApplicationContext(), LocalSignResultActivity.class));
-	}
-
 	@Override
 	public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
 
@@ -255,17 +283,38 @@ public final class MainFragment extends Fragment implements DialogInterface.OnCl
 				}
 				else {
 					final Uri dataUri = data.getData();
-					filename = dataUri.getLastPathSegment();
 					fileContent = readDataFromUri(dataUri);
 				}
 			} catch (final IOException e) {
-				showErrorMessage(getString(R.string.error_loading_selected_file, filename));
+				CustomDialog cd = new CustomDialog(this.getContext(), R.mipmap.error_icon, getString(R.string.cant_add_cert_title), getString(R.string.cant_add_cert_message),
+						getString(R.string.try_again), true, getString(R.string.cancel_underline));
+				CustomDialog finalCd = cd;
+				cd.setAcceptButtonClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						finalCd.hide();
+						startCertImport();
+					}
+				});
+				cd.show();
 				Logger.e(ES_GOB_AFIRMA, "Error al cargar el fichero", e); //$NON-NLS-1$
 				return;
 			}
 			final Intent intent = KeyChain.createInstallIntent();
 			intent.putExtra(KeyChain.EXTRA_PKCS12, fileContent);
-			startActivity(intent);
+			startActivityForResult(intent, INSTALLED_CERT);
+		} else if (requestCode == IMPORT_CERT_INSTRUCTIONS_CODE && resultCode == Activity.RESULT_OK) {
+			startCertImport();
+		} else if (requestCode == INSTALLED_CERT && resultCode == Activity.RESULT_OK) {
+			CustomDialog cd = new CustomDialog(this.getContext(), R.mipmap.check_icon, getString(R.string.added_cert_title), getString(R.string.added_cert_message),
+					getString(R.string.understood), false,null);
+			cd.show();
+		} else if (requestCode == SIGNED_FILE_OK && resultCode == Activity.RESULT_OK) {
+			CustomDialog cd = new CustomDialog(this.getContext(), R.mipmap.check_icon,
+					getString(R.string.signed_file_title), getString(R.string.signed_file_message), getString(R.string.understood));
+			cd.show();
+		} else if (requestCode == 0) {
+
 		}
 	}
 
@@ -294,15 +343,9 @@ public final class MainFragment extends Fragment implements DialogInterface.OnCl
 		return baos.toByteArray();
 	}
 
-	/**
-	 * Muestra un mensaje de advertencia al usuario.
-	 * @param message Mensaje que se desea mostrar.
-	 */
-	private void showErrorMessage(final String message) {
-		MessageDialog md = MessageDialog.newInstance(message);
-		md.setListener(null);
-		md.setDialogBuilder(getActivity());
-		md.show(getActivity().getSupportFragmentManager(), "ErrorDialog"); //$NON-NLS-1$;
+	private void startLocalSign() {
+		Intent intent = new Intent(getContext(), LocalSignActivity.class);
+		startActivity(intent);
 	}
 
 	@Override
