@@ -27,7 +27,7 @@ public class LocaleHelper {
         return updateResourcesLegacy(context, language);
     }
 
-    private static String getPersistedData(Context context) {
+    public static String getPersistedData(Context context) {
         return AppConfig.getLocaleConfig(context);
     }
 

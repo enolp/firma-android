@@ -323,11 +323,13 @@ public class LoadKeyStoreFragmentActivity extends FragmentActivity {
 			final Intent stepsSignDNIe = new Intent(this, IntroUseDnieActivity.class);
 			stepsSignDNIe.putExtra(ERROR_LOADING_NFC_KEYSTORE, getString(R.string.unsupported_card));
 			startActivity(stepsSignDNIe);
+			finish();
 		}
 		else if (t instanceof InitializingNfcCardException) {
 			final Intent stepsSignDNIe = new Intent(this, IntroUseDnieActivity.class);
 			stepsSignDNIe.putExtra(ERROR_LOADING_NFC_KEYSTORE, getString(R.string.nfc_card_initializing_error));
 			startActivity(stepsSignDNIe);
+			finish();
 		}
 		// Si es un error en la carga, lo reintentamos
 		else if (t instanceof LoadingCertificateException) {

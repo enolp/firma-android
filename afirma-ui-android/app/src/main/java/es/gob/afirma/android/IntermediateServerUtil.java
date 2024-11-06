@@ -1,7 +1,5 @@
 package es.gob.afirma.android;
 
-import android.util.Log;
-
 import java.io.IOException;
 
 import es.gob.afirma.core.misc.http.UrlHttpManager;

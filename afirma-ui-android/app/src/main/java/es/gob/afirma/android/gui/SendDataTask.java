@@ -10,17 +10,12 @@
 
 package es.gob.afirma.android.gui;
 
-import android.util.Log;
-
 import java.io.IOException;
 import java.net.URL;
 
 import es.gob.afirma.android.IntermediateServerUtil;
 import es.gob.afirma.android.Logger;
 import es.gob.afirma.core.AOCancelledOperationException;
-import es.gob.afirma.core.misc.http.UrlHttpManager;
-import es.gob.afirma.core.misc.http.UrlHttpManagerFactory;
-import es.gob.afirma.core.misc.http.UrlHttpMethod;
 
 /** Tarea para el env&iacute;o de datos al servidor de intercambio. Si la entrega de estos datos es
  * cr&iacute;tica para la correcta ejecuc&iacute;n del procedimiento, la tarea tratar&aacute; de

@@ -12,6 +12,9 @@ package es.gob.afirma.android.gui;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +24,10 @@ import android.widget.TextView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.util.Locale;
+
 import es.gob.afirma.R;
+import es.gob.afirma.android.LocaleHelper;
 
 /** Di&aacute;logo modal con el que mostrar al usuario un mensaje y un bot&oacute;n para ocultar el
  * di&aacute;logo y, opcionalmente, realizar una acci&oacute;n. */
@@ -38,6 +44,8 @@ public class ChooseCertTypeDialog extends BottomSheetDialog {
 		super(context, R.style.BottomSheetDialogTheme);
 		View layout = LayoutInflater.from(context).inflate(R.layout.choose_cert_type_dialog, this.findViewById(R.id.customDialog));
 
+		updateLocale(layout);
+
 		this.listener = listener;
 
 		title = layout.findViewById(R.id.selectKeystoreTitle);
@@ -52,9 +60,12 @@ public class ChooseCertTypeDialog extends BottomSheetDialog {
 				behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 			}
 		});
+
 		this.setContentView(layout);
 
 		TextView certificateTv = this.findViewById(R.id.cert_option);
+		String certText = getContext().getString(R.string.certificate);
+		certificateTv.setText(certText);
 		certificateTv.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -68,6 +79,8 @@ public class ChooseCertTypeDialog extends BottomSheetDialog {
 		});
 
 		TextView signWithDnieTv = this.findViewById(R.id.dnie_option);
+		String signWithDnieText = getContext().getString(R.string.dnie);
+		signWithDnieTv.setText(signWithDnieText);
 		signWithDnieTv.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -106,6 +119,14 @@ public class ChooseCertTypeDialog extends BottomSheetDialog {
 		title.setText(getContext().getString(modeAuthentication
 				? R.string.choose_cert_type_auth_title
 				: R.string.choose_cert_type_sign_title));
+	}
+
+	private void updateLocale(View v) {
+		Resources res = v.getResources();
+		DisplayMetrics dm = res.getDisplayMetrics();
+		Configuration conf = res.getConfiguration();
+		conf.setLocale(new Locale(LocaleHelper.getPersistedData(getContext())));
+		res.updateConfiguration(conf, dm);
 	}
 
 	public static interface ChooseCertTypeListener {

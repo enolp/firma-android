@@ -1,7 +1,5 @@
 package es.gob.afirma.android.crypto;
 
-import android.app.Activity;
-
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.PasswordCallback;
