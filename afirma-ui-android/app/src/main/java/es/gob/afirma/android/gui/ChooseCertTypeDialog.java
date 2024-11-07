@@ -44,6 +44,8 @@ public class ChooseCertTypeDialog extends BottomSheetDialog {
 		super(context, R.style.BottomSheetDialogTheme);
 		View layout = LayoutInflater.from(context).inflate(R.layout.choose_cert_type_dialog, this.findViewById(R.id.customDialog));
 
+		this.setCancelable(false);
+
 		updateLocale(layout);
 
 		this.listener = listener;
