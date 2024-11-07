@@ -278,7 +278,7 @@ public final class LocalSignActivity extends SignFragmentActivity {
 		this.signedDataContentType = "application/" + this.signatureFilename.substring(this.signatureFilename.lastIndexOf('.') + 1);
 
 		// Registramos los datos sobre la firma realizada
-		saveSignRecord(SIGN_TYPE_LOCAL, this.signatureFilename);
+		saveSignRecord(SIGN_TYPE_LOCAL, this.dataFile.getName(), null);
 
 		if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
 			Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);

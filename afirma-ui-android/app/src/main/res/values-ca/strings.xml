@@ -20,24 +20,20 @@
     <string name="main_logo_content_desc">Autofirma App</string>
     <string name="ok">Acceptar</string>
     <string name="close">Tancar</string>
-    <string name="ca_not_found">No hi ha autoritats de certificaci\u00F3 configurades.</string>
     <string name="title_activity_sign_data">Signatura de dades</string>
     <string name="title_activity_sign_batch">Signa per lots</string>
     <string name="title_activity_select_certificate">Selecci\u00F3 de certificat</string>
     <string name="error_bad_params">No s\'ha realitzat correctament la invocaci\u00F3 de l\'aplicaci\u00F3. Consulti al responsable del tr\u00e0mit.</string>
     <string name="error_server_connect">Va oc\u00F3rrer un error en la connexi\u00F3 entre l\'aplicaci\u00F3 i la p\u00e0gina web.</string>
-    <string name="error_server_error">No s\'ha pogut retornar el resultat de signatura a la p\u00e0gina web</string>
     <string name="file_chooser_directorio_actual">Directori actual: %s</string>
     <string name="file_chooser_directorio">Directori</string>
     <string name="file_chooser_directorio_padre">Directori pare</string>
     <string name="file_chooser_tamano_del_fichero">Grand\u00e0ria:</string>
-    <string name="file_chooser_read_error">Error: No ha estat possible llegir el fitxer</string>
     <string name="bytes">bytes</string>
     <string name="kilobytes">KB</string>
     <string name="megabytes">MB</string>
     <string name="error_loading_selected_file">Va oc\u00F3rrer un error carregant el fitxer \"%s\"</string>
     <string name="error_loading_selected_undefined_file">Va oc\u00F3rrer un error carregant el fitxer</string>
-    <string name="error_loading_data_to_sign">Va oc\u00F3rrer un error carregant les dades a signar</string>
     <string name="error_no_valid_p12">El fitxer \"%s\" no \u00e9s un PKCS#12 v\u00e0lid. Seleccioni un nou magatzem per importar.</string>
     <string name="error">Error</string>
     <string name="title_activity_save_data">Guardar dades</string>
@@ -49,12 +45,8 @@
     <string name="error_saving_signature">Va oc\u00F3rrer un error en guardar la signatura</string>
     <string name="error_sending_data">No es va poder transmetre el resultat de l\'operacion al navegador web</string>
     <string name="error_signing">Error durant l\'operacion de signatura</string>
-    <string name="error_signing_no_key">No es va poder recuperar la clau del certificat de signatura</string>
     <string name="error_signing_config">Error durant la configuraci\u00F3 de la signatura electr\u00f2nica</string>
-    <string name="error_loading_keystore">Error en carregar l\'almacen de claus</string>
-    <string name="error_loading_certificate_alias">Error extraient els \u00e0lies dels certificats del magatzem</string>
     <string name="error_no_storage_permissions">El Client de signatura no t\u00e9 permisos d\'escriptura en disc.</string>
-    <string name="error_no_read_permissions">El Client de signatura no t\u00e9 permisos de lectura de disc.</string>
     <string name="error_no_device_to_store">No s\'ha trobat un directori per guardar la signatura</string>
     <string name="error_no_certs">No s\'han trobat certificats instal·lats en el seu dispositiu.</string>
     <string name="error_title_keystore_empty">Magatzem buit</string>
@@ -65,7 +57,6 @@
     <string name="error_pin_nulo">Error, el PIN del DNI \u00e9s nul.</string>
     <string name="error_android_4_1">Android 4.1 i 4.1.1 no permeten que els noms de certificats continguin car\u00e0cters especials (espais, guions, etc.). Modifiqui l\'\u00e0lies dels seus certificats en importar-los per evitar aquest error.</string>
     <string name="error_json">Error en tractar JSON.</string>
-    <string name="data_saved">El fitxer s\'ha guardat amb el nom %s</string>
     <string name="icon_ca">Icona de l\'autoritat de certificaci\u00F3</string>
     <string name="dialog_msg_loading_data">Carregant dades</string>
     <string name="dialog_msg_loading_keystore">Carregant magatzem de claus</string>
@@ -111,6 +102,7 @@
     <string name="title_activity_main_test">MainActivityTest</string>
     <string name="allow_dni3_0_NFC">Permetre signar amb DNIe per NFC</string>
     <string name="do_visible_sign">Fer signatura visible</string>
+    <string name="visible_sign">Signatura visible</string>
     <string name="hide_user_id">Ofuscar identificadors d\'usuari dels certificats de les signatures visibles</string>
     <string name="validate_SSL_connections">Validar connexions SSL</string>
     <string name="trusted_domains">Dominis de confiança</string>
@@ -220,6 +212,8 @@
     <string name="loading_certs">Carregant certificats</string>
     <string name="local_sign_record">%1$s local del fitxer %2$s</string>
     <string name="web_sign_record">%1$s web sol·licitada per %2$s</string>
+    <string name="web_sign_record_file">%1$s web del fitxer %2$s</string>
+    <string name="web_sign_record_appname_and_file">%1$s web sol·licitada per %2$s del fitxer %3$s</string>
     <string name="batch_sign_record">Signa de lot web sol·licitada per %s</string>
     <string name="sign">Signa</string>
     <string name="cosign">Cosignatura</string>
@@ -230,6 +224,7 @@
     <string name="pdf_visible_sign_pseudonym_template">Signat per $$PSEUDONYM$$ - $$OUS$$ el dia $$SIGNDATE=dd/MM/yyyy$$</string>
     <string name="visible_sign_small">Signatura visible massa petita</string>
     <string name="small_area_warning">L\'\u00e0rea seleccionada per mostrar la signatura t\u00e9 una mida massa petita.</string>
+    <string name="select_sign_area">Seleccionar una \u00E1rea</string>
     <string name="reselect_area">Toranar a seleccionar una \u00e0rea</string>
     <string name="not_selected_area">\u00c0rea no seleccionada</string>
     <string name="not_selected_area_desc">No s\'ha seleccionat cap lloc on realitzar la signatura visible.</string>

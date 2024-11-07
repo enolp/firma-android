@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/toolbar"
     android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/pdfViewToolbar"
+        android:layout_width="match_parent"
+        android:touchscreenBlocksFocus="false"
+        app:popupTheme="@style/AppTheme"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ToolbarTheme"
+        app:navigationIcon="@drawable/nav_back_selector"
+        app:titleCentered="true"
+        app:title="@string/visible_sign"
+        app:titleTextAppearance="@style/ToolbarTitle"
+        app:titleTextColor="@color/black"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,6 +27,17 @@
         android:layout_weight="0.80"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/selectSignAreaTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="15dp"
+            android:text="@string/select_sign_area"
+            android:textColor="@color/black"
+            android:fontFamily="@font/nunitosans"/>
+
         <ProgressBar
             android:id="@+id/loadingPdfBar"
             style="?android:attr/progressBarStyleHorizontal"
@@ -19,7 +45,7 @@
             android:layout_height="wrap_content"
             android:indeterminate="true"
             android:indeterminateTint="@color/red"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             />
@@ -33,47 +59,47 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/pageNumberTv"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.05"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:fontFamily="@font/nunitosans"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:layout_weight="0.10"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/firstPageBtn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_margin="5dp"
             android:background="@drawable/first_page_btn_24" />
 
         <Button
             android:id="@+id/prevPageBtn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_margin="5dp"
             android:background="@drawable/previous_page_btn_24" />
 
+        <TextView
+            android:id="@+id/pageNumberTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/nunitosans"/>
+
         <Button
             android:id="@+id/nextPageBtn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_margin="5dp"
             android:background="@drawable/next_page_btn_24" />
 
         <Button
             android:id="@+id/lastPageBtn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_margin="5dp"
             android:background="@drawable/last_page_btn_24" />
 

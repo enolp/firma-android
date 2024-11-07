@@ -88,6 +88,9 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 	private DownloadFileTask downloadFileTask = null;
 
 	private MessageDialog messageDialog;
+
+	private String fileName;
+
 	MessageDialog getMessageDialog() {
 		return this.messageDialog;
 	}
@@ -597,8 +600,14 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 			}
 		}
 
+		String originalFileName = null;
+		if (this.fileName != null) {
+			File originalFile = new File(this.fileName);
+			originalFileName = originalFile.getName();
+		}
+
 		// Registramos los datos de la firma realizada
-		saveSignRecord(SIGN_TYPE_WEB, appName);
+		saveSignRecord(SIGN_TYPE_WEB, originalFileName, appName);
 	}
 
 	private void sendDataByIntent (byte[] cert, byte[] signature) {
@@ -669,15 +678,14 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 			else if (resultCode == RESULT_OK) {
 
 				byte[] fileContent;
-				String filename = null;
 				try {
 					if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
 						final Uri dataUri = data.getData();
-						filename = getFilename(dataUri);
+						this.fileName = getFilename(dataUri);
 						fileContent = readDataFromUri(dataUri);
 					} else {
-						filename = data.getStringExtra(FileChooserActivity.RESULT_DATA_STRING_FILENAME);
-						File dataFile = new File(filename);
+						this.fileName = data.getStringExtra(FileChooserActivity.RESULT_DATA_STRING_FILENAME);
+						File dataFile = new File(this.fileName);
 						fileContent = readDataFromFile(dataFile);
 					}
 				}
@@ -688,17 +696,17 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 				}
 				catch (final IOException e) {
 					Logger.e(ES_GOB_AFIRMA, "Error al cargar el fichero, se dara al usuario la posibilidad de reintentar", e); //$NON-NLS-1$
-					String msg = filename != null
-							? getString(R.string.error_loading_selected_file, filename)
+					String msg = this.fileName != null
+							? getString(R.string.error_loading_selected_file, this.fileName)
 							: getString(R.string.error_loading_selected_undefined_file);
 					showErrorMessageOnToast(msg);
 					openSelectFileActivity();
 					return;
 				}
 				catch (final Throwable e) {
-					Logger.e(ES_GOB_AFIRMA, "Error desconocido al cargar el fichero " + filename, e); //$NON-NLS-1$
-					String msg = filename != null
-							? getString(R.string.error_loading_selected_file, filename)
+					Logger.e(ES_GOB_AFIRMA, "Error desconocido al cargar el fichero " + this.fileName, e); //$NON-NLS-1$
+					String msg = this.fileName != null
+							? getString(R.string.error_loading_selected_file, this.fileName)
 							: getString(R.string.error_loading_selected_undefined_file);
 					showErrorMessageOnToast(msg);
 					return;

@@ -1,5 +1,12 @@
 package es.gob.afirma.android;
 
+import static es.gob.afirma.android.SignFragmentActivity.SIGN_TYPE_LOCAL;
+import static es.gob.afirma.android.SignFragmentActivity.SIGN_TYPE_WEB;
+import static es.gob.afirma.android.batch.SignBatchFragmentActivity.SIGN_TYPE_BATCH;
+import static es.gob.afirma.android.crypto.SignTask.OP_COSIGN;
+import static es.gob.afirma.android.crypto.SignTask.OP_COUNTERSIGN;
+import static es.gob.afirma.android.crypto.SignTask.OP_SIGN;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +17,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import es.gob.afirma.R;
-
-import static es.gob.afirma.android.SignFragmentActivity.SIGN_TYPE_LOCAL;
-import static es.gob.afirma.android.SignFragmentActivity.SIGN_TYPE_WEB;
-import static es.gob.afirma.android.batch.SignBatchFragmentActivity.SIGN_TYPE_BATCH;
-import static es.gob.afirma.android.crypto.SignTask.OP_COSIGN;
-import static es.gob.afirma.android.crypto.SignTask.OP_COUNTERSIGN;
-import static es.gob.afirma.android.crypto.SignTask.OP_SIGN;
 
 public class SignsRecordAdapter extends BaseAdapter {
 
@@ -66,11 +66,17 @@ public class SignsRecordAdapter extends BaseAdapter {
         }
         switch (signType) {
             case SIGN_TYPE_LOCAL:
-                recordDescTv.setText(context.getString(R.string.local_sign_record, signOp, signRecord.getAppName()));
+                recordDescTv.setText(context.getString(R.string.local_sign_record, signOp, signRecord.getFileName()));
                 break;
             case SIGN_TYPE_WEB:
                 if (signRecord.getAppName() != null && !"null".equals(signRecord.getAppName())) {
-                    recordDescTv.setText(context.getString(R.string.web_sign_record, signOp, signRecord.getAppName()));
+                    if(signRecord.getFileName() != null && !"null".equals(signRecord.getFileName())) {
+                        recordDescTv.setText(context.getString(R.string.web_sign_record_appname_and_file, signOp, signRecord.getAppName(), signRecord.getFileName()));
+                    } else {
+                        recordDescTv.setText(context.getString(R.string.web_sign_record, signOp, signRecord.getAppName()));
+                    }
+                } else if(signRecord.getFileName() != null && !"null".equals(signRecord.getFileName())) {
+                    recordDescTv.setText(context.getString(R.string.web_sign_record_file, signOp, signRecord.getFileName()));
                 } else {
                     recordDescTv.setText(context.getString(R.string.web_operation, signOp));
                 }

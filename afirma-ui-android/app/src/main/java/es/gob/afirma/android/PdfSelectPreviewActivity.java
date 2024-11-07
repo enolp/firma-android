@@ -26,6 +26,7 @@ import com.github.barteksc.pdfviewer.listener.OnDrawListener;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnRenderListener;
 import com.github.barteksc.pdfviewer.util.FitPolicy;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.shockwave.pdfium.util.SizeF;
 
 import java.io.File;
@@ -66,6 +67,14 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdfview);
+
+        MaterialToolbar toolbar = findViewById(R.id.pdfViewToolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         context = this;
 

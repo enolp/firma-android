@@ -102,6 +102,7 @@
     <string name="title_activity_main_test">MainActivityTest</string>
     <string name="allow_dni3_0_NFC">Permitir firmar con DNIe por NFC</string>
     <string name="do_visible_sign">Hacer firma visible</string>
+    <string name="visible_sign">Firma visible</string>
     <string name="hide_user_id">Ofuscar identificadores de usuario de los certificados de las firmas visibles</string>
     <string name="validate_SSL_connections">Validar conexiones SSL</string>
     <string name="trusted_domains">Dominios de confianza</string>
@@ -159,7 +160,7 @@
     <string name="question_4">He importado los certificados correctamente en Autofirma App, pero aun as\u00ED no consigo identificarme con ellos en las sedes electr\u00F3nicas y dem\u00E1s p\u00E1ginas Web que lo requieren ¿Por qu\u00E9?</string>
     <string name="response_4">Los certificados importados en Autofirma App son de uso exclusivo para firma electr\u00F3nica en p\u00E1ginas Web dise\u00F1adas a tal efecto. Para usar un certificado digital en una autenticaci\u00F3n Web segura debe seguir las instrucciones de su navegador Web y de Android respecto al proceso de instalaci\u00F3n de los certificados y sus claves en el sistema operativo Android y en el propio navegador Web si fuese preciso.</string>
     <string name="version_desc_p1">“Autofirma App” v.%s 2023 Gobierno de Espa\u00F1a</string>
-    <string name="version_desc_p2">Autofirma App es Software Libre; puedes redistribuirlo y/o modificarlo bajo los t\u00E9rminos de la siguiente licencia: “European Software License 1.1”, Curyo texto completo puede consultarse en la siguiente p\u00E1gina Web:</string>
+    <string name="version_desc_p2">Autofirma App es Software Libre; puedes redistribuirlo y/o modificarlo bajo los t\u00E9rminos de la siguiente licencia: “European Software License 1.1”, Cuyo texto completo puede consultarse en la siguiente p\u00E1gina Web:</string>
     <string name="version_desc_p3">El c\u00F3digo fuente de este programa, as\u00ED como del resto de los componentes del proyecto se pueden descargar libremente desde: </string>
     <string name="version_desc_p4">El proyecto Autofirma App es un proyecto colaborativo, si desea participar en \u00E9l, no dude en unirse a la comunidad, accesible desde la siguiente p\u00E1gina Web:</string>
     <string name="version_desc_link1">https://eupl.eu/1.1/es</string>
@@ -211,18 +212,21 @@
     <string name="loading_certs">Cargando certificados</string>
     <string name="local_sign_record">%1$s local del fichero %2$s</string>
     <string name="web_sign_record">%1$s web solicitada por %2$s</string>
+    <string name="web_sign_record_file">%1$s web del fichero %2$s</string>
+    <string name="web_sign_record_appname_and_file">%1$s web solicitada por %2$s del fichero %3$s</string>
     <string name="batch_sign_record">Firma de lote web solicitada por %s</string>
     <string name="sign">Firma</string>
     <string name="cosign">Cofirma</string>
     <string name="countersign">Contrafirma</string>
     <string name="no_records">No se encuentran registros</string>
     <string name="page_number">P\u00E1gina %1$s de %2$s</string>
-    <string name="pdf_visible_sign_template">Firmado por $$SUBJECTCN$$ el día $$SIGNDATE=dd/MM/yyyy$$ con un certificado emitido por $$ISSUERCN$$</string>
-    <string name="pdf_visible_sign_pseudonym_template">Firmado por $$PSEUDONYM$$ - $$OUS$$ el día $$SIGNDATE=dd/MM/yyyy$$</string>
+    <string name="pdf_visible_sign_template">Firmado por $$SUBJECTCN$$ el d\u00EDa $$SIGNDATE=dd/MM/yyyy$$ con un certificado emitido por $$ISSUERCN$$</string>
+    <string name="pdf_visible_sign_pseudonym_template">Firmado por $$PSEUDONYM$$ - $$OUS$$ el d\u00EDa $$SIGNDATE=dd/MM/yyyy$$</string>
     <string name="visible_sign_small">Firma visible demasiado peque\u00F1a</string>
     <string name="small_area_warning">El \u00E1rea seleccionada para mostrar la firma tiene un tama\u00F1o demasiado peque\u00F1o.</string>
+    <string name="select_sign_area">Seleccione el \u00E1rea de firma</string>
     <string name="reselect_area">Volver a seleccionar un \u00E1rea</string>
     <string name="not_selected_area">\u00c1rea no seleccionada</string>
-    <string name="not_selected_area_desc">No se ha seleccionado ningu\u00fan \u00E1rea donde realizar la firma visible.</string>
+    <string name="not_selected_area_desc">No se ha seleccionado ning\u00fan \u00E1rea donde realizar la firma visible.</string>
     <string name="web_operation">%s web</string>
-</resources>
+ </resources>

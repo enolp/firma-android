@@ -101,6 +101,7 @@
     <string name="title_activity_main_test">MainActivityTest</string>
     <string name="allow_dni3_0_NFC">Allow signing with DNIe via NFC</string>
     <string name="do_visible_sign">Make signature visible</string>
+    <string name="visible_sign">Visible signature</string>
     <string name="hide_user_id">Obfuscate user IDs from visible signature certificates</string>
     <string name="validate_SSL_connections">Validate SSL connections</string>
     <string name="trusted_domains">Trusted domains</string>
@@ -211,6 +212,8 @@
     <string name="loading_certs">Loading certificates</string>
     <string name="local_sign_record">Local %1$s of file %2$s</string>
     <string name="web_sign_record">Web %1$s requested by %2$s</string>
+    <string name="web_sign_record_file">%1$s web of file %2$s</string>
+    <string name="web_sign_record_appname_and_file">%1$s web requested by %2$s of file %3$s</string>
     <string name="batch_sign_record">Web batch signature requested by %s</string>
     <string name="sign">Sign</string>
     <string name="cosign">Cosign</string>
@@ -221,8 +224,9 @@
     <string name="pdf_visible_sign_pseudonym_template">Signed by $$PSEUDONYM$$ - $$OUS$$ on $$SIGNDATE=dd/MM/yyyy$$</string>
     <string name="visible_sign_small">Visible signature too small</string>
     <string name="small_area_warning">The area selected to display the signature is too small in size.</string>
+    <string name="select_sign_area">Select a sign area</string>
     <string name="reselect_area">Reselect an area</string>
     <string name="not_selected_area">Unselected area</string>
     <string name="not_selected_area_desc">No area has been selected where to make the visible signature.</string>
     <string name="web_operation">Web %s</string>
-</resources>
+ </resources>

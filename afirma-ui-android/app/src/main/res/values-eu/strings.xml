@@ -20,24 +20,20 @@
     <string name="main_logo_content_desc">Aplikazio automatikoa</string>
     <string name="ok">Onartu</string>
     <string name="close">Itxi</string>
-    <string name="ca_not_found">Ez dago egiaztatze-autoritaterik konfiguratuta.</string>
     <string name="title_activity_sign_data">Datuak sinatzea</string>
     <string name="title_activity_sign_batch">Lotekako sinadura</string>
     <string name="title_activity_select_certificate">Hautatu ziurtagiria</string>
     <string name="error_bad_params">Ez da behar bezala eskatu aplikazioa. Kontsultatu izapidearen arduradunari.</string>
     <string name="error_server_connect">Errore bat gertatu da aplikazioaren eta web orriaren arteko konexioan.</string>
-    <string name="error_server_error">Ezin izan da itzuli sinaduraren emaitza web orrira</string>
     <string name="file_chooser_directorio_actual">Uneko direktorioa: %s</string>
     <string name="file_chooser_directorio">Direktorioa</string>
     <string name="file_chooser_directorio_padre">Direktorio gurasoa</string>
     <string name="file_chooser_tamano_del_fichero">Tamaina:</string>
-    <string name="file_chooser_read_error">Errorea: Ezin izan da fitxategia irakurri</string>
     <string name="bytes">bytes</string>
     <string name="kilobytes">KB</string>
     <string name="megabytes">MB</string>
     <string name="error_loading_selected_file">Errorea gertatu da \"%s\"</string> fitxategia kargatzean
     <string name="error_loading_selected_undefined_file">Errorea gertatu da fitxategia kargatzean</string>
-    <string name="error_loading_data_to_sign">Errore bat gertatu da sinatu beharreko datuak kargatzean</string>
     <string name="error_no_valid_p12">\"%s\" fitxategia ez da baliozko PKCS#12. Hautatu biltegi berri bat inportatzeko.</string>
     <string name="error">Errorea</string>
     <string name="title_activity_save_data">Gorde datuak</string>
@@ -49,12 +45,8 @@
     <string name="error_saving_signature">Errorea gertatu da sinadura gordetzean</string>
     <string name="error_sending_data">Ezin izan da eragiketaren emaitza web nabigatzaileari transmititu</string>
     <string name="error_signing">Errorea gertatu da sinatze-eragiketan</string>
-    <string name="error_signing_no_key">Ezin izan da berreskuratu sinadura-ziurtagiriaren gakoa</string>
     <string name="error_signing_config">Errorea gertatu da sinadura elektronikoa konfiguratzean</string>
-    <string name="error_loading_keystore">Errorea gertatu da gakoen biltegia kargatzean</string>
-    <string name="error_loading_certificate_alias">Errorea gertatu da biltegiko ziurtagirietatik ezizena ateratzean</string>
     <string name="error_no_storage_permissions">Bezeroak ez du diskoan idazteko baimenik.</string>
-    <string name="error_no_read_permissions">Bezeroak ez du diskoa irakurtzeko baimenik.</string>
     <string name="error_no_device_to_store">Ez da aurkitu sinadura gordetzeko direktoriorik</string>
     <string name="error_no_certs">Ez da ziurtagiririk aurkitu zure gailuan instalatuta.</string>
     <string name="error_title_keystore_empty">Biltegia hutsik</string>
@@ -65,7 +57,6 @@
     <string name="error_pin_nulo">Errorea, NANaren PINa nulua da.</string>
     <string name="error_android_4_1">Android 4.1 eta 4.1.1 bertsioek ez dute onartzen ziurtagirien izenek karaktere bereziak izatea (espazioak, gidoiak, etab.). Inportatzean, aldatu ziurtagirien ezizena, errore hori saihesteko.</string>
     <string name="error_json">Errorea JSON tratatzean.</string>
-    <string name="data_saved">Fitxategia %s izenarekin gorde da</string>
     <string name="icon_ca">Ziurtapen-agintaritzaren ikonoa</string>
     <string name="dialog_msg_loading_data">Datuak kargatzen</string>
     <string name="dialog_msg_loading_keystore">Kode-biltegia kargatzen</string>
@@ -111,6 +102,7 @@
     <string name="title_activity_main_test">MainActivityTest</string>
     <string name="allow_dni3_0_NFC">Baimendu NFC bidez NANarekin sinatzea</string>
     <string name="do_visible_sign">Egin sinadura ikusgai</string>
+    <string name="visible_sign">Sinadura ikusgai</string>
     <string name="hide_user_id">Ezkutatu erabiltzaile IDak ikusgai dauden sinadura-ziurtagirietatik</string>
     <string name="validate_SSL_connections">SSL konexioak baliozkotu</string>
     <string name="trusted_domains">Konfiantza-domeinuak</string>
@@ -220,6 +212,8 @@
     <string name="loading_certs">Ziurtagiriak kargatzea</string>
     <string name="local_sign_record">%1$s fitxategiko lokal %2$s</string>
     <string name="web_sign_record">%1$s web, %2$s(e)k eskatua</string>
+    <string name="web_sign_record_file">%1$s web of file %2$s</string>
+    <string name="web_sign_record_appname_and_file">%1$s web (e)k eskatua %2$s fitxategiko %3$s</string>
     <string name="batch_sign_record">%s(e)k eskatutako web-lotearen sinadura</string>
     <string name="sign">Sinadura</string>
     <string name="cosign">Sinadura</string>
@@ -230,6 +224,7 @@
     <string name="pdf_visible_sign_pseudonym_template">$$PSEUDONYM$$ - $$OUS$$k sinatuzuen $$SIGNDATE=dd/MM/yyyy$$ an</string>
     <string name="visible_sign_small">Sinadura ikusgarria txikiegia</string>
     <string name="small_area_warning">Sinadura bistaratzeko hautatutako eremua tamaina txikiegia da.</string>
+    <string name="select_sign_area">Hautatu sinadura-eremu bat</string>
     <string name="reselect_area">Berriro hautatu eremu bat</string>
     <string name="not_selected_area">Hautatu gabeko eremua</string>
     <string name="not_selected_area_desc">Ez da sinadura ikusgai jartzeko eremurik hautatu.</string>

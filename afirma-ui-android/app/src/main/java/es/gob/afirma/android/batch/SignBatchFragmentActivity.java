@@ -267,9 +267,9 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 	/**
 	 * Registra en un archivo datos sobre una firma que se haya realizado.
 	 * @param signType Tipo de firma: local, web o de lotes.
-	 * @param fileInfo Nombre de archivo, dominio o aplicaci;oacute;n desde la que se realiza la firma.
+	 * @param appName Nombre de archivo, dominio o aplicaci;oacute;n desde la que se realiza la firma.
 	 */
-	protected void saveSignRecord(String signType, String fileInfo) {
+	protected void saveSignRecord(String signType, String appName) {
 		File directory = getFilesDir();
 		String signsRecordFileName = "signsRecord.txt";
 		File signRecordFile = new File(directory, signsRecordFileName);
@@ -288,9 +288,12 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 			sb.append(";");
 			sb.append(signType);
 			sb.append(";");
-			sb.append(fileInfo);
-			sb.append(";");
 			sb.append("sign");
+			sb.append(";");
+			// El nombre de archivo es null, ya que es una firma por lotes
+			sb.append("null");
+			sb.append(";");
+			sb.append(appName);
 			sb.append("\n");
 			pw.write(sb.toString());
 			pw.close();

@@ -20,7 +20,6 @@
     <string name="main_logo_content_desc">Autofirma App</string>
     <string name="ok">Accepter</string>
     <string name="close">Fermer</string>
-    <string name="ca_not_found">Aucune autorit\u00e9 de certification n\'est configur\u00e9e.</string>
     <string name="title_activity_sign_data">Signature des donn\u00e9es</string>
     <string name="title_activity_sign_batch">Signature par lots</string>
     <string name="title_activity_select_certificate">S\u00e9lection de certificat</string>
@@ -35,7 +34,6 @@
     <string name="megabytes">MB</string>
     <string name="error_loading_selected_file">Une erreur s\'est produite lors du chargement du fichier \"%s\"</string>
     <string name="error_loading_selected_undefined_file">Une erreur s\'est produite lors du chargement du fichier</string>
-    <string name="error_loading_data_to_sign">Une erreur s\'est produite lors du chargement des donn\u00e9es de signature</string>
     <string name="error_no_valid_p12">Le fichier n\'est pas un PKCS#12 valide. S\u00e9lectionnez une nouvelle boutique \u00e0 importer.</string>
     <string name="error">Erreur</string>
     <string name="title_activity_save_data">Enregistrer des donn\u00e9es</string>
@@ -47,10 +45,7 @@
     <string name="error_saving_signature">Une erreur s\'est produite lors de l\'enregistrement de la signature</string>
     <string name="error_sending_data">\u00e9chec de la transmission de la signature des donn\u00e9es au navigateur Web</string>
     <string name="error_signing">Erreur lors de l\'op\u00e9ration de signature</string>
-    <string name="error_signing_no_key">Impossible de r\u00e9cup\u00e9rer la cl\u00e9 du certificat de signature</string>
     <string name="error_signing_config">Erreur lors de la configuration de la signature \u00e9lectronique</string>
-    <string name="error_loading_keystore">Erreur lors du chargement du magasin de cl\u00e9s</string>
-    <string name="error_loading_certificate_alias">Erreur lors de l\'extraction des alias des certificats du magasin</string>
     <string name="error_no_storage_permissions">Le client Signature ne dispose pas d\'autorisations d\'\u00e9criture sur disque.</string>
     <string name="error_no_device_to_store">Aucun r\u00e9pertoire trouv\u00e9 pour enregistrer la signature</string>
     <string name="error_no_certs">Aucun certificat n\'a \u00e9t\u00e9 trouv\u00e9 install\u00e9 sur votre appareil.</string>
@@ -62,7 +57,6 @@
     <string name="error_pin_nulo">Erreur, le code PIN de l\'identifiant est nul.</string>
     <string name="error_android_4_1">Android 4.1 et 4.1.1 n\'autorisent pas les noms de certificats \u00e0 contenir des caract\u00e8res sp\u00e9ciaux (espaces, tirets, etc.). Modifiez l\'alias de vos certificats lors de leur importation pour \u00e9viter cette erreur.</string>
     <string name="error_json">Erreur de travail avec JSON.</string>
-    <string name="data_saved">Le fichier a \u00e9t\u00e9 enregistr\u00e9 sous le nom %s</string>
     <string name="icon_ca">Icône de l\'autorit\u00e9 de certification</string>
     <string name="dialog_msg_loading_data">Chargement des donn\u00e9es</string>
     <string name="dialog_msg_loading_keystore">Chargement du magasin de cl\u00e9s</string>
@@ -107,6 +101,7 @@
     <string name="title_activity_main_test">MainActivityTest</string>
     <string name="allow_dni3_0_NFC">Autoriser la signature avec DNIe via NFC</string>
     <string name="do_visible_sign">Rendre la signature visible</string>
+    <string name="visible_sign">Signature visible</string>
     <string name="hide_user_id">Masquer les identifiants utilisateur des certificats de signature visibles</string>
     <string name="validate_SSL_connections">Valider les connexions</string>
     <string name="trusted_domains">Domaines de confiance</string>
@@ -217,6 +212,8 @@
     <string name="loading_certs">Chargement des certificats</string>
     <string name="local_sign_record">%1$s de fichier local %2$s</string>
     <string name="web_sign_record">%1$s Web demand\u00E9e par %2$s</string>
+    <string name="web_sign_record_file">%1$s web e fichier %2$s</string>
+    <string name="web_sign_record_appname_and_file">%1$s web demand\u00E9e par %2$s e fichier %3$s</string>
     <string name="batch_sign_record">Signature de lot Web demand\u00E9e par %s</string>
     <string name="sign">Signature</string>
     <string name="cosign">Cosigner</string>
@@ -227,8 +224,9 @@
     <string name="pdf_visible_sign_pseudonym_template">Sign\u00e9 par $$PSEUDONYM$$ - $$OUS$$ le $$SIGNDATE=dd/MM/yyyy$$</string>
     <string name="visible_sign_small">Signature visible trop petite</string>
     <string name="small_area_warning">La zone s\u00e9lectionn\u00e9e pour afficher la signature est de taille trop petite.</string>
+    <string name="select_sign_area">S\u00e9lectionnez une zone de signatura</string>
     <string name="reselect_area">Res\u00e9lectionner une zone</string>
     <string name="not_selected_area">Zone non s\u00e9lectionn\u00e9e</string>
-    <string name="not_selected_area_desc">Aucune zone n\'a \u00e9t\u00e9 s\u00e9lectionnée o\u00f9 faire la signature visible.</string>
+    <string name="not_selected_area_desc">Aucune zone n\'a \u00e9t\u00e9 s\u00e9lectionn\u00e9e o\u00f9 faire la signature visible.</string>
     <string name="web_operation">%s web</string>
-</resources>
+ </resources>

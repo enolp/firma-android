@@ -10,6 +10,8 @@
 
 package es.gob.afirma.android;
 
+import static es.gob.afirma.android.LocalSignActivity.DEFAULT_SIGNATURE_ALGORITHM;
+
 import android.app.PendingIntent;
 import android.content.Context;
 import android.os.Build;
@@ -47,8 +49,6 @@ import es.gob.afirma.signers.cades.CAdESExtraParams;
 import es.gob.afirma.signers.pades.common.BadPdfPasswordException;
 import es.gob.afirma.signers.pades.common.PdfExtraParams;
 import es.gob.afirma.signers.pades.common.PdfIsPasswordProtectedException;
-
-import static es.gob.afirma.android.LocalSignActivity.DEFAULT_SIGNATURE_ALGORITHM;
 
 /** Esta actividad abstracta integra las funciones necesarias para la ejecuci&oacute;n de
  * operaciones de firma en una actividad. La actividad integra la l&oacute;gica necesaria para
@@ -350,9 +350,10 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 	/**
 	 * Registra en un archivo datos sobre una firma que se haya realizado.
 	 * @param signType Tipo de firma: local, web o de lotes.
-	 * @param fileInfo Nombre de archivo, dominio o aplicaci;oacute;n desde la que se realiza la firma.
+	 * @param fileName Nombre de archivo.
+	 * @param appName Dominio o aplicaci;oacute;n desde la que se realiza la firma.
 	 */
-	protected void saveSignRecord(String signType, String fileInfo) {
+	protected void saveSignRecord(String signType, String fileName, String appName) {
 		File directory = getFilesDir();
 		String signsRecordFileName = "signsRecord.txt";
 		File signRecordFile = new File(directory, signsRecordFileName);
@@ -371,9 +372,11 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 			sb.append(";");
 			sb.append(signType);
 			sb.append(";");
-			sb.append(fileInfo);
-			sb.append(";");
 			sb.append(this.signOperation);
+			sb.append(";");
+			sb.append(fileName);
+			sb.append(";");
+			sb.append(appName);
 			sb.append("\n");
 			pw.write(sb.toString());
 			pw.close();
