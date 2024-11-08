@@ -214,6 +214,10 @@
     <string name="web_sign_record">Web %1$s requested by %2$s</string>
     <string name="web_sign_record_file">%1$s web of file %2$s</string>
     <string name="web_sign_record_appname_and_file">%1$s web requested by %2$s of file %3$s</string>
+    <string name="app_sign_record">%1$s requested by %2$s</string>
+    <string name="app_sign_record_file">%1$s requested by another app of file %2$s</string>
+    <string name="app_sign_record_appname_and_file">%1$s requested by %2$s of file %3$s</string>
+    <string name="app_batch_sign_record">Batch signature requested by %s</string>
     <string name="batch_sign_record">Web batch signature requested by %s</string>
     <string name="sign">Sign</string>
     <string name="cosign">Cosign</string>
@@ -229,4 +233,5 @@
     <string name="not_selected_area">Unselected area</string>
     <string name="not_selected_area_desc">No area has been selected where to make the visible signature.</string>
     <string name="web_operation">Web %s</string>
+    <string name="app_operation">%s requested by another app</string>
  </resources>

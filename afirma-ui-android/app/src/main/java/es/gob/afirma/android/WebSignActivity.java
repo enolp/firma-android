@@ -576,6 +576,8 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 
 		String appName = this.parameters.getAppName();
 
+		String signType = SIGN_TYPE_WEB;
+
 		// Devolvemos el error diractamente o a traves del servidor intermedio segun si se nos
 		// llamo desde una App o no
 		if (getIntent().getAction() != null && getIntent().getAction().equals(INTENT_ENTRY_ACTION)){
@@ -584,6 +586,7 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 			if (appName == null) {
 				appName = getCallingPackage();
 			}
+			signType = SIGN_TYPE_APP;
 			sendDataByIntent(encodedCert, signature.getSignature());
 		}
 		else {
@@ -594,7 +597,7 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 			}
 			catch (final Throwable e) {
 				Logger.e(ES_GOB_AFIRMA,
-						"Error desconocido la firma al servidor al servidor: " + e, e //$NON-NLS-1$
+						"Error desconocido enviando la firma al servidor: " + e, e //$NON-NLS-1$
 				);
 				onSendingDataError(e, true);
 			}
@@ -607,7 +610,7 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 		}
 
 		// Registramos los datos de la firma realizada
-		saveSignRecord(SIGN_TYPE_WEB, originalFileName, appName);
+		saveSignRecord(signType, originalFileName, appName);
 	}
 
 	private void sendDataByIntent (byte[] cert, byte[] signature) {

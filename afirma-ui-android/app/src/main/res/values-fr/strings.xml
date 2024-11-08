@@ -214,7 +214,11 @@
     <string name="web_sign_record">%1$s Web demand\u00E9e par %2$s</string>
     <string name="web_sign_record_file">%1$s web e fichier %2$s</string>
     <string name="web_sign_record_appname_and_file">%1$s web demand\u00E9e par %2$s e fichier %3$s</string>
-    <string name="batch_sign_record">Signature de lot Web demand\u00E9e par %s</string>
+    <string name="app_sign_record">%1$s demand\u00E9e par %2$s</string>
+    <string name="app_sign_record_file">%1$s demand\u00E9e par autre application e fichier %2$s</string>
+    <string name="app_sign_record_appname_and_file">%1$s demand\u00E9e par %2$s e fichier%3$s</string>
+    <string name="app_batch_sign_record">Signature de lot demand\u00E9e par %s</string>
+    <string name="batch_sign_record">Signature de lot web demand\u00E9e par %s</string>
     <string name="sign">Signature</string>
     <string name="cosign">Cosigner</string>
     <string name="countersign">Contreseign</string>
@@ -229,4 +233,5 @@
     <string name="not_selected_area">Zone non s\u00e9lectionn\u00e9e</string>
     <string name="not_selected_area_desc">Aucune zone n\'a \u00e9t\u00e9 s\u00e9lectionn\u00e9e o\u00f9 faire la signature visible.</string>
     <string name="web_operation">%s web</string>
- </resources>
+    <string name="app_operation">%s r\u00e9alis\u00e9e \u00e0 partir d\'une autre application</string>
+</resources>

@@ -214,6 +214,10 @@
     <string name="web_sign_record">%1$s web solicitada por %2$s</string>
     <string name="web_sign_record_file">%1$s web del fichero %2$s</string>
     <string name="web_sign_record_appname_and_file">%1$s web solicitada por %2$s del fichero %3$s</string>
+    <string name="app_sign_record">%1$s solicitada por %2$s</string>
+    <string name="app_sign_record_file">%1$s solicitada desde otra aplicaci\u00F3n del fichero %2$s</string>
+    <string name="app_sign_record_appname_and_file">%1$s solicitada por %2$s del fichero %3$s</string>
+    <string name="app_batch_sign_record">Firma de lote solicitada por %s</string>
     <string name="batch_sign_record">Firma de lote web solicitada por %s</string>
     <string name="sign">Firma</string>
     <string name="cosign">Cofirma</string>
@@ -229,4 +233,5 @@
     <string name="not_selected_area">\u00c1rea no seleccionada</string>
     <string name="not_selected_area_desc">No se ha seleccionado ning\u00fan \u00E1rea donde realizar la firma visible.</string>
     <string name="web_operation">%s web</string>
+    <string name="app_operation">%s realizada desde otra aplicaci\u00F3n</string>
  </resources>

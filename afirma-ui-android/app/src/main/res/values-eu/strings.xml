@@ -212,8 +212,12 @@
     <string name="loading_certs">Ziurtagiriak kargatzea</string>
     <string name="local_sign_record">%1$s fitxategiko lokal %2$s</string>
     <string name="web_sign_record">%1$s web, %2$s(e)k eskatua</string>
-    <string name="web_sign_record_file">%1$s web of file %2$s</string>
+    <string name="web_sign_record_file">%1$s web fitxategitik %2$s</string>
     <string name="web_sign_record_appname_and_file">%1$s web (e)k eskatua %2$s fitxategiko %3$s</string>
+    <string name="app_sign_record">%1$s eskatuta %2$s</string>
+    <string name="app_sign_record_file">%1$s beste aplikazio batetik eskatuta fitxategitik %2$s</string>
+    <string name="app_sign_record_appname_and_file">%1$s eskatuta %2$s fitxategitik %3$s</string>
+    <string name="app_batch_sign_record">Lotearen sinadura eskatuta %s</string>
     <string name="batch_sign_record">%s(e)k eskatutako web-lotearen sinadura</string>
     <string name="sign">Sinadura</string>
     <string name="cosign">Sinadura</string>
@@ -229,4 +233,5 @@
     <string name="not_selected_area">Hautatu gabeko eremua</string>
     <string name="not_selected_area_desc">Ez da sinadura ikusgai jartzeko eremurik hautatu.</string>
     <string name="web_operation">Web %s</string>
+    <string name="app_operation">Beste aplikazio batetik egindako %s</string>
 </resources>

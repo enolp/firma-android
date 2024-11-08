@@ -214,6 +214,10 @@
     <string name="web_sign_record">%1$s web sol·licitada per %2$s</string>
     <string name="web_sign_record_file">%1$s web del fitxer %2$s</string>
     <string name="web_sign_record_appname_and_file">%1$s web sol·licitada per %2$s del fitxer %3$s</string>
+    <string name="app_sign_record">%1$s sol·licitada por %2$s</string>
+    <string name="app_sign_record_file">%1$s sol·licitada des d\'una altra aplicaci\u00F3 del fitxer %2$s</string>
+    <string name="app_sign_record_appname_and_file">%1$s sol·licitada per %2$s del fitxer %3$s</string>
+    <string name="app_batch_sign_record">Signa de lot sol·licitada per %s</string>
     <string name="batch_sign_record">Signa de lot web sol·licitada per %s</string>
     <string name="sign">Signa</string>
     <string name="cosign">Cosignatura</string>
@@ -229,4 +233,5 @@
     <string name="not_selected_area">\u00c0rea no seleccionada</string>
     <string name="not_selected_area_desc">No s\'ha seleccionat cap lloc on realitzar la signatura visible.</string>
     <string name="web_operation">%s web</string>
+    <string name="app_operation">%s realitzada des d\'una altra aplicaci\u00F3</string>
 </resources>

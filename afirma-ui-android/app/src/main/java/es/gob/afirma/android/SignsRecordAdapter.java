@@ -1,8 +1,10 @@
 package es.gob.afirma.android;
 
+import static es.gob.afirma.android.SignFragmentActivity.SIGN_TYPE_APP;
 import static es.gob.afirma.android.SignFragmentActivity.SIGN_TYPE_LOCAL;
 import static es.gob.afirma.android.SignFragmentActivity.SIGN_TYPE_WEB;
 import static es.gob.afirma.android.batch.SignBatchFragmentActivity.SIGN_TYPE_BATCH;
+import static es.gob.afirma.android.batch.SignBatchFragmentActivity.SIGN_TYPE_BATCH_APP;
 import static es.gob.afirma.android.crypto.SignTask.OP_COSIGN;
 import static es.gob.afirma.android.crypto.SignTask.OP_COUNTERSIGN;
 import static es.gob.afirma.android.crypto.SignTask.OP_SIGN;
@@ -68,6 +70,19 @@ public class SignsRecordAdapter extends BaseAdapter {
             case SIGN_TYPE_LOCAL:
                 recordDescTv.setText(context.getString(R.string.local_sign_record, signOp, signRecord.getFileName()));
                 break;
+            case SIGN_TYPE_APP:
+                if (signRecord.getAppName() != null && !"null".equals(signRecord.getAppName())) {
+                    if(signRecord.getFileName() != null && !"null".equals(signRecord.getFileName())) {
+                        recordDescTv.setText(context.getString(R.string.app_sign_record_appname_and_file, signOp, signRecord.getAppName(), signRecord.getFileName()));
+                    } else {
+                        recordDescTv.setText(context.getString(R.string.app_sign_record, signOp, signRecord.getAppName()));
+                    }
+                } else if(signRecord.getFileName() != null && !"null".equals(signRecord.getFileName())) {
+                    recordDescTv.setText(context.getString(R.string.app_sign_record_file, signOp, signRecord.getFileName()));
+                } else {
+                    recordDescTv.setText(context.getString(R.string.app_operation, signOp));
+                }
+                break;
             case SIGN_TYPE_WEB:
                 if (signRecord.getAppName() != null && !"null".equals(signRecord.getAppName())) {
                     if(signRecord.getFileName() != null && !"null".equals(signRecord.getFileName())) {
@@ -84,6 +99,13 @@ public class SignsRecordAdapter extends BaseAdapter {
             case SIGN_TYPE_BATCH:
                 if (signRecord.getAppName() != null && !"null".equals(signRecord.getAppName())) {
                     recordDescTv.setText(context.getString(R.string.batch_sign_record, signRecord.getAppName()));
+                } else {
+                    recordDescTv.setText(context.getString(R.string.title_activity_sign_batch));
+                }
+                break;
+            case SIGN_TYPE_BATCH_APP:
+                if (signRecord.getAppName() != null && !"null".equals(signRecord.getAppName())) {
+                    recordDescTv.setText(context.getString(R.string.app_batch_sign_record, signRecord.getAppName()));
                 } else {
                     recordDescTv.setText(context.getString(R.string.title_activity_sign_batch));
                 }

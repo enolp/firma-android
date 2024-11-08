@@ -405,6 +405,7 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 			}
 		}
 		String appName = getBatchParams().getAppName();
+		String signType = SIGN_TYPE_BATCH;
 		// Si la aplicacion se ha llamado desde intent de firma devolvemos datos a la aplicacion llamante
 		if (getIntent().getAction() != null && getIntent().getAction().equals(INTENT_ENTRY_ACTION)){
 			Logger.i(ES_GOB_AFIRMA, "Devolvemos datos a la app solicitante"); //$NON-NLS-1$
@@ -412,6 +413,7 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 			if (appName == null) {
 				appName = getCallingPackage();
 			}
+			signType = SIGN_TYPE_BATCH_APP;
 			sendDataByIntent(signingCertEncoded, batchResult);
 		}
 		else {
@@ -428,7 +430,7 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 			}
 		}
 
-		saveSignRecord(SIGN_TYPE_BATCH, appName);
+		saveSignRecord(signType, appName);
 	}
 
 	/** Comprueba si esta abierto el di&aacute;logo de espera y lo cierra en dicho caso. */

@@ -55,6 +55,7 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 	private final static String ES_GOB_AFIRMA = "es.gob.afirma"; //$NON-NLS-1$
 
 	public static final String SIGN_TYPE_BATCH = "BATCH";
+	public static final String SIGN_TYPE_BATCH_APP = "BATCH_APP";
 
 	private UrlParametersForBatch batchParams;
 	private PrivateKeyEntry pke;
