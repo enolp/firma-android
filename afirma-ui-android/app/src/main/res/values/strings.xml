@@ -234,4 +234,15 @@
     <string name="not_selected_area_desc">No se ha seleccionado ning\u00fan \u00E1rea donde realizar la firma visible.</string>
     <string name="web_operation">%s web</string>
     <string name="app_operation">%s realizada desde otra aplicaci\u00F3n</string>
- </resources>
+    <string name="how_to_configure_trusted_domains">C\u00F3mo configurar dominios de confianza</string>
+    <string name="how_to_do_visible_sign">C\u00F3mo hacer firma visible</string>
+    <string name="trusted_domains_help_text_1">En algunas ocasiones, Autofirma App puede necesitar acceder a servicios externos a trav\u00E9s de una conexi\u00F3n SSL. Por defecto, se validar\u00E1 que el certificado SSL empleado lo haya expedido para el dominio en cuesti\u00F3n una de las autoridades de confianza registradas en el sistema o en la aplicaci\u00F3n. En caso contrario, se rechazar\u00E1 la conexi\u00F3n. Esta validaci\u00F3n puede desactivarse en el apartado \'Validar conexiones SSL\' dentro de la secci\u00F3n \'Dominios de confianza\'.</string>
+    <string name="trusted_domains_help_text_2">En esta misma secci\u00F3n, se permiten configurar algunos dominios como \'seguros\' indic\u00E1ndolos en su apartado correspondiente. Los dominios incluidos aqu\u00ED omitir\u00E1n la comprobaci\u00F3n de certificados en conexiones SSL.</string>
+    <string name="visible_sign_help_text_1">Autofirma App permite realizar firmas visibles de documentos PDF donde aparecer\u00E1n los datos del certificado del firmante, su emisor y la fecha y hora de firma. Este tipo de firmas se pueden activar en la secci\u00F3n \'Configuraci\u00F3n de firma\' seleccionado el apartado \'Hacer firma visible\'.</string>
+    <string name="visible_sign_help_text_2">Si no desea que su DNI/NIE aparezca visible en el texto de la firma, puede ocultarlo parcialmente activando la opci\u00F3n \'Ofuscar identificadores de usuario de los certificados de las firmas visibles\'.</string>
+    <string name="visible_sign_help_text_3">Durante la firma del documento se le mostrar\u00E1 una miniatura del mismo y controles que le permitir\u00E1n navegar entre sus p\u00E1ginas y seleccionar la posici\u00F3n en la que desea incluir la firma.</string>
+    <string name="activate_use_dnie_with_nfc">Activar el uso del DNIe por NFC</string>
+    <string name="dnie_with_nfc_help_text_1">Autofirma App permite firmar mediante DNI electr\u00F3nico a trav\u00E9s de NFC. Para permitir firmas con DNIe, debe habilitar la conexi\u00F3n NFC de su dispositivo y activar la opci\u00F3n \'Permitir firmar con DNIe por NFC\' en la secci\u00F3n de \'Configuraci\u00F3n de firma\' dentro de Autofirma App.</string>
+    <string name="dnie_with_nfc_help_text_2">Una vez activado, al realizar una firma se le permitir\u00E1 seleccionar si desea firmar con certificado electr\u00F3nico o con su DNI electr\u00F3nico.</string>
+    <string name="go_to_configuration">Ir a configuraci\u00F3n\u00A0</string>
+</resources>

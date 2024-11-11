@@ -96,6 +96,18 @@
             android:exported="true">
         </activity>
         <activity
+            android:name=".android.ActivateDnieWithNFCHelpActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".android.VisibleSignHelpActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".android.TrustedDomainsHelpActivity"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".android.VersionActivity"
             android:exported="true">
         </activity>

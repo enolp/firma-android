@@ -234,4 +234,15 @@
     <string name="not_selected_area_desc">Ez da sinadura ikusgai jartzeko eremurik hautatu.</string>
     <string name="web_operation">Web %s</string>
     <string name="app_operation">Beste aplikazio batetik egindako %s</string>
+    <string name="how_to_configure_trusted_domains">Nola konfiguratu konfiantza-domeinuak</string>
+    <string name="how_to_do_visible_sign">Nola egin sinadura ikusgai</string>
+    <string name="trusted_domains_help_text_1">Batzuetan, Autofirma App-ek kanpoko zerbitzuetara sartu behar izan dezake SSL konexio baten bidez. Besterik adierazi ezean, erabilitako SSL ziurtagiria sisteman edo aplikazioan erregistratutako konfiantzazko agintaritzetako batek egin duela egiaztatuko da. Bestela, konexioa baztertu egingo da. Baliozkotze hori \'SSL konexioak baliozkotu\' atalean desaktiba daiteke \'Konfiantza-domeinuak\' atalaren barruan.</string>
+    <string name="trusted_domains_help_text_2">Atal honetan bertan, \'aseguruak\' gisa konfigura daitezke domeinu batzuk, dagokien atalean adierazita. Hemen jasotako domeinuek ez dute ziurtagiririk egiaztatuko SSL konexioetan.</string>
+    <string name="visible_sign_help_text_1">Autofirma App-ek PDF dokumentuen sinadura ikusgarriak egiteko aukera ematen du. Dokumentu horietan, sinatzailearen ziurtagiriaren datuak, igorlea eta sinatze-data eta -ordua agertzen dira. Sinadura-mota hori \'Sinaduraren konfigurazioa\' atalean aktiba daiteke, \'Sinadura ikusgarria egin\' atala hautatuta.</string>
+    <string name="visible_sign_help_text_2">Zure NANa/AIZa sinaduraren testuan bistaratzea nahi ez baduzu, partzialki ezkuta dezakezu \'Ikus daitezkeen sinaduren ziurtagirien erabiltzaile-identifikatzaileak ezabatu\' aukera aktibatuta.</string>
+    <string name="visible_sign_help_text_3">Dokumentua sinatzean, haren miniatura bat erakutsiko zaizu, bai eta haren orrietan nabigatu eta sinadura zer posiziotan sartu nahi duzun hautatzeko kontrolak ere.</string>
+    <string name="activate_use_dnie_with_nfc">Aktibatu NAN-aren erabilera NFCren bidez</string>
+    <string name="dnie_with_nfc_help_text_1">Autofirma App-ek NAN elektronikoaren bidez NFCren bidez sinatzeko aukera ematen du. NANa duten sinadurak onartzeko, gailuaren NFC konexioa gaitu behar duzu, eta Autofirma App-eko Sinadura konfiguratzea atalean Baimendu NANarekin eta NFCrekin sinatzea aukera aktibatu.</string>
+    <string name="dnie_with_nfc_help_text_2">Aktibatu ondoren, sinadura bat egitean, hautatu ahal izango duzu ziurtagiri elektronikoarekin edo NAN elektronikoarekin sinatu nahi duzun.</string>
+    <string name="go_to_configuration">Joan konfiguraziora\u00A0</string>
 </resources>

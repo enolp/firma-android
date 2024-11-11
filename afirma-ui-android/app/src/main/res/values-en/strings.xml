@@ -152,7 +152,7 @@
     <string name="legal_announcement">Legal notice</string>
     <string name="appversion">Version v%s</string>
     <string name="question_1"> How can I make electronic signatures with this program?</string>
-    <string name="response_1"><p>Autofirma App Android allows you to sign with your certified web formalities compatible with the application.</p><p>To sign a formality, please fill it normally through your web browser. If the procedure is ready for signature with AutoSigning App, it will be executed at the time of signature for the user to select their certificate and run the operation.</p><p>Remember that before starting the procedure you must have imported your signature certificate in AutoSigning App.</p></string>
+    <string name="response_1"><p>Autofirma App Android allows you to sign with your certified web formalities compatible with the application.</p><p>To sign a formality, please fill it normally through your web browser. If the procedure is ready for signature with Autofirma App, it will be executed at the time of signature for the user to select their certificate and run the operation.</p><p>Remember that before starting the procedure you must have imported your signature certificate in Autofirma App.</p></string>
     <string name="question_2">Signing some web formalities fail, while that same procedure works on other devices. Why?</string>
     <string name="response_2">Autofirma App still lacks certain features that are present in versions for other operating systems. Future product updates will address these shortcomings. In the meantime, use another system and notify the person responsible for the web process if they deem it necessary.</string>
     <string name="question_3"> Are my certificates at risk if I lose the device?</string>
@@ -234,4 +234,15 @@
     <string name="not_selected_area_desc">No area has been selected where to make the visible signature.</string>
     <string name="web_operation">Web %s</string>
     <string name="app_operation">%s requested by another app</string>
- </resources>
+    <string name="how_to_configure_trusted_domains">How to set trusted domains</string>
+    <string name="how_to_do_visible_sign">How to make visible signature</string>
+    <string name="trusted_domains_help_text_1">Autofirma App may sometimes need to access external services via an SSL connection. By default, it shall be validated that the SSL certificate used has been issued for the domain concerned by one of the trusted authorities registered in the system or in the application. Otherwise, the connection shall be rejected. This validation can be disabled in the \'Validate SSL connections\' section within the \'Trusted domains\' section.</string>
+    <string name="trusted_domains_help_text_2">In this same section, some domains are allowed to be set as \'insurance\' by indicating them in their respective section. The domains included here will skip the certificate check on SSL connections.</string>
+    <string name="visible_sign_help_text_1">Self-signature App allows you to make visible signatures of PDF documents where the signatory\'s certificate data, its issuer and the date and time of signature will appear. This type of signatures can be activated in the section \'Signature configuration\' selected the section \'Make visible signature\'.</string>
+    <string name="visible_sign_help_text_2">If you do not want your DNI/NIE to be visible in the signature text, you can partially hide it by activating the option \'Ofuscar user identifiers of the visible signatures certificates\'.</string>>
+    <string name="visible_sign_help_text_3">During the signing of the document you will be shown a miniature of the document and controls that will allow you to browse between your pages and select the position in which you want to include the signature.</string>
+    <string name="activate_use_dnie_with_nfc">Enable DNIe usage by NFC</string>
+    <string name="dnie_with_nfc_help_text_1">Autofirma App allows you to sign via electronic ID via NFC. To enable signatures with DNIe, you must enable the NFC connection of your device and enable the Enable To Sign with DNIe by NFC option in the Signature Settings section within Autofirma App.</string>
+    <string name="dnie_with_nfc_help_text_2">Once activated, you will be allowed to select if you want to sign with electronic certificate or with your electronic ID.</string>
+    <string name="go_to_configuration">Go to configuration\u00A0</string>
+</resources>

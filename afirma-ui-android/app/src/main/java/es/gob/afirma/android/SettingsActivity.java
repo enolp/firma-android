@@ -45,7 +45,7 @@ public class SettingsActivity extends AppCompatActivity {
         String lang = AppConfig.getLocaleConfig(this);
         selectLangTv.setText(lang.toUpperCase());
 
-        // Permisos
+        // Configuracion de la firma
         TextView signConfigTv = this.findViewById(R.id.signConfigTv);
         signConfigTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +81,36 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), FaqActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Activar uso de DNIe por NFC
+        TextView activateDnieWithNFCTv = this.findViewById(R.id.activateDnieWithNFCTv);
+        activateDnieWithNFCTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ActivateDnieWithNFCHelpActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Como hacer firma visible
+        TextView visibleSignTv = this.findViewById(R.id.howToDoVisibleSignTv);
+        visibleSignTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), VisibleSignHelpActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Como configurar dominios de confianza
+        TextView howConfTrustedDomains = this.findViewById(R.id.howToConfigureTrustedDomainsTv);
+        howConfTrustedDomains.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), TrustedDomainsHelpActivity.class);
                 startActivity(intent);
             }
         });
