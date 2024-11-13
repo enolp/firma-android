@@ -61,6 +61,7 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 	private final static String ES_GOB_AFIRMA = "es.gob.afirma"; //$NON-NLS-1$
 	public static final String SIGN_TYPE_LOCAL = "LOCAL";
 	public static final String SIGN_TYPE_WEB = "WEB";
+	public static final String SIGN_TYPE_APP = "APP";
 
 	private String signOperation;
 	protected byte[] dataToSign;
