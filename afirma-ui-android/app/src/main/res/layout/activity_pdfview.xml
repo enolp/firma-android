@@ -71,14 +71,14 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="5dp"
-            android:background="@drawable/first_page_btn_24" />
+            style="@style/ButtonFirstPage" />
 
         <Button
             android:id="@+id/prevPageBtn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="5dp"
-            android:background="@drawable/previous_page_btn_24" />
+            style="@style/ButtonPreviousPage" />
 
         <TextView
             android:id="@+id/pageNumberTv"
@@ -87,21 +87,21 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:textColor="@color/black"
-            android:fontFamily="@font/nunitosans"/>
+            android:fontFamily="@font/nunitosans" />
 
         <Button
             android:id="@+id/nextPageBtn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="5dp"
-            android:background="@drawable/next_page_btn_24" />
+            style="@style/ButtonNextPage" />
 
         <Button
             android:id="@+id/lastPageBtn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="5dp"
-            android:background="@drawable/last_page_btn_24" />
+            style="@style/ButtonLastPage" />
 
     </LinearLayout>
 

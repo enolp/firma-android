@@ -10,6 +10,9 @@
 
 package es.gob.afirma.android;
 
+import static es.gob.afirma.signers.pades.common.PdfExtraParams.HEADLESS;
+import static es.gob.afirma.signers.pades.common.PdfExtraParams.VISIBLE_SIGNATURE;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -40,6 +43,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.GeneralSecurityException;
+import java.util.Properties;
 
 import es.gob.afirma.R;
 import es.gob.afirma.android.crypto.AndroidHttpManager;
@@ -47,6 +51,7 @@ import es.gob.afirma.android.crypto.CipherDataManager;
 import es.gob.afirma.android.crypto.MSCBadPinException;
 import es.gob.afirma.android.crypto.SelectKeyAndroid41BugException;
 import es.gob.afirma.android.crypto.SignResult;
+import es.gob.afirma.android.gui.AppConfig;
 import es.gob.afirma.android.gui.DownloadFileTask;
 import es.gob.afirma.android.gui.DownloadFileTask.DownloadDataListener;
 import es.gob.afirma.android.gui.MessageDialog;
@@ -60,6 +65,8 @@ import es.gob.afirma.core.misc.protocol.ProtocolInvocationUriParser;
 import es.gob.afirma.core.misc.protocol.UrlParametersToSign;
 import es.gob.afirma.core.signers.AOSignConstants;
 import es.gob.afirma.core.signers.ExtraParamsProcessor;
+import es.gob.afirma.signers.cades.CAdESExtraParams;
+import es.gob.afirma.signers.pades.common.PdfExtraParams;
 
 /** Actividad dedicada a la firma de los datos recibidos en la entrada mediante un certificado
  * del almac&eacute;n central seleccionado por el usuario. */
@@ -80,6 +87,12 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 	
 	/** C&oacute;digo de petici&oacute;n usado para invocar a la actividad que selecciona el fichero para firmar. */
 	private static final int SELECT_FILE_REQUEST_CODE = 102;
+
+	/** C&oacute;digo de solicitud de firma visible. */
+	private final static int REQUEST_VISIBLE_SIGN_PARAMS = 105;
+
+	/** Error cargando PDF para firma visible. */
+	final static int ERROR_REQUEST_VISIBLE_SIGN = 106;
 
 	private boolean fileChooserOpenned;
 
@@ -232,13 +245,24 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 					AOSignConstants.SIGN_FORMAT_PADES.equals(this.parameters.getSignatureFormat())) {
 				this.parameters.expandExtraParams();
 			}
-			sign(
-					this.parameters.getOperation(),
-					this.parameters.getData(),
-					this.parameters.getSignatureFormat(),
-					this.parameters.getSignatureAlgorithm(),
-					false,
-					this.parameters.getExtraParams());
+
+			// Comprobamos si se debe mostrar el dialogo para seleccionar el area de firma visible o no
+			boolean showPdfSignVisiblePreview = checkSignVisiblePreviewExtraParams();
+
+			if (showPdfSignVisiblePreview) {
+				// Previsualizacion de PDF
+				Intent intent = new Intent(this, PdfSelectPreviewActivity.class);
+				intent.putExtra("filePath", this.fileName);
+				startActivityForResult(intent, REQUEST_VISIBLE_SIGN_PARAMS);
+			} else {
+				sign(
+						this.parameters.getOperation(),
+						this.parameters.getData(),
+						this.parameters.getSignatureFormat(),
+						this.parameters.getSignatureAlgorithm(),
+						false,
+						this.parameters.getExtraParams());
+			}
 		}
 	}
 
@@ -727,6 +751,47 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 				}
 			}
 		}
+		else if (requestCode == REQUEST_VISIBLE_SIGN_PARAMS) {
+
+			if (resultCode == RESULT_OK) {
+
+				Properties extraParams = new Properties();
+				extraParams.setProperty(CAdESExtraParams.MODE, "implicit");
+
+				if(data.hasExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTX)
+						&& data.hasExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTY)
+						&& data.hasExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTX)
+						&& data.hasExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTY)) {
+					// Ofuscacion de los datos del certificado de firma
+					final boolean obfuscate = AppConfig.isPadesObfuscateCertInfo(this);
+					extraParams.setProperty(PdfExtraParams.OBFUSCATE_CERT_DATA, Boolean.toString(obfuscate));
+
+					extraParams.setProperty(PdfExtraParams.SIGNATURE_PAGES, data.getStringExtra(PdfExtraParams.SIGNATURE_PAGES));
+					extraParams.setProperty(PdfExtraParams.LAYER2_TEXT, getString(R.string.pdf_visible_sign_template));
+
+					extraParams.setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTX, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTX));
+					extraParams.setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTY, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTY));
+					extraParams.setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTX, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTX));
+					extraParams.setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTY, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTY));
+				}
+
+				sign(
+						this.parameters.getOperation(),
+						this.parameters.getData(),
+						this.parameters.getSignatureFormat(),
+						this.parameters.getSignatureAlgorithm(),
+						false,
+						this.parameters.getExtraParams());
+			}
+			else if (resultCode == RESULT_CANCELED) {
+				launchError(ErrorManager.ERROR_CANCELLED_OPERATION, false);
+				return;
+			} else if (resultCode == ERROR_REQUEST_VISIBLE_SIGN) {
+				showErrorMessage(getString(R.string.error_loading_selected_file, this.fileName));
+				launchError(ErrorManager.ERROR_INVALID_DATA, true);
+				return;
+			}
+		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
@@ -818,6 +883,28 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 			}
 		}
 		return baos.toByteArray();
+	}
+
+	/** Comprueba si en los extraParams se indica que si debe mostrar la pantalla para realizar la firma visible.
+	 * @return  Devuelve true en caso de que se deba mostrar o false en caso contrario. */
+	private boolean checkSignVisiblePreviewExtraParams() {
+		Properties extraParams = parameters.getExtraParams();
+		boolean visibleSignature = extraParams.containsKey(VISIBLE_SIGNATURE) ? Boolean.parseBoolean( (String) extraParams.get(VISIBLE_SIGNATURE))
+				: false;
+		boolean headless = extraParams.containsKey(HEADLESS) ? Boolean.parseBoolean( (String) extraParams.get(HEADLESS))
+				: false;
+
+		// Comprobamos si se debe mostrar el dialogo para seleccionar el area de firma visible o no
+		if ((AOSignConstants.SIGN_FORMAT_PADES.equals(this.parameters.getSignatureFormat())
+				|| AOSignConstants.SIGN_FORMAT_PADES_TRI.equals(this.parameters.getSignatureFormat())
+				|| AOSignConstants.SIGN_FORMAT_PDF.equals(this.parameters.getSignatureFormat())
+				|| AOSignConstants.SIGN_FORMAT_PDF_TRI.equals(this.parameters.getSignatureFormat()))
+				&& visibleSignature
+				&& !headless) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/** Accion para el cierre de la actividad. */

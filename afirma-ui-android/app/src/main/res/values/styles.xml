@@ -145,5 +145,20 @@
 		<item name="android:textColor">@android:color/holo_red_dark</item>
 	</style>
 
+	<style name="ButtonFirstPage">
+		<item name="android:background">@drawable/first_page_btn_selector</item>
+	</style>
+
+	<style name="ButtonPreviousPage">
+		<item name="android:background">@drawable/previous_page_btn_selector</item>
+	</style>
+
+	<style name="ButtonNextPage">
+		<item name="android:background">@drawable/next_page_btn_selector</item>
+	</style>
+
+	<style name="ButtonLastPage">
+		<item name="android:background">@drawable/last_page_btn_selector</item>
+	</style>
     
 </resources>
