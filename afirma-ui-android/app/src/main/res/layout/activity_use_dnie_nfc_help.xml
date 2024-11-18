@@ -17,7 +17,7 @@
         android:theme="@style/ToolbarTheme"
         app:navigationIcon="@drawable/nav_back_selector"
         app:titleCentered="true"
-        app:title="@string/activate_use_dnie_with_nfc"
+        app:title="@string/activate_use_dnie_with_nfc_1"
         app:titleTextAppearance="@style/ToolbarTitle"
         app:titleTextColor="@color/black"
         />
@@ -58,11 +58,11 @@
                 android:text="@string/dnie_with_nfc_help_text_2"
                 android:paddingStart="8dp"/>
 
-
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:src="@drawable/dnie_with_nfc_help_2"
                 android:background="@drawable/image_help_border"
                 />

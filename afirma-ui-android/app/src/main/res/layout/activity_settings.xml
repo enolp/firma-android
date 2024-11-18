@@ -232,7 +232,7 @@
                 android:drawablePadding="10dp"
                 android:drawableLeft="@drawable/baseline_nfc_24"
                 android:background="@drawable/option_selector"
-                android:text="@string/activate_use_dnie_with_nfc"
+                android:text="@string/activate_use_dnie_with_nfc_1"
                 android:textColor="@color/black"
                 android:paddingStart="8dp"/>
 

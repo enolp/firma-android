@@ -13,7 +13,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import es.gob.afirma.BuildConfig;
 import es.gob.afirma.R;
 import es.gob.afirma.android.gui.AppConfig;
-import es.gob.afirma.android.gui.CertImportInstructionsActivity;
+import es.gob.afirma.android.gui.ImportCertsHelpActivity;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -120,7 +120,7 @@ public class SettingsActivity extends AppCompatActivity {
         installCertsTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), CertImportInstructionsActivity.class);
+                Intent intent = new Intent(getBaseContext(), ImportCertsHelpActivity.class);
                 startActivityForResult(intent, 2);
             }
         });

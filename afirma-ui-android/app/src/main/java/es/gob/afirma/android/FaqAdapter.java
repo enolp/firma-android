@@ -1,6 +1,7 @@
 package es.gob.afirma.android;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,7 +86,7 @@ public class FaqAdapter extends BaseExpandableListAdapter {
         String item = (String) getChild(groupPosition, childPosition);
         convertView = LayoutInflater.from(context).inflate(R.layout.faq_child, null);
         TextView tvChild =  convertView.findViewById(R.id.faqChild);
-        tvChild.setText(item);
+        tvChild.setText(Html.fromHtml(item));
 
         return convertView;
     }

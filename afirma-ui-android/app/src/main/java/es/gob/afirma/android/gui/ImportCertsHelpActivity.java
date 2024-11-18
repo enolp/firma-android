@@ -1,4 +1,4 @@
-package es.gob.afirma.android;
+package es.gob.afirma.android.gui;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -16,14 +16,14 @@ import com.google.android.material.appbar.MaterialToolbar;
 
 import es.gob.afirma.R;
 
-public class TrustedDomainsHelpActivity extends AppCompatActivity {
+public class ImportCertsHelpActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trusted_domains_help);
+        setContentView(R.layout.activity_import_certs_help);
 
-        MaterialToolbar toolbar = this.findViewById(R.id.trustedDomainsHelpToolbar);
+        MaterialToolbar toolbar = this.findViewById(R.id.importCertsHelpToolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,9 +31,9 @@ public class TrustedDomainsHelpActivity extends AppCompatActivity {
             }
         });
 
-        Button goToConfigBtn = this.findViewById(R.id.goToConfigBtn);
+        Button goToConfigBtn = this.findViewById(R.id.goToImportCertsBtn);
 
-        String text = getString(R.string.go_to_configuration);
+        String text = getString(R.string.go_to_import_cert);
 
         SpannableString spannableString = new SpannableString(text + " ");
         Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.baseline_open_in_new_white_24, getTheme());
@@ -41,13 +41,13 @@ public class TrustedDomainsHelpActivity extends AppCompatActivity {
             drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
             ImageSpan imageSpan = new ImageSpan(drawable, ImageSpan.ALIGN_BASELINE);
             spannableString.setSpan(imageSpan, text.length(), text.length() + 1, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-        }
+         }
         goToConfigBtn.setText(spannableString);
 
         goToConfigBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), TrustedDomainsActivity.class);
+                Intent intent = new Intent(getBaseContext(), CertImportInstructionsActivity.class);
                 startActivity(intent);
             }
         });
