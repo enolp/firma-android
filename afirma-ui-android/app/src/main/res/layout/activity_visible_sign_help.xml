@@ -83,7 +83,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunitosans"
-                android:text="@string/activate_use_dnie_with_nfc_2"
+                android:text="@string/visible_sign_help_text_4"
                 android:paddingStart="8dp"/>
 
         </LinearLayout>

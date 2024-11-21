@@ -40,25 +40,23 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunitosans"
                 android:text="@string/import_certs_help_text_1"
-                android:paddingStart="8dp"/>
-
-            <ImageView
-                android:layout_width="350dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_gravity="center"
-                android:src="@drawable/import_certs_help_1"
-                android:background="@drawable/image_help_border"
-                />
+                android:paddingStart="6dp"/>
 
             <TextView
                 android:id="@+id/p2Tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunitosans"
-                android:text="@string/import_certs_help_text_2"
-                android:paddingStart="8dp"/>
+                android:paddingStart="6dp"
+                android:text="@string/import_certs_help_text_2" />
+
+            <TextView
+                android:id="@+id/p3Tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans"
+                android:paddingStart="6dp"
+                android:text="@string/import_certs_help_text_3" />
 
             <Button
                 android:id="@+id/goToImportCertsBtn"
