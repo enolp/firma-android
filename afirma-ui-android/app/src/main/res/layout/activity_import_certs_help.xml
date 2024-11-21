@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/import_certs_help_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/importCertsHelpToolbar"
+        android:layout_width="match_parent"
+        android:touchscreenBlocksFocus="false"
+        app:popupTheme="@style/AppTheme"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ToolbarTheme"
+        app:navigationIcon="@drawable/nav_back_selector"
+        app:titleCentered="true"
+        app:title="@string/how_install_certs"
+        app:titleTextAppearance="@style/ToolbarTitle"
+        app:titleTextColor="@color/black"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:theme="@style/TextViewSettingsTheme"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/p1Tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans"
+                android:text="@string/import_certs_help_text_1"
+                android:paddingStart="6dp"/>
+
+            <TextView
+                android:id="@+id/p2Tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans"
+                android:paddingStart="6dp"
+                android:text="@string/import_certs_help_text_2" />
+
+            <TextView
+                android:id="@+id/p3Tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans"
+                android:paddingStart="6dp"
+                android:text="@string/import_certs_help_text_3" />
+
+            <Button
+                android:id="@+id/goToImportCertsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:onClick="onClick"
+                style="@style/ButtonRedLarge" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+</LinearLayout>

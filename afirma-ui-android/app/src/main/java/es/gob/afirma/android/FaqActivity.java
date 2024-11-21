@@ -47,12 +47,10 @@ public class FaqActivity extends AppCompatActivity {
         questionsList.add(getResources().getString(R.string.question_1));
         questionsList.add(getResources().getString(R.string.question_2));
         questionsList.add(getResources().getString(R.string.question_3));
-        questionsList.add(getResources().getString(R.string.question_4));
 
-        mapChild.put(questionsList.get(0), getResources().getString(R.string.response_1));
+        mapChild.put(questionsList.get(0), String.valueOf(getResources().getString(R.string.response_1)));
         mapChild.put(questionsList.get(1), getResources().getString(R.string.response_2));
         mapChild.put(questionsList.get(2), getResources().getString(R.string.response_3));
-        mapChild.put(questionsList.get(3), getResources().getString(R.string.response_4));
 
         adapter = new FaqAdapter(questionsList, mapChild,this);
         expLV.setAdapter(adapter);
