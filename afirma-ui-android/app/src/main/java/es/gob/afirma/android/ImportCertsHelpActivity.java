@@ -1,4 +1,4 @@
-package es.gob.afirma.android.gui;
+package es.gob.afirma.android;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -47,8 +47,11 @@ public class ImportCertsHelpActivity extends AppCompatActivity {
         goToConfigBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), CertImportInstructionsActivity.class);
-                startActivity(intent);
+                Intent replyIntent = new Intent(getBaseContext(), HomeActivity.class);
+                replyIntent.putExtra("startImportCert", true);
+                setResult(RESULT_OK, replyIntent);
+                startActivity(replyIntent);
+                finish();
             }
         });
     }

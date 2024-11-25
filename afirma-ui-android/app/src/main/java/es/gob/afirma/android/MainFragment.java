@@ -11,8 +11,9 @@
 package es.gob.afirma.android;
 
 
+import static android.app.Activity.RESULT_OK;
+
 import android.Manifest;
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -43,7 +44,6 @@ import java.io.InputStream;
 
 import es.gob.afirma.R;
 import es.gob.afirma.android.gui.AppConfig;
-import es.gob.afirma.android.gui.CertImportInstructionsActivity;
 import es.gob.afirma.android.gui.ConfigNfcDialog;
 import es.gob.afirma.android.gui.CustomDialog;
 
@@ -188,8 +188,7 @@ public final class MainFragment extends Fragment implements DialogInterface.OnCl
 					requestStoragePerm();
 				}
 				else {
-					Intent intent = new Intent(getContext(), CertImportInstructionsActivity.class);
-					startActivityForResult(intent, IMPORT_CERT_INSTRUCTIONS_CODE);
+					startCertImport();
 				}
 			}
 		});
@@ -273,7 +272,7 @@ public final class MainFragment extends Fragment implements DialogInterface.OnCl
 	@Override
 	public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
 
-		if (requestCode == SELECT_CERT_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+		if (requestCode == SELECT_CERT_REQUEST_CODE && resultCode == RESULT_OK) {
 			byte[] fileContent;
 			String filename = null;
 			try {
@@ -303,13 +302,13 @@ public final class MainFragment extends Fragment implements DialogInterface.OnCl
 			final Intent intent = KeyChain.createInstallIntent();
 			intent.putExtra(KeyChain.EXTRA_PKCS12, fileContent);
 			startActivityForResult(intent, INSTALLED_CERT);
-		} else if (requestCode == IMPORT_CERT_INSTRUCTIONS_CODE && resultCode == Activity.RESULT_OK) {
+		} else if (requestCode == IMPORT_CERT_INSTRUCTIONS_CODE && resultCode == RESULT_OK) {
 			startCertImport();
-		} else if (requestCode == INSTALLED_CERT && resultCode == Activity.RESULT_OK) {
+		} else if (requestCode == INSTALLED_CERT && resultCode == RESULT_OK) {
 			CustomDialog cd = new CustomDialog(this.getContext(), R.mipmap.check_icon, getString(R.string.added_cert_title), getString(R.string.added_cert_message),
 					getString(R.string.understood), false,null);
 			cd.show();
-		} else if (requestCode == SIGNED_FILE_OK && resultCode == Activity.RESULT_OK) {
+		} else if (requestCode == SIGNED_FILE_OK && resultCode == RESULT_OK) {
 			CustomDialog cd = new CustomDialog(this.getContext(), R.mipmap.check_icon,
 					getString(R.string.signed_file_title), getString(R.string.signed_file_message), getString(R.string.understood));
 			cd.show();

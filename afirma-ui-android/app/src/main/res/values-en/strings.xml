@@ -197,6 +197,8 @@
     <string name="changes_saved">Saved changes</string>
     <string name="changes_saved_correctly">Changes have been saved correctly.</string>
     <string name="expired_cert">Expired certificate</string>
+    <string name="expired_cert_soon">Certificate close to expire</string>
+    <string name="expired_cert_soon_desc">The selected certificate is about to expire. Contact the issuing authority to renew it.</string>
     <string name="not_valid_cert">The certificate is invalid as it is expired.</string>
     <string name="pseudonym_cert">Certificate of pseudonym</string>
     <string name="pseudonym_cert_desc">The chosen certificate is a pseudonym certificate. Your personal data will not appear in the firm.</string>

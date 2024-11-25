@@ -1,4 +1,4 @@
-package es.gob.afirma.android;
+package es.gob.afirma.android.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,6 +14,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import es.gob.afirma.android.Logger;
 
 public class FileUtil {
 

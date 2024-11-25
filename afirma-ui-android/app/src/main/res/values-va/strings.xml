@@ -197,6 +197,8 @@
     <string name="changes_saved">Canvis guardats</string>
     <string name="changes_saved_correctly">Els canvis s\'han guardat correctament.</string>
     <string name="expired_cert">Certificat caducat</string>
+    <string name="expired_cert_soon">Certificat pr\u00F2xim a caducar</string>
+    <string name="expired_cert_soon_desc">El certificat seleccionat \u00E9s pr\u00F2xim a caducar. Contacte amb l\'autoritat emissora per a renovar-ho.</string>
     <string name="not_valid_cert">El certificat no \u00e9s v\u00e0lid, ja que est\u00e0 caducat.</string>
     <string name="pseudonym_cert">Certificat de pseud\u00f2nim</string>
     <string name="pseudonym_cert_desc">El certificat triat \u00e9s un certificat de pseud\u00f2nim. En la firma no apareixeran les seues dades personals</string>

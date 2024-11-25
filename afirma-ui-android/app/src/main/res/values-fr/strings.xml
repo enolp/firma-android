@@ -197,6 +197,8 @@
     <string name="changes_saved">Changements gard\u00e9s</string>
     <string name="changes_saved_correctly">Les changements se sont correctement gard\u00e9.</string>
     <string name="expired_cert">Certifi\u00e9 expir\u00e9</string>
+    <string name="expired_cert_soon">Certificat sur le point d\'expirer</string>
+    <string name="expired_cert_soon_desc">Le certificat s\u00e9lectionn\u00e9 est sur le point d\'expirer. Contactez l\'autorit\u00e9 \u00e9mettrice pour le renouveler.</string>
     <string name="not_valid_cert">Le certificat n\'est pas valable, puisqu\'est expir\u00e9.</string>
     <string name="pseudonym_cert">Certifi\u00e9 de pseudonyme</string>
     <string name="pseudonym_cert_desc">Le certificat choisi est un certificat de pseudonyme. Dans la signature ils ne sembleront pas ses donn\u00e9es personnelles</string>

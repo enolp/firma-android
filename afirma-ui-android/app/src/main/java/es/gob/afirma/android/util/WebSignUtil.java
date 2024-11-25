@@ -1,8 +1,10 @@
-package es.gob.afirma.android;
+package es.gob.afirma.android.util;
 
 import java.io.IOException;
 import java.util.Arrays;
 
+import es.gob.afirma.android.IntermediateServerUtil;
+import es.gob.afirma.android.Logger;
 import es.gob.afirma.android.crypto.CipherDataManager;
 import es.gob.afirma.android.exceptions.DecryptionException;
 import es.gob.afirma.android.exceptions.InvalidEncryptedDataLengthException;

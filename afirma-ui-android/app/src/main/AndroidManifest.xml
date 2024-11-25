@@ -68,10 +68,6 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".android.gui.CertImportInstructionsActivity"
-            android:exported="true">
-        </activity>
-        <activity
             android:name=".android.SettingsActivity"
             android:exported="true">
         </activity>
@@ -108,7 +104,7 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".android.gui.ImportCertsHelpActivity"
+            android:name=".android.ImportCertsHelpActivity"
             android:exported="true">
         </activity>
         <activity

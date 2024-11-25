@@ -197,6 +197,8 @@
     <string name="changes_saved">Gordetako aldaketak</string>
     <string name="changes_saved_correctly">Aldaketak behar bezala gorde dira.</string>
     <string name="expired_cert">Ziurtagiri iraungia</string>
+    <string name="expired_cert_soon">Laster iraungiko den ziurtagiria</string>
+    <string name="expired_cert_soon_desc">Hautatutako ziurtagiria iraungitzear dago. Jarri harremanetan agintaritza emailearekin, berritzeko.</string>
     <string name="not_valid_cert">Ziurtagiria ez da baliozkoa, iraungita baitago.</string>
     <string name="pseudonym_cert">Izengoitiaren ziurtagiria</string>
     <string name="pseudonym_cert_desc">Aukeratutako ziurtagiria izengoitiaren ziurtagiria da. Sinaduran ez dira agertuko zure datu pertsonalak</string>

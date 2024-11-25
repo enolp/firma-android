@@ -34,6 +34,7 @@ import java.io.IOException;
 
 import es.gob.afirma.R;
 import es.gob.afirma.android.gui.CustomDialog;
+import es.gob.afirma.android.util.FileUtil;
 import es.gob.afirma.signers.pades.common.PdfExtraParams;
 
 

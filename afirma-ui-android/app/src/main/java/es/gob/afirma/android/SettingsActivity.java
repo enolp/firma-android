@@ -13,7 +13,6 @@ import com.google.android.material.appbar.MaterialToolbar;
 import es.gob.afirma.BuildConfig;
 import es.gob.afirma.R;
 import es.gob.afirma.android.gui.AppConfig;
-import es.gob.afirma.android.gui.ImportCertsHelpActivity;
 
 public class SettingsActivity extends AppCompatActivity {
 

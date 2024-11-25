@@ -197,6 +197,8 @@
     <string name="changes_saved">Cambios guardados</string>
     <string name="changes_saved_correctly">Los cambios se han guardado correctamente.</string>
     <string name="expired_cert">Certificado caducado</string>
+    <string name="expired_cert_soon">Certificado pr\u00F3ximo a caducar</string>
+    <string name="expired_cert_soon_desc">El certificado seleccionado está pr\u00F3ximo a caducar. Contacte con la autoridad emisora para renovarlo.</string>
     <string name="not_valid_cert">El certificado no es v\u00E1lido, ya que est\u00E1 caducado.</string>
     <string name="pseudonym_cert">Certificado de seud\u00F3nimo</string>
     <string name="pseudonym_cert_desc">El certificado escogido es un certificado de seud\u00F3nimo. En la firma no aparecer\u00E1n sus datos personales</string>
