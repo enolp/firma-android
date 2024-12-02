@@ -21,93 +21,115 @@
         app:titleTextAppearance="@style/ToolbarTitle"
         app:titleTextColor="@color/black"/>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    android:theme="@style/TextViewSettingsTheme"
-    android:background="@color/white">
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:padding="16dp"
+        android:theme="@style/TextViewSettingsTheme"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/allow_dni3_0_NFC"
+                    android:paddingStart="8dp"/>
+
+                <Switch
+                    android:id="@+id/allowDnieWithNFCSwitch"
+                    android:thumb="@drawable/bg_thumb_switch_selector"
+                    android:track="@drawable/bg_track_switch_selector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/do_visible_sign"
+                    android:paddingStart="8dp"/>
+
+                <Switch
+                    android:id="@+id/padesVisibleSignatureSwitch"
+                    android:thumb="@drawable/bg_thumb_switch_selector"
+                    android:track="@drawable/bg_track_switch_selector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/hide_user_id"
+                    android:paddingStart="8dp"/>
+
+                <Switch
+                    android:id="@+id/obfuscateUserCertInfoSwitch"
+                    android:thumb="@drawable/bg_thumb_switch_selector"
+                    android:track="@drawable/bg_track_switch_selector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:padding="4dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.20"
+        android:theme="@style/TextViewSettingsTheme"
+        android:background="@color/white"
         android:orientation="vertical">
 
-        <LinearLayout
+        <Button
+            android:id="@+id/saveChangesBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/allow_dni3_0_NFC"
-                android:paddingStart="8dp"/>
-
-            <Switch
-                android:id="@+id/allowDnieWithNFCSwitch"
-                android:thumb="@drawable/bg_thumb_switch_selector"
-                android:track="@drawable/bg_track_switch_selector"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="4dp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/do_visible_sign"
-                android:paddingStart="8dp"/>
-
-            <Switch
-                android:id="@+id/padesVisibleSignatureSwitch"
-                android:thumb="@drawable/bg_thumb_switch_selector"
-                android:track="@drawable/bg_track_switch_selector"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="4dp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/hide_user_id"
-                android:paddingStart="8dp"/>
-
-            <Switch
-                android:id="@+id/obfuscateUserCertInfoSwitch"
-                android:thumb="@drawable/bg_thumb_switch_selector"
-                android:track="@drawable/bg_track_switch_selector"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:padding="4dp"/>
-        </LinearLayout>
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:onClick="onClick"
+            android:text="@string/save_changes"
+            style="@style/ButtonRedLarge" />
 
     </LinearLayout>
 
-
-</ScrollView>
 </LinearLayout>

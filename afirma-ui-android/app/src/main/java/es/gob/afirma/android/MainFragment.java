@@ -188,7 +188,8 @@ public final class MainFragment extends Fragment implements DialogInterface.OnCl
 					requestStoragePerm();
 				}
 				else {
-					startCertImport();
+					Intent intent = new Intent(getContext(), CertImportInstructionsActivity.class);
+					startActivityForResult(intent, IMPORT_CERT_INSTRUCTIONS_CODE);
 				}
 			}
 		});

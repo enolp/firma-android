@@ -153,7 +153,7 @@
     <string name="appversion">Versi\u00F3n v%s</string>
     <string name="question_1">Como podo realizar firmas electr\u00F3nicas con este programa?</string>
     <string name="response_1">&lt;p>Autofirma App permite asinar con certificado trámites web compatibles coa aplicación. Para asinar un trámite, compléteo normalmente a través do seu navegador web. Se o trámite está preparado para a firma con Autofirma App, esta executarase no momento da firma, permitirá ao usuario seleccionar o certificado de firma e execute a operación.&lt;/p> &lt;p>Tamén existe a posibilidade de abrir a aplicación e asinar directamente un ficheiro para uso persoal. Aos documentos PDF agregaráselles unha firma, mentres que para os demais ficheiros xerarase un ficheiro de firma independente.&lt;/p> &lt;p>Lembre que para poder asinar antes debe importar o seu certificado de firma en Android.&lt;/p></string>
-    <string name="question_2">A sinatura dalg\u00fans tr\u00e1mites web con Autofirma App Android falla, mentres que neses mesmos tr\u00e1mites funciona noutros dispositivos. Por que?</string>
+    <string name="question_2">A sinatura dalg\u00fans tr\u00e1mites web con Autofirma App falla, mentres que neses mesmos tr\u00e1mites funciona noutros dispositivos. Por que?</string>
     <string name="response_2">Autofirma App carece a\u00ednda de certas funcionalidades que si est\u00e1n presentes en versi\u00f3ns para outros sistemas operativos. Futuras actualizaci\u00f3ns da app liquidar\u00e1n estas carencias. Mentres tanto, utilice un PC con Autofirma instalado para completar o tr\u00e1mite web e notifique o problema ao responsable do tr\u00e1mite se o considera preciso.</string>
     <string name="question_3">Corren perigo os meus certificados se perdo o dispositivo?</string>
     <string name="response_3">Os certificados almac\u00E9nanse no seu dispositivo cun potente cifrado, pero como calquera sistema criptogr\u00E1fico, no momento que este est\u00E1 f\u00F3ra do control de propietario corre o risco de ser comprometido. Se perde o dispositivo debe contactar canto antes co seu provedor de servizos de certificaci\u00F3n para revogar de inmediato os certificados que este conti\u00F1a.</string>
@@ -192,7 +192,7 @@
     <string name="euskera">Euskera</string>
     <string name="valenciano">Valenciano</string>
     <string name="trusted_domains_desc">Introduza no seguinte apartado os dominios de confianza para a aplicaci\u00F3n</string>
-    <string name="save_changes">Gardar cambios</string>
+    <string name="save_changes">Gardar</string>
     <string name="enter_trusted_domains">Introduza un ou varios dominios de confianza</string>
     <string name="changes_saved">Cambios gardados</string>
     <string name="changes_saved_correctly">Os cambios gard\u00E1ronse correctamente.</string>

@@ -88,5 +88,4 @@
         android:text="@string/save_changes"
         style="@style/ButtonRedLarge" />
 
-
 </LinearLayout>

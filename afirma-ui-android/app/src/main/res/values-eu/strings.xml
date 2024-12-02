@@ -153,7 +153,7 @@
     <string name="appversion">v%s bertsioa</string>
     <string name="question_1">Nola egin ditzaket sinadura elektronikoak programa honekin?</string>
     <string name="response_1">&lt;p>Aplikazioarekin bateragarriak diren web-izapideak ziurtagiri bidez sinatzeko aukera ematen du Autofirma App-ek. Izapide bat sinatzeko, osa ezazu normalean zure web nabigatzailearen bidez. Izapidea prest badago Autofirma App-ekin sinatzeko, sinatzeko unean exekutatuko da, erabiltzaileari sinaduraren ziurtagiria hautatzeko eta eragiketa exekutatzeko aukera emango dio.&lt;/p> &lt;p>Aplikazioa irekitzeko eta zuzenean erabilera pertsonalerako fitxategi bat sinatzeko aukera ere badago. PDF dokumentuei sinadura bat erantsiko zaie; gainerako fitxategiei, berriz, sinadura-fitxategi independente bat sortuko zaie.&lt;/p> &lt;p>Gogoratu sinatu aurretik zure sinadura-ziurtagiria Androidetik inportatu behar duzula.&lt;/p></string>
-    <string name="question_2">Autofirma App Androiden web-izapide batzuk sinatzeak huts egiten du, eta izapide horietan bertan beste gailu batzuetan ere funtzionatzen du. Zergatik?</string>
+    <string name="question_2">Autofirma Appen web-izapide batzuk sinatzeak huts egiten du, eta izapide horietan bertan beste gailu batzuetan ere funtzionatzen du. Zergatik?</string>
     <string name="response_2">Autofirma App-ek oraindik ez ditu beste sistema eragile batzuetarako bertsioetan agertzen diren funtzionalitate batzuk. Aplikazioaren etorkizuneko eguneratzeek konponduko dituzte gabezia horiek. Bitartean, erabili Autofirma instalatuta duen PC bat web-izapidea osatzeko, eta jakinarazi arazoa izapidearen arduradunari, hala baderitzozu.</string>
     <string name="question_3">Arriskuan daude nire ziurtagiriak, gailua galtzen badut?</string>
     <string name="response_3">Ziurtagiriak zifratze ahaltsu batekin biltegiratzen dira zure gailuan, baina, edozein sistema kriptografiko bezala, jabearen kontroletik kanpo dagoenean, konpromisoa hartzeko arriskua dago. Gailua galtzen baduzu, lehenbailehen jarri behar duzu harremanetan ziurtatze-zerbitzuen hornitzailearekin, hark zituen ziurtagiriak berehala ezeztatzeko.</string>
@@ -192,7 +192,7 @@
     <string name="euskera">Euskera</string>
     <string name="valenciano">Valenciano</string>
     <string name="trusted_domains_desc">Sartu hurrengo atalean aplikaziorako konfiantza-domeinuak</string>
-    <string name="save_changes">Gorde aldaketak</string>
+    <string name="save_changes">Gorde</string>
     <string name="enter_trusted_domains">Sartu konfiantza-domeinu bat edo gehiago</string>
     <string name="changes_saved">Gordetako aldaketak</string>
     <string name="changes_saved_correctly">Aldaketak behar bezala gorde dira.</string>

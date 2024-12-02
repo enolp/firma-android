@@ -153,7 +153,7 @@
     <string name="appversion">Version v%s</string>
     <string name="question_1"> How can I make electronic signatures with this program?</string>
     <string name="response_1">&lt;p>Autofirma App allows you to sign with certified web formalities compatible with the application. To sign a paperwork, please complete it normally through your web browser. If the procedure is ready for signature with Autofirma App, it will be executed at the time of signature, will allow the user to select the signing certificate and run the operation.&lt;/p> &lt;p>There is also the possibility of opening the application and signing a file directly for personal use. A signature will be added to the PDF documents, while for the other files a separate signature file will be generated.&lt;/p> &lt;p>Remember that in order to be able to sign before you must have imported your signature certificate on Android.&lt;/p></string>
-    <string name="question_2">The signing of some web formalities with Autofirma App Android fails, while in those same procedures it works on other devices. Why?</string>
+    <string name="question_2">The signing of some web formalities with Autofirma App fails, while in those same procedures it works on other devices. Why?</string>
     <string name="response_2">Autofirma App still lacks certain features that are present in versions for other operating systems. Future app updates will address these shortcomings. In the meantime, use a PC with Autofirma installed to complete the web process and notify the person responsible for the procedure if it deems it necessary.</string>
     <string name="question_3"> Are my certificates at risk if I lose the device?</string>
     <string name="response_3">The certificates are stored on your device with powerful encryption, but like any cryptographic system, at the time it is out of control of the owner is at risk of being compromised. If you lose the device you should contact your certification service provider as soon as possible to immediately revoke the certificates it contained.</string>
@@ -192,7 +192,7 @@
     <string name="euskera">Euskera</string>
     <string name="valenciano">Valenciano</string>
     <string name="trusted_domains_desc">Enter in the next section the trusted domains for the application</string>
-    <string name="save_changes">Save changes</string>
+    <string name="save_changes">Save</string>
     <string name="enter_trusted_domains">Enter one or more trusted domains</string>
     <string name="changes_saved">Saved changes</string>
     <string name="changes_saved_correctly">Changes have been saved correctly.</string>

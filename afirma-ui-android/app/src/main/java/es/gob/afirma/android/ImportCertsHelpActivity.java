@@ -47,11 +47,8 @@ public class ImportCertsHelpActivity extends AppCompatActivity {
         goToConfigBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent replyIntent = new Intent(getBaseContext(), HomeActivity.class);
-                replyIntent.putExtra("startImportCert", true);
-                setResult(RESULT_OK, replyIntent);
-                startActivity(replyIntent);
-                finish();
+                Intent intent = new Intent(getBaseContext(), CertImportInstructionsActivity.class);
+                startActivity(intent);
             }
         });
     }

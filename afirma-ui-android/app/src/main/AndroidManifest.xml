@@ -112,6 +112,10 @@
             android:exported="true">
         </activity>
         <activity
+            android:name=".android.CertImportInstructionsActivity"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".android.IntroUseDnieActivity"
             android:exported="true">
         </activity>

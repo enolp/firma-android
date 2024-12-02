@@ -28,29 +28,54 @@
         android:fontFamily="@font/merriweatherbold"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
-        android:text="Titulo"
+        android:text="@string/privacy_policy_title_1"
         android:textColor="@color/black"
         android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/subtitleTv"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/language_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/subtitleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:layout_marginBottom="15dp"
         android:fontFamily="@font/merriweatherbold"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:text="Subtitulo"
+        android:text="@string/language"
         android:textColor="@color/black"
         android:textSize="15sp" />
+
+    <Spinner
+        android:id="@+id/spinner_languages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
+        android:popupBackground="@android:color/transparent"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    </LinearLayout>
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
+        android:fadeScrollbars="false"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarFadeDuration="50000"
+        android:scrollbarThumbVertical="@android:color/black"
+        android:padding="10dp"
+        android:layout_margin="15dp"
         android:layout_weight="0.30"
-        android:background="@color/white">
+        android:background="@drawable/rounded_black_borders">
 
         <TextView
             android:id="@+id/contentConditionsTv"
@@ -58,20 +83,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:fontFamily="@font/nunitosans"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
             android:textColor="@color/black" />
 
     </ScrollView>
 
-    <TextView
-        android:id="@+id/contentConditionsFinalTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:fontFamily="@font/nunitosans"
-        android:paddingStart="8dp"
-        android:text="Excepteur sint occaecat cupidatat non proident, sunt in culpa sed do eiusmod tempor incididunt ut labore  velit esse cillum dolore eu fugiat nulla pariatur."
-        android:textColor="@color/black" />
 
     <CheckBox
         android:id="@+id/readAndAcceptPrivacyChk"

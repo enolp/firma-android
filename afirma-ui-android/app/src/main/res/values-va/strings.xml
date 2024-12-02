@@ -153,7 +153,7 @@
     <string name="appversion">Versi\u00f3 v%s</string>
     <string name="question_1">Com puc realitzar firmes electr\u00f2niques amb este programa?</string>
     <string name="response_1">&lt;p>Autofirma App permet signar amb certificat tràmits web compatibles amb l\'aplicació. Per a signar un tràmit, complete\'l normalment a través del seu navegador web. Si el tràmit està preparat per a la signatura amb Autofirma App, esta s\'executarà en el moment de la signatura, permetrà a l\'usuari seleccionar el certificat de signatura i execute l\'operació.&lt;/p>&lt;p>També existeix la possibilitat d\'obrir l\'aplicació i signar directament un fitxer per a ús personal. Als documents PDF se\'ls agregarà una signatura, mentre que per als altres fitxers es generarà un fitxer de signatura independent.&lt;/p>&lt;p>Recorde que per a poder signar abans ha d\'haver importat el seu certificat de signatura en Android.&lt;/p></string>
-    <string name="question_2">La signatura d\'alguns tr\u00e0mits web amb Autofirma App Android falla, mentre que en eixos mateixos tr\u00e0mits funciona en altres dispositius. Per qu\u00e8?</string>
+    <string name="question_2">La signatura d\'alguns tr\u00e0mits web amb Autofirma App falla, mentre que en eixos mateixos tr\u00e0mits funciona en altres dispositius. Per qu\u00e8?</string>
     <string name="response_2">Autofirma App manca encara de certes funcionalitats que s\u00ed que s\u00f3n presents en versions per a altres sistemes operatius. Futures actualitzacions de l\'app solucionaran estes manques. Mentrestant, utilitze un PC amb Autofirma instal\u00b7lat per a completar el tr\u00e0mit web i notifique el problema al responsable del tr\u00e0mit si el considera prec\u00eds.</string>
     <string name="question_3">Corren perill els meus certificats si perd el dispositiu?</string>
     <string name="response_3">Els certificats s\'emmagatzemen en el seu dispositiu amb un potent xifrat, per\u00F2 com qualsevol sistema criptogr\u00E0fic, en el moment que este est\u00E0 fora del control de propietari corre el risc de ser comprom\u00E8s. Si perd el dispositiu ha de contactar al m\u00E9s prompte possible amb el seu proveïdor de servicis de certificaci\u00F3 per a revocar immediatament els certificats que este contenia.</string>
@@ -192,7 +192,7 @@
     <string name="euskera">Euskera</string>
     <string name="valenciano">Valenciano</string>
     <string name="trusted_domains_desc">Introduïsca en el següent apartat els dominis de confiança per a l\'aplicaci\u00f3</string>
-    <string name="save_changes">Guardar canvis</string>
+    <string name="save_changes">Guardar</string>
     <string name="enter_trusted_domains">Introduïsca un o diversos dominis de confiança</string>
     <string name="changes_saved">Canvis guardats</string>
     <string name="changes_saved_correctly">Els canvis s\'han guardat correctament.</string>

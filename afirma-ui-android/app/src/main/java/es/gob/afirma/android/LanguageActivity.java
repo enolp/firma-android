@@ -43,7 +43,6 @@ public class LanguageActivity extends AppCompatActivity {
 
         languagesList.add(getResources().getString(R.string.espanol));
         languagesList.add(getResources().getString(R.string.english));
-        languagesList.add(getResources().getString(R.string.french));
         languagesList.add(getResources().getString(R.string.catala));
         languagesList.add(getResources().getString(R.string.galego));
         languagesList.add(getResources().getString(R.string.euskera));
@@ -60,18 +59,15 @@ public class LanguageActivity extends AppCompatActivity {
                         changeLang("en");
                         break;
                     case 2:
-                        changeLang("fr");
-                        break;
-                    case 3:
                         changeLang("ca");
                         break;
-                    case 4:
+                    case 3:
                         changeLang("ga");
                         break;
-                    case 5:
+                    case 4:
                         changeLang("eu");
                         break;
-                    case 6:
+                    case 5:
                         changeLang("va");
                         break;
                     default:
