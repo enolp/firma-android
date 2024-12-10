@@ -36,6 +36,10 @@ import es.gob.afirma.android.crypto.MSCBadPinException;
 import es.gob.afirma.android.crypto.MobileKeyStoreManager;
 import es.gob.afirma.android.crypto.MobileKeyStoreManager.SelectCertificateEvent;
 import es.gob.afirma.android.crypto.SelectKeyAndroid41BugException;
+import es.gob.afirma.android.errors.ErrorCategory;
+import es.gob.afirma.android.errors.FunctionalErrors;
+import es.gob.afirma.android.errors.InternalSoftwareErrors;
+import es.gob.afirma.android.errors.RequestErrors;
 import es.gob.afirma.android.gui.CustomDialog;
 import es.gob.afirma.android.util.CertificateUtil;
 import es.gob.afirma.core.AOCancelledOperationException;
@@ -67,10 +71,9 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
      */
 	public void sign(final UrlParametersForBatch batchParams) {
 
-
-
 		if (batchParams == null) {
-			throw new IllegalArgumentException("No se han indicado el lote de firmas que procesar");
+			ErrorCategory errorCat = RequestErrors.JSON_REQUEST.get(RequestErrors.NO_DATA_NO_ID_BATCH);
+			throw new IllegalArgumentException(errorCat.getCode() + " - " + errorCat.getAdminText());
 		}
 
 		this.batchParams = batchParams;
@@ -238,7 +241,8 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 
 		// Si el usuario cancelo la insercion de PIN o cualquier otro dialogo del almacen
 		if(msm == null){
-			onSigningError(KeyStoreOperation.LOAD_KEYSTORE, "El usuario cancelo la operacion durante la carga del almacen", new PendingIntent.CanceledException("Se cancela la seleccion del almacen"));
+			ErrorCategory errorCat = FunctionalErrors.GENERAL.get(FunctionalErrors.CANCELED_BY_USER);
+			onSigningError(KeyStoreOperation.LOAD_KEYSTORE, errorCat.getCode() + " - " + errorCat.getUserText(), new PendingIntent.CanceledException("Se cancela la seleccion del almacen"));
 			return;
 		}
 		msm.getPrivateKeyEntryAsynchronously(this);
@@ -252,7 +256,8 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 	@Override
 	public void onSignError(final Throwable t) {
 		if (t instanceof AOCancelledOperationException) {
-			onSigningError(KeyStoreOperation.SIGN, "Operacion cancelada por el usuario", t);
+			ErrorCategory errorCat = FunctionalErrors.GENERAL.get(FunctionalErrors.CANCELED_BY_USER);
+			onSigningError(KeyStoreOperation.SIGN, errorCat.getCode() + " - " + errorCat.getUserText(), t);
 		}
 		else if (t instanceof IllegalArgumentException) {
 			onSigningError(KeyStoreOperation.SIGN, "Los datos proporcionados al servicio no son validos", t);
@@ -269,7 +274,9 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 		else if (t instanceof AOException) {
 			onSigningError(KeyStoreOperation.SIGN, "El servicio de firma de lotes devolvio un error", t);
 		}else {
-			onSigningError(KeyStoreOperation.SIGN, "Error en el proceso de firma", t);
+			ErrorCategory errorCat = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.SOFTWARE_GENERAL);
+			Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), t);
+			onSigningError(KeyStoreOperation.SIGN, errorCat.getCode() + " - " + errorCat.getAdminText(), t);
 		}
 	}
 
@@ -290,7 +297,8 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 			try {
 				signRecordFile.createNewFile();
 			} catch (IOException e) {
-				Logger.e(ES_GOB_AFIRMA, "Error al crear archivo para registrar firmas.", e); //$NON-NLS-1$
+				ErrorCategory errorCat = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.CANT_SAVE_SIGN_RECORD);
+				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e);
 				return;
 			}
 		}
@@ -311,7 +319,8 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 			pw.write(sb.toString());
 			pw.close();
 		} catch (IOException e) {
-			Logger.e(ES_GOB_AFIRMA, "Error al registrar firma.", e); //$NON-NLS-1$
+			ErrorCategory errorCat = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.CANT_SAVE_SIGN_RECORD);
+			Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e); //$NON-NLS-1$
 		}
 	}
 

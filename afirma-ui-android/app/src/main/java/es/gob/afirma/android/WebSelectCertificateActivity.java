@@ -32,6 +32,7 @@ import es.gob.afirma.android.crypto.CipherDataManager;
 import es.gob.afirma.android.crypto.KeyStoreManagerListener;
 import es.gob.afirma.android.crypto.MobileKeyStoreManager;
 import es.gob.afirma.android.crypto.SelectKeyAndroid41BugException;
+import es.gob.afirma.android.errors.ErrorManager;
 import es.gob.afirma.android.gui.DownloadFileTask;
 import es.gob.afirma.android.gui.MessageDialog;
 import es.gob.afirma.android.gui.SendDataTask;

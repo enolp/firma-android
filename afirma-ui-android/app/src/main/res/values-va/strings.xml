@@ -32,7 +32,7 @@
     <string name="bytes">bytes</string>
     <string name="kilobytes">KB</string>
     <string name="megabytes">MB</string>
-    <string name="error_loading_selected_file">Va oc\u00f3rrer un error carregant el fitxer \"%s\"</string>
+    <string name="error_loading_selected_file">Va oc\u00f3rrer un error carregant el fitxer</string>
     <string name="error_loading_selected_undefined_file">Va oc\u00f3rrer un error carregant el fitxer</string>
     <string name="error_no_valid_p12">El fitxer \"%s\" no \u00e9s un PKCS#12 v\u00e0lid. Seleccione un nou magatzem per a importar.</string>
     <string name="error">Error</string>

@@ -47,6 +47,12 @@ import es.gob.afirma.android.crypto.CipherDataManager;
 import es.gob.afirma.android.crypto.MSCBadPinException;
 import es.gob.afirma.android.crypto.SelectKeyAndroid41BugException;
 import es.gob.afirma.android.crypto.SignResult;
+import es.gob.afirma.android.errors.CommunicationErrors;
+import es.gob.afirma.android.errors.ErrorCategory;
+import es.gob.afirma.android.errors.ErrorManager;
+import es.gob.afirma.android.errors.InternalSoftwareErrors;
+import es.gob.afirma.android.errors.RequestErrors;
+import es.gob.afirma.android.errors.ThirdPartyErrors;
 import es.gob.afirma.android.gui.DownloadFileTask;
 import es.gob.afirma.android.gui.DownloadFileTask.DownloadDataListener;
 import es.gob.afirma.android.gui.MessageDialog;
@@ -113,7 +119,8 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 		super.onCreate(savedInstanceState);
 
 		if (getIntent() == null || getIntent().getData() == null) {
-			Logger.w(ES_GOB_AFIRMA, "No se han indicado parametros de entrada para la actividad");  //$NON-NLS-1$
+			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
+			Logger.w(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText());  //$NON-NLS-1$
 			closeActivity();
 			return;
 		}
@@ -138,7 +145,8 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 		Logger.d(ES_GOB_AFIRMA, "URI de invocacion: " + getIntent().getDataString()); //$NON-NLS-1$
 
 		if (getIntent().getDataString() == null) {
-			Logger.w(ES_GOB_AFIRMA, "Se ha invocado sin URL a la actividad de firma por protocolo. Se cierra la actividad"); //$NON-NLS-1$
+			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.INVOCATION_WITHOUT_URL);
+			Logger.w(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getCode()); //$NON-NLS-1$
 			closeActivity();
 			return;
 		}
@@ -147,15 +155,16 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 			this.parameters = ProtocolInvocationUriParser.getParametersToSign(getIntent().getDataString(), true);
 		}
 		catch (final ParameterException e) {
-			Logger.e(ES_GOB_AFIRMA, "Error en los parametros de firma: " + e, e); //$NON-NLS-1$
-			showErrorMessage(getString(R.string.error_bad_params));
+			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
+			Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + e, e); //$NON-NLS-1$
+			showErrorMessage(errorCat.getCode() + " - " + errorCat.getUserText());
 			launchError(ErrorManager.ERROR_BAD_PARAMETERS, true);
 			return;
 		}
 		catch (final Throwable e) {
-			Logger.e(ES_GOB_AFIRMA, "Error grave en el onCreate de WebSignActivity: " + e, e); //$NON-NLS-1$
-			e.printStackTrace();
-			showErrorMessage(getString(R.string.error_bad_params));
+			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
+			Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + e, e); //$NON-NLS-1$
+			showErrorMessage(errorCat.getCode() + " - " + errorCat.getUserText());
 			launchError(ErrorManager.ERROR_BAD_PARAMETERS, true);
 			return;
 		}
@@ -164,8 +173,9 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 			processSignRequest();
 		}
 		catch (final Throwable e) {
-			Logger.e(ES_GOB_AFIRMA, "Error al generar la firma: " + e, e); //$NON-NLS-1$
-			onSigningError(KeyStoreOperation.SIGN, "Error al generar la firma", e);
+			ErrorCategory errorSigning = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.ERROR_SIGNING);
+			Logger.e(ES_GOB_AFIRMA, errorSigning.getCode() + " - " + errorSigning.getAdminText(), e); //$NON-NLS-1$
+			onSigningError(KeyStoreOperation.SIGN, errorSigning.getCode() + " - " + errorSigning.getUserText(), e);
 		}
 	}
 
@@ -179,8 +189,9 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 					processSignRequest();
 				}
 				catch (final Throwable e) {
-					Logger.e(ES_GOB_AFIRMA, "Error al generar la firma: " + e, e); //$NON-NLS-1$
-					onSigningError(KeyStoreOperation.SIGN, "Error al generar la firma", e);
+					ErrorCategory errorSigning = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.ERROR_SIGNING);
+					Logger.e(ES_GOB_AFIRMA, errorSigning.getCode() + " - " + errorSigning.getAdminText() + e, e); //$NON-NLS-1$
+					onSigningError(KeyStoreOperation.SIGN, errorSigning.getCode() + " - " + errorSigning.getUserText(), e);
 				}
 			}
 			else {
@@ -216,8 +227,9 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 				);
 				this.downloadFileTask.execute();
 			} else {
-				Logger.e(ES_GOB_AFIRMA, "No se proporciono la URL de descarga para la obtencion de los datos");
-				launchError(ErrorManager.ERROR_BAD_PARAMETERS, getString(R.string.error_bad_params), true);
+				ErrorCategory errorCat = RequestErrors.SIGN_REQUEST.get(RequestErrors.NO_DATA_NO_ID);
+				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText());
+				launchError(ErrorManager.ERROR_BAD_PARAMETERS, errorCat.getCode() + " - " + errorCat.getUserText(), true);
 			}
 		}
 
@@ -306,14 +318,16 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 			}
 		}
 		catch (final UnsupportedEncodingException e) {
+			ErrorCategory errorCat = RequestErrors.SIGN_REQUEST.get(RequestErrors.CANT_DECODE_DATA);
 			// No puede darse, el soporte de UTF-8 es obligatorio
 			Logger.e(ES_GOB_AFIRMA,
-					"No se ha podido enviar la respuesta al servidor por error en la codificacion " + DEFAULT_URL_ENCODING, e //$NON-NLS-1$
+					errorCat.getCode() + " - " + errorCat.getAdminText() + DEFAULT_URL_ENCODING, e //$NON-NLS-1$
 			);
 		}
 		catch (final Throwable e) {
+			ErrorCategory errorCat = CommunicationErrors.GENERAL.get(CommunicationErrors.UNKNOWN_ERROR);
 			Logger.e(ES_GOB_AFIRMA,
-					"Error desconocido al enviar el error obtenido al servidor: " + e, e //$NON-NLS-1$
+					errorCat.getCode() + " - " + errorCat.getAdminText() + e, e //$NON-NLS-1$
 			);
 		}
 	}
@@ -367,34 +381,40 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 	protected void onSigningError(final KeyStoreOperation op, final String msg, final Throwable t) {
 
 		if (op == KeyStoreOperation.LOAD_KEYSTORE) {
-			Log.e(ES_GOB_AFIRMA, "Error al cargar el almacen de certificados: " + msg, t);
+			ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.LOAD_KEYSTORE);
+			Log.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + msg, t);
 			launchError(ErrorManager.ERROR_ESTABLISHING_KEYSTORE, true);
 			return;
 		}
 		if (op == KeyStoreOperation.SELECT_CERTIFICATE) {
 
 			if (t instanceof SelectKeyAndroid41BugException) {
-				Log.e(ES_GOB_AFIRMA, "Error al cargar el certificado, posiblemente relacionado por usar un alias de certificado no valido", t);
+				ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.ALIAS_NOT_VALID);
+				Log.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), t);
 				launchError(ErrorManager.ERROR_PKE_ANDROID_4_1, true);
 			}
 			else if (t instanceof KeyChainException) {
-				Log.e(ES_GOB_AFIRMA, "Error al cargar la clave del certificado", t);
+				ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.LOAD_KEY);
+				Log.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), t);
 				launchError(ErrorManager.ERROR_PKE, true);
 			}
 			else if (t instanceof PendingIntent.CanceledException) {
-				Logger.e(ES_GOB_AFIRMA, "El usuario no selecciono un certificado", t); //$NON-NLS-1$
+				ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.USER_NOT_SELECT_CERT);
+				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), t); //$NON-NLS-1$
 				launchError(ErrorManager.ERROR_CANCELLED_OPERATION, false);
 			}
 			else {
-				Logger.e(ES_GOB_AFIRMA, "Error inesperado al recuperar la clave del certificado de firma: " + msg, t); //$NON-NLS-1$
+				ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.UNEXPECED_RECOVERING_KEY);
+				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + msg, t); //$NON-NLS-1$
 				launchError(ErrorManager.ERROR_PKE, true);
 			}
 			return;
 		}
 		if (op == KeyStoreOperation.SIGN) {
 			if (t instanceof MSCBadPinException) {
-				Logger.e(ES_GOB_AFIRMA, "PIN erroneo: " + t); //$NON-NLS-1$
-				showErrorMessage(getString(R.string.error_msc_pin));
+				ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.INCORRECT_PIN);
+				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + t); //$NON-NLS-1$
+				showErrorMessage(errorCat.getCode() + " - " + errorCat.getUserText());
 				launchError(ErrorManager.ERROR_MSC_PIN, false);
 			}
 			else if (t instanceof AOUnsupportedSignFormatException) {
@@ -540,7 +560,8 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 						this.parameters.getDesKey()
 				);
 			} catch (final GeneralSecurityException e) {
-				Logger.e(ES_GOB_AFIRMA, "Error en el cifrado de la firma", e); //$NON-NLS-1$
+				ErrorCategory errorCat = InternalSoftwareErrors.OPERATION_SIGN.get(InternalSoftwareErrors.ENCRYPTING_SIGN);
+				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e);
 				launchError(ErrorManager.ERROR_CIPHERING, true);
 				return;
 			} catch (final Throwable e) {
@@ -693,14 +714,15 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 					}
 				}
 				catch (final OutOfMemoryError e) {
-					showErrorMessage(getString(R.string.file_read_out_of_memory));
-					Logger.e(ES_GOB_AFIRMA, "Error de memoria al cargar el fichero", e); //$NON-NLS-1$
+					ErrorCategory errorCat = InternalSoftwareErrors.OPERATION_SIGN.get(InternalSoftwareErrors.OUT_OF_MEMORY);
+					showErrorMessage(getString(R.string.error) + " AA" + errorCat.getCode() + " " + errorCat.getUserText());
+					Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e);  //$NON-NLS-1$
 					return;
 				}
 				catch (final IOException e) {
 					Logger.e(ES_GOB_AFIRMA, "Error al cargar el fichero, se dara al usuario la posibilidad de reintentar", e); //$NON-NLS-1$
 					String msg = this.fileName != null
-							? getString(R.string.error_loading_selected_file, this.fileName)
+							? getString(R.string.error_loading_selected_file) + this.fileName
 							: getString(R.string.error_loading_selected_undefined_file);
 					showErrorMessageOnToast(msg);
 					openSelectFileActivity();
@@ -709,7 +731,7 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 				catch (final Throwable e) {
 					Logger.e(ES_GOB_AFIRMA, "Error desconocido al cargar el fichero " + this.fileName, e); //$NON-NLS-1$
 					String msg = this.fileName != null
-							? getString(R.string.error_loading_selected_file, this.fileName)
+							? getString(R.string.error_loading_selected_file) + this.fileName
 							: getString(R.string.error_loading_selected_undefined_file);
 					showErrorMessageOnToast(msg);
 					return;
@@ -721,8 +743,9 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 					processSignRequest();
 				}
 				catch (final Throwable e) {
-					Logger.e(ES_GOB_AFIRMA, "Error durante la firma", e); //$NON-NLS-1$
-					showErrorMessageOnToast(getString(R.string.error_signing));
+					ErrorCategory errorSigning = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.ERROR_SIGNING);
+					Logger.e(ES_GOB_AFIRMA, errorSigning.getCode() + " - " + errorSigning.getAdminText(), e); //$NON-NLS-1$
+					showErrorMessageOnToast(errorSigning.getUserText());
 					return;
 				}
 			}

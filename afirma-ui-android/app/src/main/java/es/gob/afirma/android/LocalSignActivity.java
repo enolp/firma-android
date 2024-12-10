@@ -32,6 +32,10 @@ import java.util.Properties;
 import es.gob.afirma.R;
 import es.gob.afirma.android.crypto.MSCBadPinException;
 import es.gob.afirma.android.crypto.SignResult;
+import es.gob.afirma.android.errors.ErrorCategory;
+import es.gob.afirma.android.errors.FunctionalErrors;
+import es.gob.afirma.android.errors.InternalSoftwareErrors;
+import es.gob.afirma.android.errors.ThirdPartyErrors;
 import es.gob.afirma.android.gui.AppConfig;
 import es.gob.afirma.android.util.FileUtil;
 import es.gob.afirma.core.signers.AOSignConstants;
@@ -132,12 +136,14 @@ public final class LocalSignActivity extends SignFragmentActivity {
 						this.fileContent = FileUtil.readDataFromFile(dataFile);
 					}
 				} catch (final OutOfMemoryError e) {
-					showErrorMessage(getString(R.string.error), getString(R.string.file_read_out_of_memory));
-					Logger.e(ES_GOB_AFIRMA, "Error de memoria al cargar el fichero", e); //$NON-NLS-1$
+					ErrorCategory errorCat = InternalSoftwareErrors.OPERATION_SIGN.get(InternalSoftwareErrors.OUT_OF_MEMORY);
+					showErrorMessage(getString(R.string.error) + " AA" + errorCat.getCode(), errorCat.getUserText());
+					Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e); //$NON-NLS-1$
 					return;
 				} catch (final IOException e) {
-					showErrorMessage(getString(R.string.error), getString(R.string.error_loading_selected_file, this.fileName));
-					Logger.e(ES_GOB_AFIRMA, "Error al cargar el fichero", e); //$NON-NLS-1$
+					ErrorCategory errorCat = InternalSoftwareErrors.OPERATION_SIGN.get(InternalSoftwareErrors.LOADING_LOCAL_FILE);
+					showErrorMessage(getString(R.string.error) + " AA" + errorCat.getCode(), errorCat.getUserText() + this.fileName);
+					Logger.e(ES_GOB_AFIRMA, errorCat.getAdminText()); //$NON-NLS-1$ //$NON-NLS-1$
 					return;
 				}
 
@@ -192,8 +198,9 @@ public final class LocalSignActivity extends SignFragmentActivity {
 					finish();
 					return;
 				} else if (resultCode == ERROR_REQUEST_VISIBLE_SIGN) {
-					showErrorMessage(getString(R.string.error), getString(R.string.error_loading_selected_file, this.fileName));
-					Logger.e(ES_GOB_AFIRMA, "Error al cargar el fichero"); //$NON-NLS-1$
+					ErrorCategory errorCat = InternalSoftwareErrors.OPERATION_SIGN.get(InternalSoftwareErrors.LOADING_LOCAL_FILE);
+					showErrorMessage(getString(R.string.error) + " AA" + errorCat.getCode(), errorCat.getUserText() + this.fileName);
+					Logger.e(ES_GOB_AFIRMA, errorCat.getAdminText()); //$NON-NLS-1$
 					return;
 				}
 			}
@@ -208,13 +215,15 @@ public final class LocalSignActivity extends SignFragmentActivity {
 						outputStream.close();
 					}
 					else {
-						showErrorMessage(getString(R.string.error), getString(R.string.error_saving_signature));
-						Logger.e(ES_GOB_AFIRMA, "No se pudo obtener el flujo para el guardado de los datos"); //$NON-NLS-1$
+						ErrorCategory errorCat = InternalSoftwareErrors.SAVING_DATA.get(InternalSoftwareErrors.SAVING_DATA_DISK);
+						showErrorMessage(getString(R.string.error) + " AA" + errorCat.getCode(), errorCat.getUserText());
+						Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText()); //$NON-NLS-1$
 						return;
 					}
 				} catch (final IOException e) {
-					showErrorMessage(getString(R.string.error), getString(R.string.error_saving_signature));
-					Logger.e(ES_GOB_AFIRMA, "Error al guardar la firma", e); //$NON-NLS-1$
+					ErrorCategory errorCat = InternalSoftwareErrors.SAVING_DATA.get(InternalSoftwareErrors.SAVING_DATA_DISK);
+					showErrorMessage(getString(R.string.error) + " AA" + errorCat.getCode(), errorCat.getUserText());
+					Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e); //$NON-NLS-1$
 					return;
 				}
 
@@ -303,8 +312,9 @@ public final class LocalSignActivity extends SignFragmentActivity {
 				outDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 				originalDirectory = false;
 			} else {
-				Logger.w(ES_GOB_AFIRMA, "No se ha encontrado donde guardar la firma generada"); //$NON-NLS-1$
-				showErrorMessage(getString(R.string.error), getString(R.string.error_no_device_to_store));
+				ErrorCategory errorCat = InternalSoftwareErrors.SAVING_DATA.get(InternalSoftwareErrors.NO_DEVICE_STORE);
+				Logger.w(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText()); //$NON-NLS-1$
+				showErrorMessage(getString(R.string.error) + " AA" + errorCat.getCode(), errorCat.getUserText());
 				return;
 			}
 
@@ -320,8 +330,9 @@ public final class LocalSignActivity extends SignFragmentActivity {
 				fos.flush();
 				fos.close();
 			} catch (final Exception e) {
-				showErrorMessage(getString(R.string.error), getString(R.string.error_saving_signature));
-				Logger.e(ES_GOB_AFIRMA, "Error guardando la firma: " + e); //$NON-NLS-1$
+				ErrorCategory errorCat = InternalSoftwareErrors.SAVING_DATA.get(InternalSoftwareErrors.SAVING_DATA_DISK);
+				showErrorMessage(getString(R.string.error) + " AA" + errorCat.getCode(), errorCat.getUserText());
+				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + e); //$NON-NLS-1$
 				return;
 			}
 
@@ -337,7 +348,9 @@ public final class LocalSignActivity extends SignFragmentActivity {
 						null
 				);
 			} catch (final Exception e) {
-				Logger.w(ES_GOB_AFIRMA, "Error refrescando el MediaScanner: " + e); //$NON-NLS-1$
+				ErrorCategory errorCat = InternalSoftwareErrors.SAVING_DATA.get(InternalSoftwareErrors.SAVING_DATA_DISK);
+				showErrorMessage(getString(R.string.error) + " AA" + errorCat.getCode(), errorCat.getUserText());
+				Logger.w(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + e); //$NON-NLS-1$
 			}
 		}
 	}
@@ -397,17 +410,20 @@ public final class LocalSignActivity extends SignFragmentActivity {
 	@Override
 	protected void onSigningError(KeyStoreOperation op, String msg, Throwable t) {
 		if (t instanceof PendingIntent.CanceledException) {
-			Logger.i(ES_GOB_AFIRMA, "Operacion cancelada por el usuario");
+			ErrorCategory errorCat = FunctionalErrors.GENERAL.get(FunctionalErrors.CANCELED_BY_USER);
+			Logger.i(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText());
 			finish();
 		}
 		else {
 			Logger.e(ES_GOB_AFIRMA, "Error durante la firma: " + t);
 			if (KeyStoreOperation.SIGN == op) {
+				ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.INCORRECT_PIN);
 				if (t instanceof MSCBadPinException) {
-					showErrorMessage(getString(R.string.incorrect_pin), t.getMessage());
+					showErrorMessage(getString(R.string.error) + " AA" + errorCat.getCode(), t.getMessage());
 				}
 				else {
-					showErrorMessage(getString(R.string.error), getString(R.string.error_signing));
+					ErrorCategory errorSigning = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.ERROR_SIGNING);
+					showErrorMessage(getString(R.string.error) + " AA" + errorSigning.getCode(), errorSigning.getUserText());
 				}
 			}
 			else {

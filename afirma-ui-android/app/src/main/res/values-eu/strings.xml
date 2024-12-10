@@ -32,7 +32,7 @@
     <string name="bytes">bytes</string>
     <string name="kilobytes">KB</string>
     <string name="megabytes">MB</string>
-    <string name="error_loading_selected_file">Errorea gertatu da \"%s\"</string> fitxategia kargatzean
+    <string name="error_loading_selected_file">Errorea gertatu da fitxategia kargatzean</string>
     <string name="error_loading_selected_undefined_file">Errorea gertatu da fitxategia kargatzean</string>
     <string name="error_no_valid_p12">\"%s\" fitxategia ez da baliozko PKCS#12. Hautatu biltegi berri bat inportatzeko.</string>
     <string name="error">Errorea</string>

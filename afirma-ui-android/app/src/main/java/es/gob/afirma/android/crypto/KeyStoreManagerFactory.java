@@ -25,6 +25,8 @@ import java.security.Security;
 import java.util.Properties;
 
 import es.gob.afirma.android.Logger;
+import es.gob.afirma.android.errors.ErrorCategory;
+import es.gob.afirma.android.errors.ThirdPartyErrors;
 import es.gob.afirma.android.gui.PinDialog;
 import es.gob.jmulticard.android.nfc.AndroidNfcConnection;
 import es.gob.jmulticard.connection.ApduConnection;
@@ -207,11 +209,13 @@ public final class KeyStoreManagerFactory {
 				// Obtenemos el almacen unicamente para ver si falla
 				ks = KeyStore.getInstance("DNI", p); //$NON-NLS-1$
 			} catch (final KeyStoreException e) {
-				Logger.e(ES_GOB_AFIRMA, "Se ha encontrado una tarjeta por NFC, pero no es un DNIe: " + e); //$NON-NLS-1$ //$NON-NLS-2$
-				throw new UnsupportedNfcCardException("Se ha encontrado una tarjeta por NFC distinta al DNIe", e);
+				ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.UNKNOWN_OR_NOT_SUPPORTED_CARD);
+				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + e); //$NON-NLS-1$ //$NON-NLS-2$
+				throw new UnsupportedNfcCardException(errorCat.getCode() + " - " + errorCat.getAdminText(), e);
 			} catch (final Exception e) {
-				Logger.e(ES_GOB_AFIRMA, "No se ha podido instanciar el controlador del DNIe por NFC: " + e, e); //$NON-NLS-1$ //$NON-NLS-2$
-				throw new InitializingNfcCardException("Error inicializando la tarjeta", e);
+				ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.CANT_CONNECT_CARD);
+				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + e);
+				throw new InitializingNfcCardException(errorCat.getCode() + " - " + errorCat.getAdminText(), e);
 			}
 		}
 

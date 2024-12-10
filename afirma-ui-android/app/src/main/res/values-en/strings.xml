@@ -33,7 +33,7 @@
     <string name="bytes">bytes</string>
     <string name="kilobytes">KB</string>
     <string name="megabytes">MB</string>
-    <string name="error_loading_selected_file">Error trying to load the file \"%s\"</string>
+    <string name="error_loading_selected_file">Error trying to load the file</string>
     <string name="error_loading_selected_undefined_file">Error trying to load the file</string>
     <string name="error_no_valid_p12">The file \"%s\" is not a valid PKCS#12. Please, select another store for importing.</string>
     <string name="error">Error</string>

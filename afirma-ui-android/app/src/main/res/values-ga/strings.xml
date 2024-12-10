@@ -32,7 +32,7 @@
     <string name="bytes">bytes</string>
     <string name="kilobytes">KB</string>
     <string name="megabytes">MB</string>
-    <string name="error_loading_selected_file">Ocorreu un erro cargando o ficheiro \"%s\"</string>
+    <string name="error_loading_selected_file">Ocorreu un erro cargando o ficheiro</string>
     <string name="error_loading_selected_undefined_file">Ocorreu un erro cargando o ficheiro</string>
     <string name="error_no_valid_p12">O ficheiro \"%s\" non \u00FE9 un PKCS#12 v\u00E1lido. Seleccione un novo almac\u00FE9n para importar.</string>
     <string name="error">Erro</string>

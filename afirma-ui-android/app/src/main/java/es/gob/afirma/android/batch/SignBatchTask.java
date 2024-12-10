@@ -76,24 +76,24 @@ public class SignBatchTask extends AsyncTask<Void, Void, byte[]>{
 						this.pkcs1ExtraParams
 				);
 			} else {
-				throw new IllegalStateException("Tipo de operacion de firma no soportado"); //$NON-NLS-1$
+				throw new IllegalStateException("Error 600002 - Tipo de operacion de firma no soportado"); //$NON-NLS-1$
 			}
 		}
 		catch (final AOCancelledOperationException e) {
 			this.t = e;
 		}
 		catch (final IllegalArgumentException e) {
-			Logger.e(ES_GOB_AFIRMA, "Los parametros de la peticion no eran validos: " + e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, "Error 600006 - Los parametros de la peticion no eran validos: " + e); //$NON-NLS-1$
 			this.t = e;
 		}
 		catch (final CertificateEncodingException e) {
-			Logger.e(ES_GOB_AFIRMA, "Error en la codificacion del certificado: " + e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, "Error 600007 - Error en la codificacion del certificado: " + e); //$NON-NLS-1$
 			this.t = e;
 		}
 		catch (final HttpError e) {
 			Logger.e(ES_GOB_AFIRMA, "El servicio devolvio un error: " + e); //$NON-NLS-1$
 			if (e.getResponseCode() == 400) {
-				this.t = new IllegalArgumentException("Los parametros enviados al servicio no eran validos", e);
+				this.t = new IllegalArgumentException("Error 600006 - Los parametros enviados al servicio no eran validos", e);
 			}
 			else if (e.getResponseCode() / 100 == 4) {
 				this.t = e;

@@ -39,6 +39,8 @@ import es.gob.afirma.android.crypto.SelectKeyAndroid41BugException;
 import es.gob.afirma.android.crypto.SignResult;
 import es.gob.afirma.android.crypto.SignTask;
 import es.gob.afirma.android.crypto.SignTask.SignListener;
+import es.gob.afirma.android.errors.ErrorCategory;
+import es.gob.afirma.android.errors.InternalSoftwareErrors;
 import es.gob.afirma.android.gui.CustomDialog;
 import es.gob.afirma.android.gui.PDFPasswordDialog;
 import es.gob.afirma.android.util.CertificateUtil;
@@ -374,7 +376,8 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
             try {
                 signRecordFile.createNewFile();
             } catch (IOException e) {
-				Logger.e(ES_GOB_AFIRMA, "Error al crear archivo para registrar firmas.", e); //$NON-NLS-1$
+				ErrorCategory errorCat = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.CANT_SAVE_SIGN_RECORD);
+				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e);
 				return;
             }
         }
@@ -394,7 +397,8 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 			pw.write(sb.toString());
 			pw.close();
 		} catch (IOException e) {
-			Logger.e(ES_GOB_AFIRMA, "Error al registrar firma.", e); //$NON-NLS-1$
+			ErrorCategory errorCat = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.CANT_SAVE_SIGN_RECORD);
+			Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e);
 		}
 	}
 
