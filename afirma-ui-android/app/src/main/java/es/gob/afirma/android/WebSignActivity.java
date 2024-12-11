@@ -12,6 +12,8 @@ package es.gob.afirma.android;
 
 import static es.gob.afirma.signers.pades.common.PdfExtraParams.HEADLESS;
 import static es.gob.afirma.signers.pades.common.PdfExtraParams.VISIBLE_SIGNATURE;
+import static es.gob.afirma.signers.pades.common.PdfExtraParams.VISIBLE_SIGNATURE_VALUE_OPTIONAL;
+import static es.gob.afirma.signers.pades.common.PdfExtraParams.VISIBLE_SIGNATURE_VALUE_WANT;
 
 import android.Manifest;
 import android.app.Activity;
@@ -103,6 +105,8 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 	private MessageDialog messageDialog;
 
 	private String fileName;
+
+	private boolean isRequiredVisibleSignature;
 
 	MessageDialog getMessageDialog() {
 		return this.messageDialog;
@@ -773,6 +777,9 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 					extraParams.setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTY, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTY));
 					extraParams.setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTX, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTX));
 					extraParams.setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTY, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTY));
+				} else if (isRequiredVisibleSignature) {
+					launchError(ErrorManager.ERROR_CANCELLED_OPERATION, false);
+					return;
 				}
 
 				sign(
@@ -889,8 +896,13 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 	 * @return  Devuelve true en caso de que se deba mostrar o false en caso contrario. */
 	private boolean checkSignVisiblePreviewExtraParams() {
 		Properties extraParams = parameters.getExtraParams();
-		boolean visibleSignature = extraParams.containsKey(VISIBLE_SIGNATURE) ? Boolean.parseBoolean( (String) extraParams.get(VISIBLE_SIGNATURE))
-				: false;
+		String visibleSignature = null;
+		if (extraParams.containsKey(VISIBLE_SIGNATURE)) {
+			visibleSignature = (String) extraParams.get(VISIBLE_SIGNATURE);
+			if (VISIBLE_SIGNATURE_VALUE_WANT.equalsIgnoreCase(visibleSignature)) {
+				isRequiredVisibleSignature = true;
+			}
+		}
 		boolean headless = extraParams.containsKey(HEADLESS) ? Boolean.parseBoolean( (String) extraParams.get(HEADLESS))
 				: false;
 
@@ -899,7 +911,7 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 				|| AOSignConstants.SIGN_FORMAT_PADES_TRI.equals(this.parameters.getSignatureFormat())
 				|| AOSignConstants.SIGN_FORMAT_PDF.equals(this.parameters.getSignatureFormat())
 				|| AOSignConstants.SIGN_FORMAT_PDF_TRI.equals(this.parameters.getSignatureFormat()))
-				&& visibleSignature
+				&& (VISIBLE_SIGNATURE_VALUE_WANT.equalsIgnoreCase(visibleSignature) || VISIBLE_SIGNATURE_VALUE_OPTIONAL.equalsIgnoreCase(visibleSignature))
 				&& !headless) {
 			return true;
 		}
