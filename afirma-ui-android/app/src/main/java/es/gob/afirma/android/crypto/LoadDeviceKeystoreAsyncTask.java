@@ -25,6 +25,8 @@ import java.util.Enumeration;
 
 import es.gob.afirma.R;
 import es.gob.afirma.android.Logger;
+import es.gob.afirma.android.errors.ErrorCategory;
+import es.gob.afirma.android.errors.ThirdPartyErrors;
 import es.gob.afirma.android.gui.CertificateInfoForAliasSelect;
 import es.gob.afirma.android.gui.SelectAliasDialog;
 import es.gob.afirma.core.misc.AOUtil;
@@ -212,8 +214,9 @@ public class LoadDeviceKeystoreAsyncTask extends AsyncTask<Void, Void, Void> {
 
                 final AlertDialog.Builder dniBloqueado = new AlertDialog.Builder(getActivity());
 
+                ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.BLOCKED_CARD);
                 dniBloqueado.setTitle(getActivity().getString(R.string.error_title_dni_blocked));
-                dniBloqueado.setMessage(getActivity().getString(R.string.error_dni_blocked_dlg));
+                dniBloqueado.setMessage("AA" + errorCat.getCode() + " - " + errorCat.getUserText());
                 dniBloqueado.setPositiveButton(
                         getActivity().getString(R.string.ok),
                         new DialogInterface.OnClickListener() {

@@ -36,6 +36,12 @@
     <string name="error_loading_selected_undefined_file">Ocurri\u00F3 un error cargando el fichero</string>
     <string name="error_no_valid_p12">El fichero \"%s\" no es un PKCS#12 v\u00E1lido. Seleccione un nuevo almac\u00E9n para importar.</string>
     <string name="error">Error</string>
+    <string name="error_loading_keystore">Error al cargar el almacen de certificados</string>
+    <string name="error_loading_cert">Error al cargar el certificado</string>
+    <string name="error_saving_record">La firma se ha realizado correctamente, pero no se ha incluido en el registro de firmas</string>
+    <string name="error_ocurred">Ha ocurrido un error</string>
+    <string name="operation_cancelled">Operacion cancelada</string>
+    <string name="error_reading_dnie">No se ha podido leer correctamente el DNIe</string>
     <string name="title_activity_save_data">Guardar datos</string>
     <string name="saveData">Guardar</string>
     <string name="cancel">Cancelar</string>

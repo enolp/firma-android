@@ -8,6 +8,12 @@ import android.os.Build;
 
 import java.util.Locale;
 
+import es.gob.afirma.android.errors.CommunicationErrors;
+import es.gob.afirma.android.errors.FunctionalErrors;
+import es.gob.afirma.android.errors.InternalSoftwareErrors;
+import es.gob.afirma.android.errors.NFCErrors;
+import es.gob.afirma.android.errors.RequestErrors;
+import es.gob.afirma.android.errors.ThirdPartyErrors;
 import es.gob.afirma.android.gui.AppConfig;
 
 public class LocaleHelper {
@@ -44,7 +50,11 @@ public class LocaleHelper {
         configuration.setLocale(locale);
         configuration.setLayoutDirection(locale);
 
-        return context.createConfigurationContext(configuration);
+        Context resContext = context.createConfigurationContext(configuration);
+
+        updateLanguageErrors(resContext);
+
+        return resContext;
     }
 
     @SuppressWarnings("deprecation")
@@ -60,6 +70,17 @@ public class LocaleHelper {
 
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
 
+        updateLanguageErrors(context);
+
         return context;
+    }
+
+    private static void updateLanguageErrors(Context context) {
+        NFCErrors.update(context);
+        InternalSoftwareErrors.update(context);
+        ThirdPartyErrors.update(context);
+        CommunicationErrors.update(context);
+        FunctionalErrors.update(context);
+        RequestErrors.update(context);
     }
 }

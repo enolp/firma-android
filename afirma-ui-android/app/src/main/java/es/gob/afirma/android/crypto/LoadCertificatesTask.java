@@ -16,6 +16,8 @@ import javax.security.auth.callback.CallbackHandler;
 
 import es.gob.afirma.R;
 import es.gob.afirma.android.Logger;
+import es.gob.afirma.android.errors.ErrorCategory;
+import es.gob.afirma.android.errors.ThirdPartyErrors;
 import es.gob.afirma.android.gui.CertificateInfoForAliasSelect;
 import es.gob.afirma.android.gui.SelectAliasDialog;
 import es.gob.afirma.core.misc.AOUtil;
@@ -195,8 +197,9 @@ public class LoadCertificatesTask extends AsyncTask<Void, Void, Exception> {
 
                 final AlertDialog.Builder dniBloqueado = new AlertDialog.Builder(activity);
 
+                ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.BLOCKED_CARD);
                 dniBloqueado.setTitle(activity.getString(R.string.error_title_dni_blocked));
-                dniBloqueado.setMessage(activity.getString(R.string.error_dni_blocked_dlg));
+                dniBloqueado.setMessage("AA" + errorCat.getCode() + " - " + errorCat.getUserText());
                 dniBloqueado.setPositiveButton(
                         activity.getString(R.string.ok),
                         new DialogInterface.OnClickListener() {
@@ -211,7 +214,7 @@ public class LoadCertificatesTask extends AsyncTask<Void, Void, Exception> {
 
                 if (ksListener != null) {
                     ksListener.onLoadingKeyStoreError(
-                            activity.getString(R.string.error_dni_blocked), e
+                            errorCat.getCode() + " - " + activity.getString(R.string.error_dni_blocked), e
                     );
                 }
             }

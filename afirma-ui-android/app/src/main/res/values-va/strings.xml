@@ -36,6 +36,12 @@
     <string name="error_loading_selected_undefined_file">Va oc\u00f3rrer un error carregant el fitxer</string>
     <string name="error_no_valid_p12">El fitxer \"%s\" no \u00e9s un PKCS#12 v\u00e0lid. Seleccione un nou magatzem per a importar.</string>
     <string name="error">Error</string>
+    <string name="error_loading_keystore">Error en carregar l\'almacen de certificats</string>
+    <string name="error_loading_cert">Error en carregar el certificat</string>
+    <string name="error_saving_record">La signatura s\'ha realitzat correctament, per\u00f2 no s\'ha incl\u00f2s en el registre de signatures</string>
+    <string name="error_ocurred">Ha ocorregut un error</string>
+    <string name="operation_cancelled">Operacion cancel·lada</string>
+    <string name="error_reading_dnie">No s\'ha pogut llegir correctament el DNIe</string>
     <string name="title_activity_save_data">Guardar dades</string>
     <string name="saveData">Guardar</string>
     <string name="cancel">Cancel·lar</string>

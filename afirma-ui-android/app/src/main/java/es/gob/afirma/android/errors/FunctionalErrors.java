@@ -11,30 +11,32 @@
 package es.gob.afirma.android.errors;
 
 
+import android.content.Context;
+
 import java.util.Dictionary;
 import java.util.Hashtable;
+
+import es.gob.afirma.R;
 
 // Functional Error 5XXXXX problemas funcionales: Errores relacionados con la operativa de la funcionalidad. Por ejemplo, que se haya pedido firmar en PAdES un fichero no PDF
 public final class FunctionalErrors {
 
 	// 500XXX: Error general
 	public static final String CANCELED_BY_USER = "CANCELED_BY_USER";
-
-	private static final ErrorCategory e500001 = new ErrorCategory(500001, "Operación cancelada por el usuario", "Operación cancelada por el usuario");
-
 	public static final Dictionary<String, ErrorCategory> GENERAL = new Hashtable<>();
-	static {
-		GENERAL.put(CANCELED_BY_USER, e500001);
-	}
 
 	// 501XXX: Operacion de firma
 	public static final String NO_CERTIFICATES = "NO_CERTIFICATES";
-
-	private static final ErrorCategory e501001 = new ErrorCategory(501001, "Error en la operación, no hay certificados", "Error en la operación, no hay certificados");
-
 	public static final Dictionary<String, ErrorCategory> SIGN_OPERATION = new Hashtable<>();
-	static {
+
+	public static void update(Context context) {
+
+		ErrorCategory e500001 = new ErrorCategory(500001, context.getString(R.string.operation_cancelled), "Operación cancelada por el usuario");
+		GENERAL.put(CANCELED_BY_USER, e500001);
+
+		ErrorCategory e501001 = new ErrorCategory(501001, context.getString(R.string.error_title_keystore_empty), "Error en la operación, no hay certificados");
 		SIGN_OPERATION.put(NO_CERTIFICATES, e501001);
+
 	}
 
 }

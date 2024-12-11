@@ -34,6 +34,8 @@ import es.gob.afirma.android.crypto.LoadKeyStoreManagerTask;
 import es.gob.afirma.android.crypto.LoadNfcKeyStoreManagerTask;
 import es.gob.afirma.android.crypto.LoadingCertificateException;
 import es.gob.afirma.android.crypto.UnsupportedNfcCardException;
+import es.gob.afirma.android.errors.ErrorCategory;
+import es.gob.afirma.android.errors.ThirdPartyErrors;
 import es.gob.afirma.android.gui.ChooseCertTypeDialog;
 
 /** Esta actividad abstracta integra las funciones necesarias para la cargar de un almacen de
@@ -321,13 +323,15 @@ public class LoadKeyStoreFragmentActivity extends FragmentActivity {
 		// si no, indicamos un error en la firma.
 		if (t instanceof UnsupportedNfcCardException) {
 			final Intent stepsSignDNIe = new Intent(this, IntroUseDnieActivity.class);
-			stepsSignDNIe.putExtra(ERROR_LOADING_NFC_KEYSTORE, getString(R.string.unsupported_card));
+			ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.UNKNOWN_OR_NOT_SUPPORTED_CARD);
+			stepsSignDNIe.putExtra(ERROR_LOADING_NFC_KEYSTORE, "AA" + errorCat.getCode() + " - " + errorCat.getUserText());
 			startActivity(stepsSignDNIe);
 			finish();
 		}
 		else if (t instanceof InitializingNfcCardException) {
 			final Intent stepsSignDNIe = new Intent(this, IntroUseDnieActivity.class);
-			stepsSignDNIe.putExtra(ERROR_LOADING_NFC_KEYSTORE, getString(R.string.nfc_card_initializing_error));
+			ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.CAN_VALIDATION);
+			stepsSignDNIe.putExtra(ERROR_LOADING_NFC_KEYSTORE, "AA" + errorCat.getCode() + " - " + errorCat.getUserText());
 			startActivity(stepsSignDNIe);
 			finish();
 		}

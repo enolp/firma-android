@@ -36,6 +36,12 @@
     <string name="error_loading_selected_undefined_file">Errorea gertatu da fitxategia kargatzean</string>
     <string name="error_no_valid_p12">\"%s\" fitxategia ez da baliozko PKCS#12. Hautatu biltegi berri bat inportatzeko.</string>
     <string name="error">Errorea</string>
+    <string name="error_loading_keystore">Errorea gertatu da ziurtagiri-biltegia kargatzean</string>
+    <string name="error_loading_cert">Errorea gertatu da ziurtagiria kargatzean</string>
+    <string name="error_saving_record">Sinadura behar bezala egin da, baina ez da sinadura-erregistroan sartu</string>
+    <string name="error_ocurred">Errore bat gertatu da</string>
+    <string name="operation_cancelled">Eragiketa bertan behera geratu da</string>
+    <string name="error_reading_dnie">Ezin izan da ondo irakurri NANe</string>
     <string name="title_activity_save_data">Gorde datuak</string>
     <string name="saveData">Gorde</string>
     <string name="cancel">Utzi</string>

@@ -17,8 +17,9 @@ import java.util.Hashtable;
 public final class ErrorManager {
 
 	private static final String ERROR_NUMBER = "%#%"; //$NON-NLS-1$
+	private static final String ERROR_CAT_CODE = "%ECC%"; //$NON-NLS-1$
 	private static final String ERROR_MESSAGE = "%MSG%"; //$NON-NLS-1$
-	private static final String ERROR_TEMPLATE = ERROR_NUMBER + ":=" + ERROR_MESSAGE; //$NON-NLS-1$
+	private static final String ERROR_TEMPLATE = ERROR_NUMBER + ":=" + ERROR_CAT_CODE + " - " + ERROR_MESSAGE; //$NON-NLS-1$
 
 	private static final String GENERIC_ERROR = "Error generico"; //$NON-NLS-1$
 
@@ -82,13 +83,13 @@ public final class ErrorManager {
 		// No instanciable
 	}
 
-	public static String genError(final String number) {
-		return genError(number, null);
+	public static String genError(final String number, final int errorCatCode) {
+		return genError(number, errorCatCode,null);
 	}
 
-	public static String genError(final String number, final String msg) {
+	public static String genError(final String number, final int errorCatCode, final String msg) {
 		return
-				ERROR_TEMPLATE.replace(ERROR_NUMBER, number).replace(
+				ERROR_TEMPLATE.replace(ERROR_NUMBER, number).replace(ERROR_CAT_CODE, String.valueOf(errorCatCode)).replace(
 						ERROR_MESSAGE,
 						msg != null ? msg : ERRORS.get(number) != null ? ERRORS.get(number) : GENERIC_ERROR
 						);

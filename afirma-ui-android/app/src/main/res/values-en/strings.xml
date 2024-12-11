@@ -37,6 +37,12 @@
     <string name="error_loading_selected_undefined_file">Error trying to load the file</string>
     <string name="error_no_valid_p12">The file \"%s\" is not a valid PKCS#12. Please, select another store for importing.</string>
     <string name="error">Error</string>
+    <string name="error_loading_keystore">Error when loading the certificate store</string>
+    <string name="error_loading_cert">Error loading certificate</string>
+    <string name="error_saving_record">The signature has been done correctly, but it has not been included in the signatures registry</string>
+    <string name="error_ocurred">An error has occurred</string>
+    <string name="operation_cancelled">Cancelled operation</string>
+    <string name="error_reading_dnie">DNIe could not be read correctly</string>
     <string name="title_activity_save_data">Save data</string>
     <string name="saveData">Save</string>
     <string name="cancel">Cancel</string>

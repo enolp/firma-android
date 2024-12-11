@@ -137,12 +137,12 @@ public final class LocalSignActivity extends SignFragmentActivity {
 					}
 				} catch (final OutOfMemoryError e) {
 					ErrorCategory errorCat = InternalSoftwareErrors.OPERATION_SIGN.get(InternalSoftwareErrors.OUT_OF_MEMORY);
-					showErrorMessage(getString(R.string.error) + " AA" + errorCat.getCode(), errorCat.getUserText());
+					showErrorMessage(getString(R.string.error_loading_selected_undefined_file), errorCat);
 					Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e); //$NON-NLS-1$
 					return;
 				} catch (final IOException e) {
 					ErrorCategory errorCat = InternalSoftwareErrors.OPERATION_SIGN.get(InternalSoftwareErrors.LOADING_LOCAL_FILE);
-					showErrorMessage(getString(R.string.error) + " AA" + errorCat.getCode(), errorCat.getUserText() + this.fileName);
+					showErrorMessage(getString(R.string.error_loading_selected_undefined_file), errorCat);
 					Logger.e(ES_GOB_AFIRMA, errorCat.getAdminText()); //$NON-NLS-1$ //$NON-NLS-1$
 					return;
 				}
@@ -199,7 +199,7 @@ public final class LocalSignActivity extends SignFragmentActivity {
 					return;
 				} else if (resultCode == ERROR_REQUEST_VISIBLE_SIGN) {
 					ErrorCategory errorCat = InternalSoftwareErrors.OPERATION_SIGN.get(InternalSoftwareErrors.LOADING_LOCAL_FILE);
-					showErrorMessage(getString(R.string.error) + " AA" + errorCat.getCode(), errorCat.getUserText() + this.fileName);
+					showErrorMessage(getString(R.string.error_loading_selected_undefined_file), errorCat);
 					Logger.e(ES_GOB_AFIRMA, errorCat.getAdminText()); //$NON-NLS-1$
 					return;
 				}
@@ -216,13 +216,13 @@ public final class LocalSignActivity extends SignFragmentActivity {
 					}
 					else {
 						ErrorCategory errorCat = InternalSoftwareErrors.SAVING_DATA.get(InternalSoftwareErrors.SAVING_DATA_DISK);
-						showErrorMessage(getString(R.string.error) + " AA" + errorCat.getCode(), errorCat.getUserText());
+						showErrorMessage(getString(R.string.error_saving_data), errorCat);
 						Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText()); //$NON-NLS-1$
 						return;
 					}
 				} catch (final IOException e) {
 					ErrorCategory errorCat = InternalSoftwareErrors.SAVING_DATA.get(InternalSoftwareErrors.SAVING_DATA_DISK);
-					showErrorMessage(getString(R.string.error) + " AA" + errorCat.getCode(), errorCat.getUserText());
+					showErrorMessage(getString(R.string.error_saving_data), errorCat);
 					Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e); //$NON-NLS-1$
 					return;
 				}
@@ -314,7 +314,7 @@ public final class LocalSignActivity extends SignFragmentActivity {
 			} else {
 				ErrorCategory errorCat = InternalSoftwareErrors.SAVING_DATA.get(InternalSoftwareErrors.NO_DEVICE_STORE);
 				Logger.w(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText()); //$NON-NLS-1$
-				showErrorMessage(getString(R.string.error) + " AA" + errorCat.getCode(), errorCat.getUserText());
+				showErrorMessage(getString(R.string.error_saving_signature), errorCat);
 				return;
 			}
 
@@ -331,7 +331,7 @@ public final class LocalSignActivity extends SignFragmentActivity {
 				fos.close();
 			} catch (final Exception e) {
 				ErrorCategory errorCat = InternalSoftwareErrors.SAVING_DATA.get(InternalSoftwareErrors.SAVING_DATA_DISK);
-				showErrorMessage(getString(R.string.error) + " AA" + errorCat.getCode(), errorCat.getUserText());
+				showErrorMessage(getString(R.string.error_saving_signature), errorCat);
 				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + e); //$NON-NLS-1$
 				return;
 			}
@@ -349,7 +349,7 @@ public final class LocalSignActivity extends SignFragmentActivity {
 				);
 			} catch (final Exception e) {
 				ErrorCategory errorCat = InternalSoftwareErrors.SAVING_DATA.get(InternalSoftwareErrors.SAVING_DATA_DISK);
-				showErrorMessage(getString(R.string.error) + " AA" + errorCat.getCode(), errorCat.getUserText());
+				showErrorMessage(getString(R.string.error_saving_signature), errorCat);
 				Logger.w(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + e); //$NON-NLS-1$
 			}
 		}
@@ -358,13 +358,14 @@ public final class LocalSignActivity extends SignFragmentActivity {
 	/** Muestra los elementos de pantalla informando de un error ocurrido durante la operaci&oacute;n de
 	 * firma.
 	 * @param title T&iacute;tulo que describe el error producido.
-	 * @param message Mensaje que describe el error producido. */
-	private void showErrorMessage(final String title, final String message) {
+	 * @param errorCategory Informacion sobre el error producido. */
+	private void showErrorMessage(final String title, final ErrorCategory errorCategory) {
 		Intent intent = new Intent(this, HomeActivity.class);
 		intent.putExtra(SHOW_SIGNING_RESULT, true);
 		intent.putExtra(SIGNING_ERROR, true);
 		intent.putExtra(ERROR_TITLE_PARAM, title);
-		intent.putExtra(ERROR_MESSAGE_PARAM, message);
+		String msgWithCode = "AA" + errorCategory.getCode() + " - " + errorCategory.getUserText();
+		intent.putExtra(ERROR_MESSAGE_PARAM, msgWithCode);
 		startActivity(intent);
 	}
 
@@ -419,15 +420,16 @@ public final class LocalSignActivity extends SignFragmentActivity {
 			if (KeyStoreOperation.SIGN == op) {
 				ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.INCORRECT_PIN);
 				if (t instanceof MSCBadPinException) {
-					showErrorMessage(getString(R.string.error) + " AA" + errorCat.getCode(), t.getMessage());
+					showErrorMessage(getString(R.string.incorrect_pin), errorCat);
 				}
 				else {
 					ErrorCategory errorSigning = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.ERROR_SIGNING);
-					showErrorMessage(getString(R.string.error) + " AA" + errorSigning.getCode(), errorSigning.getUserText());
+					showErrorMessage(getString(R.string.error), errorSigning);
 				}
 			}
 			else {
-				showErrorMessage(getString(R.string.error), msg);
+				ErrorCategory errorCat = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.SOFTWARE_GENERAL);
+				showErrorMessage(getString(R.string.error), errorCat);
 			}
 		}
 	}

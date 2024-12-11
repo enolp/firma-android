@@ -11,78 +11,50 @@
 package es.gob.afirma.android.errors;
 
 
+import android.content.Context;
+
 import java.util.Dictionary;
 import java.util.Hashtable;
+
+import es.gob.afirma.R;
 
 // Communication Error 4XXXXX problemas comunicaciones: Errores de comunicación con sistemas externos.
 public final class CommunicationErrors {
 
 	// 400XXX: Error general
 	public static final String UNKNOWN_ERROR = "UNKNOWN_ERROR";
+	public static final String COMMUNICATION_WITH_SERVICE = "COMMUNICATION_WITH_SERVICE";
 
-	private static final ErrorCategory e400000 = new ErrorCategory(400000, "Error desconocido al enviar el error obtenido al servidor", "Error desconocido al enviar el error obtenido al servidor");
-
-	public static final Dictionary<String, ErrorCategory> GENERAL = new Hashtable<>();
-	static {
-		GENERAL.put(UNKNOWN_ERROR, e400000);
-	}
+    public static final Dictionary<String, ErrorCategory> GENERAL = new Hashtable<>();
 
 	// 4011XX: Servidor intermedio (descarga)
 	public static final String DOWNLOAD_SIGN = "DOWNLOAD_SIGN";
+	public static final String DOWNLOAD_CONFIG_CERT = "DOWNLOAD_CONFIG_CERT";
 
-	private static final ErrorCategory e401100 = new ErrorCategory(401100, "Error en la descarga de la firma", "Error en la descarga de la firma");
+    public static final Dictionary<String, ErrorCategory> DOWNLOAD_SERVER = new Hashtable<>();
 
-	public static final Dictionary<String, ErrorCategory> DOWNLOAD_SERVER = new Hashtable<>();
-	static {
+	public static final String UPLOAD_DATA = "UPLOAD_DATA";
+    public static final Dictionary<String, ErrorCategory> UPLOAD_SERVER = new Hashtable<>();
+
+
+	public static void update(Context context) {
+
+        ErrorCategory e400000 = new ErrorCategory(400000, context.getString(R.string.error_sending_data), "Error desconocido al enviar el error obtenido al servidor");
+		ErrorCategory e400001 = new ErrorCategory(400001, context.getString(R.string.error_sending_data), "Error durante la descarga de la configuracion para la seleccion de certificado");
+
+		GENERAL.put(UNKNOWN_ERROR, e400000);
+		GENERAL.put(COMMUNICATION_WITH_SERVICE, e400001);
+
+        ErrorCategory e401100 = new ErrorCategory(401100, context.getString(R.string.error_sending_data), "Error en la descarga de la firma");
+		ErrorCategory e401101 = new ErrorCategory(401101, context.getString(R.string.error_loading_cert), "Error durante la descarga de la configuracion para la seleccion de certificado");
+
 		DOWNLOAD_SERVER.put(DOWNLOAD_SIGN, e401100);
-	}
+		DOWNLOAD_SERVER.put(DOWNLOAD_CONFIG_CERT, e401101);
 
-	// 4012XX: Servidor intermedio (subida)
-	private static final ErrorCategory e401200 = new ErrorCategory(401200, "Error en la descarga de la firma", "Error en la descarga de la firma");
+        // 4012XX: Servidor intermedio (subida)
+        ErrorCategory e401200 = new ErrorCategory(401200, context.getString(R.string.error_sending_data), "Error en el envio de datos");
+		UPLOAD_SERVER.put(UPLOAD_DATA, e401200);
 
-	public static final Dictionary<String, ErrorCategory> UPLOAD_SERVER = new Hashtable<>();
-	static {
-		UPLOAD_SERVER.put(DOWNLOAD_SIGN, e401200);
-	}
-
-	// 4013XX: Servidor trifasico prefirma
-	static final String CONNECT_PRESIGN = "CONNECT_PRESIGN";
-
-	private static final ErrorCategory e401300 = new ErrorCategory(401300, "Error de conexion con el servidor trifasico al hacer la prefirma", "Error de conexion con el servidor trifasico al hacer la prefirma");
-
-	public static final Dictionary<String, ErrorCategory> TRIPHASE_SERVER_PRESIGN = new Hashtable<>();
-	static {
-		TRIPHASE_SERVER_PRESIGN.put(CONNECT_PRESIGN, e401300);
-	}
-
-	// 4014XX: Servidor trifasico postfirma
-	static final String CONNECT_POSTSIGN = "CONNECT_POSTSIGN";
-
-	private static final ErrorCategory e401400 = new ErrorCategory(401400, "Error de conexion con el servidor trifasico al hacer la posfirma", "Error de conexion con el servidor trifasico al hacer la posfirma");
-
-	public static final Dictionary<String, ErrorCategory> TRIPHASE_SERVER_POSTSIGN = new Hashtable<>();
-	static {
-		TRIPHASE_SERVER_POSTSIGN.put(CONNECT_POSTSIGN, e401400);
-	}
-
-	// 4015XX: Servidor trifasico prefirma lote
-	static final String CONNECT_PRESIGN_BATCH = "CONNECT_PRESIGN_BATCH";
-
-	private static final ErrorCategory e401500 = new ErrorCategory(401500, "Error de conexion con el servidor trifasico al hacer la prefirma batch", "Error de conexion con el servidor trifasico al hacer la prefirma batch");
-
-	public static final Dictionary<String, ErrorCategory> TRIPHASE_SERVER_PRESIGN_BATCH = new Hashtable<>();
-	static {
-		TRIPHASE_SERVER_PRESIGN_BATCH.put(CONNECT_PRESIGN_BATCH, e401500);
-	}
-
-	// 4016XX: Servidor trifasico posfirma lote
-	static final String CONNECT_POSTSIGN_BATCH = "CONNECT_POSTSIGN_BATCH";
-
-	private static final ErrorCategory e401600 = new ErrorCategory(401600, "Error de conexion con el servidor trifasico al hacer la posfirma batch", "Error de conexion con el servidor trifasico al hacer la posfirma batch");
-
-	public static final Dictionary<String, ErrorCategory> TRIPHASE_SERVER_POSTSIGN_BATCH = new Hashtable<>();
-	static {
-		TRIPHASE_SERVER_POSTSIGN_BATCH.put(CONNECT_POSTSIGN_BATCH, e401600);
 	}
 
 }
