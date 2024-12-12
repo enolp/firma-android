@@ -44,16 +44,6 @@ public class SettingsActivity extends AppCompatActivity {
         String lang = AppConfig.getLocaleConfig(this);
         selectLangTv.setText(lang.toUpperCase());
 
-        // Configuracion de la firma
-        TextView signConfigTv = this.findViewById(R.id.signConfigTv);
-        signConfigTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), SignConfigurationActivity.class);
-                startActivity(intent);
-            }
-        });
-
         // Dominios de confianza
         TextView trustedDomainsTv = this.findViewById(R.id.trustedDomainsTv);
         trustedDomainsTv.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +114,16 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        // Configuracion de la firma
+        TextView signConfigTv = this.findViewById(R.id.signConfigTv);
+        signConfigTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), SignConfigurationActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // Declaracion de accesibilidad
         TextView accesibilityTv = this.findViewById(R.id.accesibilityTv);
         accesibilityTv.setOnClickListener(new View.OnClickListener() {
@@ -140,20 +140,19 @@ public class SettingsActivity extends AppCompatActivity {
         legalTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(getString(R.string.accessibility_statement_url)));
-                startActivity(i);
+                Intent intent = new Intent(getBaseContext(), LegalActivity.class);
+                startActivity(intent);
             }
         });
+
 
         // Politica de privacidad
         TextView privacityTv = this.findViewById(R.id.privacityTv);
         privacityTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(getString(R.string.privacy_policy_url)));
-                startActivity(i);
+                Intent intent = new Intent(getBaseContext(), PrivacyPolicyActivity.class);
+                startActivity(intent);
             }
         });
 

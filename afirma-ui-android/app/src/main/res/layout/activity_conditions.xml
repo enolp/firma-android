@@ -20,17 +20,6 @@
         app:titleTextAppearance="@style/ToolbarTitle"
         app:titleTextColor="@color/black" />
 
-    <TextView
-        android:id="@+id/titleTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:fontFamily="@font/merriweatherbold"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:text="@string/privacy_policy_title_1"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -38,11 +27,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_marginTop="15dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/subtitleTv"
+        android:id="@+id/langTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
@@ -77,8 +67,8 @@
         android:layout_weight="0.30"
         android:background="@drawable/rounded_black_borders">
 
-        <TextView
-            android:id="@+id/contentConditionsTv"
+        <WebView
+            android:id="@+id/contentConditionsWv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
@@ -125,6 +115,7 @@
         android:onClick="onClick"
         android:enabled="false"
         android:text="@string/ok"
+        android:textAllCaps="false"
         android:background="@drawable/btn_red_large_states" />
 
 </LinearLayout>

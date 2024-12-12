@@ -2,10 +2,13 @@ package es.gob.afirma.android;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Html;
+import android.util.Base64;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,10 +18,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
 import java.util.List;
+import java.util.Locale;
 
 import es.gob.afirma.R;
 import es.gob.afirma.android.gui.AppConfig;
+import es.gob.afirma.android.util.FileUtil;
 
 public class ConditionsActivity extends AppCompatActivity {
 
@@ -26,7 +33,8 @@ public class ConditionsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conditions);
-
+        MaterialToolbar toolbar = findViewById(R.id.conditionsToolbar);
+        this.setSupportActionBar(toolbar);
         Spinner spinner =  this.findViewById(R.id.spinner_languages);
         List<String> spinnerValues = List.of(getString(R.string.espanol), getString(R.string.english), getString(R.string.catala), getString(R.string.galego), getString(R.string.euskera), getString(R.string.valenciano));
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.textview_spinner_selected, spinnerValues);
@@ -35,7 +43,7 @@ public class ConditionsActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                /*switch (position) {
+                switch (position) {
                     case 1:
                         changeLang("en");
                         break;
@@ -53,7 +61,7 @@ public class ConditionsActivity extends AppCompatActivity {
                         break;
                     default:
                         changeLang("es");
-                }*/
+                }
             }
 
             @Override
@@ -61,34 +69,13 @@ public class ConditionsActivity extends AppCompatActivity {
             }
         });
 
-        TextView tvChild =  this.findViewById(R.id.contentConditionsTv);
-        tvChild.setText(Html.fromHtml(getString(R.string.privacy_policy_text_1)
-                        + getString(R.string.privacy_policy_title_2)
-                        + getString(R.string.privacy_policy_text_2)
-                        + getString(R.string.privacy_policy_title_3)
-                        + getString(R.string.privacy_policy_text_3)
-                        + getString(R.string.privacy_policy_title_4)
-                        + getString(R.string.privacy_policy_text_4_1)
-                        + getString(R.string.privacy_policy_text_4_2)
-                        + getString(R.string.privacy_policy_title_5)
-                        + getString(R.string.privacy_policy_text_5)
-                        + getString(R.string.privacy_policy_title_6)
-                        + getString(R.string.privacy_policy_text_6)
-                        + getString(R.string.privacy_policy_title_7)
-                        + getString(R.string.privacy_policy_text_7)
-                        + getString(R.string.privacy_policy_title_8)
-                        + getString(R.string.privacy_policy_text_8_1)
-                        + getString(R.string.privacy_policy_text_8_2)
-                        + getString(R.string.privacy_policy_text_8_3)
-                        + getString(R.string.privacy_policy_text_8_4)
-                        + getString(R.string.privacy_policy_text_8_5)
-                        + getString(R.string.privacy_policy_title_9)
-                        + getString(R.string.privacy_policy_text_9_1)
-                        + getString(R.string.privacy_policy_text_9_2)
-                        + getString(R.string.privacy_policy_text_9_3)
-                        + getString(R.string.privacy_policy_title_10)
-                        + getString(R.string.privacy_policy_text_10)
-        ));
+        WebView wvChild =  this.findViewById(R.id.contentConditionsWv);
+        String policyHtml = FileUtil.readPolicyFile(this, "es");
+        String legalHtml = FileUtil.readLegalFile(this, "es");
+        String htmlText = policyHtml + legalHtml;
+        String encodedHtml = Base64.encodeToString(htmlText.getBytes(),
+                Base64.NO_PADDING);
+        wvChild.loadData(encodedHtml, "text/html", "base64");
 
         Button acceptConditionsBtn = this.findViewById(R.id.acceptConditionsBtn);
         acceptConditionsBtn.setOnClickListener(new View.OnClickListener()
@@ -135,9 +122,38 @@ public class ConditionsActivity extends AppCompatActivity {
         }
     }
 
-    public void changeLang(String lang) {
+    private void changeLang(String lang) {
         LocaleHelper.setLocale(this, lang);
-        this.recreate();
+        refreshComponents(lang);
+        String policyHtml = FileUtil.readPolicyFile(this, lang);
+        String legalHtml = FileUtil.readLegalFile(this, lang);
+        String htmlText = policyHtml + legalHtml;
+        String encodedHtml = Base64.encodeToString(htmlText.getBytes(),
+                Base64.NO_PADDING);
+        WebView wvChild =  this.findViewById(R.id.contentConditionsWv);
+        wvChild.loadData(encodedHtml, "text/html", "base64");
+    }
+
+    private void refreshComponents(String lang) {
+        Resources res = getLocalizedResources(this, lang);
+        getSupportActionBar().setTitle(res.getString(R.string.acceptance_conditions));
+        TextView langTv = this.findViewById(R.id.langTv);
+        langTv.setText(res.getString(R.string.language));
+        CheckBox readAndAcceptPrivacyChk = this.findViewById(R.id.readAndAcceptPrivacyChk);
+        readAndAcceptPrivacyChk.setText(res.getString(R.string.read_and_accept_privacy));
+        CheckBox readAndAcceptLegalChk = this.findViewById(R.id.readAndAcceptLegalChk);
+        readAndAcceptLegalChk.setText(res.getString(R.string.read_and_accept_legal));
+        Button acceptBtn = this.findViewById(R.id.acceptConditionsBtn);
+        acceptBtn.setText(res.getString(R.string.ok));
+    }
+
+    private Resources getLocalizedResources(Context context, String lang) {
+        Locale locale = new Locale(lang);
+        Configuration conf = context.getResources().getConfiguration();
+        conf = new Configuration(conf);
+        conf.setLocale(locale);
+        Context localizedContext = context.createConfigurationContext(conf);
+        return localizedContext.getResources();
     }
 
     @Override

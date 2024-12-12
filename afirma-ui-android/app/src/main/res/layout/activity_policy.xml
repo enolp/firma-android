@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/privaty_policy_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/privatyPolicyToolbar"
+        android:layout_width="match_parent"
+        android:touchscreenBlocksFocus="false"
+        app:popupTheme="@style/AppTheme"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ToolbarTheme"
+        app:navigationIcon="@drawable/nav_back_selector"
+        app:titleCentered="true"
+        app:title="@string/privacy_policy"
+        app:titleTextAppearance="@style/ToolbarTitle"
+        app:titleTextColor="@color/black"
+        />
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:fadeScrollbars="false"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarFadeDuration="50000"
+        android:scrollbarThumbVertical="@android:color/black"
+        android:padding="5dp"
+        android:layout_margin="15dp"
+        android:layout_weight="0.30"
+        android:background="@drawable/rounded_black_borders">
+
+        <WebView
+            android:id="@+id/contentprivatyPolicyWv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:fontFamily="@font/nunitosans"
+            android:textColor="@color/black" />
+
+    </ScrollView>
+</LinearLayout>

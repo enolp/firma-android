@@ -108,6 +108,14 @@
             android:exported="true">
         </activity>
         <activity
+            android:name=".android.LegalActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".android.PrivacyPolicyActivity"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".android.VersionActivity"
             android:exported="true">
         </activity>

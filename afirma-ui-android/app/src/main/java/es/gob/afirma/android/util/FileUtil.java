@@ -5,7 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.OpenableColumns;
+import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 import es.gob.afirma.android.Logger;
@@ -121,5 +124,55 @@ public class FileUtil {
             }
         }
         return baos.toByteArray();
+    }
+
+    public static String readPolicyFile(Context ctx, String language) {
+        BufferedReader reader = null;
+        String html = "";
+        try {
+            reader = new BufferedReader(
+                    new InputStreamReader(ctx.getAssets().open("politica_" + language + ".html")));
+
+            String mLine;
+            while ((mLine = reader.readLine()) != null) {
+                html += mLine;
+            }
+        } catch (IOException e) {
+            Log.w("es.gob.afirma", "No se ha podido cargar la politica de privacidad de la aplicacion correctamente", e);
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    Log.w("es.gob.afirma", "No se ha podido cargar la politica de privacidad  de la aplicacion correctamente", e);
+                }
+            }
+        }
+        return html;
+    }
+
+    public static String readLegalFile(Context ctx,String language) {
+        BufferedReader reader = null;
+        String html = "";
+        try {
+            reader = new BufferedReader(
+                    new InputStreamReader(ctx.getAssets().open("aviso_" + language + ".html")));
+
+            String mLine;
+            while ((mLine = reader.readLine()) != null) {
+                html += mLine;
+            }
+        } catch (IOException e) {
+            Log.w("es.gob.afirma", "No se ha podido cargar el aviso legal de la aplicacion correctamente", e);
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    Log.w("es.gob.afirma", "No se ha podido cargar el aviso legal de la aplicacion correctamente", e);
+                }
+            }
+        }
+        return html;
     }
 }

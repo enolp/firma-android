@@ -86,35 +86,6 @@
             android:focusable="false"
             />
 
-        <!-- Configuracion de firma -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="8dp"
-            android:background="@drawable/option_selector">
-
-            <TextView
-                android:id="@+id/signConfigTv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawablePadding="10dp"
-                android:drawableLeft="@drawable/ic_signconfig"
-                android:background="@drawable/option_selector"
-                android:text="@string/sign_configuration"
-                android:textColor="@color/black"
-                android:paddingStart="8dp"/>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:background="@color/toolbar"
-            android:focusable="false"
-            />
-
         <!-- Dominios de confianza -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -347,6 +318,35 @@
             android:focusable="false"
             />
 
+        <!-- Configuracion de firma -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:background="@drawable/option_selector">
+
+            <TextView
+                android:id="@+id/signConfigTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/ic_signconfig"
+                android:background="@drawable/option_selector"
+                android:text="@string/sign_configuration"
+                android:textColor="@color/black"
+                android:paddingStart="8dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/toolbar"
+            android:focusable="false"
+            />
+
         <!-- Declaracion de Accesibilidad -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -402,13 +402,6 @@
                 android:textColor="@color/black"
                 android:paddingStart="8dp"/>
 
-            <ImageView
-                android:id="@+id/legalLinkImg"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:src="@drawable/baseline_open_in_new_24"/>
-
         </LinearLayout>
 
         <View
@@ -436,13 +429,6 @@
                 android:text="@string/privacy_policy"
                 android:textColor="@color/black"
                 android:paddingStart="8dp"/>
-
-            <ImageView
-                android:id="@+id/privacityLinkImg"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:src="@drawable/baseline_open_in_new_24"/>
 
         </LinearLayout>
 
