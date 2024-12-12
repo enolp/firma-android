@@ -50,8 +50,8 @@
         android:fontFamily="@font/nunitosansbold"
         android:text="@string/is_my_dnie_suitable"
         android:onClick="onClick"
+        android:textAllCaps="false"
         android:textColor="#B44D3D"
-        android:visibility="gone"
         style="@style/ButtonNoBorder"/>
 
     <Button

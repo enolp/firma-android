@@ -170,6 +170,9 @@
     <string name="dnie_identification">Identificaci\u00F3n con DNIe</string>
     <string name="dnie_identification_desc">Para identificarte mediante DNIe es necesario que tengas un DNI electr\u00F3nico con <b>certificados vigentes</b> y conozcas el <b>c\u00F3digo PIN</b>.</string>
     <string name="is_my_dnie_suitable">¿Es mi DNI compatible?</string>
+    <string name="is_my_dnie_suitable_desc">Los DNIe compatibles con este proceso son los &lt;b>DNI 3.0 y 4.0&lt;/b>. Si tienes dudas de cu\u00E1l es el tuyo, puedes consultarlo en el siguiente enlace:</string>
+    <string name="dni_portal_text">&lt;u>Portal del DNI electr\u00F3nico. Cuerpo Nacional de Polic\u00EDa&lt;/u></string>
+    <string name="dni_portal_url">https://www.dnielectronico.es/</string>
     <string name="enter_can_dni">Introduzca el CAN del DNI</string>
     <string name="enter_can_dni_desc">El CAN es un n\u00FAmero situado en la parte inferior derecha del DNI. Es necesario para la lectura del DNI con NFC.</string>
     <string name="enter_can_dni_hint">Escribe tu c\u00F3digo CAN del DNI</string>

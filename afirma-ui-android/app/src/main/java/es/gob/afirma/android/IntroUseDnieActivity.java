@@ -12,8 +12,11 @@ import androidx.fragment.app.FragmentActivity;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import es.gob.afirma.R;
+import es.gob.afirma.android.gui.CompatibleDniDialog;
 
 public class IntroUseDnieActivity extends FragmentActivity {
+
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,19 @@ public class IntroUseDnieActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+
+        context = this;
+
+        Button compatibleDniBtn = this.findViewById(R.id.isCompatibleButton);
+        compatibleDniBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                CompatibleDniDialog dialog = new CompatibleDniDialog(context);
+                dialog.show();
             }
         });
 

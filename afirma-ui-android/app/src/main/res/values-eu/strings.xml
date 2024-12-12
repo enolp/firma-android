@@ -170,6 +170,9 @@
     <string name="dnie_identification">NANe-rekin identifikatzea</string>
     <string name="dnie_identification_desc">NAN elektronikoaren bidez identifikatzeko, <b>indarrean dauden ziurtagiriak</b> dituen NAN elektronikoa izan behar duzu, eta <b>PIN kodea</b> jakin.</string>
     <string name="is_my_dnie_suitable">Bateragarria da nire NANa?</string>
+    <string name="is_my_dnie_suitable_desc">Prozesu honekin bateragarriak diren NANak &lt;b>DNI 3.0 eta 4.0&lt;/b> NANak dira. Ez badakizu zein den zurea, esteka honetan kontsulta dezakezu:</string>
+    <string name="dni_portal_text">&lt;u>NAN elektronikoaren ataria. Polizia Nazionalaren Kidegoa&lt;/u></string>
+    <string name="dni_portal_url">https://www.dnielectronico.es/</string>
     <string name="enter_can_dni">Sartu NANaren CANa</string>
     <string name="enter_can_dni_desc">CANa NANaren beheko eskuineko aldean dagoen zenbaki bat da. NANa NFCrekin irakurtzeko beharrezkoa da.</string>
     <string name="enter_can_dni_hint">Idatzi NANaren CAN kodea</string>

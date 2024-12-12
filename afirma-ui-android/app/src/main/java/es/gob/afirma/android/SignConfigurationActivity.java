@@ -11,6 +11,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 
 import es.gob.afirma.R;
 import es.gob.afirma.android.gui.AppConfig;
+import es.gob.afirma.android.gui.CustomDialog;
 
 public class SignConfigurationActivity extends AppCompatActivity {
 
@@ -50,6 +51,8 @@ public class SignConfigurationActivity extends AppCompatActivity {
                 NfcHelper.configureNfcAsPreferredConnection(switchNFC.isChecked());
                 AppConfig.setPadesVisibleSignature(switchPadesVisibleSignature.isChecked());
                 AppConfig.setPadesObfuscateCertInfo(switchObfuscateCertInfo.isChecked());
+                CustomDialog cd = new CustomDialog(SignConfigurationActivity.this, R.mipmap.check_icon, getString(R.string.changes_saved), getString(R.string.changes_saved_correctly), getString(R.string.understood));
+                cd.show();
             }
         });
     }

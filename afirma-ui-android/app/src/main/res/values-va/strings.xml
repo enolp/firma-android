@@ -170,6 +170,9 @@
     <string name="dnie_identification">Identificaci\u00f3 amb DNIe</string>
     <string name="dnie_identification_desc">Per a identificar-te mitjançant DNIe \u00e9s necessari que tingues un DNI electr\u00f2nic amb <b>certificats vigents</b> i conegues <b>el codi PIN</b>.</string>
     <string name="is_my_dnie_suitable">\u00c9s el meu DNI compatible?</string>
+    <string name="is_my_dnie_suitable_desc">Els DNIe compatibles amb este proc\u00e9s s\u00F3n els &lt;b>DNI 3.0 e 4.0&lt;/b>. Si tens dubtes de quin \u00e9s el teu, pots consultar-ho en el següent enllaç:</string>
+    <string name="dni_portal_text">&lt;u>Portal del DNI electr\u00F2nic. Cos Nacional de Policia&lt;/u></string>
+    <string name="dni_portal_url">https://www.dnielectronico.es/</string>
     <string name="enter_can_dni">Introduïsca el CA del DNI</string>
     <string name="enter_can_dni_desc">El CA \u00e9s un nombre situat en la part inferior dreta del DNI. \u00c9s necessari per a la lectura del DNI amb NFC.</string>
     <string name="enter_can_dni_hint">Escriu el teu codi CA del DNI</string>

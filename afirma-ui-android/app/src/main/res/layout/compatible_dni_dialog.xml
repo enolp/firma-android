@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/customDialog"
+    android:id="@+id/compatibleDniDialog"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/radiusdialogbackground"
@@ -20,7 +20,7 @@
             android:id="@+id/iconImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/check_icon"
+            android:background="@drawable/baseline_info_24"
             />
 
     </LinearLayout>
@@ -34,7 +34,7 @@
         android:paddingRight="30dp"
         android:paddingLeft="30dp"
         android:fontFamily="@font/merriweatherbold"
-        android:text="Titulo"
+        android:text="@string/is_my_dnie_suitable"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -48,30 +48,45 @@
         android:paddingRight="30dp"
         android:paddingLeft="30dp"
         android:fontFamily="@font/nunitosans"
-        android:text="Mensaje"
-        android:textColor="#56636D"
+        android:text="@string/is_my_dnie_suitable_desc"
+        android:textColor="@color/black"
         android:textSize="15sp" />
 
-    <Button
-        android:id="@+id/cancelButton"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
-        android:textAllCaps="false"
-        android:padding="10dp"
-        android:textAlignment="center"
-        android:fontFamily="@font/nunitosans"
-        android:text="@string/cancel_underline"
-        android:onClick="onClick"
-        android:textColor="#B44D3D"
-        android:textSize="13sp"
-        android:visibility="gone"
-        style="@style/ButtonNoBorder"/>
+        android:orientation="horizontal"
+        android:background="@drawable/option_selector">
+
+        <Button
+            android:id="@+id/portalButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="01"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:textAllCaps="false"
+            android:padding="10dp"
+            android:textAlignment="textStart"
+            android:fontFamily="@font/nunitosans"
+            android:text="@string/dni_portal_text"
+            android:onClick="onClick"
+            android:textColor="#B44D3D"
+            android:textSize="13sp"
+            style="@style/ButtonNoBorder"/>
+
+        <ImageView
+            android:id="@+id/accesibilityLinkImg"
+            android:layout_gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:src="@drawable/baseline_open_in_new_24"/>
+
+    </LinearLayout>
 
     <Button
-        android:id="@+id/buttonSign"
+        android:id="@+id/acceptButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
