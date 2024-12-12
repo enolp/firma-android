@@ -47,6 +47,7 @@
     <string name="cancel">Cancel·lar</string>
     <string name="allow">Permetre</string>
     <string name="default_saved_filename">dades</string>
+    <string name="error_cant_load_request">No s\'han pogut carregar les dades de la petici\u00f2</string>
     <string name="error_saving_data">Va oc\u00F3rrer un error en guardar les dades</string>
     <string name="error_saving_signature">Va oc\u00F3rrer un error en guardar la signatura</string>
     <string name="error_sending_data">No es va poder transmetre el resultat de l\'operacion al navegador web</string>

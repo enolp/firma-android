@@ -105,7 +105,7 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 
 		if (getIntent() == null || getIntent().getData() == null) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.w(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText());  //$NON-NLS-1$
+			Logger.w(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText());  //$NON-NLS-1$
 			closeActivity();
 			return;
 		}
@@ -131,7 +131,7 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 
 		if (getIntent().getDataString() == null) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.INVOCATION_WITHOUT_URL);
-			Logger.w(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getCode());
+			Logger.w(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getCode());
 			closeActivity();
 			return;
 		}
@@ -142,7 +142,7 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 			setBatchParams(ProtocolInvocationUriParserUtil.getParametersToBatch(urlParams, true));
 		} catch (ParameterException e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + e, e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + e, e); //$NON-NLS-1$
 			showErrorMessage(errorCat);
 			launchError(ErrorManager.ERROR_BAD_PARAMETERS, getString(R.string.error_bad_params), true, errorCat);
 			return;
@@ -160,7 +160,7 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 				new DownloadFileTask(getBatchParams().getFileId(), getBatchParams().getRetrieveServletUrl(), this).execute();
 			} else {
 				ErrorCategory errorCat = RequestErrors.JSON_REQUEST.get(RequestErrors.URL_DOWNLOAD_NOT_FOUND_BATCH);
-				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText());
+				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText());
 				launchError(ErrorManager.ERROR_BAD_PARAMETERS, getString(R.string.error_bad_params), true, errorCat);
 			}
 			return;
@@ -182,28 +182,28 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 		}
 		catch (final IOException e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - Los datos proporcionados no est&aacute;n correctamente codificados en base 64", e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - Los datos proporcionados no est&aacute;n correctamente codificados en base 64", e); //$NON-NLS-1$
 			showErrorMessage(errorCat);
 			launchError(ErrorManager.ERROR_BAD_PARAMETERS, getString(R.string.error_bad_params), true, errorCat);
 			return;
 		}
 		catch (final GeneralSecurityException e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - Error al descifrar los datos recuperados del servidor para la firma", e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - Error al descifrar los datos recuperados del servidor para la firma", e); //$NON-NLS-1$
 			showErrorMessage(errorCat);
 			launchError(ErrorManager.ERROR_BAD_PARAMETERS, getString(R.string.error_bad_params), true, errorCat);
 			return;
 		}
 		catch (final IllegalArgumentException e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - Los datos recuperados no son un base64 valido", e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - Los datos recuperados no son un base64 valido", e); //$NON-NLS-1$
 			showErrorMessage(errorCat);
 			launchError(ErrorManager.ERROR_BAD_PARAMETERS, getString(R.string.error_bad_params), true, errorCat);
 			return;
 		}
 		catch (final Throwable e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - Error desconocido durante el descifrado de los datos", e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - Error desconocido durante el descifrado de los datos", e); //$NON-NLS-1$
 			showErrorMessage(errorCat);
 			launchError(ErrorManager.ERROR_BAD_PARAMETERS, getString(R.string.error_bad_params), true, errorCat);
 			return;
@@ -213,7 +213,7 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 			setBatchParams(ProtocolInvocationUriParser.getParametersToBatch(batchDefinition, true));
 		} catch (ParameterException e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - Error con el parametro utilizado", e);
+			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - Error con el parametro utilizado", e);
 			showErrorMessage(errorCat);
 			launchError(ErrorManager.ERROR_BAD_PARAMETERS, getString(R.string.error_bad_params), true, errorCat);
 			return;
@@ -234,7 +234,7 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 	@Override
 	public void onDownloadingDataError(String msg, Throwable t) {
 		ErrorCategory errorCat = CommunicationErrors.DOWNLOAD_SERVER.get(CommunicationErrors.DOWNLOAD_SIGN);
-		Logger.e(ES_GOB_AFIRMA,errorCat.getCode() + " - Error durante la descarga del lote de firmas del servidor intermedio", t);
+		Logger.e(ES_GOB_AFIRMA,"AA" + errorCat.getCode() + " - Error durante la descarga del lote de firmas del servidor intermedio", t);
 		showErrorMessage(errorCat);
 		launchError(ErrorManager.ERROR_SIGNING, getString(R.string.error_json), true, errorCat);
 	}
@@ -308,29 +308,29 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 	protected void onSigningError(final KeyStoreOperation op, final String msg, final Throwable t) {
 		if (op == KeyStoreOperation.LOAD_KEYSTORE) {
 			ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.LOAD_KEYSTORE);
-			Log.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + msg, t);
+			Log.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + msg, t);
 			launchError(ErrorManager.ERROR_ESTABLISHING_KEYSTORE, t.getMessage(), true, errorCat);
 			return;
 		}
 		else if (op == KeyStoreOperation.SELECT_CERTIFICATE) {
 			if (t instanceof SelectKeyAndroid41BugException) {
 				ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.ALIAS_NOT_VALID);
-				Log.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), t);
+				Log.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText(), t);
 				launchError(ErrorManager.ERROR_PKE_ANDROID_4_1, t.getMessage(), true, errorCat);
 			}
 			else if (t instanceof KeyChainException) {
 				ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.LOAD_KEY);
-				Log.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), t);
+				Log.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText(), t);
 				launchError(ErrorManager.ERROR_PKE, t.getMessage(), true, errorCat);
 			}
 			else if (t instanceof PendingIntent.CanceledException) {
-				ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.USER_NOT_SELECT_CERT);
-				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), t);
+				ErrorCategory errorCat = FunctionalErrors.GENERAL.get(FunctionalErrors.CANCELED_BY_USER);
+				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText(), t);
 				launchError(ErrorManager.ERROR_CANCELLED_OPERATION, t.getMessage(), false, errorCat);
 			}
 			else {
 				ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.UNEXPECED_RECOVERING_KEY);
-				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + msg, t);
+				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + msg, t);
 				launchError(ErrorManager.ERROR_PKE, t.getMessage(), true, errorCat);
 			}
 			return;
@@ -338,46 +338,46 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 		else if (op == KeyStoreOperation.SIGN) {
 			if (t instanceof MSCBadPinException) {
 				ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.INCORRECT_PIN);
-				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + t); //$NON-NLS-1$
+				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + t); //$NON-NLS-1$
 				showErrorMessage(errorCat);
 				launchError(ErrorManager.ERROR_MSC_PIN, t.getMessage(), false, errorCat);
 			}
 			else if (t instanceof AOCancelledOperationException) {
 				ErrorCategory errorCat = FunctionalErrors.GENERAL.get(FunctionalErrors.CANCELED_BY_USER);
-				Logger.i(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + t);
+				Logger.i(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + t);
 				launchError(ErrorManager.ERROR_CANCELLED_OPERATION, t.getMessage(), false, errorCat);
 			}
 			else if (t instanceof AOUnsupportedSignFormatException) {
 				ErrorCategory errorCat = RequestErrors.SIGN_REQUEST.get(RequestErrors.FORMAT_NOT_VALID);
-				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + t); //$NON-NLS-1$
+				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + t); //$NON-NLS-1$
 				showErrorMessage(errorCat);
 				launchError(ErrorManager.ERROR_NOT_SUPPORTED_FORMAT, t.getMessage(), true, errorCat);
 			}
 			else if (t instanceof ExtraParamsProcessor.IncompatiblePolicyException) {
 				ErrorCategory errorCat = RequestErrors.SIGN_REQUEST.get(RequestErrors.PARAM_NOT_COMPATIBLE_POLICY);
-				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + t); //$NON-NLS-1$
+				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + t); //$NON-NLS-1$
 				showErrorMessage(errorCat);
 				launchError(ErrorManager.ERROR_BAD_PARAMETERS, t.getMessage(), true, errorCat);
 			}
 			else if (t instanceof HttpError) {
 				ErrorCategory errorCat = CommunicationErrors.GENERAL.get(CommunicationErrors.COMMUNICATION_WITH_SERVICE);
-				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), t);
+				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText(), t);
 				launchError(ErrorManager.ERROR_COMMUNICATING_WITH_WEB, errorCat.getCode() + " - " + errorCat.getAdminText(), true, errorCat);
 			}
 			else if (t instanceof AOException) {
 				ErrorCategory errorSigning = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.ERROR_SIGNING);
-				Logger.e(ES_GOB_AFIRMA, errorSigning.getCode() + " - " + errorSigning.getAdminText() + msg, t);
+				Logger.e(ES_GOB_AFIRMA, "AA" + errorSigning.getCode() + " - " + errorSigning.getAdminText() + msg, t);
 				launchError(ErrorManager.ERROR_SIGNING, t.getMessage(), true, errorSigning);
 			}
 			else {
 				ErrorCategory errorSigning = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.ERROR_SIGNING);
-				Logger.e(ES_GOB_AFIRMA, errorSigning.getCode() + " - " + errorSigning.getAdminText() + msg, t);
+				Logger.e(ES_GOB_AFIRMA, "AA" + errorSigning.getCode() + " - " + errorSigning.getAdminText() + msg, t);
 				launchError(ErrorManager.ERROR_SIGNING, t.getMessage(), true, errorSigning);
 			}
 			return;
 		}
 		ErrorCategory errorSigning = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.ERROR_SIGNING);
-		Logger.e(ES_GOB_AFIRMA, errorSigning.getCode() + " - " + errorSigning.getAdminText() + msg, t);
+		Logger.e(ES_GOB_AFIRMA, "AA" + errorSigning.getCode() + " - " + errorSigning.getAdminText() + msg, t);
 		launchError(ErrorManager.ERROR_SIGNING, t.getMessage(), true, errorSigning);
 	}
 
@@ -410,7 +410,7 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 				signingCertEncoded = getPke().getCertificate().getEncoded();
 			} catch (final CertificateEncodingException e) {
 				ErrorCategory errorCat = InternalSoftwareErrors.BATCH_JSON.get(InternalSoftwareErrors.CYPHERING_CERT_TO_SEND);
-				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e); //$NON-NLS-1$
+				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText(), e); //$NON-NLS-1$
 				launchError(ErrorManager.ERROR_SIGNING, e.getMessage(), true, errorCat);
 				return;
 			}
@@ -427,7 +427,7 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 			}
 			catch (final Exception e) {
 				ErrorCategory errorCat = InternalSoftwareErrors.BATCH_JSON.get(InternalSoftwareErrors.CYPHERING_SIGN_INFO_TO_SEND);
-				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e); //$NON-NLS-1$
+				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText(), e); //$NON-NLS-1$
 				launchError(ErrorManager.ERROR_SIGNING, e.getMessage(), true, errorCat);
 				return;
 			}
@@ -499,19 +499,19 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 				launchError(ErrorManager.ERROR_PKE, errorCat.getCode() + " - " + errorCat.getAdminText(), true, errorCat);
 			}
 			else if (t instanceof PendingIntent.CanceledException) {
-				ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.USER_NOT_SELECT_CERT);
-				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), t); //$NON-NLS-1$
+				ErrorCategory errorCat = FunctionalErrors.GENERAL.get(FunctionalErrors.CANCELED_BY_USER);
+				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText(), t); //$NON-NLS-1$
 				launchError(ErrorManager.ERROR_CANCELLED_OPERATION, errorCat.getCode() + " - " + errorCat.getAdminText(), false, errorCat);
 			}
 			else {
 				ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.LOAD_CERT);
-				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), t); //$NON-NLS-1$
+				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText(), t); //$NON-NLS-1$
 				launchError(ErrorManager.ERROR_PKE, errorCat.getCode() + " - " + errorCat.getAdminText(), true, errorCat);
 			}
 			return;
 		}
 		ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.LOAD_CERT);
-		Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), t); //$NON-NLS-1$
+		Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText(), t); //$NON-NLS-1$
 		launchError(ErrorManager.ERROR_SELECTING_CERTIFICATE, errorCat.getCode() + " - " + errorCat.getAdminText(), true, errorCat);
 	}
 

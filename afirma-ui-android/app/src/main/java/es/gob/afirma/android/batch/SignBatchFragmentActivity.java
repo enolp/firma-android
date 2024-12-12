@@ -275,7 +275,7 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 			onSigningError(KeyStoreOperation.SIGN, "El servicio de firma de lotes devolvio un error", t);
 		}else {
 			ErrorCategory errorCat = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.SOFTWARE_GENERAL);
-			Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), t);
+			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText(), t);
 			onSigningError(KeyStoreOperation.SIGN, errorCat.getCode() + " - " + errorCat.getAdminText(), t);
 		}
 	}

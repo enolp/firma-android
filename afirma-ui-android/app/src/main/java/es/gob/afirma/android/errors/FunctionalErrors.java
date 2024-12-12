@@ -31,10 +31,10 @@ public final class FunctionalErrors {
 
 	public static void update(Context context) {
 
-		ErrorCategory e500001 = new ErrorCategory(500001, context.getString(R.string.operation_cancelled), "Operación cancelada por el usuario");
+		ErrorCategory e500001 = new ErrorCategory(500001, context.getString(R.string.operation_cancelled), "Operacion cancelada por el usuario");
 		GENERAL.put(CANCELED_BY_USER, e500001);
 
-		ErrorCategory e501001 = new ErrorCategory(501001, context.getString(R.string.error_title_keystore_empty), "Error en la operación, no hay certificados");
+		ErrorCategory e501001 = new ErrorCategory(501001, context.getString(R.string.error_title_keystore_empty), "Error en la operacion, no hay certificados");
 		SIGN_OPERATION.put(NO_CERTIFICATES, e501001);
 
 	}

@@ -89,7 +89,7 @@ public final class WebSelectCertificateActivity extends LoadKeyStoreFragmentActi
 
 		if (getIntent() == null || getIntent().getData() == null) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.w(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText());  //$NON-NLS-1$
+			Logger.w(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText());  //$NON-NLS-1$
 			closeActivity();
 			return;
 		}
@@ -115,7 +115,7 @@ public final class WebSelectCertificateActivity extends LoadKeyStoreFragmentActi
 
         if (getIntent().getDataString() == null) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.INVOCATION_WITHOUT_URL);
-            Logger.w(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText()); //$NON-NLS-1$
+            Logger.w(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText()); //$NON-NLS-1$
             closeActivity();
             return;
         }
@@ -125,14 +125,14 @@ public final class WebSelectCertificateActivity extends LoadKeyStoreFragmentActi
 		}
 		catch (final ParameterException e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText(), e); //$NON-NLS-1$
 			showErrorMessage(errorCat);
 			launchError(ErrorManager.ERROR_BAD_PARAMETERS, true, errorCat);
 			return;
 		}
 		catch (final Throwable e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + e, e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + e, e); //$NON-NLS-1$
 			showErrorMessage(errorCat);
 			launchError(ErrorManager.ERROR_BAD_PARAMETERS, true, errorCat);
 			return;
@@ -183,14 +183,14 @@ public final class WebSelectCertificateActivity extends LoadKeyStoreFragmentActi
             }
             else {
 				ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.LOAD_KEYSTORE);
-                Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + e); //$NON-NLS-1$
+                Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + e); //$NON-NLS-1$
                 onKeyStoreError(KeyStoreOperation.SELECT_CERTIFICATE, "No se pudo extraer el certificado del almacen", e);
             }
             return;
         }
         catch (final AOCancelledOperationException e) {
 			ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.USER_NOT_SELECT_CERT);
-            Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + e); //$NON-NLS-1$
+            Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + e); //$NON-NLS-1$
 
 			// Si hay algun almacen alternativo, peromitimos seleccionar de nuevo. Si nom se lanza
 			// el error
@@ -209,7 +209,7 @@ public final class WebSelectCertificateActivity extends LoadKeyStoreFragmentActi
         }
         catch (final Throwable e) {
 			ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.LOAD_KEYSTORE);
-            Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e); //$NON-NLS-1$
+            Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText(), e); //$NON-NLS-1$
             onKeyStoreError(KeyStoreOperation.SELECT_CERTIFICATE, errorCat.getCode() + " - " + errorCat.getUserText(), e); //$NON-NLS-1$
             return;
         }
@@ -259,7 +259,7 @@ public final class WebSelectCertificateActivity extends LoadKeyStoreFragmentActi
 			return;
 		}
 		ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.LOAD_CERT);
-		Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), t); //$NON-NLS-1$
+		Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText(), t); //$NON-NLS-1$
 		launchError(ErrorManager.ERROR_SELECTING_CERTIFICATE, true, errorCat);
 	}
 
@@ -362,22 +362,22 @@ public final class WebSelectCertificateActivity extends LoadKeyStoreFragmentActi
             decipheredData = CipherDataManager.decipherData(data, this.parameters.getDesKey());
         } catch (final IOException e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - Los datos proporcionados no est&aacute;n correctamente codificados en base 64", e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - Los datos proporcionados no est&aacute;n correctamente codificados en base 64", e); //$NON-NLS-1$
 			showErrorMessage(errorCat);
             return;
         } catch (final GeneralSecurityException e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - Error al descifrar los datos recuperados del servidor para la firma", e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - Error al descifrar los datos recuperados del servidor para la firma", e); //$NON-NLS-1$
 			showErrorMessage(errorCat);
             return;
         } catch (final IllegalArgumentException e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - Los datos recuperados no son un base64 valido", e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - Los datos recuperados no son un base64 valido", e); //$NON-NLS-1$
 			showErrorMessage(errorCat);
             return;
         } catch (final Throwable e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - Error desconocido durante el descifrado de los datos", e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - Error desconocido durante el descifrado de los datos", e); //$NON-NLS-1$
 			showErrorMessage(errorCat);
             return;
         }
@@ -388,12 +388,12 @@ public final class WebSelectCertificateActivity extends LoadKeyStoreFragmentActi
             this.parameters = ProtocolInvocationUriParser.getParametersToSelectCert(decipheredData, true);
         } catch (final ParameterException e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - Error en los parametros XML de configuracion de firma: " + e, e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - Error en los parametros XML de configuracion de firma: " + e, e); //$NON-NLS-1$
 			showErrorMessage(errorCat);
             return;
         } catch (final Throwable e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - Error desconocido al analizar los datos descargados desde el servidor", e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - Error desconocido al analizar los datos descargados desde el servidor", e); //$NON-NLS-1$
 			showErrorMessage(errorCat);
             return;
         }
@@ -405,7 +405,7 @@ public final class WebSelectCertificateActivity extends LoadKeyStoreFragmentActi
     @Override
     public synchronized void onDownloadingDataError(final String msg, final Throwable t) {
 		ErrorCategory errorCat = CommunicationErrors.DOWNLOAD_SERVER.get(CommunicationErrors.DOWNLOAD_CONFIG_CERT);
-        Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + msg, t); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + msg, t); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         showErrorMessage(errorCat);
     }
 
@@ -420,13 +420,13 @@ public final class WebSelectCertificateActivity extends LoadKeyStoreFragmentActi
 			}
 			catch (final GeneralSecurityException e) {
 				ErrorCategory errorCat = InternalSoftwareErrors.CERTIFICATE_SELECTION.get(InternalSoftwareErrors.CYPHERING_CERT);
-				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e);
+				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText(), e);
 				launchError(ErrorManager.ERROR_CIPHERING, true, errorCat);
 				return;
 			}
 			catch (final Throwable e) {
 				ErrorCategory errorCat = InternalSoftwareErrors.CERTIFICATE_SELECTION.get(InternalSoftwareErrors.CYPHERING_CERT);
-				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e); //$NON-NLS-1$
+				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText(), e); //$NON-NLS-1$
 				launchError(ErrorManager.ERROR_CIPHERING, true, errorCat);
 				return;
 			}

@@ -48,6 +48,7 @@
     <string name="cancel">Cancel</string>
     <string name="allow">Allow</string>
     <string name="default_saved_filename">data</string>
+    <string name="error_cant_load_request">Request data could not be loaded</string>
     <string name="error_saving_data">Error while saving data</string>
     <string name="error_saving_signature">Error trying to save the signature</string>
     <string name="error_sending_data">There was an error trying to send back the data to the Web browser</string>

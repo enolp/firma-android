@@ -47,6 +47,7 @@
     <string name="cancel">Cancelar</string>
     <string name="allow">Permitir</string>
     <string name="default_saved_filename">datos</string>
+    <string name="error_cant_load_request">Non se puideron cargar os datos da solicitude</string>
     <string name="error_saving_data">Ocorreu un erro ao gardar os datos</string>
     <string name="error_saving_signature">Ocorreu un erro ao gardar a firma</string>
     <string name="error_sending_data">Non se puido transmitir o resultado da operacion \u00E1 navegador web</string>

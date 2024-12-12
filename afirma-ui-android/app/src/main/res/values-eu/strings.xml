@@ -47,6 +47,7 @@
     <string name="cancel">Utzi</string>
     <string name="allow">Onartu</string>
     <string name="default_saved_filename">datuak</string>
+    <string name="error_cant_load_request">Ezin izan dira eskaeraren datuak kargatu</string>
     <string name="error_saving_data">Errorea gertatu da datuak gordetzean</string>
     <string name="error_saving_signature">Errorea gertatu da sinadura gordetzean</string>
     <string name="error_sending_data">Ezin izan da eragiketaren emaitza web nabigatzaileari transmititu</string>

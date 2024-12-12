@@ -19,7 +19,7 @@ public final class ErrorManager {
 	private static final String ERROR_NUMBER = "%#%"; //$NON-NLS-1$
 	private static final String ERROR_CAT_CODE = "%ECC%"; //$NON-NLS-1$
 	private static final String ERROR_MESSAGE = "%MSG%"; //$NON-NLS-1$
-	private static final String ERROR_TEMPLATE = ERROR_NUMBER + ":=" + ERROR_CAT_CODE + " - " + ERROR_MESSAGE; //$NON-NLS-1$
+	private static final String ERROR_TEMPLATE = ERROR_NUMBER + ":=" + "AA" + ERROR_CAT_CODE + " - " + ERROR_MESSAGE; //$NON-NLS-1$
 
 	private static final String GENERIC_ERROR = "Error generico"; //$NON-NLS-1$
 
