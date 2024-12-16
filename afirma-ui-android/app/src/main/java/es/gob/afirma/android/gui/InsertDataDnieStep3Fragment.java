@@ -1,5 +1,7 @@
 package es.gob.afirma.android.gui;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,8 +13,6 @@ import androidx.fragment.app.Fragment;
 
 import es.gob.afirma.R;
 import es.gob.afirma.android.StepsInsertDataDnieActivity;
-
-import static android.app.Activity.RESULT_OK;
 
 public class InsertDataDnieStep3Fragment extends Fragment{
 

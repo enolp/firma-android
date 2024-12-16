@@ -59,7 +59,7 @@ public final class LocalSignActivity extends SignFragmentActivity {
 	/** C&oacute;digo de solicitud de firma visible. */
 	private final static int REQUEST_VISIBLE_SIGN_PARAMS = 105;
 	/** Error cargando PDF para firma visible. */
-	final static int ERROR_REQUEST_VISIBLE_SIGN = 106;
+	public final static int ERROR_REQUEST_VISIBLE_SIGN = 106;
 
 	static final String DEFAULT_SIGNATURE_ALGORITHM = "SHA256"; //$NON-NLS-1$
 
@@ -190,6 +190,10 @@ public final class LocalSignActivity extends SignFragmentActivity {
 						extraParams.setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTY, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTY));
 						extraParams.setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTX, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTX));
 						extraParams.setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTY, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTY));
+
+						if (data.hasExtra(PdfExtraParams.OWNER_PASSWORD_STRING)) {
+							extraParams.setProperty(PdfExtraParams.OWNER_PASSWORD_STRING, new String(data.getByteArrayExtra(PdfExtraParams.OWNER_PASSWORD_STRING)));
+						}
 					}
 
 					sign("SIGN", fileContent, format, DEFAULT_SIGNATURE_ALGORITHM, true, extraParams);

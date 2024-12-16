@@ -24,6 +24,7 @@ public final class ThirdPartyErrors {
 	// 3001XX: JMulticard
 	public static final String UNKNOWN_OR_NOT_SUPPORTED_CARD = "UNKNOWN_OR_NOT_SUPPORTED_CARD";
 	public static final String CANT_CONNECT_CARD = "CANT_CONNECT_CARD";
+	public static final String ERROR_INITIALIZING_CARD = "ERROR_INITIALIZING_CARD";
 	public static final String UNEXPECTED = "UNEXPECTED";
 	public static final String INCORRECT_PIN = "INCORRECT_PIN";
 	public static final String BLOCKED_CARD = "BLOCKED_CARD";
@@ -41,6 +42,7 @@ public final class ThirdPartyErrors {
 	public static void update(Context context) {
 		ErrorCategory e300100 = new ErrorCategory(300100, context.getString(R.string.unsupported_card), "La tarjeta identificada en el lector es desconocida o no esta soportada");
 		ErrorCategory e300102 = new ErrorCategory(300102, context.getString(R.string.error_reading_dnie), "No se ha podido conectar con la tarjeta");
+		ErrorCategory e300103 = new ErrorCategory(300103, context.getString(R.string.error_reading_dnie), "La conexion con la tarjeta no esta inicializada");
 		ErrorCategory e300104 = new ErrorCategory(300104, context.getString(R.string.error_reading_dnie), "Ocurrió un error inesperado durante la operacion");
 		ErrorCategory e300105 = new ErrorCategory(300105, context.getString(R.string.error_msc_pin), context.getString(R.string.incorrect_pin));
 		ErrorCategory e300106 = new ErrorCategory(300106, context.getString(R.string.error_dni_blocked_dlg), "Tarjeta bloqueada");
@@ -49,6 +51,7 @@ public final class ThirdPartyErrors {
 
 		JMULTICARD.put(UNKNOWN_OR_NOT_SUPPORTED_CARD, e300100);
 		JMULTICARD.put(CANT_CONNECT_CARD, e300102);
+		JMULTICARD.put(ERROR_INITIALIZING_CARD, e300103);
 		JMULTICARD.put(UNEXPECTED, e300104);
 		JMULTICARD.put(INCORRECT_PIN, e300105);
 		JMULTICARD.put(BLOCKED_CARD, e300106);

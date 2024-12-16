@@ -21,6 +21,7 @@ import es.gob.afirma.android.errors.ThirdPartyErrors;
 import es.gob.afirma.android.gui.CertificateInfoForAliasSelect;
 import es.gob.afirma.android.gui.SelectAliasDialog;
 import es.gob.afirma.core.misc.AOUtil;
+import es.gob.jmulticard.card.dnie.InvalidAccessCodeException;
 
 /**
  * Created by a621914 on 09/06/2016.
@@ -112,6 +113,14 @@ public class LoadCertificatesTask extends AsyncTask<Void, Void, Exception> {
                         }
                     }
             );
+        }
+        catch (final InvalidAccessCodeException e) {
+            // Se dara esta excepcion cuando el CAN sea incorrecto
+            Logger.e(ES_GOB_AFIRMA, "El CAN es incorrecto: " + e); //$NON-NLS-1$
+            dnieManager.clearCan();
+            dnieManager.clearPin();
+            dnieManager.setCallbackHandler(null);
+            throw e;
         }
         catch (final NullPointerException e) {
             // Se dara esta excepcion cuando no haya un KeyStore definido, lo que ocurrira cuando

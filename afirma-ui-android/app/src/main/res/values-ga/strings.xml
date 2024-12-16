@@ -104,6 +104,7 @@
     <string name="nfc_cancelled">Cancelouse o uso de NFC. Usarase o almac\u00FE9n do sistema.</string>
     <string name="settings">Axustes</string>
     <string name="can_not_can_be_null">O CAN non pode ser baleiro ou nulo</string>
+    <string name="incorrect_can">O CAN introducido \u00E9 incorrecto</string>
     <string name="unsupported_card">Cart\u00F3n non soportada</string>
     <string name="nfc_card_initializing_error">Erro ao iniciar a conexi\u00F3n co cart\u00F3n. \u00FC9 posible que o CAN sexa incorrecto. T\u00FE9nteo de novo.</string>
     <string name="title_activity_main_test">MainActivityTest</string>

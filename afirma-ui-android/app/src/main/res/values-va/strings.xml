@@ -103,7 +103,8 @@
     <string name="nfc_no_detected">No s\'ha habilitat NFC. S\'usar\u00e0 el magatzem del sistema.</string>
     <string name="nfc_cancelled">S\'ha cancel·lat l\'\u00fas de NFC. S\'usar\u00e0 el magatzem del sistema.</string>
     <string name="settings">Ajustos</string>
-    <string name="can_not_can_be_null">El CA no pot ser buit o nul</string>
+    <string name="can_not_can_be_null">El CAN no pot ser buit o nul</string>
+    <string name="incorrect_can">El CAN introduït \u00e9s incorrecte</string>
     <string name="unsupported_card">Targeta no suportada</string>
     <string name="nfc_card_initializing_error">Error en iniciar la connexi\u00f3 amb la targeta. \u00c9s possible que el CA siga incorrecte. Intente-ho de nou.</string>
     <string name="title_activity_main_test">MainActivityTest</string>

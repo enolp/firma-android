@@ -104,6 +104,7 @@
     <string name="nfc_cancelled">NFCren erabilera bertan behera utzi da. Sistemaren biltegia erabiliko da.</string>
     <string name="settings">Doikuntzak</string>
     <string name="can_not_can_be_null">CANa ezin da hutsa edo nulua izan</string>
+    <string name="incorrect_can">Sartutako CANa ez da zuzena</string>
     <string name="unsupported_card">Txartela ez da onartzen</string>
     <string name="nfc_card_initializing_error">Errorea gertatu da txartelarekin konektatzen hastean. Baliteke CANa okerra izatea. Saiatu berriro.</string>
     <string name="title_activity_main_test">MainActivityTest</string>

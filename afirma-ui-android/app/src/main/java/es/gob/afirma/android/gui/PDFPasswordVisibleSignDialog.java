@@ -1,0 +1,134 @@
+/* Copyright (C) 2024 [Gobierno de Espana]
+ * This file is part of "Cliente @Firma".
+ * "Cliente @Firma" is free software; you can redistribute it and/or modify it under the terms of:
+ *   - the GNU General Public License as published by the Free Software Foundation;
+ *     either version 2 of the License, or (at your option) any later version.
+ *   - or The European Software License; either version 1.1 or (at your option) any later version.
+ * Date: 09/04/24
+ * You may contact the copyright holder at: soporte.afirma5@mpt.es
+ */
+
+package es.gob.afirma.android.gui;
+
+import static es.gob.afirma.android.LocalSignActivity.ERROR_REQUEST_VISIBLE_SIGN;
+
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+
+import java.io.IOException;
+
+import es.gob.afirma.R;
+import es.gob.afirma.android.Logger;
+import es.gob.afirma.android.PdfSelectPreviewActivity;
+
+/** Di&acute;logo para introducir la contrasena de un PDF protegido.
+ * @author Jose Montero */
+
+public class PDFPasswordVisibleSignDialog extends DialogFragment {
+
+	private final PdfSelectPreviewActivity pdfPreviewActivity;
+
+	private final boolean isBadPassword;
+
+	private static final String ES_GOB_AFIRMA = "es.gob.afirma"; //$NON-NLS-1$
+
+	public PDFPasswordVisibleSignDialog(PdfSelectPreviewActivity pdfPreviewActivity, boolean isBadPassword) {
+		this.pdfPreviewActivity = pdfPreviewActivity;
+		this.isBadPassword = isBadPassword;
+	}
+
+	@Override
+	public void onCancel(@NonNull DialogInterface dialog) {
+		dialog.dismiss();
+		pdfPreviewActivity.onBackPressed();
+	}
+
+	@NonNull
+	@Override
+	public Dialog onCreateDialog(final Bundle savedInstanceState){
+
+		final LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+		final View view = layoutInflater.inflate(R.layout.dialog_pdf_password, null);
+		final TextView tvPDFPassword = view.findViewById(R.id.tvPDFPassword);
+
+		if (isBadPassword) {
+			tvPDFPassword.setText(R.string.dialog_pdf_bad_password);
+			tvPDFPassword.setTextColor(getResources().getColor(R.color.red));
+		} else {
+			tvPDFPassword.setText(R.string.dialog_pdf_password);
+			tvPDFPassword.setTextColor(getResources().getColor(R.color.black));
+		}
+
+		final EditText editTextPassword = view.findViewById(R.id.etPDFPassword);
+
+		final AlertDialog alertDialog = new Builder(getActivity(), R.style.AlertDialog)
+				.setView(view)
+				.setTitle(R.string.dialog_pdf_password_title)
+				.setCancelable(false)
+				.setNegativeButton(
+						getActivity().getString(R.string.cancel),
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(final DialogInterface dialog, final int id) {
+								dialog.dismiss();
+								pdfPreviewActivity.onBackPressed();
+							}
+						}
+				)
+				.setPositiveButton(R.string.ok, null).setOnKeyListener(new DialogInterface.OnKeyListener() {
+					@Override
+					public boolean onKey(final DialogInterface dialog, final int keyCode, final KeyEvent event) {
+						if (keyCode == KeyEvent.KEYCODE_BACK) {
+							dialog.dismiss();
+							pdfPreviewActivity.onBackPressed();
+						}
+						return false;
+					}
+				}).create();
+
+		alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+			@Override
+			public void onShow(final DialogInterface dialog) {
+				Button b = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+				b.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+
+						if (editTextPassword.getText() == null || "".equals(editTextPassword.getText().toString())) { //$NON-NLS-1$
+							Logger.e(ES_GOB_AFIRMA, "La contrasena no puede ser vacia o nula"); //$NON-NLS-1$
+							tvPDFPassword.setText(R.string.error_empty_pdf_password);
+							tvPDFPassword.setTextColor(getResources().getColor(R.color.red));
+							tvPDFPassword.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED);
+						}
+						else {
+							dialog.dismiss();
+							pdfPreviewActivity.setPdfPassword(editTextPassword.getText().toString());
+                            try {
+                                pdfPreviewActivity.openPDF(pdfPreviewActivity);
+                            } catch (IOException e) {
+								final Intent dataIntent = new Intent();
+								pdfPreviewActivity.setResult(ERROR_REQUEST_VISIBLE_SIGN, dataIntent);
+                            }
+                        }
+					}
+				});
+			}
+		});
+
+		return alertDialog;
+	}
+}

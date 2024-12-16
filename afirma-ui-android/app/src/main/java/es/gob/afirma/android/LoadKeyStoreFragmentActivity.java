@@ -34,9 +34,8 @@ import es.gob.afirma.android.crypto.LoadKeyStoreManagerTask;
 import es.gob.afirma.android.crypto.LoadNfcKeyStoreManagerTask;
 import es.gob.afirma.android.crypto.LoadingCertificateException;
 import es.gob.afirma.android.crypto.UnsupportedNfcCardException;
-import es.gob.afirma.android.errors.ErrorCategory;
-import es.gob.afirma.android.errors.ThirdPartyErrors;
 import es.gob.afirma.android.gui.ChooseCertTypeDialog;
+import es.gob.jmulticard.card.dnie.InvalidAccessCodeException;
 
 /** Esta actividad abstracta integra las funciones necesarias para la cargar de un almacen de
  * certificados del dispositivo. La actividad integra la l&oacute;gica necesaria para utilizar
@@ -54,7 +53,11 @@ public class LoadKeyStoreFragmentActivity extends FragmentActivity {
 	/** C&oacute;digo para la peticion del CAN y el PIN del DNIe. */
 	public final static int REQUEST_DNIE_PARAMS = 2005;   // The request code
 
-	public final static String ERROR_LOADING_NFC_KEYSTORE = "errorLoadingNFCKeystore";   // The request code
+	public final static String ERROR_UNSUPPORTED_NFC = "errorUnsupportedNFC";
+
+	public final static String ERROR_INITIALIZING_NFC = "errorInitializingNFC";
+
+	public final static String ERROR_CAN_VALIDATION_NFC = "errorCANValidation";
 
 	private static final String ACTION_USB_PERMISSION = "es.gob.afirma.android.USB_PERMISSION"; //$NON-NLS-1$
 
@@ -323,17 +326,18 @@ public class LoadKeyStoreFragmentActivity extends FragmentActivity {
 		// si no, indicamos un error en la firma.
 		if (t instanceof UnsupportedNfcCardException) {
 			final Intent stepsSignDNIe = new Intent(this, IntroUseDnieActivity.class);
-			ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.UNKNOWN_OR_NOT_SUPPORTED_CARD);
-			stepsSignDNIe.putExtra(ERROR_LOADING_NFC_KEYSTORE, "AA" + errorCat.getCode() + " - " + errorCat.getUserText());
-			startActivity(stepsSignDNIe);
-			finish();
+			stepsSignDNIe.putExtra(ERROR_UNSUPPORTED_NFC, true);
+			startActivityForResult(stepsSignDNIe, REQUEST_DNIE_PARAMS);
+		}
+		else if (t instanceof InvalidAccessCodeException) {
+			final Intent stepsSignDNIe = new Intent(this, IntroUseDnieActivity.class);
+			stepsSignDNIe.putExtra(ERROR_CAN_VALIDATION_NFC, true);
+			startActivityForResult(stepsSignDNIe, REQUEST_DNIE_PARAMS);
 		}
 		else if (t instanceof InitializingNfcCardException) {
 			final Intent stepsSignDNIe = new Intent(this, IntroUseDnieActivity.class);
-			ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.CAN_VALIDATION);
-			stepsSignDNIe.putExtra(ERROR_LOADING_NFC_KEYSTORE, "AA" + errorCat.getCode() + " - " + errorCat.getUserText());
-			startActivity(stepsSignDNIe);
-			finish();
+			stepsSignDNIe.putExtra(ERROR_INITIALIZING_NFC, true);
+			startActivityForResult(stepsSignDNIe, REQUEST_DNIE_PARAMS);
 		}
 		// Si es un error en la carga, lo reintentamos
 		else if (t instanceof LoadingCertificateException) {
