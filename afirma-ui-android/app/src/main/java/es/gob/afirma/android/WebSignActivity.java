@@ -828,7 +828,8 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 					extraParams.setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTX, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTX));
 					extraParams.setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTY, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTY));
 				} else if (isRequiredVisibleSignature) {
-					launchError(ErrorManager.ERROR_CANCELLED_OPERATION, false);
+					ErrorCategory errorCat = FunctionalErrors.GENERAL.get(FunctionalErrors.CANCELED_BY_USER);
+					launchError(ErrorManager.ERROR_CANCELLED_OPERATION, false, errorCat);
 					return;
 				}
 
@@ -841,11 +842,13 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 						this.parameters.getExtraParams());
 			}
 			else if (resultCode == RESULT_CANCELED) {
-				launchError(ErrorManager.ERROR_CANCELLED_OPERATION, false);
+				ErrorCategory errorCat = FunctionalErrors.GENERAL.get(FunctionalErrors.CANCELED_BY_USER);
+				launchError(ErrorManager.ERROR_CANCELLED_OPERATION, false, errorCat);
 				return;
 			} else if (resultCode == ERROR_REQUEST_VISIBLE_SIGN) {
-				showErrorMessage(getString(R.string.error_loading_selected_file, this.fileName));
-				launchError(ErrorManager.ERROR_INVALID_DATA, true);
+				ErrorCategory errorCat = InternalSoftwareErrors.OPERATION_SIGN.get(InternalSoftwareErrors.LOADING_LOCAL_FILE);
+				showErrorMessage(errorCat);
+				launchError(ErrorManager.ERROR_INVALID_DATA, true, errorCat);
 				return;
 			}
 		}
