@@ -51,10 +51,8 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
     private Paint paint;
     private RectF selectedArea;
 
-    Button firstPageBtn;
     Button prevPageBtn;
     Button nextPageBtn;
-    Button lastPageBtn;
     TextView pageNumberTv;
     ProgressBar progressBar;
 
@@ -79,10 +77,8 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
 
         context = this;
 
-        firstPageBtn = findViewById(R.id.firstPageBtn);
         prevPageBtn = findViewById(R.id.prevPageBtn);
         nextPageBtn = findViewById(R.id.nextPageBtn);
-        lastPageBtn = findViewById(R.id.lastPageBtn);
         pageNumberTv = findViewById(R.id.pageNumberTv);
         progressBar = findViewById(R.id.loadingPdfBar);
 
@@ -317,17 +313,6 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
 
         totalPages = pdfView.getPageCount();
 
-        Button firstPageBtn = findViewById(R.id.firstPageBtn);
-        firstPageBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (pageNumber > 0) {
-                    pageNumber = 0;
-                    onPageChanged();
-                }
-            }
-        });
-
         Button nextPageBtn = findViewById(R.id.nextPageBtn);
         nextPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -347,15 +332,6 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
                     pageNumber--;
                     onPageChanged();
                 }
-            }
-        });
-
-        Button lastPageBtn = findViewById(R.id.lastPageBtn);
-        lastPageBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pageNumber = totalPages - 1;
-                onPageChanged();
             }
         });
 
@@ -442,17 +418,13 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
     }
 
     private void enableButtons() {
-        firstPageBtn.setEnabled(true);
         prevPageBtn.setEnabled(true);
         nextPageBtn.setEnabled(true);
-        lastPageBtn.setEnabled(true);
     }
 
     private void disableButtons() {
-        firstPageBtn.setEnabled(false);
         prevPageBtn.setEnabled(false);
         nextPageBtn.setEnabled(false);
-        lastPageBtn.setEnabled(false);
     }
 
 }

@@ -72,10 +72,10 @@ public class FaqAdapter extends BaseExpandableListAdapter {
 
         // check if GroupView is expanded and set imageview for expand/collapse-action
         if(isExpanded){
-            imgExpandCollapse.setImageResource(R.mipmap.chevron_up);
+            imgExpandCollapse.setImageResource(R.drawable.chevron_up);
         }
         else{
-            imgExpandCollapse.setImageResource(R.mipmap.chevron_down);
+            imgExpandCollapse.setImageResource(R.drawable.chevron_down);
         }
 
         return convertView;

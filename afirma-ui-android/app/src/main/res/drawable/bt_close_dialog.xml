@@ -1,13 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item>
-        <shape android:shape="rectangle" android:padding="10dp">
-            <corners
-                android:bottomRightRadius="5dp"
-                android:bottomLeftRadius="5dp"
-                android:topLeftRadius="5dp"
-                android:topRightRadius="5dp"/>
-        </shape>
-    </item>
-    <item android:drawable="@mipmap/close_dialog_icon" />
-</layer-list>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="33dp"
+    android:height="32dp"
+    android:viewportWidth="33"
+    android:viewportHeight="32">
+  <path
+      android:pathData="M16.25,0L16.25,0A16,16 0,0 1,32.25 16L32.25,16A16,16 0,0 1,16.25 32L16.25,32A16,16 0,0 1,0.25 16L0.25,16A16,16 0,0 1,16.25 0z"
+      android:fillColor="#E0E6EB"/>
+  <path
+      android:pathData="M21.05,11.2L11.45,20.8"
+      android:strokeLineJoin="round"
+      android:strokeWidth="1.6"
+      android:fillColor="#00000000"
+      android:strokeColor="#0E202F"
+      android:strokeLineCap="round"/>
+  <path
+      android:pathData="M11.45,11.2L21.05,20.8"
+      android:strokeLineJoin="round"
+      android:strokeWidth="1.6"
+      android:fillColor="#00000000"
+      android:strokeColor="#0E202F"
+      android:strokeLineCap="round"/>
+</vector>

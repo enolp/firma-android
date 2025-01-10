@@ -30,7 +30,7 @@ public class LanguageAdapter extends BaseAdapter {
         localeMap.put("en", context.getString(R.string.english));
         localeMap.put("fr", context.getString(R.string.french));
         localeMap.put("ca", context.getString(R.string.catala));
-        localeMap.put("ga", context.getString(R.string.galego));
+        localeMap.put("gl", context.getString(R.string.galego));
         localeMap.put("eu", context.getString(R.string.euskera));
         localeMap.put("va", context.getString(R.string.valenciano));
     }
@@ -59,6 +59,7 @@ public class LanguageAdapter extends BaseAdapter {
         String langConf = AppConfig.getLocaleConfig(context);
         if (localeMap.get(langConf).equals(language)) {
             convertView.findViewById(R.id.languageIndicatorImg).setVisibility(View.VISIBLE);
+            convertView.findViewById(R.id.languageGroupContent).setBackgroundResource(R.color.lightGray);
         }
         return convertView;
     }

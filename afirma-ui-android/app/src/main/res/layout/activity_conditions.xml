@@ -26,8 +26,8 @@
         android:id="@+id/language_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="15dp"
+        android:gravity="left"
+        android:layout_marginTop="20dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
@@ -36,21 +36,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:fontFamily="@font/merriweatherbold"
+        android:fontFamily="@font/nunitosansbold"
         android:text="@string/language"
         android:textColor="@color/black"
         android:textSize="15sp" />
 
-    <Spinner
-        android:id="@+id/spinner_languages"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:spinnerMode="dropdown"
-        android:popupBackground="@android:color/transparent"
-        android:layout_marginLeft="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Spinner
+            android:id="@+id/spinner_languages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+            android:layout_marginLeft="10dp"
+            style="@style/SpinnerBlackBorder"/>
 
     </LinearLayout>
 
@@ -59,13 +56,14 @@
         android:layout_height="match_parent"
         android:fillViewport="true"
         android:fadeScrollbars="false"
+        android:scrollbars="vertical"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbarFadeDuration="50000"
         android:scrollbarThumbVertical="@android:color/black"
         android:padding="10dp"
         android:layout_margin="15dp"
         android:layout_weight="0.30"
-        android:background="@drawable/rounded_black_borders">
+        android:background="@drawable/gray_borders">
 
         <WebView
             android:id="@+id/contentConditionsWv"
@@ -86,7 +84,7 @@
         android:layout_marginBottom="15dp"
         android:textColor="@color/black"
         android:fontFamily="@font/nunitosans"
-        app:buttonTint="@color/red"
+        app:buttonTint="@color/black"
         android:text="@string/read_and_accept_privacy"
         />
 
@@ -98,7 +96,7 @@
         android:layout_marginBottom="20dp"
         android:textColor="@color/black"
         android:fontFamily="@font/nunitosans"
-        app:buttonTint="@color/red"
+        app:buttonTint="@color/black"
         android:text="@string/read_and_accept_legal"
         />
 

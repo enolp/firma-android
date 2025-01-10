@@ -18,9 +18,9 @@
 
         <ImageView
             android:id="@+id/iconImg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/check_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/check_icon"
             />
 
     </LinearLayout>

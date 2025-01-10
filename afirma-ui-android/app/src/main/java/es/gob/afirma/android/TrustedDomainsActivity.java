@@ -59,12 +59,12 @@ public class TrustedDomainsActivity extends AppCompatActivity {
                         checkCorrectDomainFormat(domains);
                     }
                     CheckConnectionsHelper.setTrustedDomains(domains);
-                    CustomDialog cd = new CustomDialog(TrustedDomainsActivity.this, R.mipmap.check_icon, getString(R.string.changes_saved), getString(R.string.changes_saved_correctly), getString(R.string.understood));
+                    CustomDialog cd = new CustomDialog(TrustedDomainsActivity.this, R.drawable.check_icon, getString(R.string.changes_saved), getString(R.string.changes_saved_correctly), getString(R.string.understood));
                     cd.show();
                 }
                 catch (DomainFormatException e) {
                     Log.w("es.gob.afirma", "Se han encontrado entradas no validas en el listado de dominios", e);
-                    CustomDialog cd = new CustomDialog(TrustedDomainsActivity.this, R.mipmap.error_icon, getString(R.string.error), getString(R.string.error_format_trusted_domains, e.getMessage()), getString(R.string.understood));
+                    CustomDialog cd = new CustomDialog(TrustedDomainsActivity.this, R.drawable.bt_close_dialog, getString(R.string.error), getString(R.string.error_format_trusted_domains, e.getMessage()), getString(R.string.understood));
                     cd.show();
                 }
             }

@@ -198,10 +198,10 @@ public final class MainFragment extends Fragment implements DialogInterface.OnCl
 		if (showSigningResult) {
 			CustomDialog cd;
 			if (errorSigning) {
-				cd = new CustomDialog(this.getContext(), R.mipmap.error_icon, errorTitleDialog, errorMessageDialog,
+				cd = new CustomDialog(this.getContext(), R.drawable.bt_close_dialog, errorTitleDialog, errorMessageDialog,
 						getString(R.string.understood));
 			} else {
-				cd = new CustomDialog(this.getContext(), R.mipmap.check_icon, getString(R.string.signed_file_title), getString(R.string.signed_file_message),
+				cd = new CustomDialog(this.getContext(), R.drawable.check_icon, getString(R.string.signed_file_title), getString(R.string.signed_file_message),
 						getString(R.string.understood));
 			}
 			cd.show();
@@ -286,7 +286,7 @@ public final class MainFragment extends Fragment implements DialogInterface.OnCl
 					fileContent = readDataFromUri(dataUri);
 				}
 			} catch (final IOException e) {
-				CustomDialog cd = new CustomDialog(this.getContext(), R.mipmap.error_icon, getString(R.string.cant_add_cert_title), getString(R.string.cant_add_cert_message),
+				CustomDialog cd = new CustomDialog(this.getContext(), R.drawable.bt_close_dialog, getString(R.string.cant_add_cert_title), getString(R.string.cant_add_cert_message),
 						getString(R.string.try_again), true, getString(R.string.cancel_underline));
 				CustomDialog finalCd = cd;
 				cd.setAcceptButtonClickListener(new View.OnClickListener() {
@@ -306,11 +306,11 @@ public final class MainFragment extends Fragment implements DialogInterface.OnCl
 		} else if (requestCode == IMPORT_CERT_INSTRUCTIONS_CODE && resultCode == RESULT_OK) {
 			startCertImport();
 		} else if (requestCode == INSTALLED_CERT && resultCode == RESULT_OK) {
-			CustomDialog cd = new CustomDialog(this.getContext(), R.mipmap.check_icon, getString(R.string.added_cert_title), getString(R.string.added_cert_message),
+			CustomDialog cd = new CustomDialog(this.getContext(), R.drawable.check_icon, getString(R.string.added_cert_title), getString(R.string.added_cert_message),
 					getString(R.string.understood), false,null);
 			cd.show();
 		} else if (requestCode == SIGNED_FILE_OK && resultCode == RESULT_OK) {
-			CustomDialog cd = new CustomDialog(this.getContext(), R.mipmap.check_icon,
+			CustomDialog cd = new CustomDialog(this.getContext(), R.drawable.check_icon,
 					getString(R.string.signed_file_title), getString(R.string.signed_file_message), getString(R.string.understood));
 			cd.show();
 		} else if (requestCode == 0) {

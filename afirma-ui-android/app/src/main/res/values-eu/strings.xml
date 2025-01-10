@@ -6,7 +6,8 @@
     <string name="app_name">Aplikazio automatikoa</string>
     <string name="title_activity_cert_chooser">Inportatu ziurtagiria</string>
     <string name="title_activity_choose_sign_file">Hautatu sinatu beharreko fitxategia</string>
-    <string name="presentation_text">Ongi etorri "Autofirma App" atalera.\nAplikazio honek onartzen duten zerbitzu-hornitzaileen orrietan sinadura elektronikoak egiteko aukera ematen du.\nBehar bezala funtzionatzeko, ziurtagiri elektroniko bat eta pasahitz pribatua instalatuta izan behar dituzu zure gailuan, kontsultatu zure Android sistemako dokumentazioa eta zure ziurtapen-zerbitzuen hornitzailearekin.</string>
+    <string name="presentation_title">Ongi etorri Autofirma App-era</string>
+    <string name="presentation_text">Aplikazio honek onartzen duten zerbitzu-hornitzaileen orrietan sinadura elektronikoak egiteko aukera ematen du.\n\nBehar bezala funtzionatzeko, ziurtagiri elektroniko bat eta pasahitz pribatua instalatuta izan behar dituzu zure gailuan, kontsultatu zure Android sistemako dokumentazioa eta zure ziurtapen-zerbitzuen hornitzailearekin.</string>
     <string name="import_cert">Ziurtagiria inportatu</string>
     <string name="sign_file">Sinatu fitxategia</string>
     <string name="request_cert">Ziurtagiria eskatu</string>
@@ -246,7 +247,7 @@
     <string name="visible_sign_help_text_3">Dokumentua sinatzean, haren miniatura bat eta kontrolak agertuko zaizkizu. Haien orrietan nabigatu eta sinadura zer posiziotan sartu nahi duzun hautatzeko aukera emango dizute kontrolek.</string>
     <string name="visible_sign_help_text_4">Hautatu sinadura kokatzeko eremua eta sakatu \'Jarraitu\' dokumentua sinatzeko.</string>
     <string name="how_to_configure_trusted_domains">Nola konfiguratu konfiantza-domeinuak</string>
-    <string name="trusted_domains_help_text_1">Androidek konfiantzazko SSL ziurtagiririk erabiltzen ez duen domeinu bat duen webguneren batean izapide bat egin behar baduzu, domeinu hori gehitu dezakezu aplikazioaren domeinu seguruen zerrendan. \'Konfiantza-domeinuak\' ataletik. Atal honetan, segurutzat jotzen dituzun domeinuen zerrenda osa dezakezu, eta ez da beharrezkoa SSL ziurtagiria baliozkotzea. Gehitu domeinuak komaz (\',\') bereizita eta komodin bat (\'*\') erabiliz izenaren hasieran edo amaieran, behar izanez gero.</string>
+    <string name="trusted_domains_help_text_1">Androidek konfiantzazko SSL ziurtagiririk erabiltzen ez duen domeinu bat duen webguneren batean izapide bat egin behar baduzu, domeinu hori gehitu dezakezu aplikazioaren domeinu seguruen zerrendan \'Konfiantza-domeinuak\' ataletik. Atal honetan, segurutzat jotzen dituzun domeinuen zerrenda osa dezakezu, eta ez da beharrezkoa SSL ziurtagiria baliozkotzea. Gehitu domeinuak komaz (\',\') bereizita eta komodin bat (\'*\') erabiliz izenaren hasieran edo amaieran, behar izanez gero.</string>
     <string name="trusted_domains_help_text_2">Atal honetan, halaber, SSL ziurtagiriaren baliozkotzea desaktiba dezakezu domeinu guztietarako, \'SSL konexioak baliozkotu\' aukera desaktibatuz. Ez da segurua konexio-ziurtagirien baliozkotzea erabat desaktibatzea; beraz, saihestu egin behar da, ahal den guztietan.</string>
     <string name="go_to_configuration">Joan konfiguraziora\u00A0</string>
     <string name="import_certs_help_text_1">Autofirma App-ek Androiden gakoen biltegiko ziurtagiriak erabiltzen ditu sinatzeko. Ziurtagiri berri bat instala dezakezu .p12 edo .pfx fitxategia zuzenean irekiz ziurtagiriaren gakoekin eta pasahitza sartuz. Fitxategi hori bera hauta dezakezu Autofirma App-en pantaila nagusiko \'Gehitu ziurtagiri berria\' aukeraren bidez.</string>

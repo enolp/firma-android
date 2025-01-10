@@ -3,30 +3,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/languageGroupContent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp">
 
     <TextView
         android:id="@+id/languageGroup"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="50dp"
+        android:layout_gravity="start"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:ellipsize="end"
         android:fontFamily="@font/nunitosansbold"
-        android:textSize="15sp"
-        android:textColor="@color/black"
+        android:maxLines="1"
         android:padding="10dp"
-        android:layout_marginLeft="10dp"
-        />
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
 
     <ImageView
         android:id="@+id/languageIndicatorImg"
-        android:layout_gravity="left"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:paddingTop="10dp"
+        android:layout_gravity="end"
         android:focusable="false"
-        android:visibility="gone"
-        android:src="@mipmap/check_icon" />
+        android:paddingTop="10dp"
+        android:src="@drawable/red_check"
+        android:visibility="gone" />
 
 </LinearLayout>

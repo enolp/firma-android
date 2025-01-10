@@ -38,7 +38,7 @@ public class ConditionsActivity extends AppCompatActivity {
         Spinner spinner =  this.findViewById(R.id.spinner_languages);
         List<String> spinnerValues = List.of(getString(R.string.espanol), getString(R.string.english), getString(R.string.catala), getString(R.string.galego), getString(R.string.euskera), getString(R.string.valenciano));
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.textview_spinner_selected, spinnerValues);
-        adapter.setDropDownViewResource(R.layout.textview_spinner_selected);
+        adapter.setDropDownViewResource(R.layout.textview_spinner_drop);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -51,7 +51,7 @@ public class ConditionsActivity extends AppCompatActivity {
                         changeLang("ca");
                         break;
                     case 3:
-                        changeLang("ga");
+                        changeLang("gl");
                         break;
                     case 4:
                         changeLang("eu");
@@ -69,13 +69,7 @@ public class ConditionsActivity extends AppCompatActivity {
             }
         });
 
-        WebView wvChild =  this.findViewById(R.id.contentConditionsWv);
-        String policyHtml = FileUtil.readPolicyFile(this, "es");
-        String legalHtml = FileUtil.readLegalFile(this, "es");
-        String htmlText = policyHtml + legalHtml;
-        String encodedHtml = Base64.encodeToString(htmlText.getBytes(),
-                Base64.NO_PADDING);
-        wvChild.loadData(encodedHtml, "text/html", "base64");
+        changeLang("es");
 
         Button acceptConditionsBtn = this.findViewById(R.id.acceptConditionsBtn);
         acceptConditionsBtn.setOnClickListener(new View.OnClickListener()

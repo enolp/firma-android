@@ -20,6 +20,18 @@
             android:contentDescription="@string/main_logo_content_desc"
             android:src="@drawable/ic_launcher_foreground" />
 
+        <TextView
+            android:id="@+id/presentationTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:paddingLeft="10dp"
+            android:fontFamily="@font/merriweatherbold"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="@string/presentation_title"
+            android:textColor="@color/black" />
+
     </LinearLayout>
 
     <TextView

@@ -62,7 +62,7 @@ public class LanguageActivity extends AppCompatActivity {
                         changeLang("ca");
                         break;
                     case 3:
-                        changeLang("ga");
+                        changeLang("gl");
                         break;
                     case 4:
                         changeLang("eu");

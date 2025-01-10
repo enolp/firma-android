@@ -6,7 +6,8 @@
     <string name="app_name">Autofirma App</string>
     <string name="title_activity_cert_chooser">Import certificate</string>
     <string name="title_activity_choose_sign_file">Please, select the file to sign</string>
-    <string name="presentation_text">Welcome to the "Autofirma App"\nThis application allows making electronic signatures from compatible service providers Web pages.\nTo use the app, you\'ll need an electronic certificate and its related private key installed on the device. Consult the Android documentation and your service provider\'s documentation.</string>
+    <string name="presentation_title">Welcome to Autofirma App</string>
+    <string name="presentation_text">This application allows making electronic signatures from compatible service providers Web pages.\n\nTo use the app, you\'ll need an electronic certificate and its related private key installed on the device. Consult the Android documentation and your service provider\'s documentation.</string>
     <string name="import_cert">Import certificate</string>
     <string name="sign_file">Sign local file</string>
     <string name="request_cert">Request new certificate</string>
@@ -246,7 +247,7 @@
     <string name="visible_sign_help_text_3">During the signing of the document you will be shown a miniature of it and controls that will allow you to browse between your pages and select the position in which you want to include the signature.</string>
     <string name="visible_sign_help_text_4">Select the area to position the signature and press \'Continue\' to sign the document.</string>
     <string name="how_to_configure_trusted_domains">How to set trusted domains</string>
-    <string name="trusted_domains_help_text_1">If you need to process on a web with a domain that does not use an SSL certificate on which Android trusts, you can add this domain to the list of secure domains of the application. from the \'Trusted domains\' section. In this section you can compose the list of domains you consider safe, for which you do not need to validate the SSL certificate. Add the different domains separated by commas (\',\') and using a wildcard (\'*\') at the beginning or end of the name if needed.</string>
+    <string name="trusted_domains_help_text_1">If you need to process on a web with a domain that does not use an SSL certificate on which Android trusts, you can add this domain to the list of secure domains of the application from the \'Trusted domains\' section. In this section you can compose the list of domains you consider safe, for which you do not need to validate the SSL certificate. Add the different domains separated by commas (\',\') and using a wildcard (\'*\') at the beginning or end of the name if needed.</string>
     <string name="trusted_domains_help_text_2">In this section you could also deactivate the validation of the SSL certificate for all domains by deactivating the option \'Validate SSL connections\'. It is not safe to fully deactivate the validation of the connection certificates, so it should be avoided whenever possible.</string>
     <string name="go_to_configuration">Go to configuration\u00A0</string>
     <string name="import_certs_help_text_1">Autofirma App uses Android key store certificates to sign. You can install a new certificate by directly opening the .p12 or .pfx file with the certificate keys and entering your password. You can also select that same file via the option \'Add new certificate\' from the main screen of Autofirma App.</string>

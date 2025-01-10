@@ -58,6 +58,13 @@
                     android:padding="4dp"/>
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/toolbar"
+                android:focusable="false"
+                />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,6 +88,13 @@
                     android:layout_height="wrap_content"
                     android:padding="4dp"/>
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/toolbar"
+                android:focusable="false"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -106,6 +120,13 @@
                     android:gravity="center_vertical"
                     android:padding="4dp"/>
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/toolbar"
+                android:focusable="false"
+                />
 
         </LinearLayout>
 
