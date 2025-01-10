@@ -18,6 +18,8 @@ import java.util.Locale;
 import java.util.Properties;
 
 import es.gob.afirma.android.Logger;
+import es.gob.afirma.android.errors.ErrorCategory;
+import es.gob.afirma.android.errors.RequestErrors;
 import es.gob.afirma.core.AOException;
 import es.gob.afirma.core.AOUnsupportedSignFormatException;
 import es.gob.afirma.core.signers.AOSignConstants;
@@ -141,7 +143,8 @@ public class SignTask extends AsyncTask<Void, Void, SignResult>{
 				);
 				break;
 				default:
-				throw new IllegalStateException("Tipo de operacion de firma no soportado: " + this.op); //$NON-NLS-1$
+				ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.NOT_SUPPORTED_OPERATION);
+				throw new IllegalStateException(errorCat.getAdminText() + ": " + this.op); //$NON-NLS-1$
 			}
 		}
 		catch (final AOException e) {

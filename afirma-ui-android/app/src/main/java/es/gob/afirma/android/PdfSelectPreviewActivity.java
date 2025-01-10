@@ -23,10 +23,12 @@ import com.aowagie.text.Rectangle;
 import com.aowagie.text.pdf.PdfReader;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnDrawListener;
+import com.github.barteksc.pdfviewer.listener.OnErrorListener;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnRenderListener;
 import com.github.barteksc.pdfviewer.util.FitPolicy;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.shockwave.pdfium.PdfPasswordException;
 import com.shockwave.pdfium.util.SizeF;
 
 import java.io.File;
@@ -34,9 +36,9 @@ import java.io.IOException;
 
 import es.gob.afirma.R;
 import es.gob.afirma.android.gui.CustomDialog;
+import es.gob.afirma.android.gui.PDFPasswordVisibleSignDialog;
 import es.gob.afirma.android.util.FileUtil;
 import es.gob.afirma.signers.pades.common.PdfExtraParams;
-
 
 public class PdfSelectPreviewActivity extends AppCompatActivity {
 
@@ -47,6 +49,8 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
     private float startX, startY, endX, endY;
     private int pageNumber = 0;
     private int totalPages;
+    private String pdfPassword = "";
+    private boolean isFirstPwdRequest;
 
     private Paint paint;
     private RectF selectedArea;
@@ -75,7 +79,8 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
             }
         });
 
-        context = this;
+        this.context = this;
+        this.isFirstPwdRequest = true;
 
         prevPageBtn = findViewById(R.id.prevPageBtn);
         nextPageBtn = findViewById(R.id.nextPageBtn);
@@ -141,7 +146,12 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
 
                 try {
                     byte [] fileContent = FileUtil.readDataFromFile(file);
-                    PdfReader reader = new PdfReader(fileContent);
+                    PdfReader reader;
+                    if (pdfPassword != null && !pdfPassword.isEmpty()) {
+                        reader = new PdfReader(fileContent, pdfPassword.getBytes());
+                    } else {
+                       reader = new PdfReader(fileContent);
+                    }
                     Rectangle rect = reader.getPageSize(pageNumber + 1);
                     pdfHeight = rect.getHeight();
                     pdfWidth = rect.getWidth();
@@ -217,6 +227,11 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
                                 )
                         )
                 );
+                if (pdfPassword != null && !pdfPassword.isEmpty()) {
+                    dataIntent.putExtra(PdfExtraParams.OWNER_PASSWORD_STRING,
+                            pdfPassword.getBytes()
+                    );
+                }
 
                 setResult(Activity.RESULT_OK, dataIntent);
                 finish();
@@ -224,7 +239,7 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
         });
 
         try{
-            openPDF();
+            openPDF(this);
         } catch (IOException ioe){
             final Intent dataIntent = new Intent();
             setResult(ERROR_REQUEST_VISIBLE_SIGN, dataIntent);
@@ -233,24 +248,36 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    public void openPDF() throws IOException {
+    public void openPDF(PdfSelectPreviewActivity parentActivity) throws IOException {
 
         pdfView.fromFile(file)
                 .defaultPage(0)
                 .enableAnnotationRendering(true)
                 .pageFitPolicy(FitPolicy.BOTH)
                 .fitEachPage(true)
+                .password(pdfPassword)
                 .onLoad(new OnLoadCompleteListener() {
                     @Override
                     public void loadComplete(int numberOfPages) {
                         totalPages = numberOfPages;
-                        adjustPdfView();
+                        adjustPdfView(parentActivity);
                     }
                 })
                 .onDraw(new OnDrawListener() {
                     @Override
                     public void onLayerDrawn(Canvas canvas, float pageWidth, float pageHeight, int displayedPage) {
                         drawSelectedArea(canvas);
+                    }
+                })
+                .onError(new OnErrorListener() {
+                    @Override
+                    public void onError(Throwable t) {
+                        if (t instanceof PdfPasswordException) {
+                            PDFPasswordVisibleSignDialog pwdDialog = new PDFPasswordVisibleSignDialog(parentActivity, !isFirstPwdRequest);
+                            pwdDialog.show(getSupportFragmentManager(),
+                                    "PasswordDialog");
+                            isFirstPwdRequest = false;
+                        }
                     }
                 })
                 .load();
@@ -319,7 +346,7 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (pageNumber < totalPages -1) {
                     pageNumber++;
-                    onPageChanged();
+                    onPageChanged(parentActivity);
                 }
             }
         });
@@ -330,7 +357,7 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (pageNumber > 0) {
                     pageNumber--;
-                    onPageChanged();
+                    onPageChanged(parentActivity);
                 }
             }
         });
@@ -357,11 +384,11 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
         );
     }
 
-    public void onPageChanged() {
+    public void onPageChanged(PdfSelectPreviewActivity parentActivity) {
         disableButtons();
         progressBar.setVisibility(View.VISIBLE);
         selectedArea = null;
-        adjustPdfView();
+        adjustPdfView(parentActivity);
         pdfView.invalidate();
     }
 
@@ -373,7 +400,7 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
         }
     }
 
-    private void adjustPdfView() {
+    private void adjustPdfView(PdfSelectPreviewActivity parentActivity) {
         SizeF pageSize = pdfView.getPageSize(pageNumber);
         if (pageSize != null) {
             float zoom = pdfView.getZoom();
@@ -397,6 +424,7 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
                     .enableAnnotationRendering(true)
                     .pageFitPolicy(fitPolicy)
                     .fitEachPage(true)
+                    .password(pdfPassword)
                     .autoSpacing(false)
                     .onRender(new OnRenderListener() {
                         @Override
@@ -413,6 +441,17 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
                             drawSelectedArea(canvas);
                         }
                     })
+                    .onError(new OnErrorListener() {
+                        @Override
+                        public void onError(Throwable t) {
+                            if (t instanceof PdfPasswordException) {
+                                PDFPasswordVisibleSignDialog pwdDialog = new PDFPasswordVisibleSignDialog(parentActivity, !isFirstPwdRequest);
+                                pwdDialog.show(getSupportFragmentManager(),
+                                        "PasswordDialog");
+                                isFirstPwdRequest = false;
+                            }
+                        }
+                    })
                     .load();
         }
     }
@@ -425,6 +464,10 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
     private void disableButtons() {
         prevPageBtn.setEnabled(false);
         nextPageBtn.setEnabled(false);
+    }
+
+    public void setPdfPassword(String pwd) {
+        this.pdfPassword = pwd;
     }
 
 }

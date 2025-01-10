@@ -14,6 +14,10 @@ import java.util.Properties;
 
 import es.gob.afirma.android.Logger;
 import es.gob.afirma.android.batch.TriphaseDataParser;
+import es.gob.afirma.android.errors.ErrorCategory;
+import es.gob.afirma.android.errors.FunctionalErrors;
+import es.gob.afirma.android.errors.RequestErrors;
+import es.gob.afirma.android.errors.ThirdPartyErrors;
 import es.gob.afirma.core.AOException;
 import es.gob.afirma.core.misc.Base64;
 import es.gob.afirma.core.misc.http.HttpError;
@@ -83,22 +87,20 @@ public class BatchSigner {
                                   final Properties pkcs1ExtraParams) throws CertificateEncodingException,
             IOException, AOException, JSONException {
         if (batchB64 == null || batchB64.isEmpty()) {
-            throw new IllegalArgumentException("El lote de firma no puede ser nulo ni vacio"); //$NON-NLS-1$
+            ErrorCategory errorCat = RequestErrors.JSON_REQUEST.get(RequestErrors.NO_DATA_NO_ID_BATCH);
+            throw new IllegalArgumentException(errorCat.getCode() + " - " + errorCat.getAdminText()); //$NON-NLS-1$
         }
         if (batchPresignerUrl == null || batchPresignerUrl.isEmpty()) {
-            throw new IllegalArgumentException(
-                    "La URL de preproceso de lotes no puede se nula ni vacia" //$NON-NLS-1$
-            );
+            ErrorCategory errorCat = RequestErrors.JSON_REQUEST.get(RequestErrors.BATCHPRESIGNERURL_NOT_FOUND_BATCH);
+            throw new IllegalArgumentException(errorCat.getCode() + " - " + errorCat.getAdminText()); //$NON-NLS-1$
         }
         if (batchPostSignerUrl == null || batchPostSignerUrl.isEmpty()) {
-            throw new IllegalArgumentException(
-                    "La URL de postproceso de lotes no puede ser nula ni vacia" //$NON-NLS-1$
-            );
+            ErrorCategory errorCat = RequestErrors.JSON_REQUEST.get(RequestErrors.BATCHPOSTSIGNERURL_NOT_FOUND_BATCH);
+            throw new IllegalArgumentException(errorCat.getCode() + " - " + errorCat.getAdminText());
         }
         if (certificates == null || certificates.length < 1) {
-            throw new IllegalArgumentException(
-                    "La cadena de certificados del firmante no puede ser nula ni vacia" //$NON-NLS-1$
-            );
+            ErrorCategory errorCat = FunctionalErrors.SIGN_OPERATION.get(FunctionalErrors.NO_CERTIFICATES);
+            throw new IllegalArgumentException(errorCat.getCode() + " - " + errorCat.getAdminText());
         }
 
         String batchUrlSafe = batchB64.replace("+", "-").replace("/", "_");  //$NON-NLS-1$ //$NON-NLS-2$//$NON-NLS-3$ //$NON-NLS-4$
@@ -112,7 +114,8 @@ public class BatchSigner {
                     UrlHttpMethod.POST
             );
         } catch (final HttpError e) {
-            Logger.e(ES_GOB_AFIRMA, "El servicio de firma devolvio un  error durante la prefirma", e); //$NON-NLS-1$
+            ErrorCategory errorCat = ThirdPartyErrors.TRIPHASE_SERVER.get(ThirdPartyErrors.HTTP_PRESIGN);
+            Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e); //$NON-NLS-1$
             throw e;
         }
 
@@ -163,7 +166,8 @@ public class BatchSigner {
                     UrlHttpMethod.POST
             );
         } catch (final HttpError e) {
-            Logger.e(ES_GOB_AFIRMA, "El servicio de firma devolvio un  error durante la postfirma", e); //$NON-NLS-1$
+            ErrorCategory errorCat = ThirdPartyErrors.TRIPHASE_SERVER.get(ThirdPartyErrors.HTTP_POSTSIGN);
+            Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e); //$NON-NLS-1$
             throw e;
         }
 
@@ -195,9 +199,10 @@ public class BatchSigner {
         try {
             jsonObject = new JSONObject(convertedJson);
         }catch (final JSONException jsonEx){
-            Logger.e(ES_GOB_AFIRMA, "Error al parsear JSON", jsonEx); //$NON-NLS-1$
+            ErrorCategory errorCat = RequestErrors.JSON_REQUEST.get(RequestErrors.JSON_NOT_FORMED_CORRECTLY);
+            Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), jsonEx); //$NON-NLS-1$
             throw new JSONException(
-                    "El JSON de definicion de lote de firmas no esta formado correctamente" //$NON-NLS-1$
+                    errorCat.getCode() + " - " + errorCat.getAdminText() //$NON-NLS-1$
             );
         }
 
@@ -205,8 +210,9 @@ public class BatchSigner {
             return jsonObject.getString("algorithm"); //$NON-NLS-1$
         }
 
+        ErrorCategory errorCat = RequestErrors.JSON_REQUEST.get(RequestErrors.ALGORITHM_NOT_FOUND_BATCH);
         throw new IllegalArgumentException(
-                "El nodo 'signbatch' debe contener al manos el atributo de algoritmo" //$NON-NLS-1$
+                errorCat.getCode() + " - " + errorCat.getAdminText() //$NON-NLS-1$
         );
     }
 }

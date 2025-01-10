@@ -15,6 +15,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import es.gob.afirma.R;
+import es.gob.afirma.android.errors.ErrorCategory;
+import es.gob.afirma.android.errors.InternalSoftwareErrors;
 import es.gob.afirma.android.gui.CustomDialog;
 
 public class TrustedDomainsActivity extends AppCompatActivity {
@@ -63,8 +65,9 @@ public class TrustedDomainsActivity extends AppCompatActivity {
                     cd.show();
                 }
                 catch (DomainFormatException e) {
-                    Log.w("es.gob.afirma", "Se han encontrado entradas no validas en el listado de dominios", e);
-                    CustomDialog cd = new CustomDialog(TrustedDomainsActivity.this, R.drawable.bt_close_dialog, getString(R.string.error), getString(R.string.error_format_trusted_domains, e.getMessage()), getString(R.string.understood));
+                    ErrorCategory errorCat = InternalSoftwareErrors.APP_CONFIGURATION.get(InternalSoftwareErrors.DOMAIN_FORMAT_INCORRECT);
+                    Log.w("es.gob.afirma", errorCat.getCode() + " - " + errorCat.getAdminText(), e);
+                    CustomDialog cd = new CustomDialog(TrustedDomainsActivity.this, R.drawable.bt_close_dialog, getString(R.string.error), "AA" + errorCat.getCode() + " - " + getString(R.string.error_format_trusted_domains, e.getMessage()), getString(R.string.understood));
                     cd.show();
                 }
             }

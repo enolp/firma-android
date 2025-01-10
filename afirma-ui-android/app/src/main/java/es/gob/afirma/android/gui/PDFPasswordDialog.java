@@ -13,6 +13,7 @@ package es.gob.afirma.android.gui;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -86,7 +87,7 @@ public class PDFPasswordDialog extends DialogFragment {
 							@Override
 							public void onClick(final DialogInterface dialog, final int id) {
 								dialog.dismiss();
-								signListener.onSignError(new AOException("Operacion cancelada por el usuario"));
+								signListener.onSignError(new PendingIntent.CanceledException("Operacion cancelada por el usuario"));
 							}
 						}
 				)
@@ -95,7 +96,7 @@ public class PDFPasswordDialog extends DialogFragment {
 					public boolean onKey(final DialogInterface dialog, final int keyCode, final KeyEvent event) {
 						if (keyCode == KeyEvent.KEYCODE_BACK) {
 							dialog.dismiss();
-							signListener.onSignError(new AOException("Operacion cancelada por el usuario"));
+							signListener.onSignError(new PendingIntent.CanceledException("Operacion cancelada por el usuario"));
 						}
 						return false;
 					}

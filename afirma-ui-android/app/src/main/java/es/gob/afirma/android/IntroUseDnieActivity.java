@@ -12,6 +12,9 @@ import androidx.fragment.app.FragmentActivity;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import es.gob.afirma.R;
+import es.gob.afirma.android.errors.ErrorCategory;
+import es.gob.afirma.android.errors.ThirdPartyErrors;
+import es.gob.afirma.android.gui.CustomDialog;
 import es.gob.afirma.android.gui.CompatibleDniDialog;
 
 public class IntroUseDnieActivity extends FragmentActivity {
@@ -54,6 +57,58 @@ public class IntroUseDnieActivity extends FragmentActivity {
                 startActivityForResult(intent, StepsInsertDataDnieActivity.REQUEST_NFC_PARAMS);
             }
         });
+
+        checkErrors(getIntent());
+    }
+
+    private void checkErrors(Intent intent) {
+
+        boolean unSupportedError = intent.getBooleanExtra(LoadKeyStoreFragmentActivity.ERROR_UNSUPPORTED_NFC, false);
+        if (unSupportedError) {
+            ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.UNKNOWN_OR_NOT_SUPPORTED_CARD);
+            CustomDialog cd = new CustomDialog(this, R.mipmap.error_icon, getString(R.string.error_ocurred), "AA" + errorCat.getCode() + " - " + errorCat.getUserText(),
+                    getString(R.string.ok));
+            CustomDialog finalCd = cd;
+            cd.setAcceptButtonClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finalCd.hide();
+                }
+            });
+            cd.show();
+            return;
+        }
+
+        boolean canError = intent.getBooleanExtra(LoadKeyStoreFragmentActivity.ERROR_CAN_VALIDATION_NFC, false);
+        if (canError) {
+            ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.CAN_VALIDATION);
+            CustomDialog cd = new CustomDialog(this, R.mipmap.error_icon, getString(R.string.incorrect_can), "AA" + errorCat.getCode() + " - " + errorCat.getUserText(),
+                    getString(R.string.ok));
+            CustomDialog finalCd = cd;
+            cd.setAcceptButtonClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finalCd.hide();
+                }
+            });
+            cd.show();
+            return;
+        }
+
+        boolean initializingError = intent.getBooleanExtra(LoadKeyStoreFragmentActivity.ERROR_INITIALIZING_NFC, false);
+        if (initializingError) {
+            ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.ERROR_INITIALIZING_CARD);
+            CustomDialog cd = new CustomDialog(this, R.mipmap.error_icon, getString(R.string.error_ocurred), "AA" + errorCat.getCode() + " - " + errorCat.getUserText(),
+                    getString(R.string.ok));
+            CustomDialog finalCd = cd;
+            cd.setAcceptButtonClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finalCd.hide();
+                }
+            });
+            cd.show();
+        }
     }
 
     @Override

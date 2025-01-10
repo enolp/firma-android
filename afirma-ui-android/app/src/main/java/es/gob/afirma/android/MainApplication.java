@@ -6,6 +6,7 @@ import android.content.Context;
 import es.gob.afirma.android.gui.AppConfig;
 
 public class MainApplication extends Application {
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -18,4 +19,5 @@ public class MainApplication extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocaleHelper.onAttach(base));
     }
+
 }
