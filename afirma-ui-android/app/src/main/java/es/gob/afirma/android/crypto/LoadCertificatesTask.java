@@ -133,9 +133,6 @@ public class LoadCertificatesTask extends AsyncTask<Void, Void, Exception> {
             // Estamos en una conexion NFC y encapsulamos
             // las excepciones para que se procesen adecuadamente
             Logger.e(ES_GOB_AFIRMA, "Error al cargar el almacen de claves del dispositivo. Es posible que CAN o PIN introducido fuese incorrecto: " + e); //$NON-NLS-1$
-            dnieManager.clearCan();
-            dnieManager.clearPin();
-            dnieManager.setCallbackHandler(null);
             throw encapsuleException(e);
         }
 

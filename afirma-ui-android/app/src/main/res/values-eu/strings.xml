@@ -22,7 +22,7 @@
     <string name="ok">Onartu</string>
     <string name="close">Itxi</string>
     <string name="title_activity_sign_data">Datuak sinatzea</string>
-    <string name="title_activity_sign_batch">Lotekako sinadura</string>
+    <string name="title_activity_sign_batch">Lotearen sinadura</string>
     <string name="title_activity_select_certificate">Hautatu ziurtagiria</string>
     <string name="error_bad_params">Ez da behar bezala eskatu aplikazioa. Kontsultatu izapidearen arduradunari.</string>
     <string name="error_server_connect">Errore bat gertatu da aplikazioaren eta web orriaren arteko konexioan.</string>
@@ -39,10 +39,11 @@
     <string name="error">Errorea</string>
     <string name="error_loading_keystore">Errorea gertatu da ziurtagiri-biltegia kargatzean</string>
     <string name="error_loading_cert">Errorea gertatu da ziurtagiria kargatzean</string>
-    <string name="error_saving_record">Sinadura behar bezala egin da, baina ez da sinadura-erregistroan sartu</string>
+    <string name="error_saving_record">Sinadura behar bezala egin da, baina ez da sartu sinadura-historian</string>
     <string name="error_ocurred">Errore bat gertatu da</string>
     <string name="operation_cancelled">Eragiketa bertan behera geratu da</string>
     <string name="error_reading_dnie">Ezin izan da ondo irakurri NANe</string>
+    <string name="error_reading_dnie_try_again">Errore bat gertatu da zure NANa irakurtzen saiatzean. Mesedez, saiatu berriro. Gogoan izan gainazal lauan eduki eta telefono mugikorra segundo batzuetan txartelaren gainean eduki, behar bezala irakurtzeko.</string>
     <string name="title_activity_save_data">Gorde datuak</string>
     <string name="saveData">Gorde</string>
     <string name="cancel">Utzi</string>
@@ -105,7 +106,7 @@
     <string name="nfc_cancelled">NFCren erabilera bertan behera utzi da. Sistemaren biltegia erabiliko da.</string>
     <string name="settings">Doikuntzak</string>
     <string name="can_not_can_be_null">CANa ezin da hutsa edo nulua izan</string>
-    <string name="incorrect_can">Sartutako CANa ez da zuzena</string>
+    <string name="incorrect_can">CAN okerra</string>
     <string name="unsupported_card">Txartela ez da onartzen</string>
     <string name="nfc_card_initializing_error">Errorea gertatu da txartelarekin konektatzen hastean. Baliteke CANa okerra izatea. Saiatu berriro.</string>
     <string name="title_activity_main_test">MainActivityTest</string>
@@ -127,6 +128,7 @@
     <string name="intro_title">Sinadura erraza eta segurua</string>
     <string name="intro_text">Sinatu dokumentuak modu seguruan eta legalean, zure ziurtagiri digitalarekin edo NAN elektronikoarekin identifikatuta.</string>
     <string name="start">Hasi</string>
+    <string name="begin">Hasi</string>
     <string name="drag_on">Jarraitu</string>
     <string name="understood">Ulertua</string>
     <string name="add_new_cert">Gehitu ziurtagiri berria</string>
@@ -181,7 +183,7 @@
     <string name="is_my_dnie_suitable">Bateragarria da nire NANa?</string>
     <string name="is_my_dnie_suitable_desc">Prozesu honekin bateragarriak diren NANak &lt;b>DNI 3.0 eta 4.0&lt;/b> NANak dira. Ez badakizu zein den zurea, esteka honetan kontsulta dezakezu:</string>
     <string name="dni_portal_text">&lt;u>NAN elektronikoaren ataria. Polizia Nazionalaren Kidegoa&lt;/u></string>
-    <string name="dni_portal_url">https://www.dnielectronico.es/</string>
+    <string name="dni_portal_url">https://www.dnielectronico.es/PortalDNIe/</string>
     <string name="enter_can_dni">Sartu NANaren CANa</string>
     <string name="enter_can_dni_desc">CANa NANaren beheko eskuineko aldean dagoen zenbaki bat da. NANa NFCrekin irakurtzeko beharrezkoa da.</string>
     <string name="enter_can_dni_hint">Idatzi NANaren CAN kodea</string>
@@ -219,9 +221,10 @@
     <string name="enter_valid_pin">Sartu baliozko pin bat</string>
     <string name="added_cert_title">Ziurtagiri erantsia</string>
     <string name="added_cert_message">Ziurtagiria behar bezala gehitu da</string>
-    <string name="sign_record">Sinadura-erregistroa</string>
+    <string name="sign_record">Sinaduren historia</string>
     <string name="loading_cert">Ziurtagiria kargatzen</string>
     <string name="loading_certs">Ziurtagiriak kargatzea</string>
+    <string name="signing">Sinadura egiten</string>
     <string name="local_sign_record">%1$s fitxategiko lokal %2$s</string>
     <string name="web_sign_record">%1$s web, %2$s(e)k eskatua</string>
     <string name="web_sign_record_file">%1$s web fitxategitik %2$s</string>

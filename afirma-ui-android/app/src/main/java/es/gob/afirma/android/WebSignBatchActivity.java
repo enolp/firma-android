@@ -45,8 +45,8 @@ import es.gob.afirma.android.errors.FunctionalErrors;
 import es.gob.afirma.android.errors.InternalSoftwareErrors;
 import es.gob.afirma.android.errors.RequestErrors;
 import es.gob.afirma.android.errors.ThirdPartyErrors;
+import es.gob.afirma.android.gui.CustomDialog;
 import es.gob.afirma.android.gui.DownloadFileTask;
-import es.gob.afirma.android.gui.MessageDialog;
 import es.gob.afirma.android.gui.SendDataTask;
 import es.gob.afirma.android.gui.SendDataTask.SendDataListener;
 import es.gob.afirma.core.AOCancelledOperationException;
@@ -72,8 +72,8 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 	/** Juego de carateres UTF-8. */
 	private static final String DEFAULT_URL_ENCODING = "UTF-8"; //$NON-NLS-1$
 
-	private MessageDialog messageDialog;
-	MessageDialog getMessageDialog() {
+	private CustomDialog messageDialog;
+	CustomDialog getMessageDialog() {
 		return this.messageDialog;
 	}
 
@@ -285,16 +285,15 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 		String message = "AA" + errorCat.getCode() + " - " + errorCat.getUserText();
 
 		if (this.messageDialog == null) {
-			this.messageDialog = MessageDialog.newInstance(message);
-			this.messageDialog.setListener(new CloseActivityDialogAction());
-			this.messageDialog.setDialogBuilder(this);
+			this.messageDialog = new CustomDialog(this, R.drawable.warn_icon, getString(R.string.error_ocurred), message,
+					getString(R.string.ok));
 		}
 
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
 				try {
-					WebSignBatchActivity.this.getMessageDialog().show(getSupportFragmentManager(), "ErrorDialog"); //$NON-NLS-1$;
+					WebSignBatchActivity.this.getMessageDialog().show(); //$NON-NLS-1$;
 				}
 				catch (final Exception e) {
 					Toast.makeText(WebSignBatchActivity.this, message, Toast.LENGTH_LONG).show();
@@ -477,8 +476,9 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 
 	/** Comprueba si esta abierto el di&aacute;logo de mensajes y lo cierra en dicho caso. */
 	private void dismissMessageDialog() {
-		if (this.messageDialog != null && this.messageDialog.isVisible()) {
-					this.messageDialog.dismiss();
+		if (this.messageDialog != null && this.messageDialog.isShowing()) {
+					this.messageDialog.hide();
+					this.messageDialog = null;
 		}
 	}
 

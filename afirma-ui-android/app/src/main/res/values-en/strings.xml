@@ -22,7 +22,7 @@
     <string name="ok">OK</string>
     <string name="close">Close</string>
     <string name="title_activity_sign_data">Sign data</string>
-    <string name="title_activity_sign_batch">Sign batch</string>
+    <string name="title_activity_sign_batch">Batch signature</string>
     <string name="title_activity_select_certificate">Certificate selection</string>
     <string name="error_bad_params">Illegal App invocation, please ask the entity in charge of the process.</string>
     <string name="error_server_connect">Network connection error.</string>
@@ -40,10 +40,11 @@
     <string name="error">Error</string>
     <string name="error_loading_keystore">Error when loading the certificate store</string>
     <string name="error_loading_cert">Error loading certificate</string>
-    <string name="error_saving_record">The signature has been done correctly, but it has not been included in the signatures registry</string>
+    <string name="error_saving_record">The signature has been done correctly, but it has not been included in the signatures history</string>
     <string name="error_ocurred">An error has occurred</string>
     <string name="operation_cancelled">Cancelled operation</string>
     <string name="error_reading_dnie">DNIe could not be read correctly</string>
+    <string name="error_reading_dnie_try_again">There has been a mistake in trying to read your DNIe. Please try again. Remember to keep it on a smooth surface and keep your mobile phone a few seconds fixed on the card for proper reading.</string>
     <string name="title_activity_save_data">Save data</string>
     <string name="saveData">Save</string>
     <string name="cancel">Cancel</string>
@@ -85,7 +86,7 @@
     <string name="signedfile_downloads_location">The signature "%1$s" was saved on the donwloads folder.</string>
     <string name="incorrect_pin">Wrong PIN.</string>
     <string name="error_msc_pin">Wrong PIN. Please, beware that invalid PIN entering can lock your smart card.</string>
-    <string name="incorrect_can">The CAN introduced is incorrect</string>
+    <string name="incorrect_can">CAN incorrect</string>
     <string name="error_format_not_supported">Unsupported signature format.</string>
     <string name="dialog_alias_cert_text">%1$s\nValid: %2$s\nUntil: %3$s\nIssuer: %4$s</string>
     <string name="accesibility_icon_filetype">File type icon</string>
@@ -127,6 +128,7 @@
     <string name="intro_title">Easy and secure signing</string>
     <string name="intro_text">Sign documents enclosed and legally identifying you with your digital certificate or electonic ID.</string>
     <string name="start">Start</string>
+    <string name="begin">Begin</string>
     <string name="drag_on">Continue</string>
     <string name="understood">Understood</string>
     <string name="add_new_cert">Add new certificate</string>
@@ -181,7 +183,7 @@
     <string name="is_my_dnie_suitable">Is my ID compatible?</string>
     <string name="is_my_dnie_suitable_desc">The DNIe supported by this process are &lt;b>DNI 3.0 y 4.0&lt;/b>. If you have any questions about what your own is, you can see it at the following link:</string>
     <string name="dni_portal_text">&lt;u>Electronic ID portal. National Police Corps&lt;/u></string>
-    <string name="dni_portal_url">https://www.dnielectronico.es/</string>
+    <string name="dni_portal_url">https://www.dnielectronico.es/PortalDNIe/</string>
     <string name="enter_can_dni">Enter the CAN of the DNI</string>
     <string name="enter_can_dni_desc">The CAN is a number located at the bottom right of the ID. It is necessary for ID reading with NFC.</string>
     <string name="enter_pin_dni">Enter the PIN</string>
@@ -219,9 +221,10 @@
     <string name="enter_valid_pin">Enter a valid pin</string>
     <string name="added_cert_title">Certificate added</string>
     <string name="added_cert_message">The certificate was successfully added</string>
-    <string name="sign_record">Signature record</string>
+    <string name="sign_record">History of signatures</string>
     <string name="loading_cert">Loading certificate</string>
     <string name="loading_certs">Loading certificates</string>
+    <string name="signing">Signing</string>
     <string name="local_sign_record">Local %1$s of file %2$s</string>
     <string name="web_sign_record">Web %1$s requested by %2$s</string>
     <string name="web_sign_record_file">%1$s web of file %2$s</string>

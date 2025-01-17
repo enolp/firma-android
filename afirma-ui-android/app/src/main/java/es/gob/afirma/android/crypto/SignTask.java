@@ -10,6 +10,8 @@
 
 package es.gob.afirma.android.crypto;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
 import java.io.IOException;
@@ -17,6 +19,7 @@ import java.security.KeyStore.PrivateKeyEntry;
 import java.util.Locale;
 import java.util.Properties;
 
+import es.gob.afirma.R;
 import es.gob.afirma.android.Logger;
 import es.gob.afirma.android.errors.ErrorCategory;
 import es.gob.afirma.android.errors.RequestErrors;
@@ -61,6 +64,9 @@ public class SignTask extends AsyncTask<Void, Void, SignResult>{
 
 	private Throwable t;
 
+	final Activity activity;
+	private ProgressDialog progressDialog = null;
+
 	/** Construye la tarea encargada de realizar la operaci&oacute;n criptogr&aacute;fica.
 	 * @param op Identificador de la operaci&oacute;n.
 	 * @param data Datos a firma o firma a cofirma/contrafirmar.
@@ -75,7 +81,8 @@ public class SignTask extends AsyncTask<Void, Void, SignResult>{
 					final String algorithm,
 					final PrivateKeyEntry pke,
 					final Properties extraParams,
-					final SignListener signListener) {
+					final SignListener signListener,
+					final Activity activity) {
 
 		this.op = op;
 		this.data = data;
@@ -85,10 +92,27 @@ public class SignTask extends AsyncTask<Void, Void, SignResult>{
 		this.extraParams = extraParams;
 		this.signListener = signListener;
 		this.t = null;
+		this.activity = activity;
 	}
 
 	@Override
 	protected SignResult doInBackground(final Void... params) {
+
+		activity.runOnUiThread(new Runnable() {
+			public void run() {
+				try {
+					setProgressDialog(
+							ProgressDialog.show(
+									activity,
+									"",
+									activity.getString(R.string.signing),
+									true)); //$NON-NLS-1$
+				}
+				catch (Throwable e) {
+					Logger.w(ES_GOB_AFIRMA, "No se pudo mostrar el dialogo de progreso de firma", e);
+				}
+			}
+		});
 
 		// Obtenemos el manejador de firma apropiado
 		final AOSigner signer = getSupportedCompatibleSigner(this.format, this.op, this.data);
@@ -194,6 +218,9 @@ public class SignTask extends AsyncTask<Void, Void, SignResult>{
 	@Override
 	protected void onPostExecute(final SignResult result) {
 		super.onPostExecute(result);
+		if (getProgressDialog().isShowing()) {
+			getProgressDialog().dismiss();
+		}
 		if (result == null || result.getSignature() == null) {
 			this.signListener.onSignError(this.t);
 		} else {
@@ -216,5 +243,13 @@ public class SignTask extends AsyncTask<Void, Void, SignResult>{
 		/** Gestiona un error en la operaci&oacute;n de firma.
 		 * @param t Excepcion o error lanzada en la operaci&oacute;n de firma. */
 		void onSignError(Throwable t);
+	}
+
+	ProgressDialog getProgressDialog() {
+		return this.progressDialog;
+	}
+
+	void setProgressDialog(final ProgressDialog pd) {
+		this.progressDialog = pd;
 	}
 }

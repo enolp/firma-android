@@ -94,7 +94,7 @@
 		<item name="android:paddingTop">0dp</item>
 		<item name="android:paddingBottom">0dp</item>
 		<item name="android:fontFamily">@font/nunitosans</item>
-		<item name="android:background">@drawable/spinner_black_border_selector</item>
+		<item name="android:background">@drawable/spinner_black_border</item>
 	</style>
 
 	<style name="ButtonNoBorder">

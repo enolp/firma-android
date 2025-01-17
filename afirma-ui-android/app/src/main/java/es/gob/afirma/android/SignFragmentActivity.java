@@ -224,27 +224,33 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 		if (cert != null && !pseudonymChecked && this.isPseudonymCert) {
 			PrivateKeyEntry finalPke = pke;
 
-			CustomDialog signFragmentCustomDialog = new CustomDialog(ctx, R.drawable.baseline_info_24, getString(R.string.pseudonym_cert),
-					getString(R.string.pseudonym_cert_desc), getString(R.string.ok), true, getString(R.string.change_cert));
-			signFragmentCustomDialog.setAcceptButtonClickListener(new View.OnClickListener() {
+			SignFragmentActivity.this.runOnUiThread(new Runnable() {
 				@Override
-				public void onClick(View v) {
-					signFragmentCustomDialog.cancel();
-					startDoSign(kse, finalPke, true);
+				public void run() {
+					CustomDialog signFragmentCustomDialog = new CustomDialog(ctx, R.drawable.baseline_info_24, getString(R.string.pseudonym_cert),
+							getString(R.string.pseudonym_cert_desc), getString(R.string.ok), true, getString(R.string.change_cert));
+					signFragmentCustomDialog.setAcceptButtonClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							signFragmentCustomDialog.cancel();
+							startDoSign(kse, finalPke, true);
+						}
+					});
+					signFragmentCustomDialog.setCancelButtonClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							signFragmentCustomDialog.cancel();
+							Properties extraParams = new Properties();
+							extraParams.setProperty(CAdESExtraParams.MODE, "implicit");
+							sign("SIGN", dataToSign, format, DEFAULT_SIGNATURE_ALGORITHM, isLocalSign, extraParams);
+						}
+					});
+					signFragmentCustomDialog.show();
 				}
 			});
-			signFragmentCustomDialog.setCancelButtonClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					signFragmentCustomDialog.cancel();
-					Properties extraParams = new Properties();
-					extraParams.setProperty(CAdESExtraParams.MODE, "implicit");
-					sign("SIGN", dataToSign, format, DEFAULT_SIGNATURE_ALGORITHM, isLocalSign, extraParams);
-				}
-			});
-			signFragmentCustomDialog.show();
 
 			return;
+
 		}
 
 		String providerName = null;
@@ -296,6 +302,7 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 			signatureAlgorithm,
 			this.keyEntry,
 			this.extraParams,
+			this,
 			this
 		).execute();
 	}
@@ -340,6 +347,7 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 						this.algorithm,
 						this.keyEntry,
 						this.extraParams,
+						this,
 						this
 				),
 				this,

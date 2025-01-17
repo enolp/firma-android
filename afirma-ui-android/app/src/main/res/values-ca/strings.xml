@@ -22,7 +22,7 @@
     <string name="ok">Acceptar</string>
     <string name="close">Tancar</string>
     <string name="title_activity_sign_data">Signatura de dades</string>
-    <string name="title_activity_sign_batch">Signa per lots</string>
+    <string name="title_activity_sign_batch">Signatura de lot</string>
     <string name="title_activity_select_certificate">Selecci\u00F3 de certificat</string>
     <string name="error_bad_params">No s\'ha realitzat correctament la invocaci\u00F3 de l\'aplicaci\u00F3. Consulti al responsable del tr\u00e0mit.</string>
     <string name="error_server_connect">Va oc\u00F3rrer un error en la connexi\u00F3 entre l\'aplicaci\u00F3 i la p\u00e0gina web.</string>
@@ -39,10 +39,11 @@
     <string name="error">Error</string>
     <string name="error_loading_keystore">Error en carregar l\'almacen de certificats</string>
     <string name="error_loading_cert">Error en carregar el certificat</string>
-    <string name="error_saving_record">La signatura s\'ha realitzat correctament, per\u00f2 no s\'ha incl\u00f2s en el registre de signatures</string>
+    <string name="error_saving_record">La signatura s\'ha realitzat correctament, per\u00f2 no s\'ha incl\u00f2s en el hist\u00F3ric de signatures</string>
     <string name="error_ocurred">Ha ocorregut un error</string>
     <string name="operation_cancelled">Operacion cancel·lada</string>
     <string name="error_reading_dnie">No s\'ha pogut llegir correctament el DNIe</string>
+    <string name="error_reading_dnie_try_again">S\'ha produït un error en intentar llegir el teu DNIe. Si us plau, torna a intentar-ho. Recorda mantenir-ho en una superf\u00EDcie llisa i mantenir el teu tel\u00E8fon m\u00F2bil uns segons fix sobre la targeta per a la seva correcta lectura.</string>
     <string name="title_activity_save_data">Guardar dades</string>
     <string name="saveData">Guardar</string>
     <string name="cancel">Cancel·lar</string>
@@ -105,7 +106,7 @@
     <string name="nfc_cancelled">S\'ha cancel·lat l\'\u00fas de NFC. S\'usar\u00e0 el magatzem del sistema.</string>
     <string name="settings">Ajustos</string>
     <string name="can_not_can_be_null">El CAN no pot ser buit o nul</string>
-    <string name="incorrect_can">El CAN introduït \u00e9s incorrecte</string>
+    <string name="incorrect_can">CAN incorrecte</string>
     <string name="unsupported_card">Targeta no suportada</string>
     <string name="nfc_card_initializing_error">Error en iniciar la connexi\u00F3 amb la targeta. \u00e9s possible que el CA sigui incorrecte. Intenti-ho de nou.</string>
     <string name="title_activity_main_test">MainActivityTest</string>
@@ -127,6 +128,7 @@
     <string name="intro_title">Signatura f\u00e0cil i segura/segura</string>
     <string name="intro_text">Signa documents de forma segura/segura i legal identificant-te amb el teu certificat digital o DNI electr\u00f2nic.</string>
     <string name="start">Començar</string>
+    <string name="begin">Començar</string>
     <string name="drag_on">Continuar</string>
     <string name="understood">Ent\u00e8s</string>
     <string name="add_new_cert">Afegir nou certificat</string>
@@ -181,7 +183,7 @@
     <string name="is_my_dnie_suitable">\u00e9s el meu DNI compatible?</string>
     <string name="is_my_dnie_suitable_desc">Els DNIe compatibles amb aquest proc\u00e9s s\u00F3n els &lt;b>DNI 3.0 y 4.0&lt;/b>. Si tens dubtes de quin \u00e9s el teu, pots consultar-ho en el següent enllaç:</string>
     <string name="dni_portal_text">&lt;u>Portal del DNI electr\u00F2nic. Cos Nacional de Policia&lt;/u></string>
-    <string name="dni_portal_url">https://www.dnielectronico.es/</string>
+    <string name="dni_portal_url">https://www.dnielectronico.es/PortalDNIe/</string>
     <string name="enter_can_dni">Introdueixi el CA del DNI</string>
     <string name="enter_can_dni_desc">El CA \u00e9s un nombre situat en la part inferior dreta del DNI. \u00e9s necessari per a la lectura del DNI amb NFC.</string>
     <string name="enter_can_dni_hint">Escriu el teu codi CA del DNI</string>
@@ -219,9 +221,10 @@
     <string name="enter_valid_pin">Introdueixi un pin v\u00e0lid</string>
     <string name="added_cert_title">Certificat afegit</string>
     <string name="added_cert_message">El certificat s\'ha afegit correctament</string>
-    <string name="sign_record">Registre de signatures</string>
+    <string name="sign_record">Hist\u00F3ric de signatures</string>
     <string name="loading_cert">Carregant certificat</string>
     <string name="loading_certs">Carregant certificats</string>
+    <string name="signing">Realitzant signatura</string>
     <string name="local_sign_record">%1$s local del fitxer %2$s</string>
     <string name="web_sign_record">%1$s web sol·licitada per %2$s</string>
     <string name="web_sign_record_file">%1$s web del fitxer %2$s</string>

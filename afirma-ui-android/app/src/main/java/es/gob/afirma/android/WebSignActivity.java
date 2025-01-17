@@ -61,9 +61,9 @@ import es.gob.afirma.android.errors.InternalSoftwareErrors;
 import es.gob.afirma.android.errors.RequestErrors;
 import es.gob.afirma.android.errors.ThirdPartyErrors;
 import es.gob.afirma.android.gui.AppConfig;
+import es.gob.afirma.android.gui.CustomDialog;
 import es.gob.afirma.android.gui.DownloadFileTask;
 import es.gob.afirma.android.gui.DownloadFileTask.DownloadDataListener;
-import es.gob.afirma.android.gui.MessageDialog;
 import es.gob.afirma.android.gui.SendDataTask;
 import es.gob.afirma.android.gui.SendDataTask.SendDataListener;
 import es.gob.afirma.core.AOException;
@@ -109,13 +109,13 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 
 	private DownloadFileTask downloadFileTask = null;
 
-	private MessageDialog messageDialog;
+	private CustomDialog messageDialog;
 
 	private String fileName;
 
 	private boolean isRequiredVisibleSignature;
 
-	MessageDialog getMessageDialog() {
+	CustomDialog getMessageDialog() {
 		return this.messageDialog;
 	}
 
@@ -372,16 +372,15 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 		String message = "AA" + errorCat.getCode() + " - " + errorCat.getUserText();
 
 		if (this.messageDialog == null) {
-			this.messageDialog = MessageDialog.newInstance(message);
-			this.messageDialog.setListener(new CloseActivityDialogAction());
-			this.messageDialog.setDialogBuilder(this);
+			this.messageDialog = new CustomDialog(this, R.drawable.warn_icon, getString(R.string.error_ocurred), message,
+					getString(R.string.ok));
 		}
 
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
 				try {
-					WebSignActivity.this.getMessageDialog().show(getSupportFragmentManager(), "ErrorDialog"); //$NON-NLS-1$;
+					WebSignActivity.this.getMessageDialog().show(); //$NON-NLS-1$;
 				}
 				catch (final Exception e) {
 					// Si falla el mostrar el error (posiblemente por no disponer de un contexto grafico para mostrarlo)
@@ -739,8 +738,9 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 
 	/** Comprueba si esta abierto el di&aacute;logo de mensajes y lo cierra en dicho caso. */
 	private void dismissMessageDialog() {
-		if (this.messageDialog != null && this.messageDialog.isVisible()) {
-					this.messageDialog.dismiss();
+		if (this.messageDialog != null && this.messageDialog.isShowing()) {
+					this.messageDialog.hide();
+					this.messageDialog = null;
 		}
 	}
 

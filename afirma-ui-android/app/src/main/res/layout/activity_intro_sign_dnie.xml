@@ -62,7 +62,7 @@
         android:layout_marginRight="11dp"
         android:layout_marginBottom="11dp"
         android:onClick="onClick"
-        android:text="@string/start"
+        android:text="@string/begin"
         style="@style/ButtonRedLarge" />
 
 

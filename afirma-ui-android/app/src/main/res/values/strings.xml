@@ -22,7 +22,7 @@
     <string name="ok">Aceptar</string>
     <string name="close">Cerrar</string>
     <string name="title_activity_sign_data">Firma de datos</string>
-    <string name="title_activity_sign_batch">Firma por lotes</string>
+    <string name="title_activity_sign_batch">Firma de lote</string>
     <string name="title_activity_select_certificate">Selecci\u00F3n de certificado</string>
     <string name="error_bad_params">No se ha realizado correctamente la invocaci\u00F3n de la aplicaci\u00F3n. Consulte al responsable del tr\u00E1mite.</string>
     <string name="error_server_connect">Ocurri\u00F3 un error en la conexi\u00F3n entre la aplicaci\u00F3n y la p\u00E1gina web.</string>
@@ -39,10 +39,11 @@
     <string name="error">Error</string>
     <string name="error_loading_keystore">Error al cargar el almacen de certificados</string>
     <string name="error_loading_cert">Error al cargar el certificado</string>
-    <string name="error_saving_record">La firma se ha realizado correctamente, pero no se ha incluido en el registro de firmas</string>
+    <string name="error_saving_record">La firma se ha realizado correctamente, pero no se ha incluido en el hist\u00F3rico de firmas</string>
     <string name="error_ocurred">Ha ocurrido un error</string>
     <string name="operation_cancelled">Operacion cancelada</string>
     <string name="error_reading_dnie">No se ha podido leer correctamente el DNIe</string>
+    <string name="error_reading_dnie_try_again">Se ha producido un error al intentar leer tu DNIe. Por favor, vuelve a intentarlo. Recuerda mantenerlo en una superficie lisa y mantener tu tel\u00E9fono móvil unos segundos fijo sobre la tarjeta para su correcta lectura.</string>
     <string name="title_activity_save_data">Guardar datos</string>
     <string name="saveData">Guardar</string>
     <string name="cancel">Cancelar</string>
@@ -51,8 +52,8 @@
     <string name="error_cant_load_request">No se han podido cargar los datos de la petici\u00F3n</string>
     <string name="error_saving_data">Ocurri\u00F3 un error al guardar los datos</string>
     <string name="error_saving_signature">Ocurri\u00F3 un error al guardar la firma</string>
-    <string name="error_sending_data">No se pudo transmitir el resultado de la operacion al navegador web</string>
-    <string name="error_signing">Error durante la operacion de firma</string>
+    <string name="error_sending_data">No se pudo transmitir el resultado de la operaci\u00F3n al navegador web</string>
+    <string name="error_signing">Error durante la operaci\u00F3n de firma</string>
     <string name="error_signing_config">Error durante la configuraci\u00F3n de la firma electr\u00F3nica</string>
     <string name="error_no_storage_permissions">El Cliente de firma no tiene permisos de escritura en disco.</string>
     <string name="error_no_device_to_store">No se ha encontrado un directorio para guardar la firma</string>
@@ -105,7 +106,7 @@
     <string name="nfc_cancelled">Se ha cancelado el uso de NFC. Se usar\u00E1 el almac\u00E9n del sistema.</string>
     <string name="settings">Ajustes</string>
     <string name="can_not_can_be_null">El CAN no puede ser vac\u00EDo o nulo</string>
-    <string name="incorrect_can">El CAN introducido es incorrecto</string>
+    <string name="incorrect_can">CAN incorrecto</string>
     <string name="unsupported_card">Tarjeta no soportada</string>
     <string name="nfc_card_initializing_error">Error al iniciar la conexi\u00F3n con la tarjeta. Es posible que el CAN sea incorrecto. Int\u00E9ntelo de nuevo.</string>
     <string name="title_activity_main_test">MainActivityTest</string>
@@ -127,6 +128,7 @@
     <string name="intro_title">Firma f\u00E1cil y segura</string>
     <string name="intro_text">Firma documentos de forma segura y legal identific\u00E1ndote con tu certificado digital o DNI electr\u00F3nico.</string>
     <string name="start">Comenzar</string>
+    <string name="begin">Empezar</string>
     <string name="drag_on">Continuar</string>
     <string name="understood">Entendido</string>
     <string name="add_new_cert">A\u00F1adir nuevo certificado</string>
@@ -138,7 +140,7 @@
     <string name="send_to_device_message">Si no lo encuentras, env\u00EDalo a tu m\u00F3vil desde otro dispositivo mediante correo electr\u00F3nico u otras aplicaciones en la nube.</string>
     <string name="cant_add_cert_title">No hemos podido a\u00F1adir tu certificado</string>
     <string name="cant_add_cert_message">No hemos podido a\u00F1adir tu certificado a la aplicaci\u00F3n de Autofirma de manera correcta. Int\u00E9ntalo de nuevo m\u00E1s tarde</string>
-    <string name="try_again">Intentar de nuevo</string>
+    <string name="try_again">Volver a intentarlo</string>
     <string name="signed_file_title">Fichero firmado</string>
     <string name="signed_file_message">El fichero ha sido firmado correctamente.</string>
     <string name="choose_cert_type_sign_title">¿Con qu\u00E9 firmar\u00E1s?</string>
@@ -181,7 +183,7 @@
     <string name="is_my_dnie_suitable">¿Es mi DNI compatible?</string>
     <string name="is_my_dnie_suitable_desc">Los DNIe compatibles con este proceso son los &lt;b>DNI 3.0 y 4.0&lt;/b>. Si tienes dudas de cu\u00E1l es el tuyo, puedes consultarlo en el siguiente enlace:</string>
     <string name="dni_portal_text">&lt;u>Portal del DNI electr\u00F3nico. Cuerpo Nacional de Polic\u00EDa&lt;/u></string>
-    <string name="dni_portal_url">https://www.dnielectronico.es/</string>
+    <string name="dni_portal_url">https://www.dnielectronico.es/PortalDNIe/</string>
     <string name="enter_can_dni">Introduzca el CAN del DNI</string>
     <string name="enter_can_dni_desc">El CAN es un n\u00FAmero situado en la parte inferior derecha del DNI. Es necesario para la lectura del DNI con NFC.</string>
     <string name="enter_can_dni_hint">Escribe tu c\u00F3digo CAN del DNI</string>
@@ -219,9 +221,10 @@
     <string name="enter_valid_pin">Introduzca un pin v\u00E1lido</string>
     <string name="added_cert_title">Certificado a\u00F1adido</string>
     <string name="added_cert_message">El certificado se ha a\u00F1adido correctamente</string>
-    <string name="sign_record">Registro de firmas</string>
+    <string name="sign_record">Hist\u00F3rico de firmas</string>
     <string name="loading_cert">Cargando certificado</string>
     <string name="loading_certs">Cargando certificados</string>
+    <string name="signing">Realizando firma</string>
     <string name="local_sign_record">%1$s local del fichero %2$s</string>
     <string name="web_sign_record">%1$s web solicitada por %2$s</string>
     <string name="web_sign_record_file">%1$s web del fichero %2$s</string>

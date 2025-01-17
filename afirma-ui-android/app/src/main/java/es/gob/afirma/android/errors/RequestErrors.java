@@ -77,16 +77,16 @@ public final class RequestErrors {
 		ErrorCategory e600403 = new ErrorCategory(600403, context.getString(R.string.error_bad_params), "No se ha recibido el id del fichero a guardar para la operación de firma de lotes");
 		ErrorCategory e600405 = new ErrorCategory(600405, context.getString(R.string.error_bad_params), "No se ha recibido el batchpresignerurl en la firma batch");
         ErrorCategory e600406 = new ErrorCategory(600406, context.getString(R.string.error_bad_params), "No se ha recibido el batchpostsignerurl en la firma batch");
+		ErrorCategory e600407 = new ErrorCategory(600407, context.getString(R.string.error_bad_params), "El data de la operacion de firma batch no es un JSON valido");
 		ErrorCategory e600408 = new ErrorCategory(600408, context.getString(R.string.error_bad_params), "No se ha recibido el algoritmo de firma en la firma batch");
-        ErrorCategory e600409 = new ErrorCategory(600409, context.getString(R.string.error_bad_params), "El JSON de definicion de lote de firmas no esta formado correctamente");
 
 		JSON_REQUEST.put(NO_DATA_NO_ID_BATCH, e600400);
 		JSON_REQUEST.put(URL_DOWNLOAD_NOT_FOUND_BATCH, e600401);
 		JSON_REQUEST.put(FILE_ID_NOT_FOUND_BATCH, e600403);
 		JSON_REQUEST.put(BATCHPRESIGNERURL_NOT_FOUND_BATCH, e600405);
 		JSON_REQUEST.put(BATCHPOSTSIGNERURL_NOT_FOUND_BATCH, e600406);
+		JSON_REQUEST.put(JSON_NOT_FORMED_CORRECTLY, e600407);
 		JSON_REQUEST.put(ALGORITHM_NOT_FOUND_BATCH, e600408);
-		JSON_REQUEST.put(JSON_NOT_FORMED_CORRECTLY, e600409);
 
 	}
 

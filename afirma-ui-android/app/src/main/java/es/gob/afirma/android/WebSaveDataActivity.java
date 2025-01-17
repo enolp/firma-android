@@ -12,11 +12,11 @@ package es.gob.afirma.android;
 
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,8 +40,8 @@ import es.gob.afirma.android.errors.ErrorManager;
 import es.gob.afirma.android.errors.FunctionalErrors;
 import es.gob.afirma.android.errors.InternalSoftwareErrors;
 import es.gob.afirma.android.errors.RequestErrors;
+import es.gob.afirma.android.gui.CustomDialog;
 import es.gob.afirma.android.gui.DownloadFileTask;
-import es.gob.afirma.android.gui.MessageDialog;
 import es.gob.afirma.android.gui.SendDataTask;
 import es.gob.afirma.core.misc.MimeHelper;
 import es.gob.afirma.core.misc.http.UrlHttpManagerFactory;
@@ -188,20 +188,22 @@ public final class WebSaveDataActivity extends FragmentActivity
 	 */
 	private void showErrorMessage(final ErrorCategory errorCat) {
 		String message = "AA" + errorCat.getCode() + " - " + errorCat.getUserText();
-		final MessageDialog md = MessageDialog.newInstance(message);
-		md.setListener(new DialogInterface.OnClickListener() {
+		CustomDialog cd = new CustomDialog(this, R.drawable.warn_icon, getString(R.string.error_reading_dnie), message,
+				getString(R.string.try_again));
+		CustomDialog finalCd = cd;
+		cd.setAcceptButtonClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
+			public void onClick(View v) {
+				finalCd.hide();
 				finishAffinity();
 			}
 		});
-		md.setDialogBuilder(this);
 
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
 				try {
-					md.show(getSupportFragmentManager(), "ErrorDialog"); //$NON-NLS-1$;
+					cd.show(); //$NON-NLS-1$;
 				}
 				catch (final Exception e) {
 					// Si falla el mostrar el error (posiblemente por no disponer de un contexto grafico para mostrarlo)

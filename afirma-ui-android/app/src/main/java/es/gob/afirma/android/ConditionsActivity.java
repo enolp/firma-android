@@ -29,6 +29,9 @@ import es.gob.afirma.android.util.FileUtil;
 
 public class ConditionsActivity extends AppCompatActivity {
 
+    Context ctx;
+    int posSelected = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,10 +43,17 @@ public class ConditionsActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.textview_spinner_selected, spinnerValues);
         adapter.setDropDownViewResource(R.layout.textview_spinner_drop);
         spinner.setAdapter(adapter);
+
+        this.ctx = this;
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                posSelected = position;
                 switch (position) {
+                    case 0:
+                        changeLang("es");
+                        break;
                     case 1:
                         changeLang("en");
                         break;
@@ -59,13 +69,30 @@ public class ConditionsActivity extends AppCompatActivity {
                     case 5:
                         changeLang("va");
                         break;
-                    default:
-                        changeLang("es");
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        spinner.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(ctx, R.layout.textview_spinner_selected_white, spinnerValues);
+                    spinner.setAdapter(adapter);
+                    adapter.setDropDownViewResource(R.layout.textview_spinner_drop);
+                    spinner.setBackgroundResource(R.drawable.spinner_white_border);
+                    spinner.setSelection(posSelected);
+                } else {
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(ctx, R.layout.textview_spinner_selected, spinnerValues);
+                    spinner.setAdapter(adapter);
+                    adapter.setDropDownViewResource(R.layout.textview_spinner_drop);
+                    spinner.setBackgroundResource(R.drawable.spinner_black_border);
+                    spinner.setSelection(posSelected);
+                }
             }
         });
 
@@ -80,6 +107,16 @@ public class ConditionsActivity extends AppCompatActivity {
                 AppConfig.setSkipConditionsScreen(true);
                 Intent intent = new Intent(ConditionsActivity.this, HomeActivity.class);
                 startActivity(intent);
+            }
+        });
+        acceptConditionsBtn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    acceptConditionsBtn.setBackgroundResource(R.drawable.buttonblackbackground);
+                } else {
+                    acceptConditionsBtn.setBackgroundResource(R.drawable.buttonredbackground);
+                }
             }
         });
 
@@ -110,9 +147,11 @@ public class ConditionsActivity extends AppCompatActivity {
         if (readAndAcceptPrivacyChk.isChecked() && readAndAcceptLegalChk.isChecked()) {
             acceptConditionsBtn.setEnabled(true);
             acceptConditionsBtn.setTextColor(Color.WHITE);
+            acceptConditionsBtn.setBackgroundResource(R.drawable.buttonredbackground);
         } else {
             acceptConditionsBtn.setEnabled(false);
             acceptConditionsBtn.setTextColor(Color.parseColor("#767676"));
+            acceptConditionsBtn.setBackgroundResource(R.drawable.buttongraybackground);
         }
     }
 

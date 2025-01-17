@@ -1,5 +1,8 @@
 package es.gob.afirma.android;
 
+import static es.gob.afirma.android.NFCDetectorActivity.INTENT_EXTRA_CAN_VALUE;
+import static es.gob.afirma.android.gui.InsertDataDnieStep2Fragment.INTENT_EXTRA_PIN_VALUE;
+
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +18,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import es.gob.afirma.R;
 import es.gob.afirma.android.gui.InsertDataDnieStep1Fragment;
 import es.gob.afirma.android.gui.InsertDataDnieStep2Fragment;
+import es.gob.afirma.android.gui.InsertDataDnieStep3Fragment;
 
 public class StepsInsertDataDnieActivity extends AppCompatActivity {
 
@@ -36,8 +40,14 @@ public class StepsInsertDataDnieActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        if (getIntent() != null && getIntent().hasExtra(NFCDetectorActivity.INTENT_EXTRA_ERROR_READING_CARD) && getIntent().getBooleanExtra(NFCDetectorActivity.INTENT_EXTRA_ERROR_READING_CARD, false)) {
+            char [] can = getIntent().getCharArrayExtra(getString(R.string.extra_can));
+            char [] pin = getIntent().getCharArrayExtra(getString(R.string.extra_pin));
+            loadStep3(String.valueOf(can), String.valueOf(pin));
+        } else {
+            loadStep1(InsertDataDnieStep1Fragment.canValue);
+        }
 
-        loadStep1(InsertDataDnieStep1Fragment.canValue);
     }
 
     @Override
@@ -98,6 +108,33 @@ public class StepsInsertDataDnieActivity extends AppCompatActivity {
         this.getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.step_content, insertDataDnieStep2Fragment)
+                .commit();
+    }
+
+    private void loadStep3(String can, String pin) {
+        TextView stepTv = this.findViewById(R.id.stepTv);
+        stepTv.setText(getString(R.string.actual_step, "3"));
+
+        TextView titleTv = this.findViewById(R.id.titleTv);
+        titleTv.setText(getString(R.string.read_dnie_with_smartphone));
+
+        ProgressBar progressBar = this.findViewById(R.id.signDnieStepsPb);
+        progressBar.setMax(3);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            progressBar.setProgress(3,true);
+        }
+
+        InsertDataDnieStep3Fragment insertDataDnieStep3Fragment = new InsertDataDnieStep3Fragment();
+        Bundle bundle = new Bundle();
+
+        bundle.putBoolean(NFCDetectorActivity.INTENT_EXTRA_ERROR_READING_CARD, true);
+        bundle.putString(INTENT_EXTRA_CAN_VALUE, can);
+        bundle.putString(INTENT_EXTRA_PIN_VALUE, pin);
+        insertDataDnieStep3Fragment.setArguments(bundle);
+
+        this.getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.step_content, insertDataDnieStep3Fragment)
                 .commit();
     }
 

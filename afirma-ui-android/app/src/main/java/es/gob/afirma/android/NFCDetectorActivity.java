@@ -30,6 +30,8 @@ public class NFCDetectorActivity extends FragmentActivity {
 
     static final String INTENT_EXTRA_PASSWORD_CALLBACK = "pc"; //$NON-NLS-1$
 
+    public static final String INTENT_EXTRA_ERROR_READING_CARD = "errorReadingCard";
+
     private NfcAdapter mNfcAdapter;
     private PendingIntent pendingIntent;
     private IntentFilter[] intentFiltersArray;

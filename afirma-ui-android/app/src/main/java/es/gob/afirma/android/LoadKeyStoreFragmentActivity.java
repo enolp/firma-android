@@ -160,7 +160,6 @@ public class LoadKeyStoreFragmentActivity extends FragmentActivity {
 			else {
 				DnieConnectionManager.getInstance().clearCan();
 				DnieConnectionManager.getInstance().clearPin();
-
 				loadKeyStore(this);
 			}
 			return;
@@ -335,8 +334,10 @@ public class LoadKeyStoreFragmentActivity extends FragmentActivity {
 			startActivityForResult(stepsSignDNIe, REQUEST_DNIE_PARAMS);
 		}
 		else if (t instanceof InitializingNfcCardException) {
-			final Intent stepsSignDNIe = new Intent(this, IntroUseDnieActivity.class);
-			stepsSignDNIe.putExtra(ERROR_INITIALIZING_NFC, true);
+			final Intent stepsSignDNIe = new Intent(this, StepsInsertDataDnieActivity.class);
+			stepsSignDNIe.putExtra(NFCDetectorActivity.INTENT_EXTRA_ERROR_READING_CARD, true);
+			stepsSignDNIe.putExtra(getString(R.string.extra_can), DnieConnectionManager.getInstance().getCanPasswordCallback().getPassword());
+			stepsSignDNIe.putExtra(getString(R.string.extra_pin), DnieConnectionManager.getInstance().getPinPasswordCallback().getPassword());
 			startActivityForResult(stepsSignDNIe, REQUEST_DNIE_PARAMS);
 		}
 		// Si es un error en la carga, lo reintentamos
