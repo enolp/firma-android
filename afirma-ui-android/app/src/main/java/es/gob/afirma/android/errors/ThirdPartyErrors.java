@@ -41,13 +41,13 @@ public final class ThirdPartyErrors {
 
 	public static void update(Context context) {
 		ErrorCategory e300100 = new ErrorCategory(300100, context.getString(R.string.unsupported_card), "La tarjeta identificada en el lector es desconocida o no esta soportada");
-		ErrorCategory e300102 = new ErrorCategory(300102, context.getString(R.string.error_reading_dnie), "No se ha podido conectar con la tarjeta");
+		ErrorCategory e300102 = new ErrorCategory(300102, context.getString(R.string.unsupported_card), "No se ha podido conectar con la tarjeta");
 		ErrorCategory e300103 = new ErrorCategory(300103, context.getString(R.string.error_reading_dnie_try_again), "La conexion con la tarjeta no esta inicializada");
-		ErrorCategory e300104 = new ErrorCategory(300104, context.getString(R.string.error_reading_dnie), "Ocurrio un error inesperado durante la operacion");
+		ErrorCategory e300104 = new ErrorCategory(300104, context.getString(R.string.error_reading_dnie_try_again), "Ocurrio un error inesperado durante la operacion");
 		ErrorCategory e300105 = new ErrorCategory(300105, context.getString(R.string.error_msc_pin), context.getString(R.string.incorrect_pin));
 		ErrorCategory e300106 = new ErrorCategory(300106, context.getString(R.string.error_dni_blocked_dlg), "Tarjeta bloqueada");
 		ErrorCategory e300108 = new ErrorCategory(300108, context.getString(R.string.nfc_card_initializing_error), "Error durante la validacion del CAN");
-		ErrorCategory e300110 = new ErrorCategory(300110, context.getString(R.string.error_reading_dnie), "No se dispone de certificado de firma digital");
+		ErrorCategory e300110 = new ErrorCategory(300110, context.getString(R.string.error_reading_dnie_no_cert), "No se dispone de certificado de firma digital");
 
 		JMULTICARD.put(UNKNOWN_OR_NOT_SUPPORTED_CARD, e300100);
 		JMULTICARD.put(CANT_CONNECT_CARD, e300102);
@@ -58,8 +58,8 @@ public final class ThirdPartyErrors {
 		JMULTICARD.put(CAN_VALIDATION, e300108);
 		JMULTICARD.put(NOT_HAVE_CERTIFICATE, e300110);
 
-		ErrorCategory e300400 = new ErrorCategory(300400, context.getString(R.string.error_signing), "Error HTTP al realizar la operacion de prefirma");
-		ErrorCategory e300404 = new ErrorCategory(300404, context.getString(R.string.error_signing), "Error HTTP al realizar la operacion de posfirma");
+		ErrorCategory e300400 = new ErrorCategory(300400, context.getString(R.string.not_completed_request), "Error HTTP al realizar la operacion de prefirma");
+		ErrorCategory e300404 = new ErrorCategory(300404, context.getString(R.string.not_completed_request), "Error HTTP al realizar la operacion de posfirma");
 
 		TRIPHASE_SERVER.put(HTTP_PRESIGN, e300400);
 		TRIPHASE_SERVER.put(HTTP_POSTSIGN, e300404);

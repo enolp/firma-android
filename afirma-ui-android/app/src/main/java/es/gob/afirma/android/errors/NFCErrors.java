@@ -26,7 +26,7 @@ public final class NFCErrors {
 	public static final Dictionary<String, ErrorCategory> NFC_CARDS = new Hashtable<>();
 
 	public static void update(Context context) {
-		ErrorCategory e102000 = new ErrorCategory(102000, context.getString(R.string.nfc_card_initializing_error), "Error al resetear la tarjeta NFC");
+		ErrorCategory e102000 = new ErrorCategory(102000, context.getString(R.string.not_completed_request), "Error al resetear la tarjeta NFC");
 		NFC_CARDS.put(RESET_NFC, e102000);
 	}
 

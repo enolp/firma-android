@@ -74,17 +74,17 @@ public final class InternalSoftwareErrors extends AppCompatActivity {
 
 	public static void update(Context context) {
 
-        ErrorCategory e200000 = new ErrorCategory(200000, context.getString(R.string.error_ocurred), "Error general de software");
-        ErrorCategory e200001 = new ErrorCategory(200001, context.getString(R.string.error_saving_record), "La firma se ha realizado correctamente pero no se ha podido guardar en el histórico de firmas");
-        ErrorCategory e200002 = new ErrorCategory(200002, context.getString(R.string.error_signing), "Error durante la firma");
+        ErrorCategory e200000 = new ErrorCategory(200000, context.getString(R.string.not_completed_request), "Error general de software");
+        ErrorCategory e200001 = new ErrorCategory(200001, context.getString(R.string.not_completed_request), "La firma se ha realizado correctamente pero no se ha podido guardar en el histórico de firmas");
+        ErrorCategory e200002 = new ErrorCategory(200002, context.getString(R.string.not_completed_request), "Error durante la firma");
 
 		GENERAL.put(SOFTWARE_GENERAL, e200000);
 		GENERAL.put(CANT_SAVE_SIGN_RECORD, e200001);
 		GENERAL.put(ERROR_SIGNING, e200002);
 
-        ErrorCategory e200100 = new ErrorCategory(200100, context.getString(R.string.error_loading_selected_file), "Error al cifrar la firma para enviarla al servidor intermedio");
-        ErrorCategory e200101 = new ErrorCategory(200101, context.getString(R.string.error_loading_cert), "Error al cifrar el certificado para enviarlo al servidor intermedio");
-        ErrorCategory e200102 = new ErrorCategory(200102, context.getString(R.string.error_loading_selected_file), "Error al cargar el fichero local para realizar la firma");
+        ErrorCategory e200100 = new ErrorCategory(200100, context.getString(R.string.not_completed_request), "Error al cifrar la firma para enviarla al servidor intermedio");
+        ErrorCategory e200101 = new ErrorCategory(200101, context.getString(R.string.not_completed_request), "Error al cifrar el certificado para enviarlo al servidor intermedio");
+        ErrorCategory e200102 = new ErrorCategory(200102, context.getString(R.string.not_completed_request), "Error al cargar el fichero local para realizar la firma");
         ErrorCategory e200105 = new ErrorCategory(200105, context.getString(R.string.file_read_out_of_memory), "Error de memoria al cargar el fichero");
 
 		OPERATION_SIGN.put(CYPHERING_SIGN, e200100);
@@ -92,11 +92,11 @@ public final class InternalSoftwareErrors extends AppCompatActivity {
 		OPERATION_SIGN.put(LOADING_LOCAL_FILE, e200102);
 		OPERATION_SIGN.put(OUT_OF_MEMORY, e200105);
 
-        ErrorCategory e200200 = new ErrorCategory(200200, context.getString(R.string.error_loading_cert), "Error al cifrar el certificado para enviarlo al servidor intermedio");
+        ErrorCategory e200200 = new ErrorCategory(200200, context.getString(R.string.not_completed_request), "Error al cifrar el certificado para enviarlo al servidor intermedio");
 		CERTIFICATE_SELECTION.put(CYPHERING_CERT_OP, e200200);
 
-		ErrorCategory e200301 = new ErrorCategory(200301, context.getString(R.string.error_saving_signature), "No se ha podido guardar el fichero en disco");
-        ErrorCategory e200302 = new ErrorCategory(200302, context.getString(R.string.error_no_device_to_store), "No se ha encontrado donde guardar la firma generada");
+		ErrorCategory e200301 = new ErrorCategory(200301, context.getString(R.string.not_completed_request), "No se ha podido guardar el fichero en disco");
+        ErrorCategory e200302 = new ErrorCategory(200302, context.getString(R.string.not_completed_request), "No se ha encontrado donde guardar la firma generada");
         ErrorCategory e200303 = new ErrorCategory(200303, context.getString(R.string.error_saving_signature), "No se pudo obtener el flujo para el guardado de los datos");
 		ErrorCategory e200304 = new ErrorCategory(200304, context.getString(R.string.error_no_storage_permissions), "No dispone de permisos de escritura");
 		ErrorCategory e200305 = new ErrorCategory(200305, context.getString(R.string.error_saving_data), "Error al guardar datos");
@@ -107,8 +107,8 @@ public final class InternalSoftwareErrors extends AppCompatActivity {
 		SAVING_DATA.put(NO_STORAGE_PERMISSIONS, e200304);
 		SAVING_DATA.put(SAVING_DATA_OP, e200305);
 
-        ErrorCategory e200400 = new ErrorCategory(200400, context.getString(R.string.error_signing), "Error al cifrar la información de las firmas del lote para enviarla al servidor intermedio");
-        ErrorCategory e200401 = new ErrorCategory(200401, context.getString(R.string.error_signing), "Error al cifrar el certificado para enviarlo al sevidor intermedio");
+        ErrorCategory e200400 = new ErrorCategory(200400, context.getString(R.string.not_completed_request), "Error al cifrar la información de las firmas del lote para enviarla al servidor intermedio");
+        ErrorCategory e200401 = new ErrorCategory(200401, context.getString(R.string.not_completed_request), "Error al cifrar el certificado para enviarlo al sevidor intermedio");
 
 		BATCH_JSON.put(CYPHERING_SIGN_INFO_TO_SEND, e200400);
 		BATCH_JSON.put(CYPHERING_CERT_TO_SEND, e200401);

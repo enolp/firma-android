@@ -200,7 +200,7 @@ public final class MainFragment extends Fragment implements DialogInterface.OnCl
 		if (showSigningResult) {
 			CustomDialog cd;
 			if (errorSigning) {
-				cd = new CustomDialog(this.getContext(), R.drawable.bt_close_dialog, errorTitleDialog, errorMessageDialog,
+				cd = new CustomDialog(this.getContext(), R.drawable.warn_icon, errorTitleDialog, errorMessageDialog,
 						getString(R.string.understood));
 			} else {
 				cd = new CustomDialog(this.getContext(), R.drawable.check_icon, getString(R.string.signed_file_title), getString(R.string.signed_file_message),
@@ -289,7 +289,7 @@ public final class MainFragment extends Fragment implements DialogInterface.OnCl
 				}
 			} catch (final IOException e) {
 				ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.LOAD_CERT_TO_IMPORT);
-				CustomDialog cd = new CustomDialog(this.getContext(), R.drawable.bt_close_dialog, getString(R.string.cant_add_cert_title), "AA" + errorCat.getCode() + " - " + errorCat.getUserText(),
+				CustomDialog cd = new CustomDialog(this.getContext(), R.drawable.warn_icon, getString(R.string.cant_add_cert_title), "AA" + errorCat.getCode() + " - " + errorCat.getUserText(),
 						getString(R.string.try_again), true, getString(R.string.cancel_underline));
 				CustomDialog finalCd = cd;
 				cd.setAcceptButtonClickListener(new View.OnClickListener() {

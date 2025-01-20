@@ -39,20 +39,20 @@ public final class CommunicationErrors {
 
 	public static void update(Context context) {
 
-        ErrorCategory e400000 = new ErrorCategory(400000, context.getString(R.string.error_sending_data), "Error desconocido al enviar el error obtenido al servidor");
-		ErrorCategory e400001 = new ErrorCategory(400001, context.getString(R.string.error_sending_data), "Error durante la descarga de la configuracion para la seleccion de certificado");
+        ErrorCategory e400000 = new ErrorCategory(400000, context.getString(R.string.not_completed_request), "Error desconocido al enviar el error obtenido al servidor");
+		ErrorCategory e400001 = new ErrorCategory(400001, context.getString(R.string.not_completed_request), "Error durante la descarga de la configuracion para la seleccion de certificado");
 
 		GENERAL.put(UNKNOWN_ERROR, e400000);
 		GENERAL.put(COMMUNICATION_WITH_SERVICE, e400001);
 
-        ErrorCategory e401100 = new ErrorCategory(401100, context.getString(R.string.error_cant_load_request), "Error en la descarga de la firma");
-		ErrorCategory e401101 = new ErrorCategory(401101, context.getString(R.string.error_loading_cert), "Error durante la descarga de la configuracion para la seleccion de certificado");
+        ErrorCategory e401100 = new ErrorCategory(401100, context.getString(R.string.not_completed_request), "Error en la descarga de la firma");
+		ErrorCategory e401101 = new ErrorCategory(401101, context.getString(R.string.not_completed_request), "Error durante la descarga de la configuracion para la seleccion de certificado");
 
 		DOWNLOAD_SERVER.put(DOWNLOAD_SIGN, e401100);
 		DOWNLOAD_SERVER.put(DOWNLOAD_CONFIG_CERT, e401101);
 
         // 4012XX: Servidor intermedio (subida)
-        ErrorCategory e401200 = new ErrorCategory(401200, context.getString(R.string.error_sending_data), "Error en el envio de datos");
+        ErrorCategory e401200 = new ErrorCategory(401200, context.getString(R.string.not_completed_request), "Error en el envio de datos");
 		UPLOAD_SERVER.put(UPLOAD_DATA, e401200);
 
 	}

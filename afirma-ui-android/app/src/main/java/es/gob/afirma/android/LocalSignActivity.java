@@ -137,12 +137,12 @@ public final class LocalSignActivity extends SignFragmentActivity {
 					}
 				} catch (final OutOfMemoryError e) {
 					ErrorCategory errorCat = InternalSoftwareErrors.OPERATION_SIGN.get(InternalSoftwareErrors.OUT_OF_MEMORY);
-					showErrorMessage(getString(R.string.error_loading_selected_undefined_file), errorCat);
+					showErrorMessage(getString(R.string.error_ocurred), errorCat);
 					Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e); //$NON-NLS-1$
 					return;
 				} catch (final IOException e) {
 					ErrorCategory errorCat = InternalSoftwareErrors.OPERATION_SIGN.get(InternalSoftwareErrors.LOADING_LOCAL_FILE);
-					showErrorMessage(getString(R.string.error_loading_selected_undefined_file), errorCat);
+					showErrorMessage(getString(R.string.error_ocurred), errorCat);
 					Logger.e(ES_GOB_AFIRMA, errorCat.getAdminText()); //$NON-NLS-1$ //$NON-NLS-1$
 					return;
 				}
@@ -203,7 +203,7 @@ public final class LocalSignActivity extends SignFragmentActivity {
 					return;
 				} else if (resultCode == ERROR_REQUEST_VISIBLE_SIGN) {
 					ErrorCategory errorCat = InternalSoftwareErrors.OPERATION_SIGN.get(InternalSoftwareErrors.LOADING_LOCAL_FILE);
-					showErrorMessage(getString(R.string.error_loading_selected_undefined_file), errorCat);
+					showErrorMessage(getString(R.string.error_ocurred), errorCat);
 					Logger.e(ES_GOB_AFIRMA, errorCat.getAdminText()); //$NON-NLS-1$
 					return;
 				}
@@ -220,13 +220,13 @@ public final class LocalSignActivity extends SignFragmentActivity {
 					}
 					else {
 						ErrorCategory errorCat = InternalSoftwareErrors.SAVING_DATA.get(InternalSoftwareErrors.SAVING_DATA_DISK);
-						showErrorMessage(getString(R.string.error_saving_data), errorCat);
+						showErrorMessage(getString(R.string.error_ocurred), errorCat);
 						Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText()); //$NON-NLS-1$
 						return;
 					}
 				} catch (final IOException e) {
 					ErrorCategory errorCat = InternalSoftwareErrors.SAVING_DATA.get(InternalSoftwareErrors.SAVING_DATA_DISK);
-					showErrorMessage(getString(R.string.error_saving_data), errorCat);
+					showErrorMessage(getString(R.string.error_ocurred), errorCat);
 					Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e); //$NON-NLS-1$
 					return;
 				}
@@ -318,7 +318,7 @@ public final class LocalSignActivity extends SignFragmentActivity {
 			} else {
 				ErrorCategory errorCat = InternalSoftwareErrors.SAVING_DATA.get(InternalSoftwareErrors.NO_DEVICE_STORE);
 				Logger.w(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText()); //$NON-NLS-1$
-				showErrorMessage(getString(R.string.error_saving_signature), errorCat);
+				showErrorMessage(getString(R.string.error_ocurred), errorCat);
 				return;
 			}
 
@@ -335,7 +335,7 @@ public final class LocalSignActivity extends SignFragmentActivity {
 				fos.close();
 			} catch (final Exception e) {
 				ErrorCategory errorCat = InternalSoftwareErrors.SAVING_DATA.get(InternalSoftwareErrors.SAVING_DATA_DISK);
-				showErrorMessage(getString(R.string.error_saving_signature), errorCat);
+				showErrorMessage(getString(R.string.error_ocurred), errorCat);
 				Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + e); //$NON-NLS-1$
 				return;
 			}
@@ -353,7 +353,7 @@ public final class LocalSignActivity extends SignFragmentActivity {
 				);
 			} catch (final Exception e) {
 				ErrorCategory errorCat = InternalSoftwareErrors.SAVING_DATA.get(InternalSoftwareErrors.SAVING_DATA_DISK);
-				showErrorMessage(getString(R.string.error_saving_signature), errorCat);
+				showErrorMessage(getString(R.string.error_ocurred), errorCat);
 				Logger.w(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText() + e); //$NON-NLS-1$
 			}
 		}
@@ -428,12 +428,12 @@ public final class LocalSignActivity extends SignFragmentActivity {
 				}
 				else {
 					ErrorCategory errorSigning = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.ERROR_SIGNING);
-					showErrorMessage(getString(R.string.error), errorSigning);
+					showErrorMessage(getString(R.string.error_ocurred), errorSigning);
 				}
 			}
 			else {
 				ErrorCategory errorCat = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.SOFTWARE_GENERAL);
-				showErrorMessage(getString(R.string.error), errorCat);
+				showErrorMessage(getString(R.string.error_ocurred), errorCat);
 			}
 		}
 	}

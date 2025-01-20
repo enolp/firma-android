@@ -204,7 +204,7 @@ public class LoadCertificatesTask extends AsyncTask<Void, Void, Exception> {
                 final AlertDialog.Builder dniBloqueado = new AlertDialog.Builder(activity);
 
                 ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.BLOCKED_CARD);
-                dniBloqueado.setTitle(activity.getString(R.string.error_title_dni_blocked));
+                dniBloqueado.setTitle(activity.getString(R.string.error_reading_dnie));
                 dniBloqueado.setMessage("AA" + errorCat.getCode() + " - " + errorCat.getUserText());
                 dniBloqueado.setPositiveButton(
                         activity.getString(R.string.ok),

@@ -39,27 +39,24 @@
     <string name="error">Error</string>
     <string name="error_loading_keystore">Error al cargar el almacen de certificados</string>
     <string name="error_loading_cert">Error al cargar el certificado</string>
-    <string name="error_saving_record">La firma se ha realizado correctamente, pero no se ha incluido en el hist\u00F3rico de firmas</string>
-    <string name="error_ocurred">Ha ocurrido un error</string>
+    <string name="error_ocurred">¡Algo sali\u00F3 mal!</string>
     <string name="operation_cancelled">Operacion cancelada</string>
-    <string name="error_reading_dnie">No se ha podido leer correctamente el DNIe</string>
+    <string name="error_reading_dnie">Error en la lectura de tu DNIe</string>
+    <string name="error_reading_dnie_no_cert">El DNIe que has aproximado no tiene certificado de firma o el certificado est\u00E1 caducado. Puedes acudir a una comisar\u00EDa de Polic\u00EDa Nacional a un Punto de Actualizaci\u00F3n del DNIe (PAD), para solucionarlo.</string>
     <string name="error_reading_dnie_try_again">Se ha producido un error al intentar leer tu DNIe. Por favor, vuelve a intentarlo. Recuerda mantenerlo en una superficie lisa y mantener tu tel\u00E9fono móvil unos segundos fijo sobre la tarjeta para su correcta lectura.</string>
     <string name="title_activity_save_data">Guardar datos</string>
     <string name="saveData">Guardar</string>
     <string name="cancel">Cancelar</string>
     <string name="allow">Permitir</string>
     <string name="default_saved_filename">datos</string>
-    <string name="error_cant_load_request">No se han podido cargar los datos de la petici\u00F3n</string>
     <string name="error_saving_data">Ocurri\u00F3 un error al guardar los datos</string>
     <string name="error_saving_signature">Ocurri\u00F3 un error al guardar la firma</string>
-    <string name="error_sending_data">No se pudo transmitir el resultado de la operaci\u00F3n al navegador web</string>
     <string name="error_signing">Error durante la operaci\u00F3n de firma</string>
-    <string name="error_signing_config">Error durante la configuraci\u00F3n de la firma electr\u00F3nica</string>
     <string name="error_no_storage_permissions">El Cliente de firma no tiene permisos de escritura en disco.</string>
-    <string name="error_no_device_to_store">No se ha encontrado un directorio para guardar la firma</string>
     <string name="error_no_certs">No se han encontrado certificados instalados en su dispositivo.</string>
-    <string name="error_title_keystore_empty">Almac\u00E9n vac\u00EDo</string>
-    <string name="error_dni_blocked_dlg">Lo sentimos, su DNI est\u00E1 bloqueado.</string>
+    <string name="error_title_keystore_empty">No existe ning\u00FAn certificado</string>
+    <string name="error_desc_keystore_empty">Para firmar necesitas registrar un certificado digital</string>
+    <string name="error_dni_blocked_dlg">El DNIe tiene el PIN bloqueado. Puedes acudir a una comisar\u00EDa de Polic\u00EDa Nacional a un Punto de Actualizaci\u00F3n del DNIe (PAD) para desbloquearlo.</string>
     <string name="error_dni_blocked">Su DNI est\u00E1 bloquedado, deber\u00E1 acudir a los Puntos de Actualizaci\u00F3n de las Oficinas de Expedici\u00F3n para poder desbloquearlo. </string>
     <string name="error_title_dni_blocked">DNI bloqueado</string>
     <string name="error_empty_pdf_password">La contrase\u00F1a del PDF no puede estar vac\u00EDa:</string>
@@ -87,7 +84,6 @@
     <string name="signedfile_downloads_location">La firma "%1$s" se ha almacenado en su directorio de descargas.</string>
     <string name="incorrect_pin">PIN incorrecto</string>
     <string name="error_msc_pin">El PIN del dispositivo criptogr\u00E1fico es incorrecto. Tenga en cuenta que varios intentos fallidos consecutivos podr\u00EDan bloquearlo.</string>
-    <string name="error_format_not_supported">Formato de firma no soportado.</string>
     <string name="dialog_alias_cert_text">%1$s\nV\u00E1lido: %2$s\nHasta: %3$s\nEmisor: %4$s</string>
     <string name="accesibility_icon_filetype">Icono del tipo de archivo</string>
     <string name="accesibility_icon_sign_ko">Error en la firma</string>
@@ -107,7 +103,7 @@
     <string name="settings">Ajustes</string>
     <string name="can_not_can_be_null">El CAN no puede ser vac\u00EDo o nulo</string>
     <string name="incorrect_can">CAN incorrecto</string>
-    <string name="unsupported_card">Tarjeta no soportada</string>
+    <string name="unsupported_card">La tarjeta que has proporcionado no parece ser un DNIe. Por favor int\u00E9ntalo de nuevo</string>
     <string name="nfc_card_initializing_error">Error al iniciar la conexi\u00F3n con la tarjeta. Es posible que el CAN sea incorrecto. Int\u00E9ntelo de nuevo.</string>
     <string name="title_activity_main_test">MainActivityTest</string>
     <string name="allow_dni3_0_NFC">Permitir firmar con DNIe por NFC</string>
@@ -265,4 +261,5 @@
     <string name="import_certs_help_text_2">El certificado reci\u00e9n instalado ya estar\u00e1 disponible en su dispositivo y podr\u00e1 usarlo desde Autofirma App para firmar.</string>
     <string name="import_certs_help_text_3">Si no encuentras el fichero de claves en tu m\u00f3vil, puedes envi\u00e1rtelo desde otro dispositivo por correo electr\u00f3nico u otras aplicaciones en la nube.</string>
     <string name="go_to_import_cert">A\u00F1adir un certificado\u00A0</string>
+    <string name="not_completed_request">Hemos intentado procesar tu solicitud, pero no ha podido ser completada con \u00e9xito. Por favor revisa la documentaci\u00f3n.</string>
  </resources>

@@ -215,7 +215,7 @@ public class LoadDeviceKeystoreAsyncTask extends AsyncTask<Void, Void, Void> {
                 final AlertDialog.Builder dniBloqueado = new AlertDialog.Builder(getActivity());
 
                 ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.BLOCKED_CARD);
-                dniBloqueado.setTitle(getActivity().getString(R.string.error_title_dni_blocked));
+                dniBloqueado.setTitle(getActivity().getString(R.string.error_reading_dnie));
                 dniBloqueado.setMessage("AA" + errorCat.getCode() + " - " + errorCat.getUserText());
                 dniBloqueado.setPositiveButton(
                         getActivity().getString(R.string.ok),

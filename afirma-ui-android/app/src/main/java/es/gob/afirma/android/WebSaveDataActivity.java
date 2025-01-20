@@ -188,7 +188,7 @@ public final class WebSaveDataActivity extends FragmentActivity
 	 */
 	private void showErrorMessage(final ErrorCategory errorCat) {
 		String message = "AA" + errorCat.getCode() + " - " + errorCat.getUserText();
-		CustomDialog cd = new CustomDialog(this, R.drawable.warn_icon, getString(R.string.error_reading_dnie), message,
+		CustomDialog cd = new CustomDialog(this, R.drawable.warn_icon, getString(R.string.error_ocurred), message,
 				getString(R.string.try_again));
 		CustomDialog finalCd = cd;
 		cd.setAcceptButtonClickListener(new View.OnClickListener() {

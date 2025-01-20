@@ -39,27 +39,24 @@
     <string name="error">Error</string>
     <string name="error_loading_keystore">Error en carregar l\'almacen de certificats</string>
     <string name="error_loading_cert">Error en carregar el certificat</string>
-    <string name="error_saving_record">La signatura s\'ha realitzat correctament, per\u00f2 no s\'ha incl\u00f2s en el hist\u00F2ric de signatures</string>
-    <string name="error_ocurred">Ha ocorregut un error</string>
+    <string name="error_ocurred">Alguna cosa va eixir malament!</string>
     <string name="operation_cancelled">Operacion cancel·lada</string>
-    <string name="error_reading_dnie">No s\'ha pogut llegir correctament el DNIe</string>
+    <string name="error_reading_dnie">Error en la lectura del teu DNIe</string>
     <string name="error_reading_dnie_try_again">S\'ha produït un error en intentar llegir el teu DNIe. Per favor, torna a intentar-ho. Recorda mantindre-ho en una superf\u00EDcie llisa i mantindre el teu tel\u00E8fon m\u00F2bil uns segons fix sobre la targeta per a la seua correcta lectura.</string>
+    <string name="error_reading_dnie_no_cert">El DNIe que has aproximat no t\u00E9 certificat de signatura o el certificat est\u00E0 caducat. Pots acudir a una comissaria de Policia Nacional a un Punt d\'Actualitzaci\u00F3 del DNIe (PAD), per a solucionar-lo.</string>
     <string name="title_activity_save_data">Guardar dades</string>
     <string name="saveData">Guardar</string>
     <string name="cancel">Cancel·lar</string>
     <string name="allow">Permetre</string>
     <string name="default_saved_filename">dades</string>
-    <string name="error_cant_load_request">No s\'han pogut carregar les dades de la petici\u00f2</string>
     <string name="error_saving_data">Va oc\u00f3rrer un error en guardar les dades</string>
     <string name="error_saving_signature">Va oc\u00f3rrer un error en guardar la firma</string>
-    <string name="error_sending_data">No es va poder transmetre el resultat de l\'operacion al navegador web</string>
     <string name="error_signing">Error durant l\'operacion de firma</string>
-    <string name="error_signing_config">Error durant la configuraci\u00f3 de la firma electr\u00f2nica</string>
     <string name="error_no_storage_permissions">El Client de firma no t\u00e9 permisos d\'escriptura en disc.</string>
-    <string name="error_no_device_to_store">No s\'ha trobat un directori per a guardar la firma</string>
     <string name="error_no_certs">No s\'han trobat certificats instal·lats en el seu dispositiu.</string>
-    <string name="error_title_keystore_empty">Magatzem buit</string>
-    <string name="error_dni_blocked_dlg">Ho sentim, el seu DNI est\u00e0 bloquejat.</string>
+    <string name="error_title_keystore_empty">No existeix cap certificat</string>
+    <string name="error_desc_keystore_empty">Per a signar necessites registrar un certificat digital</string>
+    <string name="error_dni_blocked_dlg">El DNIe t\u00E9 el PIN bloquejat. Pots acudir a una comissaria de Policia Nacional a un Punt d\'Actualitzaci\u00F3 del DNIe (PAD) per a desbloquejar-lo.</string>
     <string name="error_dni_blocked">El seu DNI est\u00e0 bloquedado, haur\u00e0 d\'acudir als Punts d\'Actualitzaci\u00f3 de les Oficines d\'Expedici\u00f3 per a poder desbloquejar-ho. </string>
     <string name="error_title_dni_blocked">DNI bloquejat</string>
     <string name="error_empty_pdf_password">La contrasenya del PDF no pot estar buida:</string>
@@ -87,7 +84,6 @@
     <string name="signedfile_downloads_location">La firma "%1$s" s\'ha emmagatzemat en el seu directori de desc\u00e0rregues.</string>
     <string name="incorrect_pin">PIN incorrecte</string>
     <string name="error_msc_pin">El PIN del dispositiu criptogr\u00e0fic \u00e9s incorrecte. Tinga en compte que diversos intents fallits consecutius podrien bloquejar-ho.</string>
-    <string name="error_format_not_supported">Format de firma no suportat.</string>
     <string name="dialog_alias_cert_text">%1$s\nV\u00e1lido: %2$s\nHasta: %3$s\nEmisor: %4$s</string>
     <string name="accesibility_icon_filetype">Icona del tipus d\'arxiu</string>
     <string name="accesibility_icon_sign_ko">Error en la firma</string>
@@ -107,7 +103,7 @@
     <string name="settings">Ajustos</string>
     <string name="can_not_can_be_null">El CAN no pot ser buit o nul</string>
     <string name="incorrect_can">CAN incorrecte</string>
-    <string name="unsupported_card">Targeta no suportada</string>
+    <string name="unsupported_card">La targeta que has proporcionat no pareix ser un DNIe. Per favor intenta-ho de nou</string>
     <string name="nfc_card_initializing_error">Error en iniciar la connexi\u00f3 amb la targeta. \u00c9s possible que el CA siga incorrecte. Intente-ho de nou.</string>
     <string name="title_activity_main_test">MainActivityTest</string>
     <string name="allow_dni3_0_NFC">Permetre firmar amb DNIe per NFC</string>
@@ -265,4 +261,5 @@
     <string name="import_certs_help_text_2">El certificat recentment instal\u00b7lat ja estar\u00e0 disponible en el seu dispositiu i podr\u00e0 usar-lo des d\'Autofirma App per a signar.</string>
     <string name="import_certs_help_text_3">Si no trobes el fitxer de claus en el teu m\u00f2bil, pots enviar-te\'l des d\'un altre dispositiu per correu electr\u00f2nic o altres aplicacions en el n\u00favol.</string>
     <string name="go_to_import_cert">Importar un certificat\u00A0</string>
+    <string name="not_completed_request">Hem intentat processar la teua sol·licitud, per\u00F2 no ha pogut ser completada amb \u00E8xit. Per favor revisa la documentaci\u00F3.</string>
 </resources>

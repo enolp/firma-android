@@ -66,7 +66,7 @@ public class IntroUseDnieActivity extends FragmentActivity {
         boolean unSupportedError = intent.getBooleanExtra(LoadKeyStoreFragmentActivity.ERROR_UNSUPPORTED_NFC, false);
         if (unSupportedError) {
             ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.UNKNOWN_OR_NOT_SUPPORTED_CARD);
-            CustomDialog cd = new CustomDialog(this, R.drawable.bt_close_dialog, getString(R.string.error_ocurred), "AA" + errorCat.getCode() + " - " + errorCat.getUserText(),
+            CustomDialog cd = new CustomDialog(this, R.drawable.warn_icon, getString(R.string.error_reading_dnie), "AA" + errorCat.getCode() + " - " + errorCat.getUserText(),
                     getString(R.string.ok));
             CustomDialog finalCd = cd;
             cd.setAcceptButtonClickListener(new View.OnClickListener() {
@@ -82,7 +82,7 @@ public class IntroUseDnieActivity extends FragmentActivity {
         boolean canError = intent.getBooleanExtra(LoadKeyStoreFragmentActivity.ERROR_CAN_VALIDATION_NFC, false);
         if (canError) {
             ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.CAN_VALIDATION);
-            CustomDialog cd = new CustomDialog(this, R.drawable.bt_close_dialog, getString(R.string.incorrect_can), "AA" + errorCat.getCode() + " - " + errorCat.getUserText(),
+            CustomDialog cd = new CustomDialog(this, R.drawable.warn_icon, getString(R.string.incorrect_can), "AA" + errorCat.getCode() + " - " + errorCat.getUserText(),
                     getString(R.string.ok));
             CustomDialog finalCd = cd;
             cd.setAcceptButtonClickListener(new View.OnClickListener() {
@@ -98,7 +98,7 @@ public class IntroUseDnieActivity extends FragmentActivity {
         boolean initializingError = intent.getBooleanExtra(LoadKeyStoreFragmentActivity.ERROR_INITIALIZING_NFC, false);
         if (initializingError) {
             ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.ERROR_INITIALIZING_CARD);
-            CustomDialog cd = new CustomDialog(this, R.drawable.bt_close_dialog, getString(R.string.error_ocurred), "AA" + errorCat.getCode() + " - " + errorCat.getUserText(),
+            CustomDialog cd = new CustomDialog(this, R.drawable.warn_icon, getString(R.string.error_reading_dnie), "AA" + errorCat.getCode() + " - " + errorCat.getUserText(),
                     getString(R.string.ok));
             CustomDialog finalCd = cd;
             cd.setAcceptButtonClickListener(new View.OnClickListener() {

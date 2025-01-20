@@ -280,12 +280,27 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 	/** Muestra un mensaje de advertencia al usuario.
 	 * @param errorCat Error que se desea mostrar. */
 	private void showErrorMessage(final ErrorCategory errorCat) {
+
+		showErrorMessage(null, errorCat);
+	}
+
+	/** Muestra un mensaje de advertencia al usuario.
+	 * @param title T&iacute;tulo para el di&aacute;logo de error.
+	 * @param errorCat Error que se desea mostrar. */
+	private void showErrorMessage(final String title, final ErrorCategory errorCat) {
 		dismissProgressDialog();
+
+		String dlgTitle;
+		if (title != null) {
+			dlgTitle = title;
+		} else {
+			dlgTitle = getString(R.string.error_ocurred);
+		}
 
 		String message = "AA" + errorCat.getCode() + " - " + errorCat.getUserText();
 
 		if (this.messageDialog == null) {
-			this.messageDialog = new CustomDialog(this, R.drawable.warn_icon, getString(R.string.error_ocurred), message,
+			this.messageDialog = new CustomDialog(this, R.drawable.warn_icon, dlgTitle, message,
 					getString(R.string.ok));
 		}
 
@@ -338,7 +353,7 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 			if (t instanceof MSCBadPinException) {
 				ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.INCORRECT_PIN);
 				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + t); //$NON-NLS-1$
-				showErrorMessage(errorCat);
+				showErrorMessage(getString(R.string.incorrect_pin), errorCat);
 				launchError(ErrorManager.ERROR_MSC_PIN, t.getMessage(), false, errorCat);
 			}
 			else if (t instanceof AOCancelledOperationException) {
