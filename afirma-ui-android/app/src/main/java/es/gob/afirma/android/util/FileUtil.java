@@ -8,6 +8,7 @@ import android.provider.OpenableColumns;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,6 +27,8 @@ public class FileUtil {
 
     private static final int EOF = -1;
     private static final int DEFAULT_BUFFER_SIZE = 1024 * 4;
+    private static final int PDF_MIN_FILE_SIZE = 70;
+    private static final String PDF_FILE_HEADER = "%PDF-";
 
     public static File from(Context context, Uri uri) throws IOException {
         InputStream inputStream = context.getContentResolver().openInputStream(uri);
@@ -174,5 +177,24 @@ public class FileUtil {
             }
         }
         return html;
+    }
+
+    public static boolean isPdfFile(final byte[] data) {
+        if (data == null || data.length < PDF_MIN_FILE_SIZE) {
+            return false;
+        }
+        final byte[] buffer = new byte[PDF_FILE_HEADER.length()];
+        try {
+            new ByteArrayInputStream(data).read(buffer);
+        }
+        catch (final Exception e) {
+            Log.w("es.gob.afirma", "El contenido parece corrupto o truncado: ", e);
+            return false;
+        }
+        // Comprobamos que cuente con una cabecera PDF
+        if (!PDF_FILE_HEADER.equals(new String(buffer))) {
+            return false;
+        }
+        return true;
     }
 }

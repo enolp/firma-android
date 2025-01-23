@@ -19,6 +19,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -50,7 +51,6 @@ import java.util.Properties;
 import es.gob.afirma.R;
 import es.gob.afirma.android.crypto.AndroidHttpManager;
 import es.gob.afirma.android.crypto.CipherDataManager;
-import es.gob.afirma.android.crypto.MSCBadPinException;
 import es.gob.afirma.android.crypto.SelectKeyAndroid41BugException;
 import es.gob.afirma.android.crypto.SignResult;
 import es.gob.afirma.android.errors.CommunicationErrors;
@@ -59,13 +59,14 @@ import es.gob.afirma.android.errors.ErrorManager;
 import es.gob.afirma.android.errors.FunctionalErrors;
 import es.gob.afirma.android.errors.InternalSoftwareErrors;
 import es.gob.afirma.android.errors.RequestErrors;
-import es.gob.afirma.android.errors.ThirdPartyErrors;
+import es.gob.afirma.android.exceptions.IncompatibleFormatException;
 import es.gob.afirma.android.gui.AppConfig;
 import es.gob.afirma.android.gui.CustomDialog;
 import es.gob.afirma.android.gui.DownloadFileTask;
 import es.gob.afirma.android.gui.DownloadFileTask.DownloadDataListener;
 import es.gob.afirma.android.gui.SendDataTask;
 import es.gob.afirma.android.gui.SendDataTask.SendDataListener;
+import es.gob.afirma.android.util.FileUtil;
 import es.gob.afirma.core.AOException;
 import es.gob.afirma.core.AOUnsupportedSignFormatException;
 import es.gob.afirma.core.misc.http.UrlHttpManagerFactory;
@@ -113,7 +114,11 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 
 	private String fileName;
 
+	private String filePath;
+
 	private boolean isRequiredVisibleSignature;
+
+	private boolean dataSelectedByUser;
 
 	CustomDialog getMessageDialog() {
 		return this.messageDialog;
@@ -223,6 +228,9 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 
 		// Si no tenemos datos ni un fichero de descargar, cargaremos un fichero del dispositivo
 		if (this.parameters.getData() == null && this.parameters.getFileId() == null) {
+
+			this.dataSelectedByUser = true;
+
 			Logger.i(ES_GOB_AFIRMA, "Se va a cargar un fichero local para la firma"); //$NON-NLS-1$
 			// Comprobamos que no este ya abierta la pantalla de seleccion, ya que puede ser un caso
 			// de cancelacion de la seleccion de fichero, en cuyo caso no deseamos que se vuelva a abrir
@@ -236,6 +244,9 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 
 		// Si no se han indicado datos y si el identificador de un fichero remoto, lo recuperamos para firmarlos
 		else if (this.parameters.getData() == null && this.parameters.getFileId() != null) {
+
+			this.dataSelectedByUser = false;
+
 			Logger.i(ES_GOB_AFIRMA, "Se van a descargar los datos desde servidor con el identificador: " + this.parameters.getFileId()); //$NON-NLS-1$
 			if (this.parameters.getRetrieveServletUrl() != null) {
 				this.downloadFileTask = new DownloadFileTask(
@@ -263,13 +274,31 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 				this.parameters.expandExtraParams();
 			}
 
+			// Si se indica el formato PAdES y no se trata de un PDF se lanzara un error
+			if ((AOSignConstants.SIGN_FORMAT_PADES.equals(this.parameters.getSignatureFormat())
+				|| AOSignConstants.SIGN_FORMAT_PADES_TRI.equals(this.parameters.getSignatureFormat())
+				|| AOSignConstants.SIGN_FORMAT_PDF.equals(this.parameters.getSignatureFormat())
+				|| AOSignConstants.SIGN_FORMAT_PDF_TRI.equals(this.parameters.getSignatureFormat()))
+				&& !FileUtil.isPdfFile(this.parameters.getData())) {
+					ErrorCategory errorCat;
+					if (this.dataSelectedByUser) {
+						errorCat = InternalSoftwareErrors.OPERATION_SIGN.get(InternalSoftwareErrors.USER_SELECT_NOT_PDF);
+					} else {
+						errorCat = InternalSoftwareErrors.OPERATION_SIGN.get(InternalSoftwareErrors.PADES_NO_PDF_SIGN);
+					}
+					onSigningError(KeyStoreOperation.SIGN, "Formato de firma incompatible con tipo de archivo", new IncompatibleFormatException(errorCat));
+			}
+
 			// Comprobamos si se debe mostrar el dialogo para seleccionar el area de firma visible o no
 			boolean showPdfSignVisiblePreview = checkSignVisiblePreviewExtraParams();
 
 			if (showPdfSignVisiblePreview) {
 				// Previsualizacion de PDF
 				Intent intent = new Intent(this, PdfSelectPreviewActivity.class);
-				intent.putExtra("filePath", this.fileName);
+				intent.putExtra("filePath", this.filePath);
+				if (isRequiredVisibleSignature) {
+					intent.putExtra("isRequiredVisibleSignature", true);
+				}
 				startActivityForResult(intent, REQUEST_VISIBLE_SIGN_PARAMS);
 			} else {
 				sign(
@@ -450,20 +479,14 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 				launchError(ErrorManager.ERROR_CANCELLED_OPERATION, false, errorCat);
 			}
 			else {
-				ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.UNEXPECED_RECOVERING_KEY);
+				ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.UNEXPECTED_RECOVERING_KEY);
 				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + msg, t); //$NON-NLS-1$
 				launchError(ErrorManager.ERROR_PKE, true, errorCat);
 			}
 			return;
 		}
 		if (op == KeyStoreOperation.SIGN) {
-			if (t instanceof MSCBadPinException) {
-				ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.INCORRECT_PIN);
-				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + t); //$NON-NLS-1$
-				showErrorMessage(getString(R.string.incorrect_pin), errorCat);
-				launchError(ErrorManager.ERROR_MSC_PIN, false, errorCat);
-			}
-			else if (t instanceof AOUnsupportedSignFormatException) {
+			if (t instanceof AOUnsupportedSignFormatException) {
 				ErrorCategory errorCat = RequestErrors.SIGN_REQUEST.get(RequestErrors.FORMAT_NOT_VALID);
 				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + t); //$NON-NLS-1$
 				showErrorMessage(errorCat);
@@ -474,6 +497,12 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + t); //$NON-NLS-1$
 				showErrorMessage(errorCat);
 				launchError(ErrorManager.ERROR_BAD_PARAMETERS, true, errorCat);
+			}
+			else if (t instanceof IncompatibleFormatException) {
+				ErrorCategory errorCat = ((IncompatibleFormatException) t).getErrorCat();
+				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + t); //$NON-NLS-1$
+				showErrorMessage(errorCat);
+				launchError(ErrorManager.ERROR_INVALID_DATA, true, errorCat);
 			}
 			else if (t instanceof PendingIntent.CanceledException) {
 				ErrorCategory errorCat = FunctionalErrors.GENERAL.get(FunctionalErrors.CANCELED_BY_USER);
@@ -771,14 +800,20 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 			else if (resultCode == RESULT_OK) {
 
 				byte[] fileContent;
+				File dataFile;
 				try {
 					if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
 						final Uri dataUri = data.getData();
 						this.fileName = getFilename(dataUri);
+						dataFile = FileUtil.from(this, dataUri);
 						fileContent = readDataFromUri(dataUri);
+						if (dataFile.exists()) {
+							this.filePath = dataFile.getAbsolutePath();
+						}
 					} else {
 						this.fileName = data.getStringExtra(FileChooserActivity.RESULT_DATA_STRING_FILENAME);
-						File dataFile = new File(this.fileName);
+						dataFile = new File(this.fileName);
+						this.filePath = dataFile.getAbsolutePath();
 						fileContent = readDataFromFile(dataFile);
 					}
 				}
@@ -1042,4 +1077,10 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 		}
 		super.onDestroy();
 	}
+
+	@Override
+	protected void attachBaseContext(Context base) {
+		super.attachBaseContext(LocaleHelper.onAttach(base));
+	}
+
 }

@@ -2,6 +2,7 @@ package es.gob.afirma.android;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +38,7 @@ public class IntroUseDnieActivity extends FragmentActivity {
         context = this;
 
         Button compatibleDniBtn = this.findViewById(R.id.isCompatibleButton);
+        compatibleDniBtn.setPaintFlags(compatibleDniBtn.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         compatibleDniBtn.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -66,7 +68,7 @@ public class IntroUseDnieActivity extends FragmentActivity {
         boolean unSupportedError = intent.getBooleanExtra(LoadKeyStoreFragmentActivity.ERROR_UNSUPPORTED_NFC, false);
         if (unSupportedError) {
             ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.UNKNOWN_OR_NOT_SUPPORTED_CARD);
-            CustomDialog cd = new CustomDialog(this, R.drawable.warn_icon, getString(R.string.error_reading_dnie), "AA" + errorCat.getCode() + " - " + errorCat.getUserText(),
+            CustomDialog cd = new CustomDialog(this, R.drawable.warn_icon, getString(R.string.error_ocurred), "AA" + errorCat.getCode() + " - " + errorCat.getUserText(),
                     getString(R.string.ok));
             CustomDialog finalCd = cd;
             cd.setAcceptButtonClickListener(new View.OnClickListener() {
@@ -95,10 +97,10 @@ public class IntroUseDnieActivity extends FragmentActivity {
             return;
         }
 
-        boolean initializingError = intent.getBooleanExtra(LoadKeyStoreFragmentActivity.ERROR_INITIALIZING_NFC, false);
-        if (initializingError) {
-            ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.ERROR_INITIALIZING_CARD);
-            CustomDialog cd = new CustomDialog(this, R.drawable.warn_icon, getString(R.string.error_reading_dnie), "AA" + errorCat.getCode() + " - " + errorCat.getUserText(),
+        boolean pinValidationError = intent.getBooleanExtra(LoadKeyStoreFragmentActivity.ERROR_PIN_VALIDATION_NFC, false);
+        if (pinValidationError) {
+            ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.INCORRECT_PIN);
+            CustomDialog cd = new CustomDialog(this, R.drawable.warn_icon, getString(R.string.incorrect_pin), "AA" + errorCat.getCode() + " - " + errorCat.getUserText(),
                     getString(R.string.ok));
             CustomDialog finalCd = cd;
             cd.setAcceptButtonClickListener(new View.OnClickListener() {

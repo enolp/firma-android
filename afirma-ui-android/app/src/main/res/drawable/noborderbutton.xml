@@ -7,10 +7,10 @@
     </item>
     <item>
         <shape>
-            <solid android:color="@color/white" />
+            <solid android:color="@android:color/transparent" />
             <corners android:radius="10dp"/>
             <padding android:left="0dp" android:top="0dp" android:right="0dp" android:bottom="0dp" />
-            <stroke android:width="0px" android:color="@color/white" />
+            <stroke android:width="0px" android:color="@android:color/transparent" />
         </shape>
     </item>
 </layer-list>

@@ -22,7 +22,7 @@ android {
         targetSdkVersion 34
         multiDexEnabled true
         versionCode 26
-        versionName "1.8.4"
+        versionName "1.9"
     }
     buildTypes {
         release {

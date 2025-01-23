@@ -65,6 +65,7 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
     private static final int AREA_LIMIT = 1350;
 
     boolean isHorizontal;
+    boolean isRequiredVisibleSignature;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +90,7 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
 
         pdfView = findViewById(R.id.pdfView);
         String filePath = getIntent().getStringExtra("filePath");
+        this.isRequiredVisibleSignature = getIntent().getBooleanExtra("isRequiredVisibleSignature", false);
         file = new File(filePath);
 
         paint = new Paint();
@@ -116,24 +118,45 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
                 }
 
                 if (selectedArea == null) {
-                    CustomDialog signFragmentCustomDialog = new CustomDialog(context, R.drawable.baseline_info_24, getString(R.string.not_selected_area),
-                            getString(R.string.not_selected_area_desc), getString(R.string.drag_on), true, getString(R.string.reselect_area));
-                    signFragmentCustomDialog.setAcceptButtonClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            signFragmentCustomDialog.cancel();
-                            setResult(Activity.RESULT_OK, dataIntent);
-                            finish();
-                        }
-                    });
-                    signFragmentCustomDialog.setCancelButtonClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            signFragmentCustomDialog.cancel();
-                        }
-                    });
-                    signFragmentCustomDialog.show();
-                    return;
+                    if (isRequiredVisibleSignature) {
+                        CustomDialog signFragmentCustomDialog = new CustomDialog(context, R.drawable.baseline_info_24, getString(R.string.not_selected_area),
+                                getString(R.string.not_selected_area_desc), getString(R.string.reselect_area), true, getString(R.string.cancel));
+                        signFragmentCustomDialog.setAcceptButtonClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                signFragmentCustomDialog.cancel();
+                            }
+                        });
+                        signFragmentCustomDialog.setCancelButtonClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                signFragmentCustomDialog.cancel();
+                                setResult(Activity.RESULT_CANCELED, dataIntent);
+                                finish();
+                            }
+                        });
+                        signFragmentCustomDialog.show();
+                        return;
+                    } else {
+                        CustomDialog signFragmentCustomDialog = new CustomDialog(context, R.drawable.baseline_info_24, getString(R.string.not_selected_area),
+                                getString(R.string.not_selected_area_desc), getString(R.string.drag_on), true, getString(R.string.reselect_area));
+                        signFragmentCustomDialog.setAcceptButtonClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                signFragmentCustomDialog.cancel();
+                                setResult(Activity.RESULT_OK, dataIntent);
+                                finish();
+                            }
+                        });
+                        signFragmentCustomDialog.setCancelButtonClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                signFragmentCustomDialog.cancel();
+                            }
+                        });
+                        signFragmentCustomDialog.show();
+                        return;
+                    }
                 }
 
                 final int areaHeight = (int) (selectedArea.height() + startY > pageHeight ?
@@ -179,24 +202,45 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
                 final boolean limitAreaCondition = dimensionX * dimensionY < AREA_LIMIT;
 
                 if (limitSizeCondition || limitAreaCondition) {
-                    CustomDialog signFragmentCustomDialog = new CustomDialog(context, R.drawable.baseline_info_24, getString(R.string.visible_sign_small),
-                            getString(R.string.small_area_warning), getString(R.string.drag_on), true, getString(R.string.reselect_area));
-                    signFragmentCustomDialog.setAcceptButtonClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            signFragmentCustomDialog.cancel();
-                            setResult(Activity.RESULT_OK, dataIntent);
-                            finish();
-                        }
-                    });
-                    signFragmentCustomDialog.setCancelButtonClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            signFragmentCustomDialog.cancel();
-                        }
-                    });
-                    signFragmentCustomDialog.show();
-                    return;
+                    if (isRequiredVisibleSignature) {
+                        CustomDialog signFragmentCustomDialog = new CustomDialog(context, R.drawable.baseline_info_24, getString(R.string.visible_sign_small),
+                                getString(R.string.small_area_warning), getString(R.string.reselect_area), true, getString(R.string.cancel));
+                        signFragmentCustomDialog.setAcceptButtonClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                signFragmentCustomDialog.cancel();
+                            }
+                        });
+                        signFragmentCustomDialog.setCancelButtonClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                signFragmentCustomDialog.cancel();
+                                setResult(Activity.RESULT_CANCELED, dataIntent);
+                                finish();
+                            }
+                        });
+                        signFragmentCustomDialog.show();
+                        return;
+                    } else {
+                        CustomDialog signFragmentCustomDialog = new CustomDialog(context, R.drawable.baseline_info_24, getString(R.string.visible_sign_small),
+                                getString(R.string.small_area_warning), getString(R.string.drag_on), true, getString(R.string.reselect_area));
+                        signFragmentCustomDialog.setAcceptButtonClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                signFragmentCustomDialog.cancel();
+                                setResult(Activity.RESULT_OK, dataIntent);
+                                finish();
+                            }
+                        });
+                        signFragmentCustomDialog.setCancelButtonClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                signFragmentCustomDialog.cancel();
+                            }
+                        });
+                        signFragmentCustomDialog.show();
+                        return;
+                    }
                 }
 
                 dataIntent.putExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTX,
@@ -340,6 +384,17 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
 
         totalPages = pdfView.getPageCount();
 
+        Button firstPageBtn = findViewById(R.id.firstPageBtn);
+        firstPageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (pageNumber > 0) {
+                    pageNumber = 0;
+                    onPageChanged(parentActivity);
+                }
+            }
+        });
+
         Button nextPageBtn = findViewById(R.id.nextPageBtn);
         nextPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -357,6 +412,17 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (pageNumber > 0) {
                     pageNumber--;
+                    onPageChanged(parentActivity);
+                }
+            }
+        });
+
+        Button lastPageBtn = findViewById(R.id.lastPageBtn);
+        lastPageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (pageNumber < totalPages - 1) {
+                    pageNumber = totalPages - 1;
                     onPageChanged(parentActivity);
                 }
             }

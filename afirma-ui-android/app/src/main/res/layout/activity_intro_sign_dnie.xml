@@ -48,8 +48,8 @@
         android:padding="10dp"
         android:textAlignment="center"
         android:fontFamily="@font/nunitosansbold"
-        android:text="@string/is_my_dnie_suitable"
         android:onClick="onClick"
+        android:text="@string/is_my_dnie_suitable"
         android:textAllCaps="false"
         android:textColor="#B44D3D"
         style="@style/ButtonNoBorder"/>

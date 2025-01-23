@@ -33,6 +33,7 @@ import es.gob.afirma.android.crypto.KeyStoreManagerListener;
 import es.gob.afirma.android.crypto.LoadKeyStoreManagerTask;
 import es.gob.afirma.android.crypto.LoadNfcKeyStoreManagerTask;
 import es.gob.afirma.android.crypto.LoadingCertificateException;
+import es.gob.afirma.android.crypto.MSCBadPinException;
 import es.gob.afirma.android.crypto.UnsupportedNfcCardException;
 import es.gob.afirma.android.gui.ChooseCertTypeDialog;
 import es.gob.jmulticard.card.dnie.InvalidAccessCodeException;
@@ -58,6 +59,8 @@ public class LoadKeyStoreFragmentActivity extends FragmentActivity {
 	public final static String ERROR_INITIALIZING_NFC = "errorInitializingNFC";
 
 	public final static String ERROR_CAN_VALIDATION_NFC = "errorCANValidation";
+
+	public final static String ERROR_PIN_VALIDATION_NFC = "errorPINValidation";
 
 	private static final String ACTION_USB_PERMISSION = "es.gob.afirma.android.USB_PERMISSION"; //$NON-NLS-1$
 
@@ -149,7 +152,7 @@ public class LoadKeyStoreFragmentActivity extends FragmentActivity {
 			// seleccione cual desea. Si no, cancelamos por completo la operacion
 			else if (resultCode == RESULT_CANCELED) {
 				if (NfcHelper.isNfcPreferredConnection(this)) {
-					loadKeyStore(this);
+					loadKeyStore(this, null);
 				} else {
 					setResult(RESULT_CANCELED);
 					finish();
@@ -160,7 +163,7 @@ public class LoadKeyStoreFragmentActivity extends FragmentActivity {
 			else {
 				DnieConnectionManager.getInstance().clearCan();
 				DnieConnectionManager.getInstance().clearPin();
-				loadKeyStore(this);
+				loadKeyStore(this, null);
 			}
 			return;
 		}
@@ -181,7 +184,7 @@ public class LoadKeyStoreFragmentActivity extends FragmentActivity {
 							}
 						}
 				);
-				loadKeyStore(this);
+				loadKeyStore(this, null);
 			}
 			return;
 		}
@@ -232,46 +235,54 @@ public class LoadKeyStoreFragmentActivity extends FragmentActivity {
 	/**
 	 * Carga el almac&eacute;n de certificados (que podr&oacute;a ser una tarjeta inteligente
 	 * compatible situada al alcance del NFC).
+	 * @param t Error a mostrar en caso de que exista (ej: MSCBadPinException)
 	 * @param context Contexto de la actividad.
 	 */
-	protected void loadKeyStore(Context context) {
+	protected void loadKeyStore(Context context, Throwable t) {
 		// Si tenemos habilitado el uso de NFC, se pregunta al usuario si firmar con DNIe o el almacen de certificados; si no, cargamos directamente
 		// el almacen en cuestion (que puede ser una tarjeta previamente buscada)
 		if (NfcHelper.isNfcPreferredConnection(context)) {
-			LoadKeyStoreFragmentActivity.this.runOnUiThread(new Runnable() {
-				public void run() {
-					ChooseCertTypeDialog certTypeDialog = new ChooseCertTypeDialog(
-							LoadKeyStoreFragmentActivity.this,
-							new ChooseCertTypeDialog.ChooseCertTypeListener() {
-								@Override
-								public void certTypeChoosed(int certType) {
-									if (certType == ChooseCertTypeDialog.CERT_TYPE_DNIE) {
-										requestNFCKeystore();
-									} else if (certType == ChooseCertTypeDialog.CERT_TYPE_LOCAL) {
-										loadKeyStore();
-									} else {
-										LoadKeyStoreFragmentActivity.this.ksmListener.onKeyStoreError(
-												KeyStoreOperation.SELECT_CERTIFICATE,
-												"Dialogo seleccion de almacen cancelado",
-												new PendingIntent.CanceledException());
+			if (t != null && t instanceof MSCBadPinException) {
+				requestNFCKeystore(t);
+			} else {
+				LoadKeyStoreFragmentActivity.this.runOnUiThread(new Runnable() {
+					public void run() {
+						ChooseCertTypeDialog certTypeDialog = new ChooseCertTypeDialog(
+								LoadKeyStoreFragmentActivity.this,
+								new ChooseCertTypeDialog.ChooseCertTypeListener() {
+									@Override
+									public void certTypeChoosed(int certType) {
+										if (certType == ChooseCertTypeDialog.CERT_TYPE_DNIE) {
+											requestNFCKeystore(t);
+										} else if (certType == ChooseCertTypeDialog.CERT_TYPE_LOCAL) {
+											loadKeyStore();
+										} else {
+											LoadKeyStoreFragmentActivity.this.ksmListener.onKeyStoreError(
+													KeyStoreOperation.SELECT_CERTIFICATE,
+													"Dialogo seleccion de almacen cancelado",
+													new PendingIntent.CanceledException());
+										}
 									}
-								}
-							});
-					certTypeDialog.setModeAuthentication(LoadKeyStoreFragmentActivity.this.isOnlyAuthenticationOperation());
-					certTypeDialog.show();
-				}
-			});
+								});
+						certTypeDialog.setModeAuthentication(LoadKeyStoreFragmentActivity.this.isOnlyAuthenticationOperation());
+						certTypeDialog.show();
+					}
+				});
+			}
 		}
 		else {
 			loadKeyStore();
 		}
 	}
 
-	protected void requestNFCKeystore() {
+	protected void requestNFCKeystore(Throwable t) {
 		// Comprobamos si se configuro el uso de NFC
 		// Si el NFC esta activado, lanzamos una actividad para detectar el DNIe por NFC
 		if (NfcHelper.isNfcServiceEnabled(getApplicationContext())) {
 			final Intent stepsSignDNIe = new Intent(this, IntroUseDnieActivity.class);
+			if (t != null && t instanceof MSCBadPinException) {
+				stepsSignDNIe.putExtra(ERROR_PIN_VALIDATION_NFC, true);
+			}
 			startActivityForResult(stepsSignDNIe, REQUEST_DNIE_PARAMS);
 		}
 		// Si el NFC no esta activado, se le solicita al usuario activarlo
@@ -348,7 +359,7 @@ public class LoadKeyStoreFragmentActivity extends FragmentActivity {
 		// seleccionar almacen. Si no, damos por hecho que el usuario quiere cancelar.
 		else if (t instanceof PendingIntent.CanceledException) {
 			if (NfcHelper.isNfcPreferredConnection(this)) {
-				loadKeyStore(this);
+				loadKeyStore(this, null);
 			} else {
 				ksmListener.onKeyStoreError(KeyStoreOperation.SELECT_CERTIFICATE, msg, t);
 			}

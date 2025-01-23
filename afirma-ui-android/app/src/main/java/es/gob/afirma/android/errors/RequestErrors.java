@@ -50,7 +50,7 @@ public final class RequestErrors {
 
 	public static void update(Context context) {
 
-		ErrorCategory e600002 = new ErrorCategory(600002, context.getString(R.string.not_completed_request), "La operación no esta soportada");
+		ErrorCategory e600002 = new ErrorCategory(600002, context.getString(R.string.not_completed_request), "La operacion no esta soportada");
 		ErrorCategory e600006 = new ErrorCategory(600006, context.getString(R.string.not_completed_request), "Los parametros de la peticion no eran validos");
         ErrorCategory e600007 = new ErrorCategory(600007, context.getString(R.string.not_completed_request), "Error en la codificacion del certificado");
         ErrorCategory e600008 = new ErrorCategory(600008, context.getString(R.string.not_completed_request), "Se ha invocado sin URL a la actividad de firma por protocolo");
@@ -60,10 +60,10 @@ public final class RequestErrors {
 		GENERAL.put(ENCODING_CERT, e600007);
 		GENERAL.put(INVOCATION_WITHOUT_URL, e600008);
 
-        ErrorCategory e600100 = new ErrorCategory(600100, context.getString(R.string.not_completed_request), "No se ha recibido los datos en la petición ni el id del fichero a descargar para la operación de firma");
-		ErrorCategory e600105 = new ErrorCategory(600105, context.getString(R.string.not_completed_request), "El formato de firma no es válido para la operación de firma");
-        ErrorCategory e600106 = new ErrorCategory(600106, context.getString(R.string.not_completed_request), "No se ha recibido el algoritmo de firma  para la operación de firmao");
-		ErrorCategory e600108 = new ErrorCategory(600108, context.getString(R.string.not_completed_request), "Los datos de la operación no se han podido decodificar para la operación de firma");
+        ErrorCategory e600100 = new ErrorCategory(600100, context.getString(R.string.not_completed_request), "No se ha recibido los datos en la petición ni el id del fichero a descargar para la operacion de firma");
+		ErrorCategory e600105 = new ErrorCategory(600105, context.getString(R.string.not_completed_request), "El formato de firma no es valido para la operacion de firma");
+        ErrorCategory e600106 = new ErrorCategory(600106, context.getString(R.string.not_completed_request), "No se ha recibido el algoritmo de firma para la operación de firma");
+		ErrorCategory e600108 = new ErrorCategory(600108, context.getString(R.string.not_completed_request), "Los datos de la operacion no se han podido decodificar para la operacion de firma");
         ErrorCategory e600109 = new ErrorCategory(600109, context.getString(R.string.not_completed_request), "Los parametros configurados son incompatibles con la politica de firma");
 
 		SIGN_REQUEST.put(NO_DATA_NO_ID, e600100);
@@ -72,9 +72,9 @@ public final class RequestErrors {
 		SIGN_REQUEST.put(CANT_DECODE_DATA, e600108);
 		SIGN_REQUEST.put(PARAM_NOT_COMPATIBLE_POLICY, e600109);
 
-        ErrorCategory e600400 = new ErrorCategory(600400, context.getString(R.string.not_completed_request), "No se ha recibido los datos en la petición ni el id del fichero a descargar para la operación de firma de lotes");
-        ErrorCategory e600401 = new ErrorCategory(600401, context.getString(R.string.not_completed_request), "Es necesario descargar la información del servidor intermedio, ha llegado el id de fichero pero no ha llegado la url del servidor de descarga para la operación de firma de lotes");
-		ErrorCategory e600403 = new ErrorCategory(600403, context.getString(R.string.not_completed_request), "No se ha recibido el id del fichero a guardar para la operación de firma de lotes");
+        ErrorCategory e600400 = new ErrorCategory(600400, context.getString(R.string.not_completed_request), "No se ha recibido los datos en la petición ni el id del fichero a descargar para la operacion de firma de lotes");
+        ErrorCategory e600401 = new ErrorCategory(600401, context.getString(R.string.not_completed_request), "Es necesario descargar la informacion del servidor intermedio, ha llegado el id de fichero pero no ha llegado la url del servidor de descarga para la operacion de firma de lotes");
+		ErrorCategory e600403 = new ErrorCategory(600403, context.getString(R.string.not_completed_request), "No se ha recibido el id del fichero a guardar para la operacion de firma de lotes");
 		ErrorCategory e600405 = new ErrorCategory(600405, context.getString(R.string.not_completed_request), "No se ha recibido el batchpresignerurl en la firma batch");
         ErrorCategory e600406 = new ErrorCategory(600406, context.getString(R.string.not_completed_request), "No se ha recibido el batchpostsignerurl en la firma batch");
 		ErrorCategory e600407 = new ErrorCategory(600407, context.getString(R.string.not_completed_request), "El data de la operacion de firma batch no es un JSON valido");

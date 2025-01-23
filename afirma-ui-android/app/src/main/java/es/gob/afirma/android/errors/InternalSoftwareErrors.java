@@ -34,6 +34,8 @@ public final class InternalSoftwareErrors extends AppCompatActivity {
 	public static final String CYPHERING_CERT = "ENCRYPTING_CERT";
 	public static final String LOADING_LOCAL_FILE = "LOADING_LOCAL_FILE";
 	public static final String OUT_OF_MEMORY = "OUT_OF_MEMORY";
+	public static final String USER_SELECT_NOT_PDF = "USER_SELECT_NOT_PDF";
+	public static final String PADES_NO_PDF_SIGN = "PADES_NO_PDF_SIGN";
 
     public static final Dictionary<String, ErrorCategory> OPERATION_SIGN = new Hashtable<>();
 
@@ -67,7 +69,7 @@ public final class InternalSoftwareErrors extends AppCompatActivity {
 	public static final String ALIAS_NOT_VALID = "ALIAS_NOT_VALID";
 	public static final String LOAD_KEY = "LOAD_KEY";
 	public static final String USER_NOT_SELECT_CERT = "USER_NOT_SELECT_CERT";
-	public static final String UNEXPECED_RECOVERING_KEY = "UNEXPECED_RECOVERING_KEY";
+	public static final String UNEXPECTED_RECOVERING_KEY = "UNEXPECTED_RECOVERING_KEY";
 	public static final String LOAD_CERT = "LOAD_CERT";
 
     public static final Dictionary<String, ErrorCategory> LOAD_CERTS = new Hashtable<>();
@@ -86,11 +88,15 @@ public final class InternalSoftwareErrors extends AppCompatActivity {
         ErrorCategory e200101 = new ErrorCategory(200101, context.getString(R.string.not_completed_request), "Error al cifrar el certificado para enviarlo al servidor intermedio");
         ErrorCategory e200102 = new ErrorCategory(200102, context.getString(R.string.not_completed_request), "Error al cargar el fichero local para realizar la firma");
         ErrorCategory e200105 = new ErrorCategory(200105, context.getString(R.string.file_read_out_of_memory), "Error de memoria al cargar el fichero");
+		ErrorCategory e200106 = new ErrorCategory(200106, context.getString(R.string.not_completed_request), "El usuario selecciono un documento no PDF sobre el que realizar una firma PAdES");
+		ErrorCategory e200107 = new ErrorCategory(200107, context.getString(R.string.not_completed_request),  "No es posible hacer firma PAdES sobre datos no PDF");
 
 		OPERATION_SIGN.put(CYPHERING_SIGN, e200100);
 		OPERATION_SIGN.put(CYPHERING_CERT, e200101);
 		OPERATION_SIGN.put(LOADING_LOCAL_FILE, e200102);
 		OPERATION_SIGN.put(OUT_OF_MEMORY, e200105);
+		OPERATION_SIGN.put(USER_SELECT_NOT_PDF, e200106);
+		OPERATION_SIGN.put(PADES_NO_PDF_SIGN, e200107);
 
         ErrorCategory e200200 = new ErrorCategory(200200, context.getString(R.string.not_completed_request), "Error al cifrar el certificado para enviarlo al servidor intermedio");
 		CERTIFICATE_SELECTION.put(CYPHERING_CERT_OP, e200200);
@@ -129,7 +135,7 @@ public final class InternalSoftwareErrors extends AppCompatActivity {
 		LOAD_CERTS.put(ALIAS_NOT_VALID, e201102);
 		LOAD_CERTS.put(LOAD_KEY, e201103);
 		LOAD_CERTS.put(USER_NOT_SELECT_CERT, e201104);
-		LOAD_CERTS.put(UNEXPECED_RECOVERING_KEY, e201105);
+		LOAD_CERTS.put(UNEXPECTED_RECOVERING_KEY, e201105);
 		LOAD_CERTS.put(LOAD_CERT, e201106);
 	}
 

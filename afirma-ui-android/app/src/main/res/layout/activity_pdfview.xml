@@ -67,11 +67,20 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/firstPageBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/chevrons_left_selector"/>
+
+        <Button
             android:id="@+id/prevPageBtn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="5dp"
-            android:background="@drawable/arrow_left_selector" />
+            android:background="@drawable/chevron_left_selector"
+            app:strokeColor="@color/red"
+            app:strokeWidth="50dp"/>
 
         <TextView
             android:id="@+id/pageNumberTv"
@@ -87,7 +96,14 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="5dp"
-            android:background="@drawable/arrow_right_selector" />
+            android:background="@drawable/chevron_right_selector" />
+
+        <Button
+            android:id="@+id/lastPageBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/chevrons_right_selector" />
 
     </LinearLayout>
 

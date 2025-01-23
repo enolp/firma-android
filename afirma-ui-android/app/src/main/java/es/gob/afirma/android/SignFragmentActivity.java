@@ -33,6 +33,7 @@ import java.util.Properties;
 
 import es.gob.afirma.R;
 import es.gob.afirma.android.crypto.KeyStoreManagerListener;
+import es.gob.afirma.android.crypto.MSCBadPinException;
 import es.gob.afirma.android.crypto.MobileKeyStoreManager;
 import es.gob.afirma.android.crypto.MobileKeyStoreManager.SelectCertificateEvent;
 import es.gob.afirma.android.crypto.SelectKeyAndroid41BugException;
@@ -125,7 +126,7 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 		this.isLocalSign = isLocalSign;
 
 		// Iniciamos la carga del almacen
-		loadKeyStore(this);
+		loadKeyStore(this, null);
 	}
 
 	@Override
@@ -191,7 +192,7 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 			// Si se ha cancelado la operacion y esta disponible el uso de mas de un almacen, permitimos
 			// seleccionar almacen. Si no, damos por hecho que el usuario quiere cancelar.
 			if (NfcHelper.isNfcPreferredConnection(this)) {
-				loadKeyStore(this);
+				loadKeyStore(this, null);
 			} else {
 				onSigningError(KeyStoreOperation.SELECT_CERTIFICATE, "El usuario no selecciono un certificado", new PendingIntent.CanceledException(e));
 			}
@@ -364,7 +365,10 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 				onSigningError(KeyStoreOperation.SIGN, "Error en el proceso de firma", t);
 			}
 		}
-		else {
+		else if (t instanceof MSCBadPinException) {
+			// Se reintenta la operacion de lectura de DNI indicando que el PIN es incorrecto
+			loadKeyStore(this, t);
+		} else {
 			this.signing = false;
 			onSigningError(KeyStoreOperation.SIGN, "Error en el proceso de firma", t);
 		}

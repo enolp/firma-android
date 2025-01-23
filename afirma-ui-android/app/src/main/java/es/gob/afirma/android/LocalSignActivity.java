@@ -30,12 +30,10 @@ import java.util.Locale;
 import java.util.Properties;
 
 import es.gob.afirma.R;
-import es.gob.afirma.android.crypto.MSCBadPinException;
 import es.gob.afirma.android.crypto.SignResult;
 import es.gob.afirma.android.errors.ErrorCategory;
 import es.gob.afirma.android.errors.FunctionalErrors;
 import es.gob.afirma.android.errors.InternalSoftwareErrors;
-import es.gob.afirma.android.errors.ThirdPartyErrors;
 import es.gob.afirma.android.gui.AppConfig;
 import es.gob.afirma.android.util.FileUtil;
 import es.gob.afirma.core.signers.AOSignConstants;
@@ -422,14 +420,8 @@ public final class LocalSignActivity extends SignFragmentActivity {
 		else {
 			Logger.e(ES_GOB_AFIRMA, "Error durante la firma: " + t);
 			if (KeyStoreOperation.SIGN == op) {
-				ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.INCORRECT_PIN);
-				if (t instanceof MSCBadPinException) {
-					showErrorMessage(getString(R.string.incorrect_pin), errorCat);
-				}
-				else {
-					ErrorCategory errorSigning = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.ERROR_SIGNING);
-					showErrorMessage(getString(R.string.error_ocurred), errorSigning);
-				}
+				ErrorCategory errorSigning = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.ERROR_SIGNING);
+				showErrorMessage(getString(R.string.error_ocurred), errorSigning);
 			}
 			else {
 				ErrorCategory errorCat = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.SOFTWARE_GENERAL);

@@ -13,6 +13,7 @@ package es.gob.afirma.android;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,7 +37,6 @@ import es.gob.afirma.android.batch.SignBatchFragmentActivity;
 import es.gob.afirma.android.crypto.AndroidHttpManager;
 import es.gob.afirma.android.crypto.CipherDataManager;
 import es.gob.afirma.android.crypto.KeyStoreManagerListener;
-import es.gob.afirma.android.crypto.MSCBadPinException;
 import es.gob.afirma.android.crypto.SelectKeyAndroid41BugException;
 import es.gob.afirma.android.errors.CommunicationErrors;
 import es.gob.afirma.android.errors.ErrorCategory;
@@ -44,7 +44,6 @@ import es.gob.afirma.android.errors.ErrorManager;
 import es.gob.afirma.android.errors.FunctionalErrors;
 import es.gob.afirma.android.errors.InternalSoftwareErrors;
 import es.gob.afirma.android.errors.RequestErrors;
-import es.gob.afirma.android.errors.ThirdPartyErrors;
 import es.gob.afirma.android.gui.CustomDialog;
 import es.gob.afirma.android.gui.DownloadFileTask;
 import es.gob.afirma.android.gui.SendDataTask;
@@ -343,20 +342,14 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 				launchError(ErrorManager.ERROR_CANCELLED_OPERATION, t.getMessage(), false, errorCat);
 			}
 			else {
-				ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.UNEXPECED_RECOVERING_KEY);
+				ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.UNEXPECTED_RECOVERING_KEY);
 				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + msg, t);
 				launchError(ErrorManager.ERROR_PKE, t.getMessage(), true, errorCat);
 			}
 			return;
 		}
 		else if (op == KeyStoreOperation.SIGN) {
-			if (t instanceof MSCBadPinException) {
-				ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.INCORRECT_PIN);
-				Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + t); //$NON-NLS-1$
-				showErrorMessage(getString(R.string.incorrect_pin), errorCat);
-				launchError(ErrorManager.ERROR_MSC_PIN, t.getMessage(), false, errorCat);
-			}
-			else if (t instanceof AOCancelledOperationException) {
+			if (t instanceof AOCancelledOperationException) {
 				ErrorCategory errorCat = FunctionalErrors.GENERAL.get(FunctionalErrors.CANCELED_BY_USER);
 				Logger.i(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + t);
 				launchError(ErrorManager.ERROR_CANCELLED_OPERATION, t.getMessage(), false, errorCat);
@@ -678,5 +671,10 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 		dismissProgressDialog();
 		dismissMessageDialog();
 		super.onStop();
+	}
+
+	@Override
+	protected void attachBaseContext(Context base) {
+		super.attachBaseContext(LocaleHelper.onAttach(base));
 	}
 }

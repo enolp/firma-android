@@ -13,7 +13,7 @@
     <string name="request_cert">Ziurtagiria eskatu</string>
     <string name="appsDialogTitle">Onartutako agintarien zerrenda</string>
     <string name="appsDialogMessage">Hautatu ziurtagiria zein autoritateri eskatu nahi diozun.</string>
-    <string name="disclaimer">2024 Espainiako Gobernua</string>
+    <string name="disclaimer">2025 Espainiako Gobernua</string>
     <string name="privacy_policy">Pribatutasun-politika</string>
     <string name="privacy_policy_url">https://administracion.gob.es/pag_Home/politicaDePrivacidad.html</string>
     <string name="accessibility_statement">Irisgarritasun-deklarazioa</string>
@@ -164,14 +164,14 @@
     <string name="response_2">Autofirma App-ek oraindik ez ditu beste sistema eragile batzuetarako bertsioetan agertzen diren funtzionalitate batzuk. Aplikazioaren etorkizuneko eguneratzeek konponduko dituzte gabezia horiek. Bitartean, erabili Autofirma instalatuta duen PC bat web-izapidea osatzeko, eta jakinarazi arazoa izapidearen arduradunari, hala baderitzozu.</string>
     <string name="question_3">Arriskuan daude nire ziurtagiriak, gailua galtzen badut?</string>
     <string name="response_3">Ziurtagiriak zifratze ahaltsu batekin biltegiratzen dira zure gailuan, baina, edozein sistema kriptografiko bezala, jabearen kontroletik kanpo dagoenean, konpromisoa hartzeko arriskua dago. Gailua galtzen baduzu, lehenbailehen jarri behar duzu harremanetan ziurtatze-zerbitzuen hornitzailearekin, hark zituen ziurtagiriak berehala ezeztatzeko.</string>
-    <string name="version_desc_p1">“Autofirma App” v.%s 2024 Espainiako Gobernua</string>
+    <string name="version_desc_p1">“Autofirma App” v.%s 2025 Espainiako Gobernua</string>
     <string name="version_desc_p2">Autofirma App Software Librea da; birbanatu eta/edo aldatu egin dezakezu lizentzia honen arabera: “European Software License 1.1”. Testu osoa web orri honetan kontsulta dezakezu:</string>
     <string name="version_desc_p3">Programa honen eta proiektuaren gainerako osagaien iturburu-kodea hemendik deskarga daiteke: </string>
     <string name="version_desc_p4">Autofirma App proiektua lankidetza-proiektu bat da. Parte hartu nahi baduzu, ez izan zalantzarik komunitatearekin bat egiteko, eta web orri honetatik sar zaitezke:</string>
     <string name="version_desc_link1">https://eupl.eu/1.1/es</string>
     <string name="version_desc_link2">http://forja-ctt.administracionelectronica.gob.es</string>
     <string name="version_desc_link3">https://administracionelectronica.gob.es/ctt/clienteafirma/mas#.Xxp7T0I7mhc</string>
-    <string name="acceptance_conditions">Baldintzak onartzea</string>
+    <string name="acceptance_conditions">Lege-testuak onartzea</string>
     <string name="read_and_accept_privacy">Irakurri dut eta ados nago pribatutasun-politikarekin</string>
     <string name="read_and_accept_legal">Irakurri dut eta ados nago Legezko Oharrarekin eta Erabiltzeko Termino eta Baldintzekin</string>
     <string name="dnie_identification">NANe-rekin identifikatzea</string>

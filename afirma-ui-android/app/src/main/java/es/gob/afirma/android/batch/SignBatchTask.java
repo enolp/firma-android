@@ -28,6 +28,8 @@ import es.gob.afirma.core.AOException;
 import es.gob.afirma.core.misc.Base64;
 import es.gob.afirma.core.misc.http.HttpError;
 import es.gob.afirma.core.misc.protocol.UrlParametersForBatch;
+import es.gob.jmulticard.card.BadPinException;
+import es.gob.jmulticard.jse.provider.SignatureAuthException;
 
 /**
  * Tarea que ejecuta una firma electr&oacute;nica por lotes.
@@ -116,6 +118,10 @@ public class SignBatchTask extends AsyncTask<Void, Void, byte[]>{
 				// una tarjeta criptografica
 				Logger.e(ES_GOB_AFIRMA, "Se ha intentado cargar el dialogo de PIN de una tarjeta criptografica: " + e); //$NON-NLS-1$
 				this.t = new MSCBadPinException("Se ha intentado cargar el dialogo de PIN de una tarjeta criptografica", e); //$NON-NLS-1$
+			} else if (e instanceof AOException
+					&& e.getCause() != null && e.getCause() instanceof SignatureAuthException
+					&& e.getCause().getCause()!= null && e.getCause().getCause() instanceof BadPinException){
+				this.t = new MSCBadPinException(e.getCause().getCause().getMessage(), e); //$NON-NLS-1$
 			}
 			else {
 				ErrorCategory errorSigning = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.ERROR_SIGNING);

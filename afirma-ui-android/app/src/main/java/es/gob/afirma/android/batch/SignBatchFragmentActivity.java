@@ -83,7 +83,7 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 		setOnlyAuthenticationOperation(false);
 
 		// Iniciamos la carga del almacen
-		loadKeyStore(this);
+		loadKeyStore(this, null);
 	}
 
 	@Override
@@ -269,7 +269,8 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 			onSigningError(KeyStoreOperation.SIGN, "No se pudo conectar con el servicio de firma de lotes", t);
 		}
 		else if (t instanceof MSCBadPinException) {
-			onSigningError(KeyStoreOperation.SIGN, "No se pudo solicitar el PIN de la tarjeta criptografica", t);
+			// Se reintenta la operacion de lectura de DNI indicando que el PIN es incorrecto
+			loadKeyStore(this, t);
 		}
 		else if (t instanceof AOException) {
 			onSigningError(KeyStoreOperation.SIGN, "El servicio de firma de lotes devolvio un error", t);

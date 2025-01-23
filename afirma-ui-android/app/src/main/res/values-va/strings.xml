@@ -13,7 +13,7 @@
     <string name="request_cert">Sol·licitar certificat</string>
     <string name="appsDialogTitle">Llistat d\'autoritats suportades</string>
     <string name="appsDialogMessage">Seleccione l\'autoritat de certificaci\u00f3 a la qual desitge sol·licitar el seu certificat.</string>
-    <string name="disclaimer">2024 Govern d\'Espanya</string>
+    <string name="disclaimer">2025 Govern d\'Espanya</string>
     <string name="privacy_policy">Pol\u00edtica de privacitat</string>
     <string name="privacy_policy_url">https://administracion.gob.es/pag_home/politicadeprivacidad.html</string>
     <string name="accessibility_statement">Declaraci\u00f3 d\'accessibilitat</string>
@@ -164,14 +164,14 @@
     <string name="response_2">Autofirma App manca encara de certes funcionalitats que s\u00ed que s\u00f3n presents en versions per a altres sistemes operatius. Futures actualitzacions de l\'app solucionaran estes manques. Mentrestant, utilitze un PC amb Autofirma instal\u00b7lat per a completar el tr\u00e0mit web i notifique el problema al responsable del tr\u00e0mit si el considera prec\u00eds.</string>
     <string name="question_3">Corren perill els meus certificats si perd el dispositiu?</string>
     <string name="response_3">Els certificats s\'emmagatzemen en el seu dispositiu amb un potent xifrat, per\u00F2 com qualsevol sistema criptogr\u00E0fic, en el moment que este est\u00E0 fora del control de propietari corre el risc de ser comprom\u00E8s. Si perd el dispositiu ha de contactar al m\u00E9s prompte possible amb el seu proveïdor de servicis de certificaci\u00F3 per a revocar immediatament els certificats que este contenia.</string>
-    <string name="version_desc_p1">“Autofirma App” v.%s 2024 Govern d\'Espanya</string>
+    <string name="version_desc_p1">“Autofirma App” v.%s 2025 Govern d\'Espanya</string>
     <string name="version_desc_p2">Autofirma App \u00e9s Programari Lliure; pots redistribuir-ho i/o modificar-ho baix els termes de la següent llic\u00e8ncia: “European Programari License 1.1”, Curyo text complet pot consultar-se en la següent p\u00e0gina Web:</string>
     <string name="version_desc_p3">El codi font d\'este programa, aix\u00ed com de la resta dels components del projecte es poden descarregar lliurement des de: </string>
     <string name="version_desc_p4">El projecte Autofirma App \u00e9s un projecte col·laboratiu, si desitja participar en ell, no dubte a unir-se a la comunitat, accessible des de la següent p\u00e0gina Web:</string>
     <string name="version_desc_link1">https://eupl.eu/1.1/es</string>
     <string name="version_desc_link2">http://forja-ctt.administracionelectronica.gob.es</string>
     <string name="version_desc_link3">https://administracionelectronica.gob.es/ctt/clienteafirma/mas#.Xxp7T0I7mhc</string>
-    <string name="acceptance_conditions">Acceptaci\u00f3 de condicions</string>
+    <string name="acceptance_conditions">Acceptaci\u00f3 de textos legals</string>
     <string name="read_and_accept_privacy">He llegit i estic d\'acord amb la Pol\u00edtica de Privacitat</string>
     <string name="read_and_accept_legal">He llegit i estic d\'acord amb l\'Av\u00eds Legal i els Termes i Condicions d\'\u00das</string>
     <string name="dnie_identification">Identificaci\u00f3 amb DNIe</string>

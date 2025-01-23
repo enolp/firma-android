@@ -12,6 +12,7 @@ package es.gob.afirma.android;
 
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -161,7 +162,7 @@ public final class WebSelectCertificateActivity extends LoadKeyStoreFragmentActi
 
             Logger.i(ES_GOB_AFIRMA, "Se inicia la seleccion de certificado"); //$NON-NLS-1$
             showProgressDialog(getString(R.string.dialog_msg_loading_keystore));
-            loadKeyStore(this);
+            loadKeyStore(this, null);
         }
 	}
 
@@ -195,7 +196,7 @@ public final class WebSelectCertificateActivity extends LoadKeyStoreFragmentActi
 			// Si hay algun almacen alternativo, peromitimos seleccionar de nuevo. Si nom se lanza
 			// el error
 			if (NfcHelper.isNfcPreferredConnection(this)) {
-				loadKeyStore(this);
+				loadKeyStore(this, null);
 			} else {
 				onKeyStoreError(KeyStoreOperation.SELECT_CERTIFICATE, errorCat.getCode() + " - " + errorCat.getAdminText(), new PendingIntent.CanceledException(e));
 			}
@@ -533,4 +534,9 @@ public final class WebSelectCertificateActivity extends LoadKeyStoreFragmentActi
         }
         super.onDestroy();
     }
+
+	@Override
+	protected void attachBaseContext(Context base) {
+		super.attachBaseContext(LocaleHelper.onAttach(base));
+	}
 }
