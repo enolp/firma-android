@@ -20,6 +20,7 @@ import java.util.Comparator;
 import java.util.Date;
 
 import es.gob.afirma.R;
+import es.gob.afirma.android.util.Utils;
 
 public class SignsRecordActivity extends AppCompatActivity {
 
@@ -32,6 +33,7 @@ public class SignsRecordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Utils.setPortraitSmartphone(this);
         setContentView(R.layout.activity_signs_record);
 
         MaterialToolbar toolbar = findViewById(R.id.signRecordToolbar);

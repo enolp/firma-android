@@ -6,7 +6,7 @@
     <string name="app_name">Autofirma App</string>
     <string name="title_activity_cert_chooser">Importar certificat</string>
     <string name="title_activity_choose_sign_file">Seleccione el fitxer a firmar</string>
-    <string name="presentation_title">Et donem la benvinguda a Autofirma App</string>
+    <string name="presentation_title">Et donem la benvinguda</string>
     <string name="presentation_text">Esta aplicaci\u00f3 permet realitzar firmes electr\u00f2niques en les p\u00e0gines dels proveïdors de servicis que ho suporten.\n\nPara funcionar correctament ha de tindre un certificat electr\u00f2nic i la seua clau privada instal·lats en el seu dispositiu, consulte la documentaci\u00f3 del seu sistema Android i amb el seu proveïdor de servicis de certificaci\u00f3.</string>
     <string name="import_cert">Importar certificat</string>
     <string name="sign_file">Firmar fitxer</string>
@@ -262,4 +262,7 @@
     <string name="import_certs_help_text_3">Si no trobes el fitxer de claus en el teu m\u00f2bil, pots enviar-te\'l des d\'un altre dispositiu per correu electr\u00f2nic o altres aplicacions en el n\u00favol.</string>
     <string name="go_to_import_cert">Importar un certificat\u00A0</string>
     <string name="not_completed_request">Hem intentat processar la teua sol·licitud, per\u00F2 no ha pogut ser completada amb \u00E8xit. Per favor revisa la documentaci\u00F3.</string>
+    <string name="encrypted_document">Document encriptat</string>
+    <string name="encrypted_document_desc">Per favor, introduïx la contrasenya del document per a poder continuar amb el proc\u00E9s de signatura</string>
+    <string name="password">Contrasenya</string>
 </resources>

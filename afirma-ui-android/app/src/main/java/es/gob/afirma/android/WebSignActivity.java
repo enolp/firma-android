@@ -67,6 +67,7 @@ import es.gob.afirma.android.gui.DownloadFileTask.DownloadDataListener;
 import es.gob.afirma.android.gui.SendDataTask;
 import es.gob.afirma.android.gui.SendDataTask.SendDataListener;
 import es.gob.afirma.android.util.FileUtil;
+import es.gob.afirma.android.util.Utils;
 import es.gob.afirma.core.AOException;
 import es.gob.afirma.core.AOUnsupportedSignFormatException;
 import es.gob.afirma.core.misc.http.UrlHttpManagerFactory;
@@ -140,6 +141,7 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Utils.setPortraitSmartphone(this);
 
 		if (getIntent() == null || getIntent().getData() == null) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);

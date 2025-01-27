@@ -11,12 +11,14 @@ import com.google.android.material.appbar.MaterialToolbar;
 
 import es.gob.afirma.R;
 import es.gob.afirma.android.util.FileUtil;
+import es.gob.afirma.android.util.Utils;
 
 public class LegalActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Utils.setPortraitSmartphone(this);
         setContentView(R.layout.activity_legal);
 
         MaterialToolbar toolbar = this.findViewById(R.id.legalToolbar);

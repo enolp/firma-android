@@ -19,6 +19,7 @@ import es.gob.afirma.R;
 import es.gob.afirma.android.gui.InsertDataDnieStep1Fragment;
 import es.gob.afirma.android.gui.InsertDataDnieStep2Fragment;
 import es.gob.afirma.android.gui.InsertDataDnieStep3Fragment;
+import es.gob.afirma.android.util.Utils;
 
 public class StepsInsertDataDnieActivity extends AppCompatActivity {
 
@@ -29,6 +30,7 @@ public class StepsInsertDataDnieActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Utils.setPortraitSmartphone(this);
         setContentView(R.layout.activity_steps_sign_dnie);
 
         actualStep = 0;

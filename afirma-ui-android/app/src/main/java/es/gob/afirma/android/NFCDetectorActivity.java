@@ -21,6 +21,7 @@ import es.gob.afirma.R;
 import es.gob.afirma.android.crypto.CachePasswordCallback;
 import es.gob.afirma.android.crypto.DnieConnectionManager;
 import es.gob.afirma.android.gui.CanResult;
+import es.gob.afirma.android.util.Utils;
 
 /** Indica al usuario que acerque el DNIe por NFC para obtener los certificados.
  * @author Sergio Mart&iacute;nez */
@@ -44,6 +45,7 @@ public class NFCDetectorActivity extends FragmentActivity {
     public void onCreate(final Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        Utils.setPortraitSmartphone(this);
         setContentView(R.layout.activity_detect_nfc);
 
         // Si buscamos la tarjeta, borramos los datos que ya tuviesemos

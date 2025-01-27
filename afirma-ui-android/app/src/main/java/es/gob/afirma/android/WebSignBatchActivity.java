@@ -48,6 +48,7 @@ import es.gob.afirma.android.gui.CustomDialog;
 import es.gob.afirma.android.gui.DownloadFileTask;
 import es.gob.afirma.android.gui.SendDataTask;
 import es.gob.afirma.android.gui.SendDataTask.SendDataListener;
+import es.gob.afirma.android.util.Utils;
 import es.gob.afirma.core.AOCancelledOperationException;
 import es.gob.afirma.core.AOException;
 import es.gob.afirma.core.AOUnsupportedSignFormatException;
@@ -101,6 +102,7 @@ public final class WebSignBatchActivity extends SignBatchFragmentActivity
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Utils.setPortraitSmartphone(this);
 
 		if (getIntent() == null || getIntent().getData() == null) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);

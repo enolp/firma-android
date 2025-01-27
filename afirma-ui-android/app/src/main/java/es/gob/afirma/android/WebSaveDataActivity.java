@@ -43,6 +43,7 @@ import es.gob.afirma.android.errors.RequestErrors;
 import es.gob.afirma.android.gui.CustomDialog;
 import es.gob.afirma.android.gui.DownloadFileTask;
 import es.gob.afirma.android.gui.SendDataTask;
+import es.gob.afirma.android.util.Utils;
 import es.gob.afirma.core.misc.MimeHelper;
 import es.gob.afirma.core.misc.http.UrlHttpManagerFactory;
 import es.gob.afirma.core.misc.protocol.ParameterException;
@@ -75,6 +76,7 @@ public final class WebSaveDataActivity extends FragmentActivity
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Utils.setPortraitSmartphone(this);
 
 		// Si cargamos la actividad desde el carrusel de aplicaciones, redirigimos a la
 		// pantalla principal

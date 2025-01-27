@@ -13,12 +13,14 @@ import com.google.android.material.appbar.MaterialToolbar;
 import es.gob.afirma.BuildConfig;
 import es.gob.afirma.R;
 import es.gob.afirma.android.gui.AppConfig;
+import es.gob.afirma.android.util.Utils;
 
 public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Utils.setPortraitSmartphone(this);
         setContentView(R.layout.activity_settings);
 
         MaterialToolbar toolbar = findViewById(R.id.settingsToolbar);
@@ -171,7 +173,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent i = new Intent(this, HomeActivity.class);
+        Intent i = new Intent(getBaseContext(), HomeActivity.class);
         this.startActivity(i);
     }
 

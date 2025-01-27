@@ -6,7 +6,7 @@
     <string name="app_name">Autofirma App</string>
     <string name="title_activity_cert_chooser">Importar certificado</string>
     <string name="title_activity_choose_sign_file">Seleccione o ficheiro a asinar</string>
-    <string name="presentation_title">D\u00E1mosche a benvida a Autofirma App</string>
+    <string name="presentation_title">D\u00E1mosche a benvida</string>
     <string name="presentation_text">Esta aplicaci\u00F3n permite realizar firmas electr\u00F3nicas nas p\u00E1xinas dos provedores de servizos que o soporten.\n\nPara funcionar correctamente debe ter un certificado electr\u00F3nico e a s\u00faa clave privada instalados no seu dispositivo, consulte a documentaci\u00F3n do seu sistema Android e co seu provedor de servizos de certificaci\u00F3n.</string>
     <string name="import_cert">Importar certificado</string>
     <string name="sign_file">Asinar ficheiro</string>
@@ -262,4 +262,7 @@
     <string name="import_certs_help_text_3">Se non atopas o ficheiro de claves no teu m\u00f3bil, podes enviarcho desde outro dispositivo por correo electr\u00f3nico ou outras aplicaci\u00f3ns na nube.</string>
     <string name="go_to_import_cert">Importar un certificado\u00A0</string>
     <string name="not_completed_request">Tentamos procesar a t\u00FAa solicitude, pero non puido ser completada con \u00E9xito. Por favor revisa a documentaci\u00F3n.</string>
+    <string name="encrypted_document">Documento encriptado</string>
+    <string name="encrypted_document_desc">Por favor, introduce o contrasinal do documento para poder continuar co proceso de firma</string>
+    <string name="password">Contrasinal</string>
 </resources>

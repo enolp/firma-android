@@ -26,6 +26,7 @@ import java.util.Locale;
 import es.gob.afirma.R;
 import es.gob.afirma.android.gui.AppConfig;
 import es.gob.afirma.android.util.FileUtil;
+import es.gob.afirma.android.util.Utils;
 
 public class ConditionsActivity extends AppCompatActivity {
 
@@ -35,6 +36,7 @@ public class ConditionsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Utils.setPortraitSmartphone(this);
         setContentView(R.layout.activity_conditions);
         MaterialToolbar toolbar = findViewById(R.id.conditionsToolbar);
         this.setSupportActionBar(toolbar);

@@ -38,6 +38,7 @@ import es.gob.afirma.R;
 import es.gob.afirma.android.gui.CustomDialog;
 import es.gob.afirma.android.gui.PDFPasswordVisibleSignDialog;
 import es.gob.afirma.android.util.FileUtil;
+import es.gob.afirma.android.util.Utils;
 import es.gob.afirma.signers.pades.common.PdfExtraParams;
 
 public class PdfSelectPreviewActivity extends AppCompatActivity {
@@ -70,6 +71,7 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Utils.setPortraitSmartphone(this);
         setContentView(R.layout.activity_pdfview);
 
         MaterialToolbar toolbar = findViewById(R.id.pdfViewToolbar);
@@ -318,8 +320,7 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
                     public void onError(Throwable t) {
                         if (t instanceof PdfPasswordException) {
                             PDFPasswordVisibleSignDialog pwdDialog = new PDFPasswordVisibleSignDialog(parentActivity, !isFirstPwdRequest);
-                            pwdDialog.show(getSupportFragmentManager(),
-                                    "PasswordDialog");
+                            pwdDialog.show();
                             isFirstPwdRequest = false;
                         }
                     }
@@ -512,8 +513,7 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
                         public void onError(Throwable t) {
                             if (t instanceof PdfPasswordException) {
                                 PDFPasswordVisibleSignDialog pwdDialog = new PDFPasswordVisibleSignDialog(parentActivity, !isFirstPwdRequest);
-                                pwdDialog.show(getSupportFragmentManager(),
-                                        "PasswordDialog");
+                                pwdDialog.show();
                                 isFirstPwdRequest = false;
                             }
                         }

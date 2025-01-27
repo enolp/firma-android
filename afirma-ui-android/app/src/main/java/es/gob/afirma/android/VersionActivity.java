@@ -12,12 +12,14 @@ import com.google.android.material.appbar.MaterialToolbar;
 
 import es.gob.afirma.BuildConfig;
 import es.gob.afirma.R;
+import es.gob.afirma.android.util.Utils;
 
 public class VersionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Utils.setPortraitSmartphone(this);
         setContentView(R.layout.activity_version);
 
         MaterialToolbar toolbar = this.findViewById(R.id.versionToolbar);

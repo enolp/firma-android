@@ -43,6 +43,7 @@ import es.gob.afirma.android.gui.CustomDialog;
 import es.gob.afirma.android.gui.DownloadFileTask;
 import es.gob.afirma.android.gui.SendDataTask;
 import es.gob.afirma.android.gui.SendDataTask.SendDataListener;
+import es.gob.afirma.android.util.Utils;
 import es.gob.afirma.core.AOCancelledOperationException;
 import es.gob.afirma.core.misc.Base64;
 import es.gob.afirma.core.misc.http.UrlHttpManagerFactory;
@@ -85,6 +86,7 @@ public final class WebSelectCertificateActivity extends LoadKeyStoreFragmentActi
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Utils.setPortraitSmartphone(this);
 
 		ksmListener = this;
 

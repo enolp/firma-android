@@ -1,7 +1,11 @@
 package es.gob.afirma.android;
 
+import static es.gob.afirma.android.util.Utils.isTablet;
+
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -11,6 +15,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 
 import es.gob.afirma.R;
 import es.gob.afirma.android.gui.HelpDialog;
+import es.gob.afirma.android.util.Utils;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -27,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Utils.setPortraitSmartphone(this);
         setContentView(R.layout.activity_home);
 
         MaterialToolbar toolbar = findViewById(R.id.topHomeToolbar);
@@ -66,7 +72,7 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings:
-                Intent i = new Intent(this, SettingsActivity.class);
+                Intent i = new Intent(getBaseContext(), SettingsActivity.class);
                 this.startActivity(i);
                 return true;
             case R.id.info:

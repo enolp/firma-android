@@ -14,6 +14,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import java.util.ArrayList;
 
 import es.gob.afirma.R;
+import es.gob.afirma.android.util.Utils;
 
 public class LanguageActivity extends AppCompatActivity {
 
@@ -23,6 +24,7 @@ public class LanguageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Utils.setPortraitSmartphone(this);
         setContentView(R.layout.activity_language);
 
         MaterialToolbar toolbar = findViewById(R.id.languageToolbar);

@@ -6,7 +6,7 @@
     <string name="app_name">Aplikazio automatikoa</string>
     <string name="title_activity_cert_chooser">Inportatu ziurtagiria</string>
     <string name="title_activity_choose_sign_file">Hautatu sinatu beharreko fitxategia</string>
-    <string name="presentation_title">Ongi etorri Autofirma App-era</string>
+    <string name="presentation_title">Ongi etorria ematen dizugu</string>
     <string name="presentation_text">Aplikazio honek onartzen duten zerbitzu-hornitzaileen orrietan sinadura elektronikoak egiteko aukera ematen du.\n\nBehar bezala funtzionatzeko, ziurtagiri elektroniko bat eta pasahitz pribatua instalatuta izan behar dituzu zure gailuan, kontsultatu zure Android sistemako dokumentazioa eta zure ziurtapen-zerbitzuen hornitzailearekin.</string>
     <string name="import_cert">Ziurtagiria inportatu</string>
     <string name="sign_file">Sinatu fitxategia</string>
@@ -262,4 +262,7 @@
     <string name="import_certs_help_text_3">Zure mugikorrean gako-fitxategia aurkitzen ez baduzu, beste gailu batetik bidal dezakezu posta elektronikoz edo hodeiko beste aplikazio batzuetatik.</string>
     <string name="go_to_import_cert">Inportatu ziurtagiri bat\u00A0</string>
     <string name="not_completed_request">Zure eskaera prozesatzen saiatu gara, baina ezin izan da behar bezala bete. Mesedez, berrikusi dokumentazioa.</string>
+    <string name="encrypted_document">Dokumentu enkriptatua</string>
+    <string name="encrypted_document_desc">Mesedez, sartu dokumentuaren pasahitza sinatze-prozesuarekin jarraitu ahal izateko</string>
+    <string name="password">Pasahitza</string>
 </resources>

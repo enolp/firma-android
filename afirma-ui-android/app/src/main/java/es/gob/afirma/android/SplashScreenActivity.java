@@ -8,12 +8,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import es.gob.afirma.R;
 import es.gob.afirma.android.gui.AppConfig;
+import es.gob.afirma.android.util.Utils;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Utils.setPortraitSmartphone(this);
         setContentView(R.layout.afirma_splash_screen_file);
 
         new Handler().postDelayed(new Runnable() {

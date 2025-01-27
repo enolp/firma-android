@@ -18,12 +18,14 @@ import es.gob.afirma.R;
 import es.gob.afirma.android.errors.ErrorCategory;
 import es.gob.afirma.android.errors.InternalSoftwareErrors;
 import es.gob.afirma.android.gui.CustomDialog;
+import es.gob.afirma.android.util.Utils;
 
 public class TrustedDomainsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Utils.setPortraitSmartphone(this);
         setContentView(R.layout.activity_trusted_domains);
 
         MaterialToolbar toolbar = findViewById(R.id.trustedDomainsToolbar);

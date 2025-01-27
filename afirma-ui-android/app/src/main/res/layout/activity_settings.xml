@@ -474,6 +474,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15dp"
+            android:orientation="vertical"
+            android:gravity="center"
             android:focusable="false">
 
             <ImageView
@@ -482,17 +484,15 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="15dp"
                 android:paddingBottom="30dp"
-                android:layout_alignParentLeft="true"
-                android:layout_toLeftOf="@+id/logoPRTRView"
                 app:srcCompat="@drawable/logo_fue_color" />
 
             <ImageView
                 android:id="@+id/logoPRTRView"
-                android:layout_width="209dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:paddingTop="15dp"
                 android:paddingBottom="30dp"
+                android:layout_toRightOf="@id/logoFUEView"
                 app:srcCompat="@drawable/logo_prtr_color" />
 
         </RelativeLayout>

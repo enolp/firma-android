@@ -341,7 +341,8 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 			|| t instanceof BadPdfPasswordException && ((BadPdfPasswordException) t).getRequestType() == RuntimeConfigNeededException.RequestType.PASSWORD) {
 			// Este error se da cuando el PDF esta protegido o se ha introducido de manera erronea, por lo que se pedira la contrasena al usuario
 			try {
-				final PDFPasswordDialog pdfPasswordDialog = new PDFPasswordDialog(new SignTask(
+				final PDFPasswordDialog pdfPasswordDialog = new PDFPasswordDialog(this,
+				new SignTask(
 						this.signOperation,
 						this.dataToSign,
 						this.format,
@@ -354,8 +355,7 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 				this,
 				t);
 
-				pdfPasswordDialog.show(this.getSupportFragmentManager(),
-						"PasswordDialog");
+				pdfPasswordDialog.show();
 			}
 			catch (final Exception e1) {
 				// Si falla el mostrar el error (posiblemente por no disponer de un contexto grafico para mostrarlo)
@@ -433,6 +433,11 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 			}
 		});
 		cd.show();
+	}
+
+	@Override
+	protected void attachBaseContext(Context base) {
+		super.attachBaseContext(LocaleHelper.onAttach(base));
 	}
 
 	protected abstract void onSigningSuccess(final SignResult signature);

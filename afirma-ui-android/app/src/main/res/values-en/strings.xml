@@ -6,7 +6,7 @@
     <string name="app_name">Autofirma App</string>
     <string name="title_activity_cert_chooser">Import certificate</string>
     <string name="title_activity_choose_sign_file">Please, select the file to sign</string>
-    <string name="presentation_title">Welcome to Autofirma App</string>
+    <string name="presentation_title">Welcome</string>
     <string name="presentation_text">This application allows making electronic signatures from compatible service providers Web pages.\n\nTo use the app, you\'ll need an electronic certificate and its related private key installed on the device. Consult the Android documentation and your service provider\'s documentation.</string>
     <string name="import_cert">Import certificate</string>
     <string name="sign_file">Sign local file</string>
@@ -262,4 +262,7 @@
     <string name="import_certs_help_text_3">If you don\'t find the key file on your mobile, you can send it from another device via email or other cloud applications.</string>
     <string name="go_to_import_cert">Import a certificate\u00A0</string>
     <string name="not_completed_request">We\'ve tried to process your request, but it hasn\'t been completed successfully. Please check the documentation.</string>
+    <string name="encrypted_document">Encrypted document</string>
+    <string name="encrypted_document_desc">Please enter the document password in order to continue the signing process</string>
+    <string name="password">Password</string>
 </resources>

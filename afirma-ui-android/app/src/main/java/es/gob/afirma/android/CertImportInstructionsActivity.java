@@ -18,6 +18,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import es.gob.afirma.R;
 import es.gob.afirma.android.gui.ImportCertStep1Fragment;
 import es.gob.afirma.android.gui.ImportCertStep2Fragment;
+import es.gob.afirma.android.util.Utils;
 
 public class CertImportInstructionsActivity extends AppCompatActivity {
 
@@ -40,6 +41,7 @@ public class CertImportInstructionsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Utils.setPortraitSmartphone(this);
         setContentView(R.layout.activity_intro_import_cert);
 
         Toolbar toolbar = findViewById(R.id.importCertToolbar);

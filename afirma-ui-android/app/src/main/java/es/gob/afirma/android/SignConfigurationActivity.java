@@ -12,12 +12,14 @@ import com.google.android.material.appbar.MaterialToolbar;
 import es.gob.afirma.R;
 import es.gob.afirma.android.gui.AppConfig;
 import es.gob.afirma.android.gui.CustomDialog;
+import es.gob.afirma.android.util.Utils;
 
 public class SignConfigurationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Utils.setPortraitSmartphone(this);
         setContentView(R.layout.activity_sign_configuration);
 
         MaterialToolbar toolbar = findViewById(R.id.signConfigToolbar);
