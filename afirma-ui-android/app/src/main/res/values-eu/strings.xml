@@ -212,7 +212,6 @@
     <string name="not_valid_cert">Ziurtagiria ez da baliozkoa, iraungita baitago.</string>
     <string name="pseudonym_cert">Izengoitiaren ziurtagiria</string>
     <string name="pseudonym_cert_desc">Aukeratutako ziurtagiria izengoitiaren ziurtagiria da. Sinaduran ez dira agertuko zure datu pertsonalak</string>
-    <string name="change_cert">Aldatu ziurtagiria</string>
     <string name="enter_valid_can">Sartu baliozko CAN bat</string>
     <string name="enter_valid_pin">Sartu baliozko pin bat</string>
     <string name="added_cert_title">Ziurtagiri erantsia</string>

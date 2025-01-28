@@ -212,7 +212,6 @@
     <string name="not_valid_cert">O certificado non \u00E9 v\u00E1lido, xa que est\u00E1 caducado.</string>
     <string name="pseudonym_cert">Certificado de pseud\u00F3nimo</string>
     <string name="pseudonym_cert_desc">O certificado escollido \u00E9 un certificado de pseud\u00F3nimo. Na firma non aparecer\u00E1n os seus datos persoais</string>
-    <string name="change_cert">Cambiar de certificado</string>
     <string name="enter_valid_can">Introduza un CAN v\u00E1lido</string>
     <string name="enter_valid_pin">Introduza un pin v\u00E1lido</string>
     <string name="added_cert_title">Certificado engadido</string>

@@ -212,7 +212,6 @@
     <string name="not_valid_cert">The certificate is invalid as it is expired.</string>
     <string name="pseudonym_cert">Certificate of pseudonym</string>
     <string name="pseudonym_cert_desc">The chosen certificate is a pseudonym certificate. Your personal data will not appear in the firm.</string>
-    <string name="change_cert">Change certificate</string>
     <string name="enter_valid_can">Enter a valid CAN</string>
     <string name="enter_valid_pin">Enter a valid pin</string>
     <string name="added_cert_title">Certificate added</string>

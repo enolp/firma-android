@@ -212,7 +212,6 @@
     <string name="not_valid_cert">El certificat no \u00e9s v\u00e0lid, ja que est\u00e0 caducat.</string>
     <string name="pseudonym_cert">Certificat de pseud\u00f2nim</string>
     <string name="pseudonym_cert_desc">El certificat escollit \u00e9s un certificat de pseud\u00f2nim. En la signatura no apareixeran les seves dades personals</string>
-    <string name="change_cert">Canviar de certificat</string>
     <string name="enter_valid_can">Introdueixi un CA v\u00e0lid</string>
     <string name="enter_valid_pin">Introdueixi un pin v\u00e0lid</string>
     <string name="added_cert_title">Certificat afegit</string>

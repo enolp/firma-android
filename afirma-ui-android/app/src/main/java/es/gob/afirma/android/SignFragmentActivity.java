@@ -167,9 +167,11 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 					cd.setCancelButtonClickListener(new View.OnClickListener() {
 						@Override
 						public void onClick(View v) {
-							Logger.e(ES_GOB_AFIRMA, "El usuario no selecciono un certificado: " + e); //$NON-NLS-1$
-							onSigningError(KeyStoreOperation.SELECT_CERTIFICATE, "El usuario no selecciono un certificado", new PendingIntent.CanceledException(e));
-                        }
+							finalCd.cancel();
+							Properties extraParams = new Properties();
+							extraParams.setProperty(CAdESExtraParams.MODE, "implicit");
+							sign("SIGN", dataToSign, format, DEFAULT_SIGNATURE_ALGORITHM, isLocalSign, extraParams);
+						}
 					});
 					cd.show();
 				}
@@ -229,7 +231,7 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 				@Override
 				public void run() {
 					CustomDialog signFragmentCustomDialog = new CustomDialog(ctx, R.drawable.baseline_info_24, getString(R.string.pseudonym_cert),
-							getString(R.string.pseudonym_cert_desc), getString(R.string.ok), true, getString(R.string.change_cert));
+							getString(R.string.pseudonym_cert_desc), getString(R.string.ok), true, getString(R.string.cancel));
 					signFragmentCustomDialog.setAcceptButtonClickListener(new View.OnClickListener() {
 						@Override
 						public void onClick(View v) {
