@@ -235,7 +235,7 @@
     <string name="no_records">Ez dago erregistrorik</string>
     <string name="page_number">%2$s etik %1$s. orrialdea</string>
     <string name="pdf_visible_sign_template">$$SUBJECTCN$$ k sinatuzuen $$SIGNDATE=dd/MM/yyyy$$ an $$ISSUERCN$$ ek emandako ziurtagiriarekin</string>
-    <string name="pdf_visible_sign_pseudonym_template">$$PSEUDONYM$$ - $$OUS$$k sinatuzuen $$SIGNDATE=dd/MM/yyyy$$ an</string>
+    <string name="pdf_visible_sign_pseudonym_template">$$PSEUDONYM$$ - $$OUS$$k sinatuzuen $$SIGNDATE=dd/MM/yyyy$$ an $$ISSUERCN$$ ek emandako ziurtagiriarekin</string>
     <string name="visible_sign_small">Sinadura ikusgarria txikiegia</string>
     <string name="small_area_warning">Sinadura bistaratzeko hautatutako eremua tamaina txikiegia da.</string>
     <string name="select_sign_area">Hautatu sinadura-eremu bat</string>
