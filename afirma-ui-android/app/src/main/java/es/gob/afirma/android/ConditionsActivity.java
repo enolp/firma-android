@@ -125,6 +125,14 @@ public class ConditionsActivity extends AppCompatActivity {
         CheckBox readAndAcceptPrivacyChk = this.findViewById(R.id.readAndAcceptPrivacyChk);
         CheckBox readAndAcceptLegalChk = this.findViewById(R.id.readAndAcceptLegalChk);
 
+        if (savedInstanceState != null) {
+            //Recuperamos el estado de los checkbox en caso de que se haya girado la pantalla
+            boolean readAndAcceptPrivacyChkState = savedInstanceState.getBoolean("readAndAcceptPrivacyChk", false); // Valor por defecto es false
+            boolean readAndAcceptLegalChkState = savedInstanceState.getBoolean("readAndAcceptLegalChk", false);
+            readAndAcceptPrivacyChk.setChecked(readAndAcceptPrivacyChkState);
+            readAndAcceptLegalChk.setChecked(readAndAcceptLegalChkState);
+        }
+
         readAndAcceptPrivacyChk.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -142,6 +150,8 @@ public class ConditionsActivity extends AppCompatActivity {
                 checkButtonState(readAndAcceptPrivacyChk, readAndAcceptLegalChk, acceptConditionsBtn);
             }
         });
+
+        checkButtonState(readAndAcceptPrivacyChk, readAndAcceptLegalChk, acceptConditionsBtn);
 
     }
 
@@ -199,6 +209,15 @@ public class ConditionsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // No hace nada
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        CheckBox readAndAcceptPrivacyChk = this.findViewById(R.id.readAndAcceptPrivacyChk);
+        outState.putBoolean("readAndAcceptPrivacyChk", readAndAcceptPrivacyChk.isChecked());
+        CheckBox readAndAcceptLegalChk = this.findViewById(R.id.readAndAcceptLegalChk);
+        outState.putBoolean("readAndAcceptLegalChk", readAndAcceptLegalChk.isChecked());
     }
 
 }
