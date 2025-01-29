@@ -76,7 +76,6 @@ import es.gob.afirma.core.misc.protocol.ProtocolInvocationUriParser;
 import es.gob.afirma.core.misc.protocol.UrlParametersToSign;
 import es.gob.afirma.core.signers.AOSignConstants;
 import es.gob.afirma.core.signers.ExtraParamsProcessor;
-import es.gob.afirma.signers.cades.CAdESExtraParams;
 import es.gob.afirma.signers.pades.common.PdfExtraParams;
 
 /** Actividad dedicada a la firma de los datos recibidos en la entrada mediante un certificado
@@ -848,24 +847,27 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 
 			if (resultCode == RESULT_OK) {
 
-				Properties extraParams = new Properties();
-				extraParams.setProperty(CAdESExtraParams.MODE, "implicit");
+				if (data.hasExtra(PdfExtraParams.OWNER_PASSWORD_STRING)) {
+					this.parameters.getExtraParams().setProperty(PdfExtraParams.OWNER_PASSWORD_STRING, new String(data.getByteArrayExtra(PdfExtraParams.OWNER_PASSWORD_STRING)));
+				}
 
 				if(data.hasExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTX)
 						&& data.hasExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTY)
 						&& data.hasExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTX)
 						&& data.hasExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTY)) {
+
 					// Ofuscacion de los datos del certificado de firma
 					final boolean obfuscate = AppConfig.isPadesObfuscateCertInfo(this);
-					extraParams.setProperty(PdfExtraParams.OBFUSCATE_CERT_DATA, Boolean.toString(obfuscate));
+					this.parameters.getExtraParams().setProperty(PdfExtraParams.OBFUSCATE_CERT_DATA, Boolean.toString(obfuscate));
 
-					extraParams.setProperty(PdfExtraParams.SIGNATURE_PAGES, data.getStringExtra(PdfExtraParams.SIGNATURE_PAGES));
-					extraParams.setProperty(PdfExtraParams.LAYER2_TEXT, getString(R.string.pdf_visible_sign_template));
+					this.parameters.getExtraParams().setProperty(PdfExtraParams.SIGNATURE_PAGES, data.getStringExtra(PdfExtraParams.SIGNATURE_PAGES));
+					this.parameters.getExtraParams().setProperty(PdfExtraParams.LAYER2_TEXT, getString(R.string.pdf_visible_sign_template));
 
-					extraParams.setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTX, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTX));
-					extraParams.setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTY, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTY));
-					extraParams.setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTX, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTX));
-					extraParams.setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTY, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTY));
+					this.parameters.getExtraParams().setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTX, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTX));
+					this.parameters.getExtraParams().setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTY, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_LOWER_LEFTY));
+					this.parameters.getExtraParams().setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTX, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTX));
+					this.parameters.getExtraParams().setProperty(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTY, data.getStringExtra(PdfExtraParams.SIGNATURE_POSITION_ON_PAGE_UPPER_RIGHTY));
+
 				} else if (isRequiredVisibleSignature) {
 					ErrorCategory errorCat = FunctionalErrors.GENERAL.get(FunctionalErrors.CANCELED_BY_USER);
 					launchError(ErrorManager.ERROR_CANCELLED_OPERATION, false, errorCat);

@@ -105,7 +105,13 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final Intent dataIntent = new Intent();
+
                 dataIntent.putExtra(PdfExtraParams.SIGNATURE_PAGES, String.valueOf(pageNumber + 1));
+                if (pdfPassword != null && !pdfPassword.isEmpty()) {
+                    dataIntent.putExtra(PdfExtraParams.OWNER_PASSWORD_STRING,
+                            pdfPassword.getBytes()
+                    );
+                }
 
                 SizeF pageSize = pdfView.getPageSize(pageNumber);
                 float zoom = pdfView.getZoom();
@@ -273,11 +279,6 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
                                 )
                         )
                 );
-                if (pdfPassword != null && !pdfPassword.isEmpty()) {
-                    dataIntent.putExtra(PdfExtraParams.OWNER_PASSWORD_STRING,
-                            pdfPassword.getBytes()
-                    );
-                }
 
                 setResult(Activity.RESULT_OK, dataIntent);
                 finish();
