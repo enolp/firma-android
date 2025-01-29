@@ -264,4 +264,5 @@
     <string name="encrypted_document">El documento est\u00e1 encriptado</string>
     <string name="encrypted_document_desc">Por favor, introduce la contrase\u00F1a del documento para poder continuar con el proceso de firma</string>
     <string name="password">Contrase\u00F1a</string>
+    <string name="necessary_pdf_file">Para poder realizar esta operaci\u00f3n es necesario seleccionar un fichero PDF</string>
  </resources>

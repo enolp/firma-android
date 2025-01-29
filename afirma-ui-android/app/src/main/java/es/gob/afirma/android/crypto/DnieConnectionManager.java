@@ -119,7 +119,7 @@ public class DnieConnectionManager {
             }
             catch (Exception e) {
                 ErrorCategory errorCat = NFCErrors.NFC_CARDS.get(NFCErrors.RESET_NFC);
-                Logger.w(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText(), e);
+                Logger.w(ES_GOB_AFIRMA, errorCat.getAdminMsg(), e);
             }
             this.nfcConnection = null;
         }

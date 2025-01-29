@@ -70,7 +70,7 @@ public class IntroUseDnieActivity extends FragmentActivity {
         boolean unSupportedError = intent.getBooleanExtra(LoadKeyStoreFragmentActivity.ERROR_UNSUPPORTED_NFC, false);
         if (unSupportedError) {
             ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.UNKNOWN_OR_NOT_SUPPORTED_CARD);
-            CustomDialog cd = new CustomDialog(this, R.drawable.warn_icon, getString(R.string.error_ocurred), "AA" + errorCat.getCode() + " - " + errorCat.getUserText(),
+            CustomDialog cd = new CustomDialog(this, R.drawable.warn_icon, getString(R.string.error_ocurred), errorCat.getUserMsg(),
                     getString(R.string.ok));
             CustomDialog finalCd = cd;
             cd.setAcceptButtonClickListener(new View.OnClickListener() {
@@ -86,7 +86,7 @@ public class IntroUseDnieActivity extends FragmentActivity {
         boolean canError = intent.getBooleanExtra(LoadKeyStoreFragmentActivity.ERROR_CAN_VALIDATION_NFC, false);
         if (canError) {
             ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.CAN_VALIDATION);
-            CustomDialog cd = new CustomDialog(this, R.drawable.warn_icon, getString(R.string.incorrect_can), "AA" + errorCat.getCode() + " - " + errorCat.getUserText(),
+            CustomDialog cd = new CustomDialog(this, R.drawable.warn_icon, getString(R.string.incorrect_can), errorCat.getUserMsg(),
                     getString(R.string.ok));
             CustomDialog finalCd = cd;
             cd.setAcceptButtonClickListener(new View.OnClickListener() {
@@ -102,7 +102,7 @@ public class IntroUseDnieActivity extends FragmentActivity {
         boolean pinValidationError = intent.getBooleanExtra(LoadKeyStoreFragmentActivity.ERROR_PIN_VALIDATION_NFC, false);
         if (pinValidationError) {
             ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.INCORRECT_PIN);
-            CustomDialog cd = new CustomDialog(this, R.drawable.warn_icon, getString(R.string.incorrect_pin), "AA" + errorCat.getCode() + " - " + errorCat.getUserText(),
+            CustomDialog cd = new CustomDialog(this, R.drawable.warn_icon, getString(R.string.incorrect_pin), errorCat.getUserMsg(),
                     getString(R.string.ok));
             CustomDialog finalCd = cd;
             cd.setAcceptButtonClickListener(new View.OnClickListener() {

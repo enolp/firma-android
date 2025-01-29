@@ -264,4 +264,5 @@
     <string name="encrypted_document">Documento encriptado</string>
     <string name="encrypted_document_desc">Por favor, introduce o contrasinal do documento para poder continuar co proceso de firma</string>
     <string name="password">Contrasinal</string>
+    <string name="necessary_pdf_file">Para poder realizar esta operaci\u00f3n \u00E9 necesario seleccionar un ficheiro PDF</string>
 </resources>

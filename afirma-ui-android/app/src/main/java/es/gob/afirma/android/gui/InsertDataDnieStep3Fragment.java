@@ -48,7 +48,7 @@ public class InsertDataDnieStep3Fragment extends Fragment{
 
         if (bundle != null && bundle.getBoolean(NFCDetectorActivity.INTENT_EXTRA_ERROR_READING_CARD))  {
             ErrorCategory errorCat = ThirdPartyErrors.JMULTICARD.get(ThirdPartyErrors.ERROR_INITIALIZING_CARD);
-            CustomDialog cd = new CustomDialog(getActivity(), R.drawable.warn_icon, getString(R.string.error_reading_dnie), "AA" + errorCat.getCode() + " - " + errorCat.getUserText(),
+            CustomDialog cd = new CustomDialog(getActivity(), R.drawable.warn_icon, getString(R.string.error_reading_dnie), errorCat.getUserMsg(),
                     getString(R.string.try_again), true, getString(R.string.cancel_underline));
             CustomDialog finalCd = cd;
             cd.setAcceptButtonClickListener(new View.OnClickListener() {

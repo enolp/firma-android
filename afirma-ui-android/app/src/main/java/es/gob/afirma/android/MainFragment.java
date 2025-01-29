@@ -289,7 +289,7 @@ public final class MainFragment extends Fragment implements DialogInterface.OnCl
 				}
 			} catch (final IOException e) {
 				ErrorCategory errorCat = InternalSoftwareErrors.LOAD_CERTS.get(InternalSoftwareErrors.LOAD_CERT_TO_IMPORT);
-				CustomDialog cd = new CustomDialog(this.getContext(), R.drawable.warn_icon, getString(R.string.cant_add_cert_title), "AA" + errorCat.getCode() + " - " + errorCat.getUserText(),
+				CustomDialog cd = new CustomDialog(this.getContext(), R.drawable.warn_icon, getString(R.string.cant_add_cert_title), errorCat.getUserMsg(),
 						getString(R.string.try_again), true, getString(R.string.cancel_underline));
 				CustomDialog finalCd = cd;
 				cd.setAcceptButtonClickListener(new View.OnClickListener() {

@@ -88,7 +88,7 @@ public final class InternalSoftwareErrors extends AppCompatActivity {
         ErrorCategory e200101 = new ErrorCategory(200101, context.getString(R.string.not_completed_request), "Error al cifrar el certificado para enviarlo al servidor intermedio");
         ErrorCategory e200102 = new ErrorCategory(200102, context.getString(R.string.not_completed_request), "Error al cargar el fichero local para realizar la firma");
         ErrorCategory e200105 = new ErrorCategory(200105, context.getString(R.string.file_read_out_of_memory), "Error de memoria al cargar el fichero");
-		ErrorCategory e200106 = new ErrorCategory(200106, context.getString(R.string.not_completed_request), "El usuario selecciono un documento no PDF sobre el que realizar una firma PAdES");
+		ErrorCategory e200106 = new ErrorCategory(200106, context.getString(R.string.necessary_pdf_file), "El usuario selecciono un documento no PDF sobre el que realizar una firma PAdES");
 		ErrorCategory e200107 = new ErrorCategory(200107, context.getString(R.string.not_completed_request),  "No es posible hacer firma PAdES sobre datos no PDF");
 
 		OPERATION_SIGN.put(CYPHERING_SIGN, e200100);

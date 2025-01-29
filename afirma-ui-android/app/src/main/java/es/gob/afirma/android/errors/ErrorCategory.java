@@ -24,4 +24,12 @@ public class ErrorCategory {
         return userText;
     }
 
+    public String getAdminMsg() {
+        return "AA" + this.getCode() + " - " + this.getAdminText();
+    }
+
+    public String getUserMsg() {
+        return "AA" + this.getCode() + " - " + this.getUserText();
+    }
+
 }

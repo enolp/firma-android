@@ -264,4 +264,5 @@
     <string name="encrypted_document">Encrypted document</string>
     <string name="encrypted_document_desc">Please enter the document password in order to continue the signing process</string>
     <string name="password">Password</string>
+    <string name="necessary_pdf_file">In order to perform this operation it is necessary to select a PDF file</string>
 </resources>

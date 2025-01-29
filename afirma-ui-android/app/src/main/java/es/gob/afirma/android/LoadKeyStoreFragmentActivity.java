@@ -56,8 +56,6 @@ public class LoadKeyStoreFragmentActivity extends FragmentActivity {
 
 	public final static String ERROR_UNSUPPORTED_NFC = "errorUnsupportedNFC";
 
-	public final static String ERROR_INITIALIZING_NFC = "errorInitializingNFC";
-
 	public final static String ERROR_CAN_VALIDATION_NFC = "errorCANValidation";
 
 	public final static String ERROR_PIN_VALIDATION_NFC = "errorPINValidation";

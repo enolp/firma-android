@@ -366,7 +366,7 @@ public final class LocalSignActivity extends SignFragmentActivity {
 		intent.putExtra(SHOW_SIGNING_RESULT, true);
 		intent.putExtra(SIGNING_ERROR, true);
 		intent.putExtra(ERROR_TITLE_PARAM, title);
-		String msgWithCode = "AA" + errorCategory.getCode() + " - " + errorCategory.getUserText();
+		String msgWithCode = errorCategory.getUserMsg();
 		intent.putExtra(ERROR_MESSAGE_PARAM, msgWithCode);
 		startActivity(intent);
 	}

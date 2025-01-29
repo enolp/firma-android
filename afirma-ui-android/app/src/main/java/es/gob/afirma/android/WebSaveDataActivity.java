@@ -124,7 +124,7 @@ public final class WebSaveDataActivity extends FragmentActivity
 		}
 		catch (final ParameterException e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() , e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, errorCat.getAdminMsg() , e); //$NON-NLS-1$
 			finish();
 			return;
 		}
@@ -189,7 +189,7 @@ public final class WebSaveDataActivity extends FragmentActivity
 	 * @param errorCat Error que se desea mostrar.
 	 */
 	private void showErrorMessage(final ErrorCategory errorCat) {
-		String message = "AA" + errorCat.getCode() + " - " + errorCat.getUserText();
+		String message = errorCat.getUserMsg();
 		CustomDialog cd = new CustomDialog(this, R.drawable.warn_icon, getString(R.string.error_ocurred), message,
 				getString(R.string.try_again));
 		CustomDialog finalCd = cd;
@@ -234,7 +234,7 @@ public final class WebSaveDataActivity extends FragmentActivity
 					ErrorCategory errorCat = InternalSoftwareErrors.SAVING_DATA.get(InternalSoftwareErrors.SAVING_DATA_OP);
 					showErrorMessage(errorCat);
 					sendError(ErrorManager.ERROR_SAVING_DATA, errorCat);
-					Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText(), e); //$NON-NLS-1$
+					Logger.e(ES_GOB_AFIRMA, errorCat.getAdminMsg(), e); //$NON-NLS-1$
 					return;
 				}
 				sendData("OK", true);
@@ -302,28 +302,28 @@ public final class WebSaveDataActivity extends FragmentActivity
 		}
 		catch (final IOException e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - Los datos proporcionados no est&aacute;n correctamente codificados en base 64", e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, errorCat.getAdminMsg() + " - Los datos proporcionados no est&aacute;n correctamente codificados en base 64", e); //$NON-NLS-1$
 			showErrorMessage(errorCat);
 			sendError(ErrorManager.ERROR_BAD_PARAMETERS, errorCat);
 			return;
 		}
 		catch (final GeneralSecurityException e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - Error al descifrar los datos recuperados del servidor para la firma", e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, errorCat.getAdminMsg() + " - Error al descifrar los datos recuperados del servidor para la firma", e); //$NON-NLS-1$
 			showErrorMessage(errorCat);
 			sendError(ErrorManager.ERROR_BAD_PARAMETERS, errorCat);
 			return;
 		}
 		catch (final IllegalArgumentException e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - Los datos recuperados no son un base64 valido", e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, errorCat.getAdminMsg() + " - Los datos recuperados no son un base64 valido", e); //$NON-NLS-1$
 			showErrorMessage(errorCat);
 			sendError(ErrorManager.ERROR_BAD_PARAMETERS, errorCat);
 			return;
 		}
 		catch (final Throwable e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - Los datos recuperados no son un base64 valido", e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, errorCat.getAdminMsg() + " - Los datos recuperados no son un base64 valido", e); //$NON-NLS-1$
 			showErrorMessage(errorCat);
 			sendError(ErrorManager.ERROR_BAD_PARAMETERS, errorCat);
 			return;
@@ -336,14 +336,14 @@ public final class WebSaveDataActivity extends FragmentActivity
 		}
 		catch (final ParameterException e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - Error en los parametros XML de configuracion de firma: " + e, e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, errorCat.getAdminMsg() + " - Error en los parametros XML de configuracion de firma: " + e, e); //$NON-NLS-1$
 			showErrorMessage(errorCat);
 			sendError(ErrorManager.ERROR_BAD_PARAMETERS, errorCat);
 			return;
 		}
 		catch (final Throwable e) {
 			ErrorCategory errorCat = RequestErrors.GENERAL.get(RequestErrors.REQUEST_PARAM_NOT_VALID);
-			Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - Error desconocido al analizar los datos descargados desde el servidor", e); //$NON-NLS-1$
+			Logger.e(ES_GOB_AFIRMA, errorCat.getAdminMsg() + " - Error desconocido al analizar los datos descargados desde el servidor", e); //$NON-NLS-1$
 			showErrorMessage(errorCat);
 			sendError(ErrorManager.ERROR_BAD_PARAMETERS, errorCat);
 			return;
@@ -356,7 +356,7 @@ public final class WebSaveDataActivity extends FragmentActivity
 	@Override
 	public void onDownloadingDataError(String msg, Throwable t) {
 		ErrorCategory errorCat = CommunicationErrors.GENERAL.get(CommunicationErrors.COMMUNICATION_WITH_SERVICE);
-		Logger.e(ES_GOB_AFIRMA, "AA" + errorCat.getCode() + " - " + errorCat.getAdminText() + msg, t); //$NON-NLS-1$
+		Logger.e(ES_GOB_AFIRMA, errorCat.getAdminMsg() + " - " + msg, t); //$NON-NLS-1$
 		showErrorMessage(errorCat);
 		sendError(ErrorManager.ERROR_COMMUNICATING_WITH_WEB, errorCat);
 	}
