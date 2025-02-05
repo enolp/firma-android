@@ -19,8 +19,10 @@ import android.hardware.usb.UsbConstants;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
 import java.util.HashMap;
@@ -36,6 +38,7 @@ import es.gob.afirma.android.crypto.LoadingCertificateException;
 import es.gob.afirma.android.crypto.MSCBadPinException;
 import es.gob.afirma.android.crypto.UnsupportedNfcCardException;
 import es.gob.afirma.android.gui.ChooseCertTypeDialog;
+import es.gob.afirma.android.util.Utils;
 import es.gob.jmulticard.card.dnie.InvalidAccessCodeException;
 
 /** Esta actividad abstracta integra las funciones necesarias para la cargar de un almacen de
@@ -131,6 +134,12 @@ public class LoadKeyStoreFragmentActivity extends FragmentActivity {
 
 	protected boolean isOnlyAuthenticationOperation() {
 		return this.onlyAuthenticationOperation;
+	}
+
+	@Override
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		Utils.setPortraitSmartphone(this);
 	}
 
 	@Override

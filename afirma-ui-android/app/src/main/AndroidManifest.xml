@@ -171,15 +171,18 @@
         <activity
             android:name=".android.FileChooserActivity"
             android:screenOrientation="locked"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_cert_chooser" />
         <activity
             android:name=".android.LocalSignActivity"
             android:screenOrientation="locked"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/Theme.Transparent"
             android:label="@string/title_activity_save_data"/>
         <activity
             android:name=".android.WebSignActivity"
             android:screenOrientation="locked"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_sign_data"
             android:theme="@style/Theme.Transparent"
             android:exported="true">
@@ -199,6 +202,7 @@
         <activity
             android:name=".android.WebSignBatchActivity"
             android:screenOrientation="locked"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_sign_batch"
             android:theme="@style/Theme.Transparent"
             android:exported="true">
@@ -216,6 +220,7 @@
         <activity
             android:name=".android.WebSelectCertificateActivity"
             android:screenOrientation="locked"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_select_certificate"
             android:theme="@style/Theme.Transparent"
             android:exported="true">
@@ -233,6 +238,7 @@
         <activity
             android:name=".android.WebSaveDataActivity"
             android:screenOrientation="locked"
+            android:configChanges="orientation|screenSize"
             android:finishOnCloseSystemDialogs="true"
             android:finishOnTaskLaunch="true"
             android:theme="@style/Theme.Transparent"
