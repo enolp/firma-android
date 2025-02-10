@@ -233,6 +233,7 @@
     <string name="cosign">Cofirma</string>
     <string name="countersign">Contrafirma</string>
     <string name="no_records">No se encuentran registros</string>
+    <string name="no_records_desc">No hay firmas registradas que eliminar.</string>
     <string name="page_number">P\u00E1gina %1$s de %2$s</string>
     <string name="pdf_visible_sign_template">Firmado por $$SUBJECTCN$$ el d\u00EDa $$SIGNDATE=dd/MM/yyyy$$ con un certificado emitido por $$ISSUERCN$$</string>
     <string name="pdf_visible_sign_pseudonym_template">Firmado por $$PSEUDONYM$$ - $$OUS$$ el d\u00EDa $$SIGNDATE=dd/MM/yyyy$$ con un certificado emitido por $$ISSUERCN$$</string>
@@ -265,4 +266,6 @@
     <string name="encrypted_document_desc">Por favor, introduce la contrase\u00F1a del documento para poder continuar con el proceso de firma</string>
     <string name="password">Contrase\u00F1a</string>
     <string name="necessary_pdf_file">Para poder realizar esta operaci\u00f3n es necesario seleccionar un fichero PDF</string>
- </resources>
+    <string name="eliminate_history">Eliminar hist\u00F3rico</string>
+    <string name="eliminate_history_desc">Si eliminas el hist\u00F3rico no podr\u00e1s recuperarlo.</string>
+</resources>

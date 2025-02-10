@@ -233,6 +233,7 @@
     <string name="cosign">Sinadura</string>
     <string name="countersign">Kontrbaieztapena</string>
     <string name="no_records">Ez dago erregistrorik</string>
+    <string name="no_records_desc">Ez dago sinadura erregistraturik ezabatzeko.</string>
     <string name="page_number">%2$s etik %1$s. orrialdea</string>
     <string name="pdf_visible_sign_template">$$SUBJECTCN$$ k sinatuzuen $$SIGNDATE=dd/MM/yyyy$$ an $$ISSUERCN$$ ek emandako ziurtagiriarekin</string>
     <string name="pdf_visible_sign_pseudonym_template">$$PSEUDONYM$$ - $$OUS$$k sinatuzuen $$SIGNDATE=dd/MM/yyyy$$ an $$ISSUERCN$$ ek emandako ziurtagiriarekin</string>
@@ -265,4 +266,6 @@
     <string name="encrypted_document_desc">Mesedez, sartu dokumentuaren pasahitza sinatze-prozesuarekin jarraitu ahal izateko</string>
     <string name="password">Pasahitza</string>
     <string name="necessary_pdf_file">Eragiketa hau egiteko PDF fitxategi bat hautatu behar da</string>
+    <string name="eliminate_history">Ezabatu historia</string>
+    <string name="eliminate_history_desc">Historia ezabatzen baduzu, ezingo dituzu berreskuratu.</string>
 </resources>

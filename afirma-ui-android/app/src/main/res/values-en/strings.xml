@@ -233,6 +233,7 @@
     <string name="cosign">Cosign</string>
     <string name="countersign">Countersign</string>
     <string name="no_records">No records found</string>
+    <string name="no_records_desc">There are no registered signatures to be removed.</string>
     <string name="page_number">Page %1$s of %2$s</string>
     <string name="pdf_visible_sign_template">Signed by $$SUBJECTCN$$ on $$SIGNDATE=dd/MM/yyyy$$ with a certificate issued by $$ISSUERCN$$</string>
     <string name="pdf_visible_sign_pseudonym_template">Signed by $$PSEUDONYM$$ - $$OUS$$ on $$SIGNDATE=dd/MM/yyyy$$ with a certificate issued by $$ISSUERCN$$</string>
@@ -265,4 +266,6 @@
     <string name="encrypted_document_desc">Please enter the document password in order to continue the signing process</string>
     <string name="password">Password</string>
     <string name="necessary_pdf_file">In order to perform this operation it is necessary to select a PDF file</string>
+    <string name="eliminate_history">Eliminate history</string>
+    <string name="eliminate_history_desc">If you remove the historical, you won\'t be able to recover them.</string>
 </resources>

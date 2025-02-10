@@ -16,6 +16,7 @@
         android:touchscreenBlocksFocus="false"
         app:navigationIcon="@drawable/nav_back_selector"
         app:popupTheme="@style/AppTheme"
+        app:menu="@menu/sign_records_toolbar"
         app:title="@string/sign_record"
         app:titleCentered="true"
         app:titleTextAppearance="@style/ToolbarTitle"
