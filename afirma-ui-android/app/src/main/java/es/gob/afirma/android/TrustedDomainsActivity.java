@@ -1,5 +1,6 @@
 package es.gob.afirma.android;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -100,6 +101,11 @@ public class TrustedDomainsActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     /**

@@ -1,5 +1,6 @@
 package es.gob.afirma.android;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -64,6 +65,11 @@ public class VersionActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
 }

@@ -1,5 +1,6 @@
 package es.gob.afirma.android;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -121,6 +122,11 @@ public class CertImportInstructionsActivity extends AppCompatActivity {
         page1Indicator.setImageResource(R.drawable.unselectedpageindicator);
         ImageView page2Indicator = findViewById(R.id.page2Indicator);
         page2Indicator.setImageResource(R.drawable.selectedpageindicator);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     private class ScreenSlidePagerAdapter extends FragmentStateAdapter {

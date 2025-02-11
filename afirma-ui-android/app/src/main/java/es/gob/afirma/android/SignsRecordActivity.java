@@ -1,5 +1,6 @@
 package es.gob.afirma.android;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -124,14 +125,14 @@ public class SignsRecordActivity extends AppCompatActivity {
     }
 
     private void sortDates() {
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
         Collections.sort(recordsList, new Comparator<SignRecord>() {
             @Override
             public int compare(SignRecord reg1, SignRecord reg2) {
                 try {
-                    Date date1 = formatoFecha.parse(reg1.getSignDate());
-                    Date date2 = formatoFecha.parse(reg2.getSignDate());
+                    Date date1 = dateFormat.parse(reg1.getSignDate());
+                    Date date2 = dateFormat.parse(reg2.getSignDate());
 
                     return date2.compareTo(date1);
                 } catch (ParseException e) {
@@ -163,6 +164,11 @@ public class SignsRecordActivity extends AppCompatActivity {
             ErrorCategory errorCat = InternalSoftwareErrors.GENERAL.get(InternalSoftwareErrors.CANT_SAVE_SIGN_RECORD);
             Logger.e(ES_GOB_AFIRMA, errorCat.getCode() + " - " + errorCat.getAdminText(), e);
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
 }

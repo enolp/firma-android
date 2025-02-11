@@ -3,6 +3,7 @@ package es.gob.afirma.android;
 import static es.gob.afirma.android.NFCDetectorActivity.INTENT_EXTRA_CAN_VALUE;
 import static es.gob.afirma.android.gui.InsertDataDnieStep2Fragment.INTENT_EXTRA_PIN_VALUE;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -155,4 +156,10 @@ public class StepsInsertDataDnieActivity extends AppCompatActivity {
         }
         super.onBackPressed();
     }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
 }

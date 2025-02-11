@@ -537,4 +537,9 @@ public class PdfSelectPreviewActivity extends AppCompatActivity {
         this.pdfPassword = pwd;
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
+    }
+
 }

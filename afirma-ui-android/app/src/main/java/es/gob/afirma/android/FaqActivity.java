@@ -1,5 +1,6 @@
 package es.gob.afirma.android;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
@@ -57,6 +58,11 @@ public class FaqActivity extends AppCompatActivity {
         adapter = new FaqAdapter(questionsList, mapChild,this);
         expLV.setAdapter(adapter);
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
 }
