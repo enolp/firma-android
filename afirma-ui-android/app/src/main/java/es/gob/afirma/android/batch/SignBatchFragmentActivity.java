@@ -187,25 +187,30 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 		if (cert != null && !pseudonymChecked && AOUtil.isPseudonymCert(cert)) {
 			PrivateKeyEntry finalPke = pke;
 
-			CustomDialog signFragmentCustomDialog = new CustomDialog(ctx, R.drawable.baseline_info_24, getString(R.string.pseudonym_cert),
-					getString(R.string.pseudonym_cert_desc), getString(R.string.ok), true, getString(R.string.cancel));
-			signFragmentCustomDialog.setAcceptButtonClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					signFragmentCustomDialog.cancel();
-					startDoSign(kse, finalPke, providerName, true);
+			SignBatchFragmentActivity.this.runOnUiThread(new Runnable() {
+				public void run() {
+					CustomDialog signFragmentCustomDialog = new CustomDialog(ctx, R.drawable.baseline_info_24, getString(R.string.pseudonym_cert),
+							getString(R.string.pseudonym_cert_desc), getString(R.string.ok), true, getString(R.string.cancel));
+					signFragmentCustomDialog.setAcceptButtonClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							signFragmentCustomDialog.cancel();
+							startDoSign(kse, finalPke, providerName, true);
+						}
+					});
+					signFragmentCustomDialog.setCancelButtonClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							signFragmentCustomDialog.cancel();
+							Properties extraParams = new Properties();
+							extraParams.setProperty(CAdESExtraParams.MODE, "implicit");
+							sign(batchParams);
+						}
+					});
+					signFragmentCustomDialog.show();
+					return;
 				}
 			});
-			signFragmentCustomDialog.setCancelButtonClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					signFragmentCustomDialog.cancel();
-					Properties extraParams = new Properties();
-					extraParams.setProperty(CAdESExtraParams.MODE, "implicit");
-					sign(batchParams);
-				}
-			});
-			signFragmentCustomDialog.show();
 			return;
 		}
 

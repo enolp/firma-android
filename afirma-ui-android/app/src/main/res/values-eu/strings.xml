@@ -158,7 +158,7 @@
     <string name="general_info">INFORMAZIO OROKORRA</string>
     <string name="legal_announcement">Lege-oharra</string>
     <string name="appversion">v%s bertsioa</string>
-    <string name="question_1">Nola egin ditzaket sinadura elektronikoak programa honekin?</string>
+    <string name="question_1">Nola egin ditzaket sinadura elektronikoak app honekin?</string>
     <string name="response_1">&lt;p>Aplikazioarekin bateragarriak diren web-izapideak ziurtagiri bidez sinatzeko aukera ematen du Autofirma App-ek. Izapide bat sinatzeko, osa ezazu normalean zure web nabigatzailearen bidez. Izapidea prest badago Autofirma App-ekin sinatzeko, sinatzeko unean exekutatuko da, erabiltzaileari sinaduraren ziurtagiria hautatzeko eta eragiketa exekutatzeko aukera emango dio.&lt;/p> &lt;p>Aplikazioa irekitzeko eta zuzenean erabilera pertsonalerako fitxategi bat sinatzeko aukera ere badago. PDF dokumentuei sinadura bat erantsiko zaie; gainerako fitxategiei, berriz, sinadura-fitxategi independente bat sortuko zaie.&lt;/p> &lt;p>Gogoratu sinatu aurretik zure sinadura-ziurtagiria Androidetik inportatu behar duzula.&lt;/p></string>
     <string name="question_2">Autofirma Appen web-izapide batzuk sinatzeak huts egiten du, eta izapide horietan bertan beste gailu batzuetan ere funtzionatzen du. Zergatik?</string>
     <string name="response_2">Autofirma App-ek oraindik ez ditu beste sistema eragile batzuetarako bertsioetan agertzen diren funtzionalitate batzuk. Aplikazioaren etorkizuneko eguneratzeek konponduko dituzte gabezia horiek. Bitartean, erabili Autofirma instalatuta duen PC bat web-izapidea osatzeko, eta jakinarazi arazoa izapidearen arduradunari, hala baderitzozu.</string>
