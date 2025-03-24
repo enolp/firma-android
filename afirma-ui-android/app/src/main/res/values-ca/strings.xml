@@ -19,7 +19,7 @@
     <string name="accessibility_statement">Declaraci\u00F3 d\'accessibilitat</string>
     <string name="accessibility_statement_url">http://estaticos.redsara.es/comunes/clientefirmaandroid/1/8/0/translated(ca)_declaracion_accesibilidad.pdf</string>
     <string name="main_logo_content_desc">Autofirma App</string>
-    <string name="ok">Acceptar</string>
+    <string name="ok">D\'acord</string>
     <string name="close">Tancar</string>
     <string name="title_activity_sign_data">Signatura de dades</string>
     <string name="title_activity_sign_batch">Signatura de lot</string>
@@ -44,13 +44,13 @@
     <string name="error_reading_dnie">Error en la lectura del teu DNIe</string>
     <string name="error_reading_dnie_try_again">S\'ha produït un error en intentar llegir el teu DNIe. Si us plau, torna a intentar-ho. Recorda mantenir-ho en una superf\u00EDcie llisa i mantenir el teu tel\u00E8fon m\u00F2bil uns segons fix sobre la targeta per a la seva correcta lectura.</string>
     <string name="error_reading_dnie_no_cert">El DNIe que has aproximat no t\u00E9 certificat de signatura o el certificat est\u00E0 caducat. Pots acudir a una comissaria de Policia Nacional a un Punt d\'Actualitzaci\u00F3 del DNIe (PAD), per a solucionar-lo.</string>
-    <string name="title_activity_save_data">Guardar dades</string>
-    <string name="saveData">Guardar</string>
+    <string name="title_activity_save_data">Desar dades</string>
+    <string name="saveData">Desar</string>
     <string name="cancel">Cancel·lar</string>
     <string name="allow">Permetre</string>
     <string name="default_saved_filename">dades</string>
-    <string name="error_saving_data">Va oc\u00F3rrer un error en guardar les dades</string>
-    <string name="error_saving_signature">Va oc\u00F3rrer un error en guardar la signatura</string>
+    <string name="error_saving_data">Va oc\u00F3rrer un error en desar les dades</string>
+    <string name="error_saving_signature">Va oc\u00F3rrer un error en desar la signatura</string>
     <string name="error_signing">Error durant l\'operacion de signatura</string>
     <string name="error_no_storage_permissions">El Client de signatura no t\u00e9 permisos d\'escriptura en disc.</string>
     <string name="error_no_certs">No s\'han trobat certificats instal·lats en el seu dispositiu.</string>
@@ -143,7 +143,7 @@
     <string name="choose_cert_type_auth_title">Amb qu\u00e8 t\identificar\u00e0s?</string>
     <string name="certificate">Certificat electr\u00f2nic</string>
     <string name="dnie">DNI electr\u00f2nic</string>
-    <string name="what_is_autofirma_for_title">Para quin serveix Autofirma?</string>
+    <string name="what_is_autofirma_for_title">Per a qu\u00e8 serveix Autofirma?</string>
     <string name="what_is_autofirma_for_desc">Aquesta aplicaci\u00F3 permet realitzar signatures electr\u00f2niques a les p\u00e0gines dels proveïdors de serveis que ho suportin. Per funcionar correctament has d\'instal·lar un certificat electr\u00f2nic. Consulta la documentaci\u00F3 del seu sistema Android i amb el teu proveïdor de serveis de certificaci\u00F3.</string>
     <string name="how_install_certs">Com instal·lar certificats?</string>
     <string name="load_cert">Carrega el teu certificat en el teu dispositiu o en el n\u00favol. Importa-ho a trav\u00e9s de l\'opci\u00F3 "Afegir certificat" de l\'aplicaci\u00F3.</string>
