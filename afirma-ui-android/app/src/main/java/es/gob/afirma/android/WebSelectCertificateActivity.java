@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.GeneralSecurityException;
+import java.security.KeyStore;
 import java.security.cert.Certificate;
 
 import es.gob.afirma.R;
@@ -141,7 +142,13 @@ public final class WebSelectCertificateActivity extends LoadKeyStoreFragmentActi
 			return;
 		}
 
-		processSelectionRequest();
+		if (this.parameters.getSticky() && !this.parameters.getResetSticky() && StickySignatureManager.getStickyKeyEntry() != null) {
+			certificateSelected(new MobileKeyStoreManager.SelectCertificateEvent(StickySignatureManager.getStickyKeyEntry()));
+		} else {
+			// Iniciamos la carga del almacen
+			processSelectionRequest();
+		}
+
 	}
 
 	/** Inicia el proceso de selecci&oacute;n de certificado con los parametros previamente configurados. */
@@ -178,6 +185,13 @@ public final class WebSelectCertificateActivity extends LoadKeyStoreFragmentActi
                 throw new NullPointerException("No se obtuvo el certificado del almacen");
             }
             certificate = certChain[0].getEncoded();
+
+			KeyStore.PrivateKeyEntry pke = kse.getPrivateKeyEntry();
+			if (this.parameters.getSticky()) {
+				StickySignatureManager.setStickyKeyEntry(pke, this);
+			} else {
+				StickySignatureManager.setStickyKeyEntry(null, this);
+			}
         }
         catch (final KeyChainException e) {
             if ("4.1.1".equals(Build.VERSION.RELEASE) || "4.1.0".equals(Build.VERSION.RELEASE) || "4.1".equals(Build.VERSION.RELEASE)) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$

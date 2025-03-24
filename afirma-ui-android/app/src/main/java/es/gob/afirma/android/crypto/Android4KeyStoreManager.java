@@ -105,10 +105,16 @@ public final class Android4KeyStoreManager implements MobileKeyStoreManager {
 							try {
 								listener.certificateSelected(
 										new SelectCertificateEvent(
+												new PrivateKeyEntry(
+														KeyChain.getPrivateKey(
+																Android4KeyStoreManager.this.getActivity(),
+																alias
+														),
 														KeyChain.getCertificateChain(
 																Android4KeyStoreManager.this.getActivity(),
 																alias
 														)
+												)
 										)
 								);
 							}
