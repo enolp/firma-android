@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.NumberPicker;
 import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,6 +48,12 @@ public class SignConfigurationActivity extends AppCompatActivity {
         final Switch switchObfuscateCertInfo = this.findViewById(R.id.obfuscateUserCertInfoSwitch);
         switchObfuscateCertInfo.setChecked(AppConfig.isPadesObfuscateCertInfo(this));
 
+        NumberPicker numberPicker = findViewById(R.id.timeoutNumberPicker);
+
+        numberPicker.setMinValue(1);
+        numberPicker.setMaxValue(120);
+        numberPicker.setValue(AppConfig.getStickySignatureTimeout(this));
+
         Button saveChangesBtn = this.findViewById(R.id.saveChangesBtn);
         saveChangesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +61,7 @@ public class SignConfigurationActivity extends AppCompatActivity {
                 NfcHelper.configureNfcAsPreferredConnection(switchNFC.isChecked());
                 AppConfig.setPadesVisibleSignature(switchPadesVisibleSignature.isChecked());
                 AppConfig.setPadesObfuscateCertInfo(switchObfuscateCertInfo.isChecked());
+                AppConfig.setStickySignatureTimeout(numberPicker.getValue());
                 CustomDialog cd = new CustomDialog(SignConfigurationActivity.this, R.drawable.check_icon, getString(R.string.changes_saved), getString(R.string.changes_saved_correctly), getString(R.string.understood));
                 cd.show();
             }

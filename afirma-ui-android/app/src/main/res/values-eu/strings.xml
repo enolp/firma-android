@@ -268,4 +268,5 @@
     <string name="necessary_pdf_file">Eragiketa hau egiteko PDF fitxategi bat hautatu behar da</string>
     <string name="eliminate_history">Ezabatu historia</string>
     <string name="eliminate_history_desc">Historia ezabatzen baduzu, ezingo dituzu berreskuratu.</string>
+    <string name="delete_cache_minutes">Ziurtagiriaren cachea ezabatzeko minutuak</string>
 </resources>

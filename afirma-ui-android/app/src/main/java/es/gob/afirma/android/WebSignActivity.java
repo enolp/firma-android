@@ -308,6 +308,8 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 						this.parameters.getSignatureFormat(),
 						this.parameters.getSignatureAlgorithm(),
 						false,
+						this.parameters.getSticky(),
+						this.parameters.getResetSticky(),
 						this.parameters.getExtraParams());
 			}
 		}
@@ -609,6 +611,8 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 					this.parameters.getSignatureFormat(),
 					this.parameters.getSignatureAlgorithm(),
 					false,
+					this.parameters.getSticky(),
+					this.parameters.getResetSticky(),
 					this.parameters.getExtraParams()
 				);
             }
@@ -880,6 +884,8 @@ public final class WebSignActivity extends SignFragmentActivity implements Downl
 						this.parameters.getSignatureFormat(),
 						this.parameters.getSignatureAlgorithm(),
 						false,
+						this.parameters.getSticky(),
+						this.parameters.getResetSticky(),
 						this.parameters.getExtraParams());
 			}
 			else if (resultCode == RESULT_CANCELED) {

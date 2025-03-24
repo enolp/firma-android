@@ -31,6 +31,7 @@ import java.util.Properties;
 import es.gob.afirma.R;
 import es.gob.afirma.android.LoadKeyStoreFragmentActivity;
 import es.gob.afirma.android.Logger;
+import es.gob.afirma.android.StickySignatureManager;
 import es.gob.afirma.android.crypto.KeyStoreManagerListener;
 import es.gob.afirma.android.crypto.MSCBadPinException;
 import es.gob.afirma.android.crypto.MobileKeyStoreManager;
@@ -82,8 +83,12 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 		// Indicamos que las claves que se carguen no se usaran para autenticacion
 		setOnlyAuthenticationOperation(false);
 
-		// Iniciamos la carga del almacen
-		loadKeyStore(this, null);
+		if (this.batchParams.getSticky() && !this.batchParams.getResetSticky() && StickySignatureManager.getStickyKeyEntry() != null) {
+			keySelected(new SelectCertificateEvent(StickySignatureManager.getStickyKeyEntry()));
+		} else {
+			// Iniciamos la carga del almacen
+			loadKeyStore(this, null);
+		}
 	}
 
 	@Override
@@ -227,6 +232,12 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 		if (keyEntry == null) {
 			onSigningError(KeyStoreOperation.SIGN, "No se pudo extraer la clave privada del certificado", new Exception());
 			return;
+		}
+
+		if (this.batchParams.getSticky()) {
+			StickySignatureManager.setStickyKeyEntry(keyEntry, this);
+		} else {
+			StickySignatureManager.setStickyKeyEntry(null, this);
 		}
 
 		Properties pkcs1ExtraParams = null;

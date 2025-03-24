@@ -31,6 +31,9 @@ public final class AppConfig {
      * y DN del certificado antes de mostrarlos en la firma visible del PDF. */
     public static final String PREFERENCE_PADES_OBFUSCATE_CERT_INFO = "padesObfuscateCertInfo";
 
+    /** Clave de la preferencia con el timeout de cacheo de certificado en minutos. */
+    public static final String PREFERENCE_STICKY_SIGNATURE_TIMEOUT = "stickySignatureTimeout";
+
     /** Nombre de la propiedad a establecer a <code>true</code> para habilitar las comprobaciones
      * de confianza SSL en las peticiones. Si se establece a <code>false</code> o no se establece,
      * no se realizar&aacute;n comprobaciones. */
@@ -118,6 +121,14 @@ public final class AppConfig {
 
     public static void setPadesObfuscateCertInfo(boolean obfuscateCertInfo) {
         setPreference(PREFERENCE_PADES_OBFUSCATE_CERT_INFO, obfuscateCertInfo);
+    }
+
+    public static int getStickySignatureTimeout(Context context) {
+        return Integer.valueOf(getPreference(context, PREFERENCE_STICKY_SIGNATURE_TIMEOUT, "5"));
+    }
+
+    public static void setStickySignatureTimeout(int timeout) {
+        setPreference(PREFERENCE_STICKY_SIGNATURE_TIMEOUT, String.valueOf(timeout));
     }
 
     public static String getLocaleConfig(Context context) {

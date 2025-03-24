@@ -76,6 +76,27 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 	private PrivateKeyEntry keyEntry = null;
 	private boolean isPseudonymCert = false;
 	private boolean isLocalSign = false;
+	private boolean isSticky = false;
+	private boolean isResetSticky = false;
+
+	/**
+	 * Inicia el proceso de firma.
+	 * @param signOperation Operacion de firma (firma, cofirma o multifirma)
+	 * @param data Datos a firmar.
+	 * @param format Formato de firma.
+	 * @param algorithm Algoritmo de firma.
+	 * @param isLocalSign Indica si es una firma local o no.
+	 * @param isSticky Indica si se debe cachear el certificado seleccionado.
+	 * @param isResetSticky Indica si se debe reiniciar la cache del certificado.
+	 * @param extraParams Par&aacute;metros
+	 */
+	public void sign(String signOperation, final byte[] data, final String format,
+					 final String algorithm, final boolean isLocalSign, final boolean isSticky,
+					 final boolean isResetSticky, final Properties extraParams) {
+		this.isSticky = isSticky;
+		this.isResetSticky = isResetSticky;
+		sign(signOperation, data, format, algorithm, isLocalSign, extraParams);
+	}
 
 	/**
 	 * Inicia el proceso de firma.
@@ -125,8 +146,12 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 		this.signing = true;
 		this.isLocalSign = isLocalSign;
 
-		// Iniciamos la carga del almacen
-		loadKeyStore(this, null);
+		if (this.isSticky && !this.isResetSticky && StickySignatureManager.getStickyKeyEntry() != null) {
+			keySelected(new SelectCertificateEvent(StickySignatureManager.getStickyKeyEntry()));
+		} else {
+			// Iniciamos la carga del almacen
+			loadKeyStore(this, null);
+		}
 	}
 
 	@Override
@@ -253,7 +278,6 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 			});
 
 			return;
-
 		}
 
 		String providerName = null;
@@ -287,6 +311,12 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 		}
 
 		this.keyEntry = keyEntry;
+
+		if (this.isSticky) {
+			StickySignatureManager.setStickyKeyEntry(this.keyEntry, this);
+		} else {
+			StickySignatureManager.setStickyKeyEntry(null, this);
+		}
 
 		// Seleccionamos el algoritmo de firma
 		final String keyType = keyEntry.getPrivateKey().getAlgorithm();

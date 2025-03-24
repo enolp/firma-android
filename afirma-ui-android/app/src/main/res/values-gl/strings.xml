@@ -268,4 +268,5 @@
     <string name="necessary_pdf_file">Para poder realizar esta operaci\u00f3n \u00E9 necesario seleccionar un ficheiro PDF</string>
     <string name="eliminate_history">Eliminar hist\u00f3rico</string>
     <string name="eliminate_history_desc">Se eliminas o hist\u00f3rico non poder\u00e1s recuperalos.</string>
+    <string name="delete_cache_minutes">Minutos para a eliminaci\u00f3n de cach\u00E9a do certificado</string>
 </resources>

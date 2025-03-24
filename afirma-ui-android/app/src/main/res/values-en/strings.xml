@@ -268,4 +268,5 @@
     <string name="necessary_pdf_file">In order to perform this operation it is necessary to select a PDF file</string>
     <string name="eliminate_history">Eliminate history</string>
     <string name="eliminate_history_desc">If you remove the historical, you won\'t be able to recover them.</string>
+    <string name="delete_cache_minutes">Minutes for certificate caching removal</string>
 </resources>
