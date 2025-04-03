@@ -269,4 +269,7 @@
     <string name="eliminate_history">Eliminar hist\u00f3rico</string>
     <string name="eliminate_history_desc">Se eliminas o hist\u00f3rico non poder\u00e1s recuperalos.</string>
     <string name="delete_cache_minutes">Minutos para a eliminaci\u00f3n de cach\u00E9a do certificado</string>
+    <string name="select_minutes_value">Selecciona un valor en minutos</string>
+    <string name="select">Seleccionar</string>
+    <string name="by_default">Por defecto</string>
 </resources>

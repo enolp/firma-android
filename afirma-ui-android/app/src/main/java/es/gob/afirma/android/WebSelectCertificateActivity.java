@@ -187,7 +187,7 @@ public final class WebSelectCertificateActivity extends LoadKeyStoreFragmentActi
             certificate = certChain[0].getEncoded();
 
 			KeyStore.PrivateKeyEntry pke = kse.getPrivateKeyEntry();
-			if (this.parameters.getSticky()) {
+			if (this.parameters.getSticky() && !isDNIeCert) {
 				StickySignatureManager.setStickyKeyEntry(pke, this);
 			} else {
 				StickySignatureManager.setStickyKeyEntry(null, this);

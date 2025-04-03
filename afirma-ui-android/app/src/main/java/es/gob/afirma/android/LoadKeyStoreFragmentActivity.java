@@ -74,6 +74,8 @@ public class LoadKeyStoreFragmentActivity extends FragmentActivity {
 
 	protected static KeyStoreManagerListener ksmListener;
 
+	protected boolean isDNIeCert = false;
+
 	private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(final Context context, final Intent intent) {
@@ -260,8 +262,10 @@ public class LoadKeyStoreFragmentActivity extends FragmentActivity {
 									@Override
 									public void certTypeChoosed(int certType) {
 										if (certType == ChooseCertTypeDialog.CERT_TYPE_DNIE) {
+											isDNIeCert = true;
 											requestNFCKeystore(t);
 										} else if (certType == ChooseCertTypeDialog.CERT_TYPE_LOCAL) {
+											isDNIeCert = false;
 											loadKeyStore();
 										} else {
 											LoadKeyStoreFragmentActivity.this.ksmListener.onKeyStoreError(

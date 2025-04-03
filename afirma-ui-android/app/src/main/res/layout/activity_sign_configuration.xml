@@ -133,20 +133,26 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="8dp"
+                android:layout_marginTop="5dp"
                 android:clickable="true"
                 android:focusable="true">
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/delete_cache_minutes"
                     android:paddingStart="8dp"/>
 
-                <NumberPicker
-                    android:id="@+id/timeoutNumberPicker"
+                <Button
+                    android:id="@+id/timeoutButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="60dp"/>
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="8dp"
+                    android:textAllCaps="false"
+                    android:drawableLeft="@drawable/chevron_down"
+                    android:background="@drawable/timeout_button_selector"/>
 
             </LinearLayout>
 

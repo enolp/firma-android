@@ -312,7 +312,7 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 
 		this.keyEntry = keyEntry;
 
-		if (this.isSticky) {
+		if (this.isSticky && !isDNIeCert) {
 			StickySignatureManager.setStickyKeyEntry(this.keyEntry, this);
 		} else {
 			StickySignatureManager.setStickyKeyEntry(null, this);

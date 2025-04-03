@@ -234,7 +234,7 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 			return;
 		}
 
-		if (this.batchParams.getSticky()) {
+		if (this.batchParams.getSticky() && !isDNIeCert) {
 			StickySignatureManager.setStickyKeyEntry(keyEntry, this);
 		} else {
 			StickySignatureManager.setStickyKeyEntry(null, this);

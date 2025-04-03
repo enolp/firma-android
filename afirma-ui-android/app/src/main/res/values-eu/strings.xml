@@ -269,4 +269,7 @@
     <string name="eliminate_history">Ezabatu historia</string>
     <string name="eliminate_history_desc">Historia ezabatzen baduzu, ezingo dituzu berreskuratu.</string>
     <string name="delete_cache_minutes">Ziurtagiriaren cachea ezabatzeko minutuak</string>
+    <string name="select_minutes_value">Hautatu balio bat minututan</string>
+    <string name="select">Hautatu</string>
+    <string name="by_default">Lehenespenez</string>
 </resources>

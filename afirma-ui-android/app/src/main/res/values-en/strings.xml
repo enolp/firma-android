@@ -269,4 +269,7 @@
     <string name="eliminate_history">Eliminate history</string>
     <string name="eliminate_history_desc">If you remove the historical, you won\'t be able to recover them.</string>
     <string name="delete_cache_minutes">Minutes for certificate caching removal</string>
+    <string name="select_minutes_value">Select a value in minutes</string>
+    <string name="select">Select</string>
+    <string name="by_default">By default</string>
 </resources>
