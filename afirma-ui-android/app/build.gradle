@@ -58,11 +58,11 @@ dependencies {
 
 	implementation 'com.google.android.material:material:1.12.0'
 
-    implementation ('es.gob.afirma.jmulticard:jmulticard-android:3.0.3') {
+    implementation ('es.gob.afirma.jmulticard:jmulticard-android:2.0') {
         exclude(module: 'support-v4')
         exclude(module: 'android')
     }
-    implementation 'es.gob.afirma.jmulticard:jmulticard-jse:3.0.3'
+    implementation 'es.gob.afirma.jmulticard:jmulticard-jse:2.0'
 
     implementation('es.gob.afirma:afirma-crypto-pdf:1.9') {
         exclude(module: 'afirma-lib-itext')
@@ -84,7 +84,7 @@ dependencies {
     implementation 'com.github.mhiew:android-pdf-viewer:3.2.0-beta.3'
 
     // Java language implementation
-    implementation "androidx.fragment:fragment:1.6.1"
+    implementation "androidx.fragment:fragment:1.8.6"
 
     // Restricciones para evitar clases duplicadas debido a dependencias
     constraints {
