@@ -200,7 +200,7 @@
     <string name="catala">Catalá</string>
     <string name="galego">Galego</string>
     <string name="euskera">Euskera</string>
-    <string name="valenciano">Valenciano</string>
+    <string name="valenciano">Valenci\u00E0</string>
     <string name="trusted_domains_desc">Enter in the next section the trusted domains for the application</string>
     <string name="save_changes">Save</string>
     <string name="enter_trusted_domains">Enter one or more trusted domains</string>
