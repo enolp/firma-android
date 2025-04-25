@@ -7,7 +7,6 @@ apply plugin: 'com.android.application'
 
 android {
 
-
     buildFeatures {
         buildConfig true
     }
@@ -38,6 +37,7 @@ android {
     packagingOptions {
         resources {
             pickFirsts += ['ACRAIZ-SHA2.crt']
+            excludes += "META-INF/versions/9/OSGI-INF/MANIFEST.MF"
         }
     }
 
