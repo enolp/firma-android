@@ -65,8 +65,6 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 
 	private UrlParametersForBatch batchParams;
 	private PrivateKeyEntry pke;
-	private boolean isPseudonymStickyChecked = false;
-	private boolean isExpiredCertStickyChecked = false;
 
 	/**
 	 * Inicia el proceso de firma.
@@ -86,9 +84,7 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 		setOnlyAuthenticationOperation(false);
 
 		if (this.batchParams.getSticky() && !this.batchParams.getResetSticky() && StickySignatureManager.getStickyKeyEntry() != null) {
-			this.isPseudonymStickyChecked = true;
-			this.isExpiredCertStickyChecked = true;
-			keySelected(new SelectCertificateEvent(StickySignatureManager.getStickyKeyEntry()));
+			keySelected(new SelectCertificateEvent(StickySignatureManager.getStickyKeyEntry(), true, true));
 		} else {
 			// Iniciamos la carga del almacen
 			loadKeyStore(this, null);
@@ -105,7 +101,7 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 			cert = (X509Certificate) pke.getCertificate();
 			cert.checkValidity();
 			boolean expiredSoon = CertificateUtil.checkExpiredSoon(cert);
-			if (expiredSoon && !this.isExpiredCertStickyChecked) {
+			if (expiredSoon && !kse.getIsExpiredCertStickyChecked()) {
 				Logger.e(ES_GOB_AFIRMA, "El certificado seleccionado esta a punto de caducar"); //$NON-NLS-1$
 				PrivateKeyEntry finalPke = pke;
 				SignBatchFragmentActivity.this.runOnUiThread(new Runnable() {
@@ -117,7 +113,7 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 			}
 		}
 		catch (final CertificateExpiredException e) {
-			if (!this.isExpiredCertStickyChecked) {
+			if (!kse.getIsExpiredCertStickyChecked()) {
 				Logger.e(ES_GOB_AFIRMA, "El certificado seleccionado esta caducado: " + e); //$NON-NLS-1$
 				PrivateKeyEntry finalPke = pke;
 				SignBatchFragmentActivity.this.runOnUiThread(new Runnable() {
@@ -195,7 +191,7 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 		Context ctx = this;
 
 		// Comprobamos si es un certificado de seudonimo
-		if (cert != null && !pseudonymChecked && AOUtil.isPseudonymCert(cert) && !this.isPseudonymStickyChecked) {
+		if (cert != null && !pseudonymChecked && AOUtil.isPseudonymCert(cert) && !kse.getIsPseudonymStickyChecked()) {
 			PrivateKeyEntry finalPke = pke;
 
 			SignBatchFragmentActivity.this.runOnUiThread(new Runnable() {

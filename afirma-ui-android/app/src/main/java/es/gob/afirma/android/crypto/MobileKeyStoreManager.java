@@ -49,15 +49,21 @@ public interface MobileKeyStoreManager {
         private final PrivateKeyEntry pke;
         private final KeyStore ks;
         private final Certificate[] certChain;
+        private boolean isPseudonymStickyChecked;
+        private boolean isExpiredCertStickyChecked;
         private final Throwable e;
 
         /** Construye un evento de selecci&oacute;n de certificado.
          * @param p Entrada que apunta al par una clave privada y la cadena de certificaci&oacute;n
-         *          del certificado seleccionada */
-        public SelectCertificateEvent(final PrivateKeyEntry p) {
+         *          del certificado seleccionada
+         * @param isPseudonymStickyChecked Indica si se ha comprobado si el certificado es de seud&oacute;nimo para firmas masivas
+         * @param isExpiredCertStickyChecked Indica si se ha comprobado si el certificado esta caducado o pr&oacute;ximo a caducar */
+        public SelectCertificateEvent(final PrivateKeyEntry p, final boolean isPseudonymStickyChecked, final boolean isExpiredCertStickyChecked) {
             this.pke = p;
             this.ks = null;
             this.certChain = p.getCertificateChain();
+            this.isPseudonymStickyChecked = isPseudonymStickyChecked;
+            this.isExpiredCertStickyChecked = isExpiredCertStickyChecked;
             this.e = null;
         }
 
@@ -113,6 +119,18 @@ public interface MobileKeyStoreManager {
                 throw this.e;
             }
             return this.certChain;
+        }
+
+        /** Obtiene la condicion para ver si se tiene que comprobar si es certificado de seud&oacute;nimo.
+         * @return true si se debe comprobar. */
+        public boolean getIsPseudonymStickyChecked() {
+            return this.isPseudonymStickyChecked;
+        }
+
+        /** Obtiene la condicion para ver si se tiene que comprobar la caducidad del certificado.
+         * @return true si se debe comprobar. */
+        public boolean getIsExpiredCertStickyChecked() {
+            return this.isExpiredCertStickyChecked;
         }
     }
 }

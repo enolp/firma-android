@@ -6,7 +6,7 @@ import java.util.Date;
 public class CertificateUtil {
 
     /** Tiempo de antelaci&oacute;n desde el que se empezar&aacute; a advertir que hay certificados pr&oacute;ximos a caducar. */
-    private static final long EXPIRITY_WARNING_LEVEL = 1000*60*60*25*7;
+    private static final long EXPIRITY_WARNING_LEVEL = 1000*60*60*24*7;
 
     /**
      * Indica si el certificado est&aacute; pr&oacute;ximo a caducar.

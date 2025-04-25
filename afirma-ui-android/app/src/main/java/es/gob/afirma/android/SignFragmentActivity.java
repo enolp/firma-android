@@ -75,8 +75,6 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 	boolean signing = false;
 	private PrivateKeyEntry keyEntry = null;
 	private boolean isPseudonymCert = false;
-	private boolean isPseudonymStickyChecked = false;
-	private boolean isExpiredCertStickyChecked = false;
 	private boolean isLocalSign = false;
 	private boolean isSticky = false;
 	private boolean isResetSticky = false;
@@ -149,9 +147,7 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 		this.isLocalSign = isLocalSign;
 
 		if (this.isSticky && !this.isResetSticky && StickySignatureManager.getStickyKeyEntry() != null) {
-			this.isPseudonymStickyChecked = true;
-			this.isExpiredCertStickyChecked = true;
-			keySelected(new SelectCertificateEvent(StickySignatureManager.getStickyKeyEntry()));
+			keySelected(new SelectCertificateEvent(StickySignatureManager.getStickyKeyEntry(), true, true));
 		} else {
 			// Iniciamos la carga del almacen
 			loadKeyStore(this, null);
@@ -168,7 +164,7 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 			cert = (X509Certificate) pke.getCertificate();
 			cert.checkValidity();
 			boolean expiredSoon = CertificateUtil.checkExpiredSoon(cert);
-			if (expiredSoon && !this.isExpiredCertStickyChecked) {
+			if (expiredSoon && !kse.getIsExpiredCertStickyChecked()) {
 				Logger.e(ES_GOB_AFIRMA, "El certificado seleccionado esta a punto de caducar"); //$NON-NLS-1$
 				PrivateKeyEntry finalPke = pke;
 				SignFragmentActivity.this.runOnUiThread(new Runnable() {
@@ -180,7 +176,7 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 			}
 		} catch (final CertificateExpiredException e) {
 			Logger.e(ES_GOB_AFIRMA, "El certificado seleccionado esta caducado: " + e); //$NON-NLS-1$
-			if (!this.isExpiredCertStickyChecked) {
+			if (!kse.getIsExpiredCertStickyChecked()) {
 				PrivateKeyEntry finalPke = pke;
 				SignFragmentActivity.this.runOnUiThread(new Runnable() {
 					public void run() {
@@ -255,7 +251,7 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 		this.isPseudonymCert = AOUtil.isPseudonymCert(cert);
 
 		// Comprobamos si es un certificado de seudonimo
-		if (cert != null && !pseudonymChecked && this.isPseudonymCert && !this.isPseudonymStickyChecked) {
+		if (cert != null && !pseudonymChecked && this.isPseudonymCert && !kse.getIsPseudonymStickyChecked()) {
 			PrivateKeyEntry finalPke = pke;
 
 			SignFragmentActivity.this.runOnUiThread(new Runnable() {

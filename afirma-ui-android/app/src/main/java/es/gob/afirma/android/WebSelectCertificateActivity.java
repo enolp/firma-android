@@ -143,7 +143,7 @@ public final class WebSelectCertificateActivity extends LoadKeyStoreFragmentActi
 		}
 
 		if (this.parameters.getSticky() && !this.parameters.getResetSticky() && StickySignatureManager.getStickyKeyEntry() != null) {
-			certificateSelected(new MobileKeyStoreManager.SelectCertificateEvent(StickySignatureManager.getStickyKeyEntry()));
+			certificateSelected(new MobileKeyStoreManager.SelectCertificateEvent(StickySignatureManager.getStickyKeyEntry(), true, true));
 		} else {
 			// Iniciamos la carga del almacen
 			processSelectionRequest();
