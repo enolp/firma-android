@@ -65,6 +65,8 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 
 	private UrlParametersForBatch batchParams;
 	private PrivateKeyEntry pke;
+	private boolean isPseudonymStickyChecked = false;
+	private boolean isExpiredCertStickyChecked = false;
 
 	/**
 	 * Inicia el proceso de firma.
@@ -84,6 +86,8 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 		setOnlyAuthenticationOperation(false);
 
 		if (this.batchParams.getSticky() && !this.batchParams.getResetSticky() && StickySignatureManager.getStickyKeyEntry() != null) {
+			this.isPseudonymStickyChecked = true;
+			this.isExpiredCertStickyChecked = true;
 			keySelected(new SelectCertificateEvent(StickySignatureManager.getStickyKeyEntry()));
 		} else {
 			// Iniciamos la carga del almacen
@@ -101,7 +105,7 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 			cert = (X509Certificate) pke.getCertificate();
 			cert.checkValidity();
 			boolean expiredSoon = CertificateUtil.checkExpiredSoon(cert);
-			if (expiredSoon) {
+			if (expiredSoon && !this.isExpiredCertStickyChecked) {
 				Logger.e(ES_GOB_AFIRMA, "El certificado seleccionado esta a punto de caducar"); //$NON-NLS-1$
 				PrivateKeyEntry finalPke = pke;
 				SignBatchFragmentActivity.this.runOnUiThread(new Runnable() {
@@ -113,37 +117,39 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 			}
 		}
 		catch (final CertificateExpiredException e) {
-			Logger.e(ES_GOB_AFIRMA, "El certificado seleccionado esta caducado: " + e); //$NON-NLS-1$
-			PrivateKeyEntry finalPke = pke;
-			SignBatchFragmentActivity.this.runOnUiThread(new Runnable() {
-				public void run() {
-					CustomDialog cd = new CustomDialog(SignBatchFragmentActivity.this, R.drawable.baseline_info_24, getString(R.string.expired_cert),
-							getString(R.string.not_valid_cert), getString(R.string.drag_on), true, getString(R.string.cancel_underline));
-					CustomDialog finalCd = cd;
-					cd.setAcceptButtonClickListener(new View.OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							finalCd.cancel();
-							String providerName = null;
-							if (kse.getKeyStore() != null) {
-								providerName = kse.getKeyStore().getProvider().getName();
+			if (!this.isExpiredCertStickyChecked) {
+				Logger.e(ES_GOB_AFIRMA, "El certificado seleccionado esta caducado: " + e); //$NON-NLS-1$
+				PrivateKeyEntry finalPke = pke;
+				SignBatchFragmentActivity.this.runOnUiThread(new Runnable() {
+					public void run() {
+						CustomDialog cd = new CustomDialog(SignBatchFragmentActivity.this, R.drawable.baseline_info_24, getString(R.string.expired_cert),
+								getString(R.string.not_valid_cert), getString(R.string.drag_on), true, getString(R.string.cancel_underline));
+						CustomDialog finalCd = cd;
+						cd.setAcceptButtonClickListener(new View.OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								finalCd.cancel();
+								String providerName = null;
+								if (kse.getKeyStore() != null) {
+									providerName = kse.getKeyStore().getProvider().getName();
+								}
+								startDoSign(kse, finalPke, providerName, false);
 							}
-							startDoSign(kse, finalPke, providerName, false);
-						}
-					});
-					cd.setCancelButtonClickListener(new View.OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							finalCd.cancel();
-							Properties extraParams = new Properties();
-							extraParams.setProperty(CAdESExtraParams.MODE, "implicit");
-							sign(batchParams);
-						}
-					});
-					cd.show();
-				}
-			});
-			return;
+						});
+						cd.setCancelButtonClickListener(new View.OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								finalCd.cancel();
+								Properties extraParams = new Properties();
+								extraParams.setProperty(CAdESExtraParams.MODE, "implicit");
+								sign(batchParams);
+							}
+						});
+						cd.show();
+					}
+				});
+				return;
+			}
 		}
 		catch (final KeyChainException e) {
 			if ("4.1.1".equals(Build.VERSION.RELEASE) || "4.1.0".equals(Build.VERSION.RELEASE) || "4.1".equals(Build.VERSION.RELEASE)) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -189,7 +195,7 @@ public abstract class SignBatchFragmentActivity extends LoadKeyStoreFragmentActi
 		Context ctx = this;
 
 		// Comprobamos si es un certificado de seudonimo
-		if (cert != null && !pseudonymChecked && AOUtil.isPseudonymCert(cert)) {
+		if (cert != null && !pseudonymChecked && AOUtil.isPseudonymCert(cert) && !this.isPseudonymStickyChecked) {
 			PrivateKeyEntry finalPke = pke;
 
 			SignBatchFragmentActivity.this.runOnUiThread(new Runnable() {

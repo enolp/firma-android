@@ -75,6 +75,8 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 	boolean signing = false;
 	private PrivateKeyEntry keyEntry = null;
 	private boolean isPseudonymCert = false;
+	private boolean isPseudonymStickyChecked = false;
+	private boolean isExpiredCertStickyChecked = false;
 	private boolean isLocalSign = false;
 	private boolean isSticky = false;
 	private boolean isResetSticky = false;
@@ -147,6 +149,8 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 		this.isLocalSign = isLocalSign;
 
 		if (this.isSticky && !this.isResetSticky && StickySignatureManager.getStickyKeyEntry() != null) {
+			this.isPseudonymStickyChecked = true;
+			this.isExpiredCertStickyChecked = true;
 			keySelected(new SelectCertificateEvent(StickySignatureManager.getStickyKeyEntry()));
 		} else {
 			// Iniciamos la carga del almacen
@@ -164,7 +168,7 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 			cert = (X509Certificate) pke.getCertificate();
 			cert.checkValidity();
 			boolean expiredSoon = CertificateUtil.checkExpiredSoon(cert);
-			if (expiredSoon) {
+			if (expiredSoon && !this.isExpiredCertStickyChecked) {
 				Logger.e(ES_GOB_AFIRMA, "El certificado seleccionado esta a punto de caducar"); //$NON-NLS-1$
 				PrivateKeyEntry finalPke = pke;
 				SignFragmentActivity.this.runOnUiThread(new Runnable() {
@@ -176,32 +180,34 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 			}
 		} catch (final CertificateExpiredException e) {
 			Logger.e(ES_GOB_AFIRMA, "El certificado seleccionado esta caducado: " + e); //$NON-NLS-1$
-			PrivateKeyEntry finalPke = pke;
-			SignFragmentActivity.this.runOnUiThread(new Runnable() {
-				public void run() {
-					CustomDialog cd = new CustomDialog(SignFragmentActivity.this, R.drawable.baseline_info_24, getString(R.string.expired_cert),
-							getString(R.string.not_valid_cert), getString(R.string.drag_on), true, getString(R.string.cancel_underline));
-					CustomDialog finalCd = cd;
-					cd.setAcceptButtonClickListener(new View.OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							finalCd.cancel();
-							startDoSign(kse, finalPke, false);
-						}
-					});
-					cd.setCancelButtonClickListener(new View.OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							finalCd.cancel();
-							Properties extraParams = new Properties();
-							extraParams.setProperty(CAdESExtraParams.MODE, "implicit");
-							sign("SIGN", dataToSign, format, DEFAULT_SIGNATURE_ALGORITHM, isLocalSign, extraParams);
-						}
-					});
-					cd.show();
-				}
-			});
-			return;
+			if (!this.isExpiredCertStickyChecked) {
+				PrivateKeyEntry finalPke = pke;
+				SignFragmentActivity.this.runOnUiThread(new Runnable() {
+					public void run() {
+						CustomDialog cd = new CustomDialog(SignFragmentActivity.this, R.drawable.baseline_info_24, getString(R.string.expired_cert),
+								getString(R.string.not_valid_cert), getString(R.string.drag_on), true, getString(R.string.cancel_underline));
+						CustomDialog finalCd = cd;
+						cd.setAcceptButtonClickListener(new View.OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								finalCd.cancel();
+								startDoSign(kse, finalPke, false);
+							}
+						});
+						cd.setCancelButtonClickListener(new View.OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								finalCd.cancel();
+								Properties extraParams = new Properties();
+								extraParams.setProperty(CAdESExtraParams.MODE, "implicit");
+								sign("SIGN", dataToSign, format, DEFAULT_SIGNATURE_ALGORITHM, isLocalSign, extraParams);
+							}
+						});
+						cd.show();
+					}
+				});
+				return;
+			}
 		} catch (final KeyChainException e) {
 			if ("4.1.1".equals(Build.VERSION.RELEASE) || "4.1.0".equals(Build.VERSION.RELEASE) || "4.1".equals(Build.VERSION.RELEASE)) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				Logger.e(ES_GOB_AFIRMA, "Error al extraer la clave en Android " + Build.VERSION.RELEASE + ": " + e); //$NON-NLS-1$ //$NON-NLS-2$
@@ -249,7 +255,7 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 		this.isPseudonymCert = AOUtil.isPseudonymCert(cert);
 
 		// Comprobamos si es un certificado de seudonimo
-		if (cert != null && !pseudonymChecked && this.isPseudonymCert) {
+		if (cert != null && !pseudonymChecked && this.isPseudonymCert && !this.isPseudonymStickyChecked) {
 			PrivateKeyEntry finalPke = pke;
 
 			SignFragmentActivity.this.runOnUiThread(new Runnable() {
