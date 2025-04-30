@@ -24,7 +24,7 @@ public class DeleteCertCacheService {
         this.task = new Runnable() {
             @Override
             public void run() {
-                StickySignatureManager.setStickyKeyEntry(null, context);
+                KeyEntryCache.setStickyKeyEntry(null, context);
                 stop();
             }
         };

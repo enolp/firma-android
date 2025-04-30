@@ -10,8 +10,6 @@
 
 package es.gob.afirma.android;
 
-import static es.gob.afirma.android.LocalSignActivity.DEFAULT_SIGNATURE_ALGORITHM;
-
 import android.app.PendingIntent;
 import android.content.Context;
 import android.os.Build;
@@ -49,7 +47,6 @@ import es.gob.afirma.core.AOCancelledOperationException;
 import es.gob.afirma.core.RuntimeConfigNeededException;
 import es.gob.afirma.core.misc.AOUtil;
 import es.gob.afirma.core.signers.AOSignConstants;
-import es.gob.afirma.signers.cades.CAdESExtraParams;
 import es.gob.afirma.signers.pades.common.BadPdfPasswordException;
 import es.gob.afirma.signers.pades.common.PdfExtraParams;
 import es.gob.afirma.signers.pades.common.PdfIsPasswordProtectedException;
@@ -146,8 +143,8 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 		this.signing = true;
 		this.isLocalSign = isLocalSign;
 
-		if (this.isSticky && !this.isResetSticky && StickySignatureManager.getStickyKeyEntry() != null) {
-			keySelected(new SelectCertificateEvent(StickySignatureManager.getStickyKeyEntry(), true, true));
+		if (this.isSticky && !this.isResetSticky && KeyEntryCache.getStickyKeyEntry() != null) {
+			keySelected(new SelectCertificateEvent(KeyEntryCache.getStickyKeyEntry(), false, false));
 		} else {
 			// Iniciamos la carga del almacen
 			loadKeyStore(this, null);
@@ -158,52 +155,34 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 	public synchronized void keySelected(final SelectCertificateEvent kse) {
 
 		PrivateKeyEntry pke = null;
-		X509Certificate cert;
 		try {
 			pke = kse.getPrivateKeyEntry();
-			cert = (X509Certificate) pke.getCertificate();
-			cert.checkValidity();
-			boolean expiredSoon = CertificateUtil.checkExpiredSoon(cert);
-			if (expiredSoon && !kse.getIsExpiredCertStickyChecked()) {
-				Logger.e(ES_GOB_AFIRMA, "El certificado seleccionado esta a punto de caducar"); //$NON-NLS-1$
-				PrivateKeyEntry finalPke = pke;
-				SignFragmentActivity.this.runOnUiThread(new Runnable() {
-					public void run() {
-						showExpiredCertSoonDialog(kse, finalPke);
-					}
-				});
-				return;
+			X509Certificate cert = (X509Certificate) pke.getCertificate();
+			if (kse.isCertExpirationWarningNeed()) {
+				cert.checkValidity();
+				boolean expiredSoon = CertificateUtil.checkExpiredSoon(cert);
+				if (expiredSoon) {
+					Logger.e(ES_GOB_AFIRMA, "El certificado seleccionado esta a punto de caducar"); //$NON-NLS-1$
+					// Usamos una variable final para su uso desde el listener
+					final PrivateKeyEntry finalPke = pke;
+					SignFragmentActivity.this.runOnUiThread(new Runnable() {
+						public void run() {
+							showCertExpiringSoonDialog(kse, finalPke);
+						}
+					});
+					return;
+				}
 			}
 		} catch (final CertificateExpiredException e) {
 			Logger.e(ES_GOB_AFIRMA, "El certificado seleccionado esta caducado: " + e); //$NON-NLS-1$
-			if (!kse.getIsExpiredCertStickyChecked()) {
-				PrivateKeyEntry finalPke = pke;
-				SignFragmentActivity.this.runOnUiThread(new Runnable() {
-					public void run() {
-						CustomDialog cd = new CustomDialog(SignFragmentActivity.this, R.drawable.baseline_info_24, getString(R.string.expired_cert),
-								getString(R.string.not_valid_cert), getString(R.string.drag_on), true, getString(R.string.cancel_underline));
-						CustomDialog finalCd = cd;
-						cd.setAcceptButtonClickListener(new View.OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								finalCd.cancel();
-								startDoSign(kse, finalPke, false);
-							}
-						});
-						cd.setCancelButtonClickListener(new View.OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								finalCd.cancel();
-								Properties extraParams = new Properties();
-								extraParams.setProperty(CAdESExtraParams.MODE, "implicit");
-								sign("SIGN", dataToSign, format, DEFAULT_SIGNATURE_ALGORITHM, isLocalSign, extraParams);
-							}
-						});
-						cd.show();
-					}
-				});
-				return;
-			}
+			// Usamos una variable final para su uso desde el listener
+			final PrivateKeyEntry finalPke = pke;
+			SignFragmentActivity.this.runOnUiThread(new Runnable() {
+				public void run() {
+					showExpiredCertDialog(kse, finalPke);
+				}
+			});
+			return;
 		} catch (final KeyChainException e) {
 			if ("4.1.1".equals(Build.VERSION.RELEASE) || "4.1.0".equals(Build.VERSION.RELEASE) || "4.1".equals(Build.VERSION.RELEASE)) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				Logger.e(ES_GOB_AFIRMA, "Error al extraer la clave en Android " + Build.VERSION.RELEASE + ": " + e); //$NON-NLS-1$ //$NON-NLS-2$
@@ -239,85 +218,56 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 			return;
 		}
 
-		startDoSign(kse, pke, false);
+		startDoSign(kse, pke);
 	}
 
-	private synchronized void startDoSign(final SelectCertificateEvent kse, final PrivateKeyEntry pke, boolean pseudonymChecked) {
+	private synchronized void startDoSign(final SelectCertificateEvent kse, final PrivateKeyEntry pke) {
 
 		X509Certificate cert = (X509Certificate) pke.getCertificate();
 
-		Context ctx = this;
-
 		this.isPseudonymCert = AOUtil.isPseudonymCert(cert);
 
-		// Comprobamos si es un certificado de seudonimo
-		if (cert != null && !pseudonymChecked && this.isPseudonymCert && !kse.getIsPseudonymStickyChecked()) {
-			PrivateKeyEntry finalPke = pke;
-
+		// Comprobamos si es un certificado de seudonimo si asi se indica
+		if (this.isPseudonymCert && kse.isPseudonymWarningNeed()) {
 			SignFragmentActivity.this.runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
-					CustomDialog signFragmentCustomDialog = new CustomDialog(ctx, R.drawable.baseline_info_24, getString(R.string.pseudonym_cert),
-							getString(R.string.pseudonym_cert_desc), getString(R.string.ok), true, getString(R.string.cancel));
-					signFragmentCustomDialog.setAcceptButtonClickListener(new View.OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							signFragmentCustomDialog.cancel();
-							startDoSign(kse, finalPke, true);
-						}
-					});
-					signFragmentCustomDialog.setCancelButtonClickListener(new View.OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							signFragmentCustomDialog.cancel();
-							Properties extraParams = new Properties();
-							extraParams.setProperty(CAdESExtraParams.MODE, "implicit");
-							sign("SIGN", dataToSign, format, DEFAULT_SIGNATURE_ALGORITHM, isLocalSign, extraParams);
-						}
-					});
-					signFragmentCustomDialog.show();
+					showPseudonymCertDialog(kse, pke);
 				}
 			});
 
 			return;
 		}
 
-		String providerName = null;
+		if (this.extraParams == null) {
+			this.extraParams = new Properties();
+		}
+
 		if (kse.getKeyStore() != null) {
-			providerName = kse.getKeyStore().getProvider().getName();
+			String providerName = kse.getKeyStore().getProvider().getName();
+			this.extraParams.setProperty("Provider." + keyEntry.getPrivateKey().getClass().getName(), providerName);
 		}
 
 		try {
-			doSign(pke, providerName);
+			doSign(pke);
 		}
 		catch (final Exception e) {
 			onSigningError(KeyStoreOperation.SIGN, "Error durante la operacion de firma", e);
 		}
 	}
 
-	private void doSign(final PrivateKeyEntry keyEntry, String providerName) {
+	private void doSign(final PrivateKeyEntry keyEntry) {
 
-		if (keyEntry == null) {
-			onSigningError(KeyStoreOperation.SIGN, "No se pudo extraer la clave privada del certificado", new Exception());
-			return;
-		}
-		if (providerName != null) {
-			if (this.extraParams == null) {
-				this.extraParams = new Properties();
-			}
-			this.extraParams.setProperty("Provider." + keyEntry.getPrivateKey().getClass().getName(), providerName);
-		}
-
-		if (this.isLocalSign && this.isPseudonymCert && this.extraParams != null && this.extraParams.containsKey(PdfExtraParams.LAYER2_TEXT)) {
+		if (this.isLocalSign && this.isPseudonymCert && this.extraParams.containsKey(PdfExtraParams.LAYER2_TEXT)) {
 			this.extraParams.setProperty(PdfExtraParams.LAYER2_TEXT , getString(R.string.pdf_visible_sign_pseudonym_template));
 		}
 
 		this.keyEntry = keyEntry;
 
 		if (this.isSticky && !isDNIeCert) {
-			StickySignatureManager.setStickyKeyEntry(this.keyEntry, this);
+			KeyEntryCache.setStickyKeyEntry(this.keyEntry, this);
 		} else {
-			StickySignatureManager.setStickyKeyEntry(null, this);
+			KeyEntryCache.setStickyKeyEntry(null, this);
 		}
 
 		// Seleccionamos el algoritmo de firma
@@ -448,22 +398,37 @@ public abstract class SignFragmentActivity	extends LoadKeyStoreFragmentActivity
 		}
 	}
 
-	private void showExpiredCertSoonDialog(SelectCertificateEvent kse, PrivateKeyEntry pke) {
-		CustomDialog cd = new CustomDialog(SignFragmentActivity.this, R.drawable.baseline_info_24, getString(R.string.expired_cert_soon),
-				getString(R.string.expired_cert_soon_desc), getString(R.string.drag_on), true, getString(R.string.cancel_underline));
-		CustomDialog finalCd = cd;
+	private void showCertExpiringSoonDialog(SelectCertificateEvent kse, PrivateKeyEntry pke) {
+		showCertWarningDialog(R.string.expired_cert_soon, R.string.expired_cert_soon_desc,
+				new SelectCertificateEvent(kse, kse.isPseudonymWarningNeed(), false), pke);
+	}
+
+	private void showExpiredCertDialog(SelectCertificateEvent kse, PrivateKeyEntry pke) {
+		showCertWarningDialog(R.string.expired_cert, R.string.not_valid_cert,
+				new SelectCertificateEvent(kse, kse.isPseudonymWarningNeed(), false), pke);
+	}
+
+	private void showPseudonymCertDialog(SelectCertificateEvent kse, PrivateKeyEntry pke) {
+		showCertWarningDialog(R.string.pseudonym_cert, R.string.pseudonym_cert_desc,
+				new SelectCertificateEvent(kse, false, kse.isCertExpirationWarningNeed()), pke);
+	}
+
+	private void showCertWarningDialog(int title, int text, SelectCertificateEvent kse, PrivateKeyEntry pke) {
+		CustomDialog cd = new CustomDialog(SignFragmentActivity.this, R.drawable.baseline_info_24, getString(title),
+				getString(text), getString(R.string.drag_on), true, getString(R.string.cancel_underline));
 		cd.setAcceptButtonClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				finalCd.cancel();
-				startDoSign(kse, pke, false);
+				cd.cancel();
+				startDoSign(kse, pke);
 			}
 		});
 		cd.setCancelButtonClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Logger.e(ES_GOB_AFIRMA, "El usuario no selecciono un certificado"); //$NON-NLS-1$
-				onSigningError(KeyStoreOperation.SELECT_CERTIFICATE, "El usuario no selecciono un certificado", new PendingIntent.CanceledException());
+				cd.cancel();
+				Logger.i(ES_GOB_AFIRMA, "El usuario cancela el uso del certificado debido a una advertencia y se le ofrecera usar otro"); //$NON-NLS-1$
+				sign(signOperation, dataToSign, format, algorithm, isLocalSign, extraParams);
 			}
 		});
 		cd.show();

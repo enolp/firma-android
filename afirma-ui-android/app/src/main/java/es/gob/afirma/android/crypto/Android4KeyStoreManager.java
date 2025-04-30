@@ -68,8 +68,6 @@ public final class Android4KeyStoreManager implements MobileKeyStoreManager {
 			                                alias
 		                                )
 	                                )
-							 	,false,
-								false
 	            				)
 	                		);
 			            }
@@ -117,9 +115,6 @@ public final class Android4KeyStoreManager implements MobileKeyStoreManager {
 																alias
 														)
 												)
-												,
-												false,
-												false
 										)
 								);
 							}

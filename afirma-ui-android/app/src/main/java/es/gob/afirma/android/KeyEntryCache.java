@@ -6,7 +6,7 @@ import java.security.KeyStore.PrivateKeyEntry;
 
 import es.gob.afirma.android.gui.AppConfig;
 
-public class StickySignatureManager {
+public class KeyEntryCache {
 
     /** Clave privada fijada para reutilizarse en operaciones sucesivas. */
     private static PrivateKeyEntry stickyKeyEntry = null;

@@ -142,8 +142,8 @@ public final class WebSelectCertificateActivity extends LoadKeyStoreFragmentActi
 			return;
 		}
 
-		if (this.parameters.getSticky() && !this.parameters.getResetSticky() && StickySignatureManager.getStickyKeyEntry() != null) {
-			certificateSelected(new MobileKeyStoreManager.SelectCertificateEvent(StickySignatureManager.getStickyKeyEntry(), true, true));
+		if (this.parameters.getSticky() && !this.parameters.getResetSticky() && KeyEntryCache.getStickyKeyEntry() != null) {
+			certificateSelected(new MobileKeyStoreManager.SelectCertificateEvent(KeyEntryCache.getStickyKeyEntry(), false, false));
 		} else {
 			// Iniciamos la carga del almacen
 			processSelectionRequest();
@@ -188,9 +188,9 @@ public final class WebSelectCertificateActivity extends LoadKeyStoreFragmentActi
 
 			KeyStore.PrivateKeyEntry pke = kse.getPrivateKeyEntry();
 			if (this.parameters.getSticky() && !isDNIeCert) {
-				StickySignatureManager.setStickyKeyEntry(pke, this);
+				KeyEntryCache.setStickyKeyEntry(pke, this);
 			} else {
-				StickySignatureManager.setStickyKeyEntry(null, this);
+				KeyEntryCache.setStickyKeyEntry(null, this);
 			}
         }
         catch (final KeyChainException e) {
